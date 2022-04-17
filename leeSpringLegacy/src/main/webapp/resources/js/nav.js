@@ -278,15 +278,14 @@ $('.logoutBtn').click(function() {
 	kakaoLogout();
 	$.ajax({
 		type: 'post',
-		url: '/logout',
-
+		url: '/member/logout',
 		success: function() {
 			Swal.fire({
 				icon: 'success',
-				title: '로그아웃 되었습니다 안녕(*ˊᵕˋ*)ﾉ',
+				title: '로그아웃 되었습니다',
 				closeOnClickOutside: false
 			}).then(function() {
-				location.href = '/index';
+				location.href = '/';
 			});
 
 

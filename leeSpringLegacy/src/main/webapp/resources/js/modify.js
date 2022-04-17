@@ -1,4 +1,4 @@
-$('#editbtn').click(function() {
+$('#modifybtn').click(function() {
    $('#pwdDiv').empty();
    $('#pwdckDiv').empty();
    var vali2 = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
@@ -13,10 +13,10 @@ $('#editbtn').click(function() {
    var objEmail = document.getElementById("email");//메일
    var objName = document.getElementById("name"); //이름
    var objmobile = document.getElementById("phone");//핸드폰
-   var objPwd = document.getElementById("user_pwd"); //비밀번호
+   var objPwd = document.getElementById("member_pwd"); //비밀번호
 
 
-   if ($('#user_pwd').val() == '') {
+   if ($('#member_pwd').val() == '') {
       $('#pwdDiv').text('비밀번호를 입력해 주세요.');
       $('#pwdDiv').css('font-size', '9pt');
       $('#pwdDiv').css('font-weight', 'bold');
@@ -35,7 +35,7 @@ $('#editbtn').click(function() {
       })
 
 
-   } else if ($('#user_pwd').val() != $('#pwdck').val()) {
+   } else if ($('#member_pwd').val() != $('#pwdck').val()) {
       $('#pwdckDiv').text('비밀번호가 일치하지 않습니다.')
       $('#pwdckDiv').css('font-size', '9pt');
       $('#pwdckDiv').css('font-weight', 'bold');
@@ -89,7 +89,7 @@ $('#editbtn').click(function() {
          title: '올바른 이름 형식이 아니에요!',
       })
 
-   } else if ($('#user_pwd').val() == '') {
+   } else if ($('#member_pwd').val() == '') {
       Swal.fire({
          icon: 'error',
          title: '비밀번호 항목은 필수 입력값입니다.!',
@@ -117,15 +117,15 @@ $('#editbtn').click(function() {
    }else
       $.ajax({
          type: 'post',
-         url: 'editOk',
-         data: $('#editForm').serialize(),
+         url: '/member/modifyOk',
+         data: $('#modifyForm').serialize(),
          success: function() {
             Swal.fire({
                icon: 'success',
-               title: ' 회원정보 수정 완료! (๑>ᴗ<๑)',
+               title: ' 회원정보 수정 완료!',
                closeOnClickOutside: false
             }).then(function() {
-               location.href = '/index';
+               location.href = '/';
             });
          },
          error: function(err) {
@@ -135,15 +135,15 @@ $('#editbtn').click(function() {
 });
 
 $('#pass').focusout(function() {
-   if ($('#pass').val() != $('#user_pwd').val())
+   if ($('#pass').val() != $('#member_pwd').val())
       $('#passwordCheckDiv').text('비밀번호가 맞지 않습니다.');
-   else if ($('#pass').val() == $('#user_pwd').val())
+   else if ($('#pass').val() == $('#member_pwd').val())
       $('#passwordCheckDiv').empty();
 });
 
 $('#deletebtn').click(function() {
 
-   if ($('#user_pwd').val() == '') {
+   if ($('#member_pwd').val() == '') {
 
 
       Swal.fire({
@@ -158,7 +158,7 @@ $('#deletebtn').click(function() {
          title: '비밀번호확인을 해주세요!',
       })
 
-   else if ($('#user_pwd').val() != $('#pwdck').val())
+   else if ($('#member_pwd').val() != $('#pwdck').val())
       Swal.fire({
          icon: 'error',
          title: '비밀번호가 틀렸어요!',
@@ -170,8 +170,8 @@ $('#deletebtn').click(function() {
          url: 'loginOk',//DB에 가서 비밀번호를 꺼내온다
          //data : $("quitForm").serialize(),
          data: {
-            'user_id': $('#user_id').val(),
-            'user_pwd': $('#user_pwd').val()
+            'member_id': $('#member_id').val(),
+            'member_pwd': $('#member_pwd').val()
          },
          success: function(data) {
 
@@ -198,7 +198,7 @@ $('#deletebtn').click(function() {
                         type: 'post',
                         url: 'deleteOk',
                         data: {
-                           'user_id': $('#user_id').val()
+                           'member_id': $('#member_id').val()
                         },
                         success: function() {
                            swalWithBootstrapButtons.fire(
@@ -208,10 +208,10 @@ $('#deletebtn').click(function() {
                            )
                            Swal.fire({
                               icon: 'success',
-                              title: '탈퇴 완료 (๑>ᴗ<๑)',
+                              title: '탈퇴 완료',
                               closeOnClickOutside: false
                            }).then(function() {
-                              location.href = '/index';
+                              location.href = '/';
                            });
 
                         },

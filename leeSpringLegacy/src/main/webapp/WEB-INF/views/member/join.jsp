@@ -6,7 +6,7 @@
     <div id="write">
     
       <label for="id" style="color: gray">아이디</label><br />
-      <input type="text" id="user_id" name="user_id" style="width: 100%; border: 0px; border-bottom: 1px solid gray" />
+      <input type="text" id="member_id" name="member_id" style="width: 100%; border: 0px; border-bottom: 1px solid gray" />
       <input type="hidden" name="check" id="check" value="">
       <div id="idDiv"></div>
       <p></P>
@@ -14,7 +14,7 @@
       <label for="pwd" style="color: gray">비밀번호</label><br />
 
       <input
-        type="password" id="user_pwd" name="user_pwd"
+        type="password" id="member_pwd" name="member_pwd"
         style="width: 100%; border: 0px; border-bottom: 1px solid gray"
       />
       <div id="pwdDiv"></div>
@@ -36,7 +36,7 @@
       <label for="name" style="color: gray">이름</label><br />
 
       <input
-        type="text" id="name" name="name"
+        type="text" id="name" name="member_name"
         style="width: 100%; border: 0px; border-bottom: 1px solid gray"
       />
 
@@ -110,12 +110,12 @@
       </select>
       -
       <input
-        type="text" name="tel2"
+        type="text" name="tel2" maxlength="4"
         style="width: 15%; border: 0px; border-bottom: 1px solid gray"
       />
       -
       <input
-        type="text" name="tel3"
+        type="text" name="tel3" maxlength="4"
         style="width: 15%; border: 0px; border-bottom: 1px solid gray"
       />
 
@@ -132,12 +132,12 @@
       </select>
       -
       <input
-        type="text" id="phone" name="phone2"
+        type="text" id="phone" name="phone2" maxlength="4"
         style="width: 15%; border: 0px; border-bottom: 1px solid gray"
       />
       -
       <input
-        type="text" id="phone1" name="phone3"
+        type="text" id="phone1" name="phone3" maxlength="4"
         style="width: 15%; border: 0px; border-bottom: 1px solid gray"
       />
       <p></p>
@@ -565,8 +565,7 @@
  
  4.경찰청 사이버테러대응센터 (www.ctrc.go.kr/02-392-0330)
 
-</textarea
-        >
+</textarea>
       </div>
       <p></p>
       <div id="agree4">

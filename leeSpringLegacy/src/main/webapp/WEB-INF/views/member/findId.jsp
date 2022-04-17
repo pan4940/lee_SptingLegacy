@@ -10,38 +10,28 @@
       <input name="radio" type="radio" id="r2" value="2" />휴대폰번호
       <p></p>
       <label for="name" style="color: gray">Name</label><br />
-      <input
-        type="text" id="name"
+      <input type="text" id="member_name"
         style="width: 120px; border: 0px; border-bottom: 1px solid gray"
       />
 
       <p name="email_1" id="email_1">
         <label for="email" style="color: gray">E-mail</label><br />
-        <input
-          id="email"
-          name="email"
-          type="text"
+        <input id="email" name="email" type="text"
           style="width: 320px; border: 0px; border-bottom: 1px solid gray"
         />
       </p>
       <p name="phone_1" id="phone_1">
         <label for="phone" style="color: gray">Mobile</label><br />
-        <input
-          id="phone1"
-          type="text"
-          maxlength="3"
+        
+        <input id="phone1" name="phone1" type="text" maxlength="3"
           style="width: 50px; border: 0px; border-bottom: 1px solid gray"
         />-
-        <input
-        id="phone2"
-          type="text" 
-                  maxlength="4"
+        
+        <input id="phone2" name="phone2" type="text" maxlength="4"
           style="width:50px; border: 0px; border-bottom: 1px solid gray"
         />-
-        <input
-        id="phone3"
-          type="text" 
-                  maxlength="4"
+        
+        <input id="phone3" name="phone3" type="text" maxlength="4"
           style="width:50px; border: 0px; border-bottom: 1px solid gray"
         />
       </p>

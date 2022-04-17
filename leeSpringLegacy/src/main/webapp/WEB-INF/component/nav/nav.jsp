@@ -1,6 +1,11 @@
+<%@page import="member.bean.MemberDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+<% 
+MemberDTO memberDTO = (MemberDTO)session.getAttribute("memberDTO");
+%>
 
 <!-- 첫번째 div  -->
   <div id="first" class="nav_div">
@@ -34,17 +39,17 @@
 	  <div>
 	    <a href="/board/list?board_category_num=5">HELP</a>
 	    <button class="search"style="border: 0; background-color: white;"><i class="fa-solid fa-magnifying-glass"></i></button>
-	    <c:if test="${empty sessionScope.memUser_InfoDTO}">
-	    	<a href="/userlogin">LOGIN</a>
+	    <c:if test="${empty sessionScope.memberDTO}">
+	    	<a href="/member/loginForm">LOGIN</a>
 	    </c:if>
-	    <c:if test="${not empty sessionScope.memUser_InfoDTO }">
+	    <c:if test="${not empty sessionScope.memberDTO }">
 			<a class="account" id="account">ACCOUNT</a>
 		</c:if>
 		<div id="account_drop" >
 			<ul>
-				<li><a href="/account">ACCOUNT DETAIL</a></li>
-				<li><a href="/orderhistory">ORDER HISTORY</a></li>
-				<li><a href="/addresses">ADDRESSES</a></li>
+				<li><a href="/member/account">ACCOUNT DETAIL</a></li>
+				<li><a href="/member/orderhistory">ORDER HISTORY</a></li>
+				<li><a href="/member/addresses">ADDRESSES</a></li>
 				<li><a href="/board/list?board_category_num=5">HELP</a></li>
 				<li><a class="logoutBtn">LOGOUT</a></li>
 			</ul>
@@ -93,26 +98,28 @@
 	<hr>
 	
 	<div id="small_menu">
-	<c:if test="${empty sessionScope.memUser_InfoDTO}">
-	<div><a href="/userlogin">LOGIN</a>
-	</div>
-	<div><a href="/join">CREATE ACCOUNT</a>
-	</div>
-	<!-- 
-	<div><a href="#">ORDERS</a>
-	</div> 
-	-->
-</c:if>
-<c:if test="${not empty sessionScope.memUser_InfoDTO }">
-	<div><a href="/account">ACCOUNT DETAIL</a>
-	</div>
-	<div><a href="/orderhistory">ORDER HISTORY</a>
-	</div>
-	<div><a href="/addresses">ADDRESSES</a>
-	</div>	
-	<div><a class="logoutBtn">LOGOUT</a>
-	</div>
-</c:if>
+	<c:if test="${empty sessionScope.memberDTO}">
+		<div>
+			<a href="/member/loginForm">LOGIN</a>
+		</div>
+		<div>
+			<a href="/member/joinForm">CREATE ACCOUNT</a>
+		</div>
+		<!-- 
+		<div><a href="#">ORDERS</a>
+		</div> 
+		-->
+	</c:if>
+	<c:if test="${not empty sessionScope.memberDTO }">
+		<div><a href="/member/account">ACCOUNT DETAIL</a>
+		</div>
+		<div><a href="/orderhistory">ORDER HISTORY</a>
+		</div>
+		<div><a href="/addresses">ADDRESSES</a>
+		</div>	
+		<div><a class="logoutBtn">LOGOUT</a>
+		</div>
+	</c:if>
 	</div>
 </div>
 <div id="fourth" class="sticky" >

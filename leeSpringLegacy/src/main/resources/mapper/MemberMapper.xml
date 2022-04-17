@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="member.mapper.MemberMapper">
+	<select id="checkId" parameterType="String" resultType="MemberDTO">
+		select * from member where member_id = #{member_id}
+	</select>	
+	
+	<select id="loginOK" parameterType="java.util.Map" resultType="MemberDTO">
+		select * from member where member_id = #{member_id} and member_pwd = #{member_pwd}
+	</select>	
+	
+	<select id="findIdEmail" parameterType="java.util.Map" resultType="MemberDTO">
+		select * from member where member_name = #{member_name} and email = #{email}
+	</select>
+	
+	<select id="findIdPhone" parameterType="java.util.Map" resultType="MemberDTO">
+		select * from member where member_name = #{member_name} and phone1 = #{phone1} and phone2 = #{phone2} and phone3 = #{phone3}
+	</select>
+	
+	<insert id="join" parameterType="MemberDTO">
+		insert into member(
+			member_id, rank_num, member_pwd, member_name, zipcode,
+			addr1, addr2, tel1, tel2, tel3,
+			phone1, phone2, phone3, email, email_check
+		) values (
+			#{member_id}, #{rank_num}, #{member_pwd}, #{member_name}, #{zipcode},
+			#{addr1}, #{addr2}, #{tel1}, #{tel2}, #{tel3},
+			#{phone1}, #{phone2}, #{phone3}, #{email}, #{email_check}
+		)
+	</insert>
+	
+	<update id="modifyOK" parameterType="MemberDTO">
+		update member set 
+			member_pwd = #{member_pwd}, 
+			member_name = #{member_name}, 
+			zipcode = #{zipcode},  
+			addr1 = #{addr1},
+			addr2 = #{addr2},
+			addr3 = #{addr3},
+	</update>
+</mapper>

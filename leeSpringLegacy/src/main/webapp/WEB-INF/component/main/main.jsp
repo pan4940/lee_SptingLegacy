@@ -74,4 +74,4 @@
 <section><!-- 9 -->
 <div id="menuimage23" class="col-12"><img src="" alt="" ></div>
 </section>
-<script type="text/javascript" src="../js/main.js"></script>
+<script type="text/javascript" src="/resources/js/main.js"></script>

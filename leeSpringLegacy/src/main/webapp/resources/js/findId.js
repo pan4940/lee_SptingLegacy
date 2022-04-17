@@ -32,7 +32,7 @@ $('#findIdBtn').click(function(){
 	var vali2 = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
 	var vali3= /^[0-9]+/g; //핸드폰 번호 유효성
 	
-	var Name=document.getElementById("name");
+	var Name=document.getElementById("member_name");
 	var Email=document.getElementById("email");
 	var Phone1=document.getElementById("phone1");
 	var Phone2=document.getElementById("phone2");
@@ -51,21 +51,15 @@ $('#findIdBtn').click(function(){
 			
 		}else if(!vali2.test(Email.value)){
 			alert('올바른 이메일 형식이 아닙니다.');
-		
-		
-		/*}else if(Phone.value==''){
-			alert("핸드폰 번호를 입력해주세요");
-		}else if(Phone.value<=3){
-			alert("휴대전화 번호 항목이 3자(개) 이상으로 해주십시오.");
-		*/
+	
 		}else{
 			//이름과 이메일로 찾을 때
 			$.ajax({
 				type:'post',
-				url:'findIdEmail',
+				url:'/member/findIdEmail',
 				data:{
 					'email':$('#email').val(),
-					'name':$('#name').val()
+					'member_name':$('#member_name').val()
 				},
 				dataType:'text',
 				success:function(data){
@@ -86,31 +80,30 @@ $('#findIdBtn').click(function(){
 		
 	}else if($("input[name=radio]:checked").val() == "2"){
 		if(Name.value ==''){
-		alert("이름을 입력해주세요");
+			alert("이름을 입력해주세요");
 		
 		}else if(!vali.test(Name.value)){
 			alert('올바른 이름 형식이 아닙니다.');
-	
-		/*}else if(Email.value ==''){
-			alert("이메일을 입력해주세요")
-			
-		}else if(!vali2.test(Email.value)){
-			alert('올바른 이메일 형식이 아닙니다.');
 		
-		*/
 		}else if(Phone==''){
 			alert("핸드폰 번호를 입력해주세요");
 		}else if(Phone.length<=10){
 			alert("휴대전화 번호 항목이 3자(개) 이상으로 해주십시오.");
 		
 		}else{
+			console.log("findIdPhone");
+			console.log(Phone1);
+			console.log(Phone2);
+			console.log(Phone3);
 			//이름과 핸드폰 번호로 찾을 때
 			$.ajax({
 				type:'post',
-				url:'findIdPhone',
+				url:'/member/findIdPhone',
 				data:{
-					'phone':Phone,
-					'name':$('#name').val()
+					'phone1':$('#phone1').val(),
+					'phone2':$('#phone2').val(),
+					'phone3':$('#phone3').val(),
+					'member_name':$('#member_name').val()
 				},
 				dataType:'text',
 				success:function(data){

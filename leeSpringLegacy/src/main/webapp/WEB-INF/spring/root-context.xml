@@ -31,13 +31,15 @@
 	
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource"></property>
+		<property name="mapperLocations" value="classpath*:mapper/*.xml" />
+		<property name="configLocation" value="classpath:mybatis-config.xml"></property>
 	</bean>
 	
 	<mybatis-spring:scan base-package="admin.mapper" />
 	<mybatis-spring:scan base-package="board.mapper" />
 	<mybatis-spring:scan base-package="file.mapper" />
-	<!-- <mybatis-spring:scan base-package="member.mapper" />
-	<mybatis-spring:scan base-package="product.mapper" /> -->
+	<mybatis-spring:scan base-package="member.mapper" />
+	<!-- <mybatis-spring:scan base-package="product.mapper" /> -->
 	
 	<context:component-scan base-package="admin.*"/>
 	<context:component-scan base-package="board.*"/>

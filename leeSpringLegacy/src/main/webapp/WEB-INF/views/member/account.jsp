@@ -8,9 +8,9 @@
       <div id="center" >
         <div id="left" class="col-6 col-lg-4">
           <h4>account</h4>
-          <p>${memUser_InfoDTO.name}</p>
-          <input type="button" id="EditBtn" value="Edit account "
-        		  onclick="location.href='/edit'"/>
+          <p>${memberDTO.member_name}</p>
+          <input type="button" id="EditBtn" value="회원정보수정"
+        		  onclick="location.href='/member/modifyForm'"/>
           <input type="button" class="logoutBtn" value="Logout" />
         </div>
 
@@ -24,7 +24,7 @@
 
             <li>
               <label>point</label><br />
-              <span>${memUser_InfoDTO.mileage}원</span><br />
+              <span>${memberDTO.mileage}원</span><br />
             </li>
 
             <li>

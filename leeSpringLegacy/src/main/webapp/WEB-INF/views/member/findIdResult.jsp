@@ -27,22 +27,15 @@
       </ul>
       <br>
 
-      <input
-        id="loginBtn" type="button" name="btn"
-        style="font-size: 9pt"
-        value="Login";
-        onclick = "location.href = 'userlogin' "
-      />
-      <input
-        id="findPwdBtn" type="button"name="'btn" style="font-size: 9pt"
-        value="find Password"
-        onclick = "location.href = 'findPwd' "
-      />
+      <input id="loginBtn" type="button" name="btn" style="font-size: 9pt"
+        value="Login"; onclick = "location.href = 'loginForm' " />
+      <input id="findPwdBtn" type="button"name="'btn" style="font-size: 9pt"
+        value="find Password" onclick = "location.href = 'findPwdForm' " />
     </div>
     
    
   <script>
-  function maskingId(findid) {
+  /* function maskingId(findid) {
 	  return findid.map(item=>{
 		  console.log(item)
 		  if (item == undefined || item === '') {
@@ -57,7 +50,7 @@
     		console.log(id);
     		id.map((item,index)=>{
     	    $('#findid').append($('<li/>',{text:item}))
-    		$('#idOption').append($('<li/>',{text:'('+${memRank}[index]+','+${memSys}[index]+'가입)'}))})
+    		$('#idOption').append($('<li/>',{text:'('+${memRank}[index]+','+${memSys}[index]+'가입)'}))}) */
   </script>
   <style>
     #findIdResultDiv{

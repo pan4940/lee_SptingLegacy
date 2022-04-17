@@ -9,7 +9,7 @@
   color: gray;
 }
 
-#editbtn {
+#modifybtn {
   background-color: white;
   border: 1px black solid;
   width: 320px;
@@ -36,7 +36,7 @@
   margin: 20px auto 0px auto;
 }
 
-#editDiv{
+#modifyDiv{
 	display:flex;
 	justify-content: center;
 	margin:100px auto;

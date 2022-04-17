@@ -7,7 +7,6 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import lombok.ToString;
 
-@ToString
 @Data
 public class ReplyDTO {
 	private int reply_num;

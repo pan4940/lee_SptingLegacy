@@ -17,19 +17,19 @@ $('#accountbtn').click(function() {
    var objEmail = document.getElementById("email");//메일
    var objName = document.getElementById("name"); //이름
    var objmobile = document.getElementById("phone");//핸드폰
-   var objPwd = document.getElementById("user_pwd"); //비밀번호
+   var objPwd = document.getElementById("member_pwd"); //비밀번호
 
 
 
-   if ($('#user_id').val() == '') {
+   if ($('#member_id').val() == '') {
       $('#idDiv').text('아이디를 입력해 주세요.');
       $('#idDiv').css('font-size', '9pt');
       $('#idDiv').css('font-weight', 'bold');
       $('#idDiv').css('color', 'red');
-      $('#user_id').focus();
+      $('#member_id').focus();
 
 
-   } else if ($('#user_pwd').val() == '') {
+   } else if ($('#member_pwd').val() == '') {
       $('#pwdDiv').text('비밀번호를 입력해 주세요.');
       $('#pwdDiv').css('font-size', '9pt');
       $('#pwdDiv').css('font-weight', 'bold');
@@ -57,7 +57,7 @@ $('#accountbtn').click(function() {
                 " -공백 입력 불가능")*/
 
 
-   } else if ($('#user_pwd').val() != $('#pwdck').val()) {
+   } else if ($('#member_pwd').val() != $('#pwdck').val()) {
       $('#pwdckDiv').text('비밀번호가 일치하지 않습니다.')
       $('#pwdckDiv').css('font-size', '9pt');
       $('#pwdckDiv').css('font-weight', 'bold');
@@ -122,7 +122,7 @@ $('#accountbtn').click(function() {
       return false;
 
 
-   } else if ($('#user_pwd').val() == '') {
+   } else if ($('#member_pwd').val() == '') {
       Swal.fire({
          icon: 'error',
          title: '비밀번호 항목은 필수 입력값입니다.!',
@@ -170,15 +170,15 @@ $('#accountbtn').click(function() {
 
       $.ajax({
          type: 'post',
-         url: '/joinOk',
+         url: '/member/join',
          data: $('#writeForm').serialize(),
          success: function() {
          Swal.fire({
                icon: 'success',
-               title: ' 회원가입을 축하합니다! (๑>ᴗ<๑)',
+               title: '회원가입을 축하합니다',
                closeOnClickOutside: false
             }).then(function() {
-               location.href = '/index';
+               location.href = '/';
             });
          },
          error: function(err) {
@@ -190,11 +190,11 @@ $('#accountbtn').click(function() {
    };
 
 });
-$('#writeForm #user_id').focusout(function() {
+$('#writeForm #member_id').focusout(function() {
       $('#idDiv').empty();
 
-      var sId = $('#user_id').val();
-      var objId = document.getElementById("user_id");
+      var sId = $('#member_id').val();
+      var objId = document.getElementById("member_id");
       var vali = /^[a-zA-Z0-9]{4,12}$/; //id유효성
 
 
@@ -202,7 +202,7 @@ $('#writeForm #user_id').focusout(function() {
          $('#idDiv').text('아이디를 입력해 주세요.');
          $('#idDiv').css('font-size', '9pt');
          $('#idDiv').css('font-weight', 'bold');
-         $('#user_id').focus();
+         $('#member_id').focus();
 
 
       } else if (!vali.test(objId.value)) {
@@ -211,14 +211,14 @@ $('#writeForm #user_id').focusout(function() {
             title: 'id는 4~12자의 영문 대소문자와 숫자로만 입력해주세요!',
          })
 
-         $('#user_id').val('');
+         $('#member_id').val('');
 
 
       } else {
          $.ajax({
             type: 'post',
-            url: '/checkId',
-            data: 'id=' + sId,
+            url: '/member/checkId',
+            data: 'member_id=' + sId,
             dataType: 'text',
             success: function(data) {
                data = data.trim();
@@ -228,7 +228,7 @@ $('#writeForm #user_id').focusout(function() {
                   $('#idDiv').css('font-size', '9pt');
                   $('#idDiv').css('font-weight', 'bold');
                   $('#idDiv').css('color', 'red');
-
+				  $('#member_id').focus();	
                } else if (data == 'non_exist') {
 
                   $('#idDiv').text(sId + '는사용가능한 아이디입니다.');
@@ -238,7 +238,7 @@ $('#writeForm #user_id').focusout(function() {
                   $('#check').val(sId); //중복체크 수행
 
                }
-               sId.focus();
+               
             },
             error: function(err) {
                alert('난가?');
