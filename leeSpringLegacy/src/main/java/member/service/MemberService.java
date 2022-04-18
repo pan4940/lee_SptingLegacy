@@ -2,6 +2,8 @@ package member.service;
 
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import member.bean.MemberDTO;
 
 public interface MemberService {
@@ -20,6 +22,17 @@ public interface MemberService {
 	public MemberDTO findIdEmail(Map<String, String> map);
 
 	public MemberDTO findIdPhone(Map<String, String> map);
+
+	public MemberDTO findPwdByEmail(Map<String, String> map);
+
+	public MemberDTO findPwdByPhone(Map<String, String> map);
+
+	public MemberDTO findMemberByID(String member_id);
+
+	public void tempPwdByEmail(HttpSession httpSession, String member_id);
+
+	public void updatePwdAndRank(MemberDTO memberDTO);
+
 
 
 }

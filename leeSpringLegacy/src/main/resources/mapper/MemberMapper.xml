@@ -12,12 +12,24 @@
 		select * from member where member_id = #{member_id} and member_pwd = #{member_pwd}
 	</select>	
 	
+	<select id="findMemberByID" parameterType="String" resultType="MemberDTO">
+		select * from member where member_id = #{member_id}
+	</select>
+	
 	<select id="findIdEmail" parameterType="java.util.Map" resultType="MemberDTO">
 		select * from member where member_name = #{member_name} and email = #{email}
 	</select>
 	
 	<select id="findIdPhone" parameterType="java.util.Map" resultType="MemberDTO">
 		select * from member where member_name = #{member_name} and phone1 = #{phone1} and phone2 = #{phone2} and phone3 = #{phone3}
+	</select>
+	
+	<select id="findPwdByEmail" parameterType="java.util.Map" resultType="MemberDTO">
+		select * from member where member_name = #{member_name} and member_id = #{member_id} and email = #{email}
+	</select>
+	
+	<select id="findPwdByPhone" parameterType="java.util.Map" resultType="MemberDTO">
+		select * from member where member_name = #{member_name} and member_id = #{member_id} and phone1 = #{phone1} and phone2 = #{phone2} and phone3 = #{phone3}
 	</select>
 	
 	<insert id="join" parameterType="MemberDTO">

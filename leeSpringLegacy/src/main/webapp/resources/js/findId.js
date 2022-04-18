@@ -124,45 +124,6 @@ $('#findIdBtn').click(function(){
 	}
 });
 
-//이름과 핸드폰 번호로 찾을 때
-/*}else{
-	
-		$.ajax({
-			type:'post',
-			url:'/user/findidPhone',
-			data:{
-				'phone':$('#phone').val(),
-				'name':$('#name').val()
-				
-			},
-			dataType:'text',
-			success:function(data){
-				data = data.trim();
-			
-			if(data=='phoneok'){
-				location.href="/user/findidEmail";
-				
-			}else if(data=='phonefail'){
-				alert("입력하신 정보로 가입 된 회원 아이디는 존재하지 않습니다.");
-				location.href="/user/id";
-			}
-			
-			
-			},
-			error:function(err){
-				alert(err);
-			}
-		
-		
-			
-			
-		});
-	}
-	
-	
-	
-	
-});*/
 
 
 

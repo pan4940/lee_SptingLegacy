@@ -2,6 +2,8 @@ package member.service;
 
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -42,5 +44,26 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public MemberDTO findIdPhone(Map<String, String> map) {
 		return memberMapper.findIdPhone(map);
+	}
+	
+	@Override
+	public MemberDTO findPwdByEmail(Map<String, String> map) {
+		return memberMapper.findPwdByEmail(map);
+	}
+	
+	@Override
+	public MemberDTO findPwdByPhone(Map<String, String> map) {
+		return memberMapper.findPwdByPhone(map);
+	}
+	
+	@Override
+	public MemberDTO findMemberByID(String member_id) {
+		return memberMapper.findMemberByID(member_id);
+	}
+	
+	@Override
+	public void tempPwdByEmail(HttpSession httpSession, String member_id) {
+		// TODO Auto-generated method stub
+		
 	}
 }

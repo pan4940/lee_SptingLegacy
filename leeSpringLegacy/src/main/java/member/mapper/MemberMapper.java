@@ -21,4 +21,10 @@ public interface MemberMapper {
 
 	public MemberDTO findIdPhone(Map<String, String> map);
 
+	public MemberDTO findPwdByEmail(Map<String, String> map);
+
+	public MemberDTO findPwdByPhone(Map<String, String> map);
+
+	public MemberDTO findMemberByID(String member_id);
+
 }

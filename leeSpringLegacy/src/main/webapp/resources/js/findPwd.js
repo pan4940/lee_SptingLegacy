@@ -27,98 +27,95 @@ $('#findPwdBtn').click(function(){
 	var vali3= /^[0-9]+/g; //핸드폰 번호 유효성
 	var vali4 = /^[a-zA-Z0-9]{4,12}$/; //아이디 유효성
 	
-	var Name=document.getElementById("name");
+	var Name=document.getElementById("member_name");
 	var Email=document.getElementById("email");
-	var Id=document.getElementById("user_id");
+	var Id=document.getElementById("member_id");
 	var Phone1=document.getElementById("phone1");
 	var Phone2=document.getElementById("phone2");
 	var Phone3=document.getElementById("phone3");
 	var Phone=Phone1.value+Phone2.value+Phone3.value;
 	
-if($("input[name=radio]:checked").val() == "1"){	
-	if(Id.value==''){
-		alert("아이디를 입력해주세요");
-	}else if(!vali4.test(Id.value)){
-		alert('올바른 아이디 형식이 아닙니다.')
-	
-	}else if(Name.value ==''){
-	alert("이름을 입력해주세요");
-	
-	}else if(!vali.test(Name.value)){
-		alert('올바른 이름 형식이 아닙니다.');
-
-	}else if(Email.value ==''){
-		alert("이메일을 입력해주세요")
-		
-	}else if(!vali2.test(Email.value)){
-		alert('올바른 이메일 형식이 아닙니다.');
-	
-	
-	/*}else if(Phone.value==''){
-		alert("핸드폰 번호를 입력해주세요");
-	}else if(Phone.value<=3){
-		alert("휴대전화 번호 항목이 3자(개) 이상으로 해주십시오.");
-	*/
-		}else{
-		
-		//이름과 이메일 아이디로 찾을 때
-		$.ajax({
-			type:'post',
-			url:'findPwdEmail',
-			data:{
-				'email':$('#email').val(),
-				'name':$('#name').val(),
-				'user_id':$('#user_id').val()
-				
-			},
-			dataType:'text',
-			success:function(data){
-				data = data.trim();
-			
-			if(data=='emailok'){
-				location.href="findPwdResult";
-				
-			}else if(data=='emailfail'){
-				alert("입력하신 정보로 가입 된 회원 아이디는 존재하지 않습니다.");
-				location.href="findPwd";
-			}
-			
-			
-			},
-			error:function(err){
-				alert(err);
-			}
-		
-		
-		});
-	}
-	}else if($("input[name=radio]:checked").val() == "2"){
-	
+	if($("input[name=radio]:checked").val() == "1"){	
 		if(Id.value==''){
-		alert("아이디를 입력해주세요");
-	}else if(!vali4.test(Id.value)){
-		alert('올바른 아이디 형식이 아닙니다.')
-	
-	}else if(Name.value ==''){
-	alert("이름을 입력해주세요");
-	
-	}else if(!vali.test(Name.value)){
-		alert('올바른 이름 형식이 아닙니다.');
+			alert("아이디를 입력해주세요");
+		}else if(!vali4.test(Id.value)){
+			alert('올바른 아이디 형식이 아닙니다.')
 		
-	}else if(Phone==''){
-		alert("핸드폰 번호를 입력해주세요");
-	}else if(Phone.length<=10){
-		alert("휴대전화 번호 항목이 3자(개) 이상으로 해주십시오.");
+		}else if(Name.value ==''){
+		alert("이름을 입력해주세요");
 		
+		}else if(!vali.test(Name.value)){
+			alert('올바른 이름 형식이 아닙니다.');
+	
+		}else if(Email.value ==''){
+			alert("이메일을 입력해주세요")
+			
+		}else if(!vali2.test(Email.value)){
+			alert('올바른 이메일 형식이 아닙니다.');
+		
+		
+		}else{
+			//이름과 이메일 아이디로 찾을 때
+			$.ajax({
+				type:'post',
+				url:'/member/findPwdByEmail',
+				data:{
+					'email':$('#email').val(),
+					'member_name':$('#member_name').val(),
+					'member_id':$('#member_id').val()
+				},
+				dataType:'text',
+				success:function(data){
+					data = data.trim();
+				
+				if(data=='emailok'){
+					location.href="findPwdResult";
+					
+				}else if(data=='emailfail'){
+					alert("입력하신 정보로 가입 된 회원 아이디는 존재하지 않습니다.");
+					location.href="findPwdForm";
+				}
+				
+				
+				},
+				error:function(err){
+					alert(err);
+				}
+			
+			
+			});
+		}
+	
+	
+	} else if($("input[name=radio]:checked").val() == "2"){
+		
+		if(Id.value==''){
+			alert("아이디를 입력해주세요");
+		}else if(!vali4.test(Id.value)){
+			alert('올바른 아이디 형식이 아닙니다.')
+		
+		}else if(Name.value ==''){
+		alert("이름을 입력해주세요");
+		
+		}else if(!vali.test(Name.value)){
+			alert('올바른 이름 형식이 아닙니다.');
+			
+		}else if(Phone==''){
+			alert("핸드폰 번호를 입력해주세요");
+		}else if(Phone.length<=10){
+			alert("휴대전화 번호 항목이 3자(개) 이상으로 해주십시오.");
+			
 		}else{
 			//이름과 핸드폰 번호로 찾을 때
 			$.ajax({
 				type:'post',
-				url:'findPwdPhone',
+				url:'/member/findPwdByPhone',
 				data:{
-					'phone':Phone,
-					'name':$('#name').val(),
-					'user_id':$('#user_id').val()
+					'phone1':$('#phone1').val(),
+					'phone2':$('#phone2').val(),
+					'phone3':$('#phone3').val(),
+					'member_name':$('#member_name').val(),
+					'member_id':$('#member_id').val()
 				},
 				dataType:'text',
 				success:function(data){

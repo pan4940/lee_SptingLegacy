@@ -11,6 +11,6 @@
 
 </div>
 
-<input type="button"  value="Login" onClick="location.href='userlogin'">
+<input type="button"  value="Login" onClick="location.href='loginForm'">
 
 </div>
