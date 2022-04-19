@@ -190,6 +190,7 @@ public class MemberController {
 	public String findPwdByEmail(HttpSession httpSession, @RequestParam Map<String, String> map) {
 		System.out.println("findPwdByEmail : " + map);
 		MemberDTO memberDTO = memberService.findPwdByEmail(map);
+		System.out.println("findPwdByEmail memberDTO : " + memberDTO);
 		
 		if (memberDTO != null) {
 			httpSession.setAttribute("memId", memberDTO.getMember_id());
@@ -208,30 +209,13 @@ public class MemberController {
 		System.out.println("tempPwdByEmail : " + member_id);
 		
 		memberService.tempPwdByEmail(httpSession, member_id);
-		MemberDTO memberDTO = memberService.findMemberByID(member_id);
 		
-		// 임시 비밀번호 생성
-		String pw = "";
-		for (int i = 0; i < 12; i++) {
-			pw += (char) ((Math.random() * 26) + 97);
-		}
-		// 비밀번호 변경
-		memberDTO.setMember_pwd(pw);
-		memberDTO.setRank_num(4);
-		//비밀번호 + 회원 등급 변경 
-		memberService.updatePwdAndRank(memberDTO);
-		// 비밀번호 변경 메일 발송
-		try {
-			sendEmail(memberDTO, "findpw");
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		//out.print("이메일로 임시 비밀번호를 발송하였습니다.");
-		//out.close();
-		
-		httpSession.setAttribute("memId", memberDTO.getMember_id());
-		httpSession.setAttribute("memKeyword", memberDTO.getEmail());
+	}
+	//임시비밀번호 전송후 페이지이동
+	@GetMapping("/tempAlert")
+	public String tempalert(Model model) {
+		model.addAttribute("display", "/WEB-INF/views/member/tempAlert.jsp");
+		return "index";
 	}
 	
 	
@@ -252,6 +236,17 @@ public class MemberController {
 			return "phonefail";
 		}
 	}
+	//휴대폰번호로 임시비밀번호 전송
+	@PostMapping("/tempPwdByPhone")
+	@ResponseBody
+	public void tempPwdByPhone(HttpSession httpSession, @RequestParam String member_id) {
+		System.out.println("tempPwdByPhone : " + member_id);
+		
+		memberService.tempPwdByPhone(httpSession, member_id);
+		
+	}
+	
+	
 	//비밀번호 찾기 결과
 	@GetMapping("/findPwdResult")
 	public String findPwdResult(Model model) {
@@ -269,42 +264,7 @@ public class MemberController {
 	//로그인
 	
 	
-	//메일 보내기
-	public void sendEmail(MemberDTO memberDTO, String div) throws Exception {
-		Properties p = System.getProperties();
-		p.put("mail.smtp.starttls.enable", "true");
-        p.put("mail.smtp.host", "smtp.naver.com");
-        p.put("mail.smtp.auth", "true");
-        p.put("mail.smtp.port", "587");
-        p.put("mail.smtp.ssl.protocols", "TLSv1.2");
-        Authenticator auth = new MyAuthentication();
-        Session session = Session.getInstance(p, auth);
-        MimeMessage msg = new MimeMessage(session);
-        
-        try {
-            msg.setSentDate(new Date());
-            InternetAddress from = new InternetAddress();
-            
-            from = new InternetAddress("theCShop<dltjdgh0204@naver.com>");
-            msg.setFrom(from);
- 
-            InternetAddress to = new InternetAddress(memberDTO.getEmail());
-            msg.setRecipient(javax.mail.Message.RecipientType.TO, to);
- 
-            msg.setSubject("[the C shop]"+memberDTO.getMember_id()+"님 임시비밀번호가 전송되었습니다.", "UTF-8");
-            msg.setText("안녕하세요 the C shop입니다<br>"+
-            		memberDTO.getMember_name()+"님 저희 쇼핑몰을 이용해 주셔서 감사합니다<br>"+
-            		" 회원님("+memberDTO.getMember_id()+")의 임시비밀번호는 : "+memberDTO.getMember_pwd()+"입니다", "UTF-8");
-            msg.setHeader("content-Type", "text/html");
- 
-            javax.mail.Transport.send(msg);
-        } catch (AddressException addr_e){
-            addr_e.printStackTrace();
-        } catch (MessagingException msg_e){
-            msg_e.printStackTrace();
-        }
-		
-	}
+	
 	
 	
 }

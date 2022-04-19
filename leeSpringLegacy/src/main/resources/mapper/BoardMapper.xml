@@ -6,14 +6,14 @@
 <mapper namespace="board.mapper.BoardMapper">
 	 
     <select id="getBoardList" parameterType="int" resultType="BoardDTO">
-		select * from board where board_category_num = ${board_category_num}
+		select * from board where board_category_num = #{board_category_num}
     </select>
     
     <select id="getPostList" parameterType="int" resultType="BoardDTO">
     	<![CDATA[
     	select * from 
     		(
-    		select * from board where board_category_num = ${board_category_num} order by board_num desc
+    		select * from board where board_category_num = #{board_category_num} order by board_num desc
 			) 
 		where rownum <= 11
 		]]>
@@ -29,10 +29,10 @@
 		
 		select * from(           
 	    	select rownum rn, board.* from	
-	            (select * from board where board_category_num = ${board_category_num} order by group_num desc, orders)
-	            board where rownum <= ${pageNum} * ${amount}
+	            (select * from board where board_category_num = #{board_category_num} order by group_num desc, orders)
+	            board where rownum <= #{pageNum} * #{amount}
 	            )
-        where rn > (${pageNum} - 1) * ${amount}
+        where rn > (#{pageNum} - 1) * #{amount}
 		]]>     
     </select>
 
@@ -119,14 +119,14 @@
 				#{parant_num},
 				#{pwd}
 			);
-			update board set reply=reply+1 where board_num=#{parant_num};	
+			update board set reply=reply+1 where board_num = #{parant_num};	
 		end;	
 	</insert>
 	
 	<delete id="delete" parameterType="int">
 		begin
-			delete reply where board_num = ${board_num};
-			delete board where board_num = ${board_num};
+			delete reply where board_num = #{board_num};
+			delete board where board_num = #{board_num};
 		end;	
 	</delete>
 	

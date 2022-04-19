@@ -51,6 +51,14 @@
 			zipcode = #{zipcode},  
 			addr1 = #{addr1},
 			addr2 = #{addr2},
-			addr3 = #{addr3},
+			addr3 = #{addr3}
+		where member_id = #{member_id}	
+	</update>
+	
+	<update id="updatePwdAndRank" parameterType="MemberDTO">
+		update member set 
+			member_pwd = #{member_pwd}, 
+			rank_num = #{rank_num}
+		where member_id = #{member_id}		
 	</update>
 </mapper>

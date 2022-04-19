@@ -39,7 +39,7 @@
 	<mybatis-spring:scan base-package="board.mapper" />
 	<mybatis-spring:scan base-package="file.mapper" />
 	<mybatis-spring:scan base-package="member.mapper" />
-	<!-- <mybatis-spring:scan base-package="product.mapper" /> -->
+	<mybatis-spring:scan base-package="product.mapper" />
 	
 	<context:component-scan base-package="admin.*"/>
 	<context:component-scan base-package="board.*"/>

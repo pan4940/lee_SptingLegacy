@@ -44,7 +44,7 @@ public class BoardController {
 		
 		String board_category_num = map.get("board_category_num");
 		if (Integer.parseInt(board_category_num) == 7) {
-			System.out.println("nav.jsp : " + map);
+			System.out.println("board_category_num = 7 : " + map);
 			
 			List<BoardDTO> list = boardService.getPostList(Integer.parseInt(board_category_num));
 			model.addAttribute("board_category_num", board_category_num);
@@ -55,7 +55,7 @@ public class BoardController {
 			}
 			
 			model.addAttribute("list", list);
-			model.addAttribute("display", "/WEB-INF/board/post.jsp");
+			model.addAttribute("display", "/WEB-INF/views/board/post.jsp");
 			return "index";
 		
 		} else {
@@ -71,7 +71,7 @@ public class BoardController {
 			model.addAttribute("board_category_num", board_category_num);
 			model.addAttribute("list", list);
 			
-			model.addAttribute("display", "/WEB-INF/board/list.jsp");
+			model.addAttribute("display", "/WEB-INF/views/board/list.jsp");
 			return "index";
 		}
 	}
@@ -114,7 +114,7 @@ public class BoardController {
 		redirectAttributes.addAttribute("amount", map.get("amount"));
 		redirectAttributes.addAttribute("amount", map.get("amount"));
 		
-		redirectAttributes.addAttribute("display", "/WEB-INF/board/list.jsp");
+		redirectAttributes.addAttribute("display", "/WEB-INF/views/board/list.jsp");
 		return "redirect:/board/list";
 		//return "index";
 	}
@@ -135,7 +135,7 @@ public class BoardController {
 			model.addAttribute("map", map);
 			model.addAttribute("boardDTO", boardDTO);
 			
-			model.addAttribute("display", "/WEB-INF/board/single.jsp");
+			model.addAttribute("display", "/WEB-INF/views/board/single.jsp");
 			return "index";
 		}
 		
@@ -144,7 +144,7 @@ public class BoardController {
 		model.addAttribute("map", map);
 		model.addAttribute("boardDTO", boardDTO);
 		
-		model.addAttribute("display", "/WEB-INF/board/get.jsp");
+		model.addAttribute("display", "/WEB-INF/views/board/get.jsp");
 		return "index";
 		
 		//return "/board/get";
@@ -166,7 +166,7 @@ public class BoardController {
 		model.addAttribute("map", map);
 		model.addAttribute("boardDTO", boardDTO);
 		
-		model.addAttribute("display", "/WEB-INF/board/modify.jsp");
+		model.addAttribute("display", "/WEB-INF/views/board/modify.jsp");
 		return "index";
 		
 		//return "/board/modify";
@@ -183,7 +183,7 @@ public class BoardController {
 		redirectAttributes.addAttribute("pageNum", map.get("pageNum"));
 		redirectAttributes.addAttribute("amount", map.get("amount"));
 		
-		redirectAttributes.addAttribute("display", "/WEB-INF/board/list.jsp");
+		redirectAttributes.addAttribute("display", "/WEB-INF/views/board/list.jsp");
 		return "redirect:/board/list";
 		//return "index";
 	}
@@ -195,7 +195,7 @@ public class BoardController {
 		model.addAttribute("map", map);
 		model.addAttribute("boardDTO", boardDTO);
 		
-		model.addAttribute("display", "/WEB-INF/board/reply.jsp");
+		model.addAttribute("display", "/WEB-INF/views/board/reply.jsp");
 		return "index";
 	}
 	
@@ -220,7 +220,7 @@ public class BoardController {
 		redirectAttributes.addAttribute("pageNum", map.get("pageNum"));
 		redirectAttributes.addAttribute("amount", map.get("amount"));
 		
-		redirectAttributes.addAttribute("display", "/WEB-INF/board/list.jsp");
+		redirectAttributes.addAttribute("display", "/WEB-INF/views/board/list.jsp");
 		return "redirect:/board/list";
 		//return "index";
 	}
@@ -243,7 +243,7 @@ public class BoardController {
 		redirectAttributes.addAttribute("board_category_num", map.get("board_category_num"));
 		redirectAttributes.addAttribute("pageNum", map.get("pageNum"));
 		redirectAttributes.addAttribute("amount", map.get("amount"));
-		redirectAttributes.addAttribute("display", "/WEB-INF/board/list.jsp");
+		redirectAttributes.addAttribute("display", "/WEB-INF/views/board/list.jsp");
 		//return "index";
 		return "redirect:/board/list";
 	}

@@ -8,7 +8,7 @@ $('#rePwdBtn').click(function(){
 				//'email' : $("#memKeyword").val()
 			},
 			success : function() {
-				location.href = 'tempalert';
+				location.href = 'tempAlert';
 			},
 			error:function(err){
 				alert(err);
@@ -20,12 +20,11 @@ $('#rePwdBtn').click(function(){
 			url : "/member/tempPwdByPhone",
 			type : "POST",
 			data : {
-				'member_id' : $("#member_id").val(),
-				'phone' : $("#memKeyword").val()
+				'member_id' : $("#member_id").val()
 			},
 			success : function(data) {
 				console.log(data);
-				location.href = 'tempalert';
+				location.href = 'tempAlert';
 			},
 			error:function(err){
 				alert(err);

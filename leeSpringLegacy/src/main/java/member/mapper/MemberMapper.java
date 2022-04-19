@@ -27,4 +27,6 @@ public interface MemberMapper {
 
 	public MemberDTO findMemberByID(String member_id);
 
+	public void updatePwdAndRank(MemberDTO memberDTO);
+
 }

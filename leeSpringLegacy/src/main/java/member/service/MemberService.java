@@ -33,6 +33,8 @@ public interface MemberService {
 
 	public void updatePwdAndRank(MemberDTO memberDTO);
 
+	public void tempPwdByPhone(HttpSession httpSession, String member_id);
+
 
 
 }

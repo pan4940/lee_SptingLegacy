@@ -7,8 +7,8 @@ public class MyAuthentication extends Authenticator {
 	PasswordAuthentication account;
 	 
     public MyAuthentication(){
-        String id = "dltjdgh0204";
-        String pw = "PKBZSX1KDRDY";
+        String id = "smart4940";
+        String pw = "tkfkdxn3";
         account = new PasswordAuthentication(id, pw);
     }
  
