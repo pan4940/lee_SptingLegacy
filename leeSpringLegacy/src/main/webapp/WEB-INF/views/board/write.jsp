@@ -219,7 +219,8 @@ MemberDTO memberDTO = (MemberDTO)session.getAttribute("memberDTO");
                   </div>
                </form>
             </c:when>
-<c:when test="${map.board_category_num eq '4'}">
+			
+			<c:when test="${map.board_category_num eq '4'}">
                <form id="boardWriteForm" action="/board/write" method="post">
 
                   <input type="hidden" name="board_category_num" value="${map.board_category_num}"> 

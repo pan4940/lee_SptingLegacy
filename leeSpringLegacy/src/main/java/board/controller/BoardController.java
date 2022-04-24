@@ -41,7 +41,7 @@ public class BoardController {
 	//리스트 조회 및 출력
 	@GetMapping("/list")
 	public String list(@RequestParam Map<String, String> map, Model model) {
-		
+		System.out.println("list map : " + map);
 		String board_category_num = map.get("board_category_num");
 		if (Integer.parseInt(board_category_num) == 7) {
 			System.out.println("board_category_num = 7 : " + map);

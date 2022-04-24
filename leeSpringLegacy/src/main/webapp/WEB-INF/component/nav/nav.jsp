@@ -10,9 +10,9 @@ MemberDTO memberDTO = (MemberDTO)session.getAttribute("memberDTO");
 <!-- 첫번째 div  -->
   <div id="first" class="nav_div">
     <span>SS 22 NEW ARRIVAL</span>
-    <c:if test="${memberDTO.rank_num==3}">
-    <a href="/admin">관리자페이지</a>
-    </c:if>
+    <%-- <c:if test="${memberDTO.rank_num==3}"> --%>
+    <a href="/admin/index">관리자페이지</a>
+    <%-- </c:if> --%>
   </div>
 
   <div id="second_large" class="nav_div">
@@ -37,7 +37,7 @@ MemberDTO memberDTO = (MemberDTO)session.getAttribute("memberDTO");
 	  </div>
 	
 	  <div>
-	    <a href="/board/list?board_category_num=5">HELP</a>
+	    <a href="/board/list?board_category_num=5&pageNum=1&amount=10">HELP</a>
 	    <button class="search"style="border: 0; background-color: white;"><i class="fa-solid fa-magnifying-glass"></i></button>
 	    <c:if test="${empty sessionScope.memberDTO}">
 	    	<a href="/member/loginForm">LOGIN</a>

@@ -10,7 +10,7 @@ import lombok.Data;
 @Data
 public class BoardDTO {
 	private int board_num;
-	private String user_name;
+	private String member_name;
 	private String subject;
 	private String content;
 	private int group_num; //글의 그룹

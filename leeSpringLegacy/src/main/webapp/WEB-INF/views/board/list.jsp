@@ -137,10 +137,10 @@ ul {
 									</div>
 								
 									<div class=" col10 alignright">
-										${board.name}
+										${board.member_name}
 									</div>	
 									<div class=" col20 alignright">
-										<fmt:formatDate pattern="yyyy-MM-dd" value="${board.logtime}"/>
+										<fmt:formatDate pattern="yyyy-MM-dd" value="${board.regDate}"/>
 									</div>	
 								</div>
 							</li>
