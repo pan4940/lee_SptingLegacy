@@ -96,6 +96,19 @@ textarea#gdsDes { width:400px; height:180px; }
 			
 			<div class="searchResult">
 				<input id="searchProduct" type="text" value="">
+				<table border="1">
+					<tr>
+						<td>상품명</td>
+						<td>브랜드명</td>
+						<td>카테고리1</td>
+						<td>카테고리2</td>
+						<td>카테고리3</td>
+						<td>카테고리4</td>
+						<td>가격</td>
+						<td>설명</td>
+					</tr>
+					<tr id="tr"></tr>
+				</table>
 			</div>
 			
 			
@@ -248,7 +261,7 @@ function createBrandCategory(jsonData){
 			brandCateArr.push(brandCateObj);
 		}
 	}
-	console.log(brandCateArr);
+	//console.log(brandCateArr);
 
 	// 브랜드명 셀렉트 박스에 데이터 삽입
 	var brandSelect = $("select.searchBrandCategory")
@@ -276,7 +289,7 @@ function createCate(ProductsCategoryList){
 			cate1Arr.push(cate1Obj);
 		}
 	}
-	//console.log(cate1Arr);
+	console.log(cate1Arr);
 
 	// 1차 분류 셀렉트 박스에 데이터 삽입
 	var cate1Select = $("select.searchCategory1")
@@ -313,7 +326,7 @@ $(document).on("change", "select.searchCategory1", function(){
 		} 
 	}
 	
-	//console.log(cate2Arr);
+	console.log(cate2Arr);
 	
 	var cate2Select = $("select.searchCategory2");
 	
@@ -327,8 +340,8 @@ $(document).on("change", "select.searchCategory1", function(){
 	$("option:selected", this).each(function(){
 		var selectVal = $(this).val();  // 현재 선택한 cate1Select의 값을 저장
 	
+		//cate2Select.append("<option value='" + selectVal + "'>전체</option>");  // cate2Select의 '전체'에 현재 선택한 cate1Select와 같은 값 부여
 		cate2Select.append("<option value='" + selectVal + "'>전체</option>");  // cate2Select의 '전체'에 현재 선택한 cate1Select와 같은 값 부여
-		
 		// cate2Arr의 데이터를 cate2Select에 추가
 		for(var i = 0; i < cate2Arr.length; i++) {
 			
@@ -376,7 +389,7 @@ $(document).on("change", "select.searchCategory2", function(){
 	$("option:selected", this).each(function(){
 		var selectVal = $(this).val();  
 	
-		cate3Select.append("<option value='" + selectVal + "'>전체</option>");  // cate2Select의 '전체'에 현재 선택한 cate1Select와 같은 값 부여
+		cate3Select.append("<option value='" + selectVal + "'>전체</option>");  // cate3Select의 '전체'에 현재 선택한 cate2Select와 같은 값 부여
 		
 		for(var i = 0; i < cate3Arr.length; i++) {
 			
@@ -408,8 +421,17 @@ $("#search_Btn").on("click", function(){
 		url: '/product/getProductByCategory',
 		dataType: 'json',
 		success: function(result){
-			ProductsCategoryList = result;
-			createCate(ProductsCategoryList);
+			console.log(result[0]);
+			$("#tr").append("<td>" + result[0].product_name + "</td>"+
+							"<td>" + result[0].brand_name + "</td>"+
+							"<td>" + result[0].cateCode1 + "</td>"+
+							"<td>" + result[0].cateCode2 + "</td>"+
+							"<td>" + result[0].cateCode3 + "</td>"+
+							"<td>" + result[0].brandCategory + "</td>"+
+							"<td>" + result[0].product_price + "</td>"+
+							"<td>" + result[0].product_descrip + "</td>"
+			);
+			
 		},
 		error: function(e) {
 			console.log(e);

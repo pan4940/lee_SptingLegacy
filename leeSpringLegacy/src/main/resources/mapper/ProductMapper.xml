@@ -74,13 +74,21 @@
     		PRODUCT_NAME,
     		PRODUCT_PRICE,
     		BRAND_NAME,
-    		PRODUCT_DESCRIP
+    		PRODUCT_DESCRIP,
+    		CATECODE1,
+    		CATECODE2,
+    		CATECODE3,
+    		BRANDCATEGORY
     	) values (
     		#{product_number},
     		#{product_name},
     		#{product_price},
     		#{brand_name},
-    		#{product_descrip}
+    		#{product_descrip},
+    		#{CATECODE1},
+    		#{CATECODE2},
+    		#{CATECODE3},
+    		#{BRANDCATEGORY}
     	)
 	</insert>
 	
@@ -140,6 +148,15 @@
 	</select>
 	
 	<select id="getProductByCategory" parameterType="java.util.Map" resultType="ProductDTO">
-		select 
+		select * from product where cateCode1 = #{cateCode1} 
+		<if test="cateCode2 != 0">
+			and cateCode2 = #{cateCode2}
+		</if> 
+		<if test="cateCode3 != 0">
+			and cateCode3 = #{cateCode3}
+		</if>
+		<if test="brandCategory != 0">
+			and brandCategory = #{brandCategory}
+		</if>
 	</select>
 </mapper>

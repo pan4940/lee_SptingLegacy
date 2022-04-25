@@ -110,7 +110,18 @@ public class ProductController {
 	@ResponseBody
 	public List<ProductDTO> getProductByCategory(@RequestParam Map<String, String> map) {
 		System.out.println("search category : " + map);
-		return productService.getProductByCategory(map);
+		
+		if (map.get("cateCode1").equals(map.get("cateCode2"))) {
+			map.replace("cateCode2", map.get("cateCode2"), "");
+		} else if (map.get("cateCode2").equals(map.get("cateCode3"))) {
+			map.replace("cateCode3", map.get("cateCode3"), "");
+		}
+		System.out.println("after search category : " + map);
+		List<ProductDTO> list;
+		
+		list = productService.getProductByCategory(map);
+		System.out.println("list : " + list);
+		return list;
 	}
 	
 	//개별 상품 패이지 조회
