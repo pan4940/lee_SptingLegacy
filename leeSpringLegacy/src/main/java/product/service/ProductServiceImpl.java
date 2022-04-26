@@ -81,4 +81,9 @@ public class ProductServiceImpl implements ProductService {
 	public List<ProductDTO> getProductByCategory(Map<String, String> map) {
 		return productMapper.getProductByCategory(map);
 	}
+	
+	@Override
+	public ProductDTO getProductByProductNum(String product_number) {
+		return productMapper.getProductByProductNum(product_number);
+	}
 }

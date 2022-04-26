@@ -96,18 +96,9 @@ textarea#gdsDes { width:400px; height:180px; }
 			
 			<div class="searchResult">
 				<input id="searchProduct" type="text" value="">
-				<table border="1">
-					<tr>
-						<td>상품명</td>
-						<td>브랜드명</td>
-						<td>카테고리1</td>
-						<td>카테고리2</td>
-						<td>카테고리3</td>
-						<td>카테고리4</td>
-						<td>가격</td>
-						<td>설명</td>
-					</tr>
-					<tr id="tr"></tr>
+				<table id="tr" border="1">
+					
+					<!-- <tr id="tr"></tr> -->
 				</table>
 			</div>
 			
@@ -414,6 +405,8 @@ function numCheck(selector) {
 
 //검색버튼 클릭
 
+let productList;
+
 $("#search_Btn").on("click", function(){
 	$.ajax({
 		type: 'post',
@@ -421,24 +414,59 @@ $("#search_Btn").on("click", function(){
 		url: '/product/getProductByCategory',
 		dataType: 'json',
 		success: function(result){
-			console.log(result[0]);
-			$("#tr").append("<td>" + result[0].product_name + "</td>"+
-							"<td>" + result[0].brand_name + "</td>"+
-							"<td>" + result[0].cateCode1 + "</td>"+
-							"<td>" + result[0].cateCode2 + "</td>"+
-							"<td>" + result[0].cateCode3 + "</td>"+
-							"<td>" + result[0].brandCategory + "</td>"+
-							"<td>" + result[0].product_price + "</td>"+
-							"<td>" + result[0].product_descrip + "</td>"
-			);
+			productList = result;
+			console.log(productList);
 			
+			$("#tr").children().remove();
+			$.each(result, function(index, item){
+				$("#tr").append("<tr>" +
+								"<td>상품명</td>" +
+								"<td>브랜드명</td>" +
+								"<td>카테고리1</td>" + 
+								"<td>카테고리2</td>" +
+								"<td>카테고리3</td>" +
+								"<td>카테고리4</td>" +
+								"<td>가격</td>" +
+								"<td>설명</td>" +
+								"</tr>" +
+								
+								"<td><a class='move' href='" + item.product_number +"'>" + item.product_name + "</a></td>"+
+								"<td>" + item.brand_name + "</td>"+
+								"<td>" + item.cateCode1 + "</td>"+
+								"<td>" + item.cateCode2 + "</td>"+
+								"<td>" + item.cateCode3 + "</td>"+
+								"<td>" + item.brandCategory + "</td>"+
+								"<td>" + item.product_price + "</td>"+
+								"<td>" + item.product_descrip + "</td></tr>"
+				);
+			});
 		},
 		error: function(e) {
 			console.log(e);
 		}
 	});
-	
 });
+
+
+$(document).on("click", "a.move", function(e){
+	e.preventDefault();
+	console.log($(".move").attr("href"));
+	
+	$.ajax({
+		type: 'post',
+		data: 'product_number=' + $(".move").attr("href"),
+		url: '/product/getProductByProductNum',
+		dataType: 'json',
+		success: function(result){
+			console.log(result);
+		},
+		error: function(e) {
+			console.log(e);
+		}
+	});
+});
+
+
 </script>
 
 

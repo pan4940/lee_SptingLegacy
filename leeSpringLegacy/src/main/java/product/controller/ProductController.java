@@ -124,6 +124,12 @@ public class ProductController {
 		return list;
 	}
 	
+	@PostMapping("/getProductByProductNum")
+	@ResponseBody
+	public ProductDTO getProductByProductNum(String product_number) {
+		return productService.getProductByProductNum(product_number);
+	}
+	
 	//개별 상품 패이지 조회
 	//category_number, product_number, pageNum, amount넘겨받음. 
 	@PostMapping("/get")

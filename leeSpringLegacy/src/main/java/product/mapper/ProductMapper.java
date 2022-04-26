@@ -33,4 +33,6 @@ public interface ProductMapper {
 
 	public List<ProductDTO> getProductByCategory(Map<String, String> map);
 
+	public ProductDTO getProductByProductNum(String product_number);
+
 }
