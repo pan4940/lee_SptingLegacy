@@ -27,5 +27,7 @@
 		select * from BoardFile where board_Num = #{board_Num} order by boardfile_id
 	</select>
 
-
+	<select id="findByProductNum" parameterType="int" resultType="FileDTO">
+		select * from PRODUCTFILE where product_number = #{product_number} order by productfile_id
+	</select>
 </mapper>

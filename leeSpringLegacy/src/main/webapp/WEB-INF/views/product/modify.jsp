@@ -140,17 +140,17 @@ textarea#gdsDes { width:400px; height:180px; }
 			
 			<div class="inputArea">
 				<label for="gdsName">상품명</label>
-				<input type="text" id="product_name" name="product_name" />
+				<input type="text" id="product_name" name="product_name" style="width:300px"/>
 			</div>
 			
 			<div class="inputArea">
 				<label for="gdsPrice">상품가격</label>
-				<input type="text" id="product_price" name="product_price" />
+				<input type="text" id="product_price" name="product_price" style="width:300px"/>
 			</div>
 			
 			<div class="inputArea">
 				<label for="gdsStock">상품수량</label>
-				<input type="text" id="gdsStock" name="gdsStock" />
+				<input type="text" id="gdsStock" name="gdsStock" style="width:300px"/>
 			</div>
 			
 			<div class="inputArea">
@@ -254,13 +254,24 @@ function createBrandCategory(jsonData){
 	}
 	//console.log(brandCateArr);
 
-	// 브랜드명 셀렉트 박스에 데이터 삽입
-	var brandSelect = $("select.searchBrandCategory")
+	// 검색조건 브랜드명 셀렉트 박스에 데이터 삽입
+	var brandSelect1 = $("select.searchBrandCategory")
 
 	for(var i = 0; i < brandCateArr.length; i++) {
 
 		// cate1Arr에 저장된 값을 cate1Select에 추가
-		brandSelect.append("<option value='" + brandCateArr[i].product_category_num + "'>"
+		brandSelect1.append("<option value='" + brandCateArr[i].product_category_num + "'>"
+							+ brandCateArr[i].product_category_name + "</option>");	
+	}
+	
+	
+	//수정 폼 내의 브랜드명 셀렉트 박스에 데이터 삽입
+	var brandSelect2 = $("select.category4")
+
+	for(var i = 0; i < brandCateArr.length; i++) {
+
+		// cate1Arr에 저장된 값을 cate1Select에 추가
+		brandSelect2.append("<option value='" + brandCateArr[i].product_category_num + "'>"
 							+ brandCateArr[i].product_category_name + "</option>");	
 	}
 };
@@ -283,12 +294,21 @@ function createCate(ProductsCategoryList){
 	console.log(cate1Arr);
 
 	// 1차 분류 셀렉트 박스에 데이터 삽입
-	var cate1Select = $("select.searchCategory1")
+	var cate1Select1 = $("select.searchCategory1")
 
 	for(var i = 0; i < cate1Arr.length; i++) {
 
 		// cate1Arr에 저장된 값을 cate1Select에 추가
-		cate1Select.append("<option value='" + cate1Arr[i].product_category_num + "'>"
+		cate1Select1.append("<option value='" + cate1Arr[i].product_category_num + "'>"
+							+ cate1Arr[i].product_category_name + "</option>");	
+	}
+	
+	var cate1Select2 = $("select.category1")
+
+	for(var i = 0; i < cate1Arr.length; i++) {
+
+		// cate1Arr에 저장된 값을 cate1Select에 추가
+		cate1Select2.append("<option value='" + cate1Arr[i].product_category_num + "'>"
 							+ cate1Arr[i].product_category_name + "</option>");	
 	}
 };
@@ -297,7 +317,25 @@ function createCate(ProductsCategoryList){
 //1차 분류 카테고리
 // 클래스가 category1인 select변수의 값이 바뀌었을 때 실행
 $(document).on("change", "select.searchCategory1", function(){
+	change1("search");
+});
+
+$(document).on("change", "select.searchCategory2", function(){
+	change2("search");
+});
+
+$(document).on("change", "select.category1", function(){
+	change1("noSearch");
+});
+
+$(document).on("change", "select.category2", function(){
+	change2("noSearch");
+});
+
+
+function change1(lee){
 	// 필요한 배열과 오브젝트 변수를 생성
+	console.log("change method")
 	var cate2Arr = new Array();
 	var cate2Obj = new Object();
 	
@@ -319,23 +357,31 @@ $(document).on("change", "select.searchCategory1", function(){
 	
 	console.log(cate2Arr);
 	
-	var cate2Select = $("select.searchCategory2");
+	var cate1Select;
+	var cate2Select;
 	
+	
+	if(lee == 'search'){
+		console.log("성공");
+		cate1Select = $("select.searchCategory1");
+		cate2Select = $("select.searchCategory2");
+	} else {
+		console.log("실패");
+		cate1Select = $("select.category1");
+		cate2Select = $("select.category2");
+	}
+	console.log(cate2Select);
 	
 	cate2Select.children().remove();
-	
-	
 	// cate2Select의 값을 제거함(초기화)
  
 	// cate1Select에서 선택한 값을 기준으로 cate2Select의 값을 조정
-	$("option:selected", this).each(function(){
-		var selectVal = $(this).val();  // 현재 선택한 cate1Select의 값을 저장
-	
-		//cate2Select.append("<option value='" + selectVal + "'>전체</option>");  // cate2Select의 '전체'에 현재 선택한 cate1Select와 같은 값 부여
+	$("option:selected", cate1Select).each(function(){
+		var selectVal = cate1Select.val();  // 현재 선택한 cate1Select의 값을 저장
+		console.log(selectVal);
 		cate2Select.append("<option value='" + selectVal + "'>전체</option>");  // cate2Select의 '전체'에 현재 선택한 cate1Select와 같은 값 부여
 		// cate2Arr의 데이터를 cate2Select에 추가
 		for(var i = 0; i < cate2Arr.length; i++) {
-			
 			// 현재 선택한 cate1Select의 값과 일치하는 cate2Arr의 데이터를 가져옴
 			if(selectVal == cate2Arr[i].product_category_num_ref) {
 				cate2Select.append("<option value='" + cate2Arr[i].product_category_num + "'>"
@@ -343,10 +389,10 @@ $(document).on("change", "select.searchCategory1", function(){
 			}
 		}		
 	});
-});
+}
 
 
-$(document).on("change", "select.searchCategory2", function(){
+function change2(lee){
 	// 필요한 배열과 오브젝트 변수를 생성
 	var cate3Arr = new Array();
 	var cate3Obj = new Object();
@@ -367,18 +413,23 @@ $(document).on("change", "select.searchCategory2", function(){
 		} 
 	}
 	
-	//console.log(cate3Arr);
-	
-	var cate3Select = $("select.searchCategory3");
-	
+	var cate2Select;
+	var cate3Select;
+	if(lee == 'search'){
+		cate2Select = $("select.searchCategory2");
+		cate3Select = $("select.searchCategory3");
+	} else {
+		cate2Select = $("select.category2");
+		cate3Select = $("select.category3");
+	}
 	
 	// cate3Select의 값을 제거함(초기화)
 	cate3Select.children().remove();
 	
 	
  
-	$("option:selected", this).each(function(){
-		var selectVal = $(this).val();  
+	$("option:selected", cate2Select).each(function(){
+		var selectVal = cate2Select.val();  
 	
 		cate3Select.append("<option value='" + selectVal + "'>전체</option>");  // cate3Select의 '전체'에 현재 선택한 cate2Select와 같은 값 부여
 		
@@ -390,7 +441,10 @@ $(document).on("change", "select.searchCategory2", function(){
 			}
 		}		
 	});
-});
+	
+}
+
+
 
 
 var regExp = /[^0-9]/gi;
@@ -450,7 +504,6 @@ $("#search_Btn").on("click", function(){
 
 $(document).on("click", "a.move", function(e){
 	e.preventDefault();
-	console.log($(".move").attr("href"));
 	
 	$.ajax({
 		type: 'post',
@@ -459,6 +512,8 @@ $(document).on("click", "a.move", function(e){
 		dataType: 'json',
 		success: function(result){
 			console.log(result);
+			
+			$("#product_name").val(result.product_name);
 		},
 		error: function(e) {
 			console.log(e);
@@ -466,6 +521,159 @@ $(document).on("click", "a.move", function(e){
 	});
 });
 
+
+</script>
+
+<script type="text/javascript">
+//파일 업로드 관련
+//글쓰기 버튼 클릭시 이벤트
+$("button[type='submit']").on("click", function(e){
+   e.preventDefault();
+   console.log("product register......");
+   let str = ""
+   $(".uploadResult ul li").each(function(i, obj) {
+      let jobj = $(obj);
+      console.log(jobj);
+
+      str += "<input type='hidden' name='fileList["+i+"].fileName' value='"+jobj.data("filename")+"'>";
+       str += "<input type='hidden' name='fileList["+i+"].uuid' value='"+jobj.data("uuid")+"'>";
+       str += "<input type='hidden' name='fileList["+i+"].uploadPath' value='"+jobj.data("path")+"'>";
+       str += "<input type='hidden' name='fileList["+i+"].linked_number' value='"+jobj.data("linked_number")+"'>";
+       console.log(str);
+   });
+   
+   $("#productWriteForm").append(str).submit();
+});
+
+
+//let regex = new RegExp("(.*?)\.(exe|sh|zip|alz)$");
+let regex = new RegExp("(.*?)\.(png|bmp|jpeg|jpg)$");
+let maxSize = 1024 * 1024 * 5; //5MB
+
+
+//파일 사이즈와 종류 확인
+function checkExtension(fileName, fileSize) {
+   if(fileSize >= maxSize){
+      alert("파일 사이즈 초과");
+      return false;
+   }
+
+   if (!regex.test(fileName)) {
+      alert("해당 종류의 파일은 업로드 할 수 없습니다.");
+      return false;
+   }
+   return true;
+}
+
+let cloneObj = $(".uploadDiv").clone();
+
+
+//파일 업로드
+$("input[type='file']").change(function(e){
+   let formData = new FormData();
+   let inputFile = $("input[name='uploadFile']");
+   
+   let files = inputFile[0].files;
+   
+   //add file to formdata
+   for (let i = 0; i < files.length; i++) {
+      if(!checkExtension(files[i].name, files[i].size)){
+         return false;
+      }
+      
+      formData.append("uploadFile", files[i]);
+   }
+   
+   //formData.append("board_num", $("#board_num").val());
+   console.log(formData);
+   $.ajax({
+      url: '/file/uploadAjaxAction',
+      processData: false, // data 파라미터로 전달된 데이터를 Query String으로 변환하지 않음. 파일전송시에는 이렇게 해야함
+      contentType: false, // //contentType의 default는 application/x-www-form-urlencoded; charset=UTF-8, 파일전송시에는 false로 해줘야 함
+      data: formData,
+      type: 'post',
+      dataType: 'json',
+      
+      success: function(result) {
+         console.log(result);
+         showUploadedFile(result);   
+         //$(".uploadDiv").html(cloneObj.html());
+      },
+   });
+});
+
+
+let uploadResult = $(".uploadResult ul");
+
+function showUploadedFile(uploadResultArr){
+   
+   if(!uploadResultArr || uploadResultArr.length == 0) {return;}
+   
+   let str = "";
+   
+   $(uploadResultArr).each(function(i, obj){
+      console.log(obj.uploadPath);
+      console.log(obj.uuid);
+      console.log(obj.fileName);
+      aaa = obj.uploadPath;
+      let fileCallPath = encodeURIComponent(obj.uploadPath + "/" +obj.uuid + "_" + obj.fileName);
+      let originPath = obj.uploadPath + "\\" +obj.uuid + "_" + obj.fileName;
+      originPath = originPath.replace(new RegExp(/\\/g), "/");
+      aaa = aaa.replace(new RegExp(/\\/g), "/");
+      console.log("fileCallPath : " + fileCallPath);
+      console.log("originPath : " + originPath);
+      console.log("aaa : " + aaa);
+      //str +="<li data-path='" +  obj.uploadPath + "' data-uuid='" + obj.uuid + "'data-filename='" + obj.fileName + "'data-linked_number='" + obj.uploadPath +"'>";
+      str +="<li data-path='" +  aaa + "' data-uuid='" + obj.uuid + "'data-filename='" + obj.fileName + "'data-linked_number='" + obj.uploadPath +"'>";
+      str +="<div>"
+         str +="<span>" + obj.fileName +"</span>"
+         str +="<button type='button' data-file=\'" + fileCallPath + "\' data-type='image'> X </button><br>";
+         str +="<a href=\"javascript:showImage(\'" + originPath + "\')\">"
+            str +="<img src='/file/display?fileName=/" + fileCallPath + "'>";
+         str +="</a>";
+      str +="</div>"
+   str +="</li>";
+      console.log(str);
+   });
+   uploadResult.append(str);
+}
+   
+
+//이미지 클릭시 확대
+function showImage(fileCallPath){
+   console.log(fileCallPath)
+   $(".bigPictureWrapper").css("display", "flex").show();
+   $(".bigPicture").html("<img src='/file/display?fileName=/" + fileCallPath + "'>")
+               .animate({width: '100%', height: '100%'}, 0);
+}
+
+//확대 이미지 가리기
+$(".bigPictureWrapper").on("click", function(e){
+   $(".bigPicture").animate({width: '0%', height: '0%'}, 0);
+   $(".bigPictureWrapper").hide();
+});
+
+
+//삭제버튼 클릭 이벤트
+$(".uploadResult").on("click", "button", function(e){
+
+   let targetFile = $(this).data("file");
+   console.log("targetFile : " + targetFile);
+   
+   let targetLi = $(this).closest("li");
+   
+   
+   $.ajax({
+      url: '/file/deleteFile',
+      data: {fileName: targetFile},
+      dataType: 'text',
+      type: 'POST',
+      success: function(result){
+         alert(result);
+         targetLi.remove();
+      },
+   });
+});
 
 </script>
 

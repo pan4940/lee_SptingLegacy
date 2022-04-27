@@ -21,5 +21,7 @@ public interface FileMapper {
 	
 	public void productFileInsert(FileDTO t);
 
+	public List<FileDTO> findByProductNum(int product_number);
+
 	
 }

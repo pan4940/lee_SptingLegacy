@@ -163,4 +163,6 @@
 	<select id="getProductByProductNum" parameterType="String" resultType="ProductDTO">
 		select * from product where product_number = #{product_number}
 	</select>
+	
+	
 </mapper>

@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import file.bean.FileDTO;
 import product.bean.ProductCategoryDTO;
 import product.bean.ProductDTO;
 
@@ -34,5 +35,7 @@ public interface ProductMapper {
 	public List<ProductDTO> getProductByCategory(Map<String, String> map);
 
 	public ProductDTO getProductByProductNum(String product_number);
+
+	public List<FileDTO> getFileList(int product_number);
 
 }

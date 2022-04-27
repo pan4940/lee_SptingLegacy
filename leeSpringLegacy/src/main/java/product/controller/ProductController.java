@@ -127,7 +127,13 @@ public class ProductController {
 	@PostMapping("/getProductByProductNum")
 	@ResponseBody
 	public ProductDTO getProductByProductNum(String product_number) {
-		return productService.getProductByProductNum(product_number);
+		ProductDTO productDTO = productService.getProductByProductNum(product_number);
+		
+		List<FileDTO> list = productService.getFileList(productDTO.getProduct_number());
+		System.out.println(list);
+		productDTO.setFileList(list);
+		System.out.println(productDTO);
+		return productDTO;
 	}
 	
 	//개별 상품 패이지 조회
@@ -139,6 +145,7 @@ public class ProductController {
 		int product_number = Integer.parseInt(map.get("product_number")) ;
 		
 		ProductDTO productDTO = productService.getProduct(product_number);
+		productDTO.setFileList(productService.getFileList(product_number));
 		
 		model.addAttribute("map", map);
 		model.addAttribute("productDTO", productDTO);
@@ -149,5 +156,13 @@ public class ProductController {
 		//return "/board/get";
 	}
 	
+	//상품의 첨부파일 불러옴
+	//게시물의 첨부파일 불러옴
+	@PostMapping("/getFileList")
+	@ResponseBody
+	public List<FileDTO> getFileList(int product_number) {
+		System.out.println("getFileList...........");
+		return productService.getFileList(product_number);
+	}
 	
 }

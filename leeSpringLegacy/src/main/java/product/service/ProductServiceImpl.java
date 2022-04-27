@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import file.bean.FileDTO;
 import file.mapper.FileMapper;
 import product.bean.ProductCategoryDTO;
 import product.bean.ProductDTO;
@@ -85,5 +86,10 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public ProductDTO getProductByProductNum(String product_number) {
 		return productMapper.getProductByProductNum(product_number);
+	}
+	
+	@Override
+	public List<FileDTO> getFileList(int product_number) {
+		return fileMapper.findByProductNum(product_number);
 	}
 }
