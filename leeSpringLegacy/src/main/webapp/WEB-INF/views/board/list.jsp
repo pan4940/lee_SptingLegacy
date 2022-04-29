@@ -183,7 +183,7 @@ ul {
 					
 					<c:if test="<%= memberDTO != null %>">
 						<input id="rank_num" type="hidden" name='rank_num' value="<%= memberDTO.getRank_num()%>">
-						<input id="user_id" type="hidden" name='user_id' value="<%= memberDTO.getMember_id()%>">
+						<input id="member_id" type="hidden" name='member_id' value="<%= memberDTO.getMember_id()%>">
 					</c:if>
 				</form>
 			</div>
@@ -198,19 +198,19 @@ ul {
 	<script type="text/javascript">
 		$(document).ready(function(){
 			//로그인 안할 시에는 undifined...
-			let user_id = $("#user_id").val();
+			let member_id = $("#member_id").val();
 			let rank_num = $("#rank_num").val();
 			
-			console.log(user_id);
+			console.log(member_id);
 			console.log(rank_num);	
 				
 			
 			let actionForm = $("#actionForm");
 			
-			if(user_id != null || rank_num == 3){
+			if(member_id != null || rank_num == 3){
 				console.log("로그인함");
 				console.log(rank_num);	
-				console.log(user_id);
+				console.log(member_id);
 				get();
 			} else {
 				get();

@@ -118,20 +118,23 @@ background-color: white;
 
 			<c:choose>
 				<c:when test="${map.board_category_num eq '7'}">
+					
 					<form id="boardModifyForm" action="/board/modify" method="post">
 						<input type="hidden" id="board_num" name="board_num" value="${boardDTO.board_num}">
 						<input type="hidden" name="board_category_num" value="${boardDTO.board_category_num}"> 
-						<input type="hidden" name="user_id" value="${boardDTO.user_id}">
+						<%-- <input type="hidden" name="member_id" value="${boardDTO.member_id}"> --%>
 						<div>
 							<ul class="form-submit-board">
 								<li>
+									
 									<label>subject</label> 
 										<input type="text" id="subject" name="subject" value="${boardDTO.subject}">
 									<span class="label-box"></span>
 								</li>
+								
 								<li>
 									
-										<input type="hidden" id="name" name="name" value="${boardDTO.name}"> 
+									<input type="hidden" id="member_id" name="member_id" value="${boardDTO.member_id}"> 
 									<span class="label-box"></span>
 								</li>
 								<li>
@@ -187,7 +190,7 @@ background-color: white;
 						<input type="text" id="board_num" name="board_num" value="${map.board_num}" >
 						<input type="text" name="pageNum" value="${map.pageNum}">
 						<input type="text" name="amount" value="${map.amount}">
-						<input type="hidden" name="user_id" value="${boardDTO.user_id}">
+						<input type="hidden" name="member_id" value="${boardDTO.member_id}">
 						<div>
 							<ul class="form-submit-board">
 								<li>

@@ -7,7 +7,8 @@
 		<typeAlias type="admin.bean.GoodsCategoryDTO" alias="GoodsCategoryDTO"/>
 		<typeAlias type="board.bean.BoardDTO" alias="BoardDTO"/>
 		<typeAlias type="board.bean.ReplyDTO" alias="ReplyDTO"/>
-		<typeAlias type="file.bean.FileDTO" alias="FileDTO"/>
+		<typeAlias type="file.bean.BoardFileDTO" alias="BoardFileDTO"/>
+		<typeAlias type="file.bean.ProductFileDTO" alias="ProductFileDTO"/>
 		<typeAlias type="member.bean.MemberDTO" alias="MemberDTO"/>
 		<typeAlias type="product.bean.ProductDTO" alias="ProductDTO"/>
 		<typeAlias type="product.bean.ProductCategoryDTO" alias="ProductCategoryDTO"/>

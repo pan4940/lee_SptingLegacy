@@ -15,7 +15,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import board.bean.BoardDTO;
-import file.bean.FileDTO;
+import file.bean.BoardFileDTO;
+import file.bean.ProductFileDTO;
 import product.bean.ProductCategoryDTO;
 import product.bean.ProductDTO;
 import product.service.ProductService;
@@ -129,7 +130,7 @@ public class ProductController {
 	public ProductDTO getProductByProductNum(String product_number) {
 		ProductDTO productDTO = productService.getProductByProductNum(product_number);
 		
-		List<FileDTO> list = productService.getFileList(productDTO.getProduct_number());
+		List<ProductFileDTO> list = productService.getFileList(productDTO.getProduct_number());
 		System.out.println(list);
 		productDTO.setFileList(list);
 		System.out.println(productDTO);
@@ -157,12 +158,25 @@ public class ProductController {
 	}
 	
 	//상품의 첨부파일 불러옴
-	//게시물의 첨부파일 불러옴
 	@PostMapping("/getFileList")
 	@ResponseBody
-	public List<FileDTO> getFileList(int product_number) {
+	public List<ProductFileDTO> getFileList(int product_number) {
 		System.out.println("getFileList...........");
 		return productService.getFileList(product_number);
+	}
+	
+	
+	//상품수정
+	/*
+	@PostMapping("/modify")
+	public void modify(@ModelAttribute ProductDTO productDTO) {
+		System.out.println("modify productDTO : " + productDTO);
+	}
+	*/
+	
+	@PostMapping("/modify")
+	public void modify(@RequestParam Map<String, String> map) {
+		System.out.println("modify map : " + map);
 	}
 	
 }

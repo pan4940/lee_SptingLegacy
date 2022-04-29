@@ -3,7 +3,8 @@ package product.service;
 import java.util.List;
 import java.util.Map;
 
-import file.bean.FileDTO;
+import file.bean.BoardFileDTO;
+import file.bean.ProductFileDTO;
 import product.bean.ProductCategoryDTO;
 import product.bean.ProductDTO;
 
@@ -25,7 +26,7 @@ public interface ProductService {
 
 	public ProductDTO getProductByProductNum(String product_number);
 
-	public List<FileDTO> getFileList(int product_number);
+	public List<ProductFileDTO> getFileList(int product_number);
 
 
 

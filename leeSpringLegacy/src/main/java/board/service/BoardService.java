@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import board.bean.BoardDTO;
-import file.bean.FileDTO;
+import file.bean.BoardFileDTO;
 
 
 
@@ -30,7 +30,7 @@ public interface BoardService {
 
 	public List<BoardDTO> getPostList(int board_category_num);
 	
-	public List<FileDTO> getFileList(int board_num);
+	public List<BoardFileDTO> getFileList(int board_num);
 
 
 

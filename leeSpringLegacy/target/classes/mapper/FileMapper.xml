@@ -5,12 +5,12 @@
 
 <mapper namespace="file.mapper.FileMapper">
 	 
-    <insert id="boardFileInsert" parameterType="FileDTO">
+    <insert id="boardFileInsert" parameterType="BoardFileDTO">
 		INSERT into BoardFile (boardfile_id, uuid, uploadPath, fileName, board_Num) 
 		VALUES (seq_boardfile_id.nextval, #{uuid}, #{uploadPath}, #{fileName}, #{board_Num})
 	</insert>
 	
-	<insert id="productFileInsert" parameterType="FileDTO">
+	<insert id="productFileInsert" parameterType="ProductFileDTO">
 		INSERT into ProductFile (ProductFile_id, uuid, uploadPath, fileName, product_number) 
 		VALUES (seq_productfile_id.nextval, #{uuid}, #{uploadPath}, #{fileName}, #{linked_num})
 	</insert>
@@ -20,14 +20,14 @@
 	</delete>	
 
 	<delete id="boardFiledeleteAll">
-		delete BoardFile where board_Num = #{board_Num}
+		delete BoardFile where BOARD_NUMBER = #{board_num}
 	</delete>
 
-	<select id="findByBoardNum" parameterType="int" resultType="FileDTO">
-		select * from BoardFile where board_Num = #{board_Num} order by boardfile_id
+	<select id="findByBoardNum" parameterType="int" resultType="BoardFileDTO">
+		select * from BoardFile where board_number = #{board_number} order by boardfile_id
 	</select>
 
-	<select id="findByProductNum" parameterType="int" resultType="FileDTO">
+	<select id="findByProductNum" parameterType="int" resultType="ProductFileDTO">
 		select * from PRODUCTFILE where product_number = #{product_number} order by productfile_id
 	</select>
 </mapper>

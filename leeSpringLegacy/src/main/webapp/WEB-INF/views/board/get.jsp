@@ -155,7 +155,7 @@ fieldset #replyer:focus{
 				<input type='hidden' name='pageNum' value='${map.pageNum}'>
 				<input type='hidden' name='amount' value='${map.amount}'>
 				<input type="hidden" id="reply" value='${boardDTO.reply}'>
-				<input type="hidden" id="user_id" name="user_id" value='${boardDTO.user_id}'>
+				<input type="hidden" id="member_id" name="member_id" value='${boardDTO.member_id}'>
 				<div>
 					<h4 id="h4subject">
 						${boardDTO.subject}
@@ -253,7 +253,7 @@ fieldset #replyer:focus{
 		%>
 	<c:if test="<%= memberDTO != null %>">
 			<input id="rank_num" type="hidden" name='rank_num' value="<%= memberDTO.getRank_num()%>">
-			<input id="loginUser_id" type="hidden" name='user_id' value="<%= memberDTO.getMember_id()%>">
+			<input id="loginMember_id" type="hidden" name='member_id' value="<%= memberDTO.getMember_id()%>">
 		</c:if>
 	</div>
 </div> <!-- end #help_main -->
@@ -267,20 +267,20 @@ fieldset #replyer:focus{
 
 
 $(document).ready(function(){
-	let user_id = $("#user_id").val();
+	let member_id = $("#member_id").val();
 	let rank_num = $("#rank_num").val()
-	let loginUser_id = $("#loginUser_id").val();
-	console.log(user_id);
+	let loginMember_id = $("#loginMember_id").val();
+	console.log(member_id);
 	console.log(rank_num);	
-	console.log(loginUser_id);	
-	console.log(loginUser_id == undefined);	
+	console.log(loginMember_id);	
+	console.log(loginMember_id == undefined);	
 	
-	if(loginUser_id == undefined){
+	if(loginMember_id == undefined){
 		$("#replyBtn").hide();
 		$("#editBtn").hide();
 		$("#deleteBtn").hide();
 		$(".reply").hide();
-	} else if (rank_num == 3 || user_id === loginUser_id){
+	} else if (rank_num == 3 || member_id === loginMember_id){
 		$("#replyBtn").show();
 		$("#editBtn").show();
 		$("#deleteBtn").show();

@@ -33,6 +33,55 @@
 	
 	footer#footer { background:#f9f9f9; padding:20px; }
 	footer#footer ul li { display:inline-block; margin-right:10px; } 
+	
+.uploadResult {
+width: 100%;
+background-color: gray;
+}
+
+.uploadResult ul {
+	display: flex;
+	flex-flow: row;
+	justify-content: center;
+	align-items: center;
+}
+
+.uploadResult ul li {
+	list-style: none;
+	padding: 10px;
+}
+
+.uploadResult ul li img {
+	width: 100px;
+}
+
+.uploadResult ul li span {
+	color: white;
+}
+
+.bigPictureWrapper{
+	position: absolute;
+	display: none;
+	justify-content: center;
+	align-items: center;
+	top: 0%;
+	width: 100%;
+	height: 100%;
+	background-color: gray;
+	z-index: 100;
+	background:rgba(255,255,255,0.5);
+}
+
+.bigPicture{
+	position: relative;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.bigPicture img{
+	width: 600px;
+}
 </style>
 
 
@@ -105,9 +154,9 @@ textarea#gdsDes { width:400px; height:180px; }
 			
 			<h2>상품 수정</h2>
 			
-			<form role="form" method="post" autocomplete="off" enctype="multipart/form-data">
+			<form id="productModifyForm" method="post" action="/product/modify" autocomplete="off">
 			
-			<input type="hidden" name="gdsNum" value="${goods.gdsNum}" />
+			<input type="text" id="product_number" name="product_number" value="" />
 			
 			<div class="inputArea">
 				<div id="category1">	
@@ -148,10 +197,10 @@ textarea#gdsDes { width:400px; height:180px; }
 				<input type="text" id="product_price" name="product_price" style="width:300px"/>
 			</div>
 			
-			<div class="inputArea">
+			<!-- <div class="inputArea">
 				<label for="gdsStock">상품수량</label>
 				<input type="text" id="gdsStock" name="gdsStock" style="width:300px"/>
-			</div>
+			</div> -->
 			
 			<div class="inputArea">
 				<label for="product_descrip">상품소개</label>
@@ -176,7 +225,7 @@ textarea#gdsDes { width:400px; height:180px; }
 			</div>
 			
 			<div class="inputArea">
-				<button type="submit" id="update_Btn" class="btn btn-primary">완료</button>
+				<button type="submit" id="update_Btn" class="btn btn-primary">수정</button>
 				<button type="button" id="back_Btn" class="btn btn-warning">취소</button>			
 			</div>
 			
@@ -511,9 +560,12 @@ $(document).on("click", "a.move", function(e){
 		url: '/product/getProductByProductNum',
 		dataType: 'json',
 		success: function(result){
-			console.log(result);
-			
+			console.log(result.fileList);
+			$("#product_number").val(result.product_number);
 			$("#product_name").val(result.product_name);
+			$("#product_price").val(result.product_price);
+			$("#product_descrip").val(result.product_descrip);
+			showUploadedFile(result.fileList);
 		},
 		error: function(e) {
 			console.log(e);
@@ -525,24 +577,25 @@ $(document).on("click", "a.move", function(e){
 </script>
 
 <script type="text/javascript">
-//파일 업로드 관련
-//글쓰기 버튼 클릭시 이벤트
+//수정 버튼 클릭시 이벤트
 $("button[type='submit']").on("click", function(e){
    e.preventDefault();
    console.log("product register......");
    let str = ""
    $(".uploadResult ul li").each(function(i, obj) {
       let jobj = $(obj);
-      console.log(jobj);
+      console.log($(obj).html());
+      //console.log(jobj.data("filename"));
 
       str += "<input type='hidden' name='fileList["+i+"].fileName' value='"+jobj.data("filename")+"'>";
-       str += "<input type='hidden' name='fileList["+i+"].uuid' value='"+jobj.data("uuid")+"'>";
-       str += "<input type='hidden' name='fileList["+i+"].uploadPath' value='"+jobj.data("path")+"'>";
-       str += "<input type='hidden' name='fileList["+i+"].linked_number' value='"+jobj.data("linked_number")+"'>";
-       console.log(str);
+      str += "<input type='hidden' name='fileList["+i+"].uuid' value='"+jobj.data("uuid")+"'>";
+      str += "<input type='hidden' name='fileList["+i+"].uploadPath' value='"+jobj.data("path")+"'>";
+      str += "<input type='hidden' name='fileList["+i+"].product_number' value='"+jobj.data("product_number")+"'>";
+      //console.log(str);
    });
    
-   $("#productWriteForm").append(str).submit();
+   
+   $("#productModifyForm").append(str).submit();
 });
 
 
@@ -612,19 +665,20 @@ function showUploadedFile(uploadResultArr){
    let str = "";
    
    $(uploadResultArr).each(function(i, obj){
-      console.log(obj.uploadPath);
+      /* console.log(obj.uploadPath);
       console.log(obj.uuid);
-      console.log(obj.fileName);
-      aaa = obj.uploadPath;
+      console.log(obj.fileName); */
+      console.log(obj)
+      originPathRegex = obj.uploadPath;
       let fileCallPath = encodeURIComponent(obj.uploadPath + "/" +obj.uuid + "_" + obj.fileName);
       let originPath = obj.uploadPath + "\\" +obj.uuid + "_" + obj.fileName;
       originPath = originPath.replace(new RegExp(/\\/g), "/");
-      aaa = aaa.replace(new RegExp(/\\/g), "/");
+      originPathRegex = originPathRegex.replace(new RegExp(/\\/g), "/");
       console.log("fileCallPath : " + fileCallPath);
       console.log("originPath : " + originPath);
-      console.log("aaa : " + aaa);
-      //str +="<li data-path='" +  obj.uploadPath + "' data-uuid='" + obj.uuid + "'data-filename='" + obj.fileName + "'data-linked_number='" + obj.uploadPath +"'>";
-      str +="<li data-path='" +  aaa + "' data-uuid='" + obj.uuid + "'data-filename='" + obj.fileName + "'data-linked_number='" + obj.uploadPath +"'>";
+      console.log("originPathRegex : " + originPathRegex);
+      //str +="<li data-path='" +  obj.uploadPath + "' data-uuid='" + obj.uuid + "'data-filename='" + obj.fileName + "'data-product_number='" + obj.uploadPath +"'>";
+      str +="<li data-path='" +  originPathRegex + "' data-uuid='" + obj.uuid + "'data-filename='" + obj.fileName + "'data-product_number='" + obj.product_number +"'>";
       str +="<div>"
          str +="<span>" + obj.fileName +"</span>"
          str +="<button type='button' data-file=\'" + fileCallPath + "\' data-type='image'> X </button><br>";
@@ -657,24 +711,15 @@ $(".bigPictureWrapper").on("click", function(e){
 //삭제버튼 클릭 이벤트
 $(".uploadResult").on("click", "button", function(e){
 
-   let targetFile = $(this).data("file");
-   console.log("targetFile : " + targetFile);
-   
-   let targetLi = $(this).closest("li");
-   
-   
-   $.ajax({
-      url: '/file/deleteFile',
-      data: {fileName: targetFile},
-      dataType: 'text',
-      type: 'POST',
-      success: function(result){
-         alert(result);
-         targetLi.remove();
-      },
-   });
-});
 
+	let targetFile = $(this).data("file");
+	console.log("targetFile : " + targetFile);
+
+	if (confirm("파일을 제거하시겠습니까?")) {
+		let targetLi = $(this).closest("li");
+		targetLi.remove();
+	}
+});
 </script>
 
 

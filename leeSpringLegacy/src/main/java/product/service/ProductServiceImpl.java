@@ -7,7 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import file.bean.FileDTO;
+import file.bean.BoardFileDTO;
+import file.bean.ProductFileDTO;
 import file.mapper.FileMapper;
 import product.bean.ProductCategoryDTO;
 import product.bean.ProductDTO;
@@ -53,16 +54,16 @@ public class ProductServiceImpl implements ProductService {
 		}
 		System.out.println("before productDTO : " + productDTO);
 		productMapper.productRegisterSelectKey(productDTO);
-		System.out.println("after productDTO : " + productDTO);
 		productMapper.productRegisterCategory_link(productDTO);
 		
 		
 		productDTO.getFileList().forEach(t -> {
-			t.setLinked_num(productDTO.getProduct_number());
+			t.setProduct_number(productDTO.getProduct_number());
 			System.out.println("productDTO : " + t);
 			fileMapper.productFileInsert(t);
 		});
 		
+		System.out.println("after productDTO : " + productDTO);
 		
 	}
 	
@@ -89,7 +90,7 @@ public class ProductServiceImpl implements ProductService {
 	}
 	
 	@Override
-	public List<FileDTO> getFileList(int product_number) {
+	public List<ProductFileDTO> getFileList(int product_number) {
 		return fileMapper.findByProductNum(product_number);
 	}
 }

@@ -60,13 +60,14 @@ MemberDTO memberDTO = (MemberDTO)session.getAttribute("memberDTO");
 	<%-- <jsp:include page="/component/nav.jsp" /> --%>
 	
 	<c:if test="<%= memberDTO != null %>">
+		
 		<input id="rank_num" type="hidden" name='rank_num' value="<%= memberDTO.getRank_num()%>">
-		<input id="user_id" type="hidden" name='user_id' value="<%= memberDTO.getMember_id()%>">
+		<input id="member_id" type="hidden" name='member_id' value="<%= memberDTO.getMember_id()%>">
 	</c:if>
 	<div class="xans-element- xans-product xans-product-detail collection-single-wrap ">
 		<div class="single-top">
-			<%-- <input type="hidden" value="${map}">
-			<input type="hidden" value="${boardDTO}"> --%>
+			<input type="text" value="${map}">
+			<input type="text" value="${boardDTO}">
 			<p></p>
 			<h1 style="margin:100px 20px">${boardDTO.subject}</h1>
 		</div>
@@ -109,7 +110,7 @@ MemberDTO memberDTO = (MemberDTO)session.getAttribute("memberDTO");
 		<form id="postForm" action="" >
 			<input type="hidden" name="board_category_num" value="${boardDTO.board_category_num}">
 			<input type="hidden" name="board_num" value="${boardDTO.board_num}">
-			<input type="hidden" name="user_id" value="${boardDTO.user_id}">	
+			<input type="hidden" name="member_id" value="${boardDTO.member_id}">	
 		</form>
 	</c:if>
 	<button id="modifyBtn">수정</button>
@@ -125,10 +126,10 @@ let moveWriteForm = $("#moveWriteForm");
 let actionForm = $("#actionForm");
 
 $(document).ready(function(){
-	let user_id = $("#user_id").val();
+	let member_id = $("#member_id").val();
 	let rank_num = $("#rank_num").val();
 	
-	console.log(user_id);
+	console.log(member_id);
 	console.log(rank_num);	
 	
 	if(rank_num == 3){

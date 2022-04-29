@@ -488,7 +488,6 @@ $("input[type='file']").change(function(e){
       formData.append("uploadFile", files[i]);
    }
    
-   //formData.append("board_num", $("#board_num").val());
    console.log(formData);
    $.ajax({
       url: '/file/uploadAjaxAction',

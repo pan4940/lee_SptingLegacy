@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import board.bean.BoardDTO;
 import board.mapper.BoardMapper;
-import file.bean.FileDTO;
+import file.bean.BoardFileDTO;
 import file.mapper.FileMapper;
 
 @Service
@@ -49,7 +49,7 @@ public class BoardServiceImpl implements BoardService {
 		boardMapper.writeSelectKey(boardDTO);
 		
 		boardDTO.getFileList().forEach(t -> {
-			t.setLinked_num(boardDTO.getBoard_num());
+			t.setBoard_number(boardDTO.getBoard_num());
 			System.out.println("fileDTO : " + t);
 			fileMapper.boardFileInsert(t);
 		});
@@ -64,7 +64,7 @@ public class BoardServiceImpl implements BoardService {
 		if (boardDTO.getFileList() != null) {
 			
 			boardDTO.getFileList().forEach(t -> {
-				t.setLinked_num(boardDTO.getBoard_num());
+				t.setBoard_number(boardDTO.getBoard_num());
 				System.out.println("fileDTO : " + t);
 				fileMapper.boardFileInsert(t);
 			});
@@ -108,7 +108,7 @@ public class BoardServiceImpl implements BoardService {
 	}
 	
 	@Override
-	public List<FileDTO> getFileList(int board_num) {
+	public List<BoardFileDTO> getFileList(int board_num) {
 		return fileMapper.findByBoardNum(board_num);
 	}
 }

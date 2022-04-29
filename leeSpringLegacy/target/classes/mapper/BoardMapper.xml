@@ -39,7 +39,7 @@
 	<insert id="write" parameterType="BoardDTO">
 		insert into board (
 	        board_num,
-	        member_name,
+	        member_id,
 	        subject,
 	        content, 
 	        group_num,
@@ -48,7 +48,7 @@
 	    
 	    ) values (
 	        seq_board.nextval,
-	        #{member_name},
+	        #{member_id},
 	        #{subject},
 	        #{content},
 	        seq_board.currval,
@@ -64,7 +64,7 @@
 		
 		insert into board (
 	        board_num,
-	        member_name,
+	        member_id,
 	        subject,
 	        content, 
 	        group_num,
@@ -73,7 +73,7 @@
 	    
 	    ) values (
 	        #{board_num},
-	        #{member_name},
+	        #{member_id},
 	        #{subject},
 	        #{content},
 	        seq_board.currval,
@@ -83,7 +83,7 @@
 	</insert>
 	
 	<update id="modify" parameterType="BoardDTO">
-		update board set member_name = #{member_name}, subject = #{subject}, content = #{content}, updatedate = sysdate where board_num = #{board_num}
+		update board set member_id = #{member_id}, subject = #{subject}, content = #{content}, updatedate = sysdate where board_num = #{board_num}
 	</update>
 	
 	<select id="get" parameterType="int" resultType="BoardDTO">
@@ -98,7 +98,7 @@
 			
 			insert into board (
 				board_num,
-		        member_name,
+		        member_id,
 		        subject,
 		        content, 
 		        group_num,
@@ -109,7 +109,7 @@
 		        pwd
 			) values(
 				seq_board.nextval,
-				#{member_name},
+				#{member_id},
 				#{subject},
 				#{content},
 				#{group_num},

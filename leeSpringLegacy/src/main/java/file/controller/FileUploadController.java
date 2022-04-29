@@ -28,7 +28,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import file.bean.FileDTO;
+import file.bean.BoardFileDTO;
 
 @Controller
 @RequestMapping("/file")
@@ -77,12 +77,12 @@ public class FileUploadController {
 	
 	@PostMapping("/uploadAjaxAction")
 	@ResponseBody
-	public List<FileDTO> fileUploadAjax(MultipartFile[] uploadFile, Model model)  {
+	public List<BoardFileDTO> fileUploadAjax(MultipartFile[] uploadFile, Model model)  {
 		for (MultipartFile multipartFile : uploadFile) {
 			System.out.println("uploadFile : " + multipartFile.getOriginalFilename());
 		}
 		
-		List<FileDTO> list = new ArrayList<>();
+		List<BoardFileDTO> list = new ArrayList<>();
 		
 		String uploadFolder = "C:\\thec";
 		
@@ -97,7 +97,7 @@ public class FileUploadController {
 		
 		for (MultipartFile multipartFile : uploadFile) {
 			
-			FileDTO fileDTO = new FileDTO();
+			BoardFileDTO fileDTO = new BoardFileDTO();
 			
 			System.out.println("-----------------------");
 			System.out.println("upload file name : " + multipartFile.getOriginalFilename());

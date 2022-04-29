@@ -172,7 +172,7 @@ li {
 <c:if test="<%= memberDTO != null %>">
 	<form id='moveWriteForm' action="/board/writeForm" method='post'>
 		<input id="rank_num" type="hidden" name='rank_num' value="<%= memberDTO.getRank_num()%>">
-		<input id="user_id" type="hidden" name='user_id' value="<%= memberDTO.getMember_id()%>">
+		<input id="member_id" type="hidden" name='member_id' value="<%= memberDTO.getMember_id()%>">
 		<input type='hidden' name='board_category_num' value='${board_category_num}'>
 	</form>
 </c:if>
@@ -189,10 +189,10 @@ let moveWriteForm = $("#moveWriteForm");
 let actionForm = $("#actionForm");
 
 $(document).ready(function(){
-	let user_id = $("#user_id").val();
+	let member_id = $("#member_id").val();
 	let rank_num = $("#rank_num").val();
 	
-	console.log(user_id);
+	console.log(member_id);
 	console.log(rank_num);	
 	
 	if(rank_num == 3){
