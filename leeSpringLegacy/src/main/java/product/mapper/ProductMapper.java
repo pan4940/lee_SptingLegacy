@@ -24,7 +24,7 @@ public interface ProductMapper {
 
 	public void productRegisterSelectKey(ProductDTO productDTO);
 
-	public ProductDTO getProduct(int product_number);
+	public ProductDTO getProduct(int product_num);
 
 	public ProductDTO searchProductName(String product_name);
 
@@ -34,8 +34,10 @@ public interface ProductMapper {
 
 	public List<ProductDTO> getProductByCategory(Map<String, String> map);
 
-	public ProductDTO getProductByProductNum(String product_number);
+	public ProductDTO getProductByProductNum(String product_num);
 
-	public List<BoardFileDTO> getFileList(int product_number);
+	public List<BoardFileDTO> getFileList(int product_num);
+
+	public void modify(ProductDTO productDTO);
 
 }

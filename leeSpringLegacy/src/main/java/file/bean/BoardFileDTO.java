@@ -8,5 +8,5 @@ public class BoardFileDTO {
 	private String fileName;
 	private String uploadPath;
 	private String uuid;
-	private int board_number;
+	private int board_num;
 }

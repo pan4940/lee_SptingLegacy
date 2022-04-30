@@ -23,8 +23,8 @@ public class ReplyServiceImpl implements ReplyService {
 	}
 	
 	@Override
-	public List<ReplyDTO> getList(int board_num) {
-		return replyMapper.getList(board_num);
+	public List<ReplyDTO> getList(int board_number) {
+		return replyMapper.getList(board_number);
 	}
 	
 	@Override

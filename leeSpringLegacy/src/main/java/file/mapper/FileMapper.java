@@ -13,16 +13,18 @@ public interface FileMapper {
 	
 	public void boardFileInsert(BoardFileDTO fileDTO);
 	
-	public void boardFiledelete(String uuid);
+	public void boardFileDelete(String uuid);
 	
-	public void boardFiledeleteAll(int Board_Num);
+	public void boardFileDeleteAll(int Board_Num);
 	
 	public List<BoardFileDTO> findByBoardNum(int board_Num);
 
 	
 	public void productFileInsert(ProductFileDTO t);
 
-	public List<ProductFileDTO> findByProductNum(int product_number);
+	public List<ProductFileDTO> findByProductNum(int product_num);
+
+	public void productFileDeleteAll(int product_num);
 
 	
 }

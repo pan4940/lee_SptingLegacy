@@ -58,7 +58,7 @@ public class ProductServiceImpl implements ProductService {
 		
 		
 		productDTO.getFileList().forEach(t -> {
-			t.setProduct_number(productDTO.getProduct_number());
+			t.setProduct_num(productDTO.getProduct_num());
 			System.out.println("productDTO : " + t);
 			fileMapper.productFileInsert(t);
 		});
@@ -68,9 +68,9 @@ public class ProductServiceImpl implements ProductService {
 	}
 	
 	@Override
-	public ProductDTO getProduct(int product_number) {
+	public ProductDTO getProduct(int product_num) {
 		
-		return productMapper.getProduct(product_number);
+		return productMapper.getProduct(product_num);
 	}
 	
 	
@@ -81,16 +81,25 @@ public class ProductServiceImpl implements ProductService {
 	
 	@Override
 	public List<ProductDTO> getProductByCategory(Map<String, String> map) {
-		return productMapper.getProductByCategory(map);
+		
+		List<ProductDTO> list = productMapper.getProductByCategory(map);
+		
+		return list;
 	}
 	
 	@Override
-	public ProductDTO getProductByProductNum(String product_number) {
-		return productMapper.getProductByProductNum(product_number);
+	public ProductDTO getProductByProductNum(String product_num) {
+		return productMapper.getProductByProductNum(product_num);
 	}
 	
 	@Override
-	public List<ProductFileDTO> getFileList(int product_number) {
-		return fileMapper.findByProductNum(product_number);
+	public List<ProductFileDTO> getFileList(int product_num) {
+		return fileMapper.findByProductNum(product_num);
+	}
+	
+	@Override
+	public void modify(ProductDTO productDTO) {
+		fileMapper.productFileDeleteAll(productDTO.getProduct_num());
+		productMapper.modify(productDTO);
 	}
 }

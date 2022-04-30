@@ -22,13 +22,13 @@ public class FileServiceImpl implements FileService {
 	
 	
 	@Override 
-	public void boardFiledelete(String uuid) {
-		fileMapper.boardFiledelete(uuid); 
+	public void boardFileDelete(String uuid) {
+		fileMapper.boardFileDelete(uuid); 
 	}
 	
 	@Override
-	public void boardFiledeleteAll(int Board_Num) {
-		fileMapper.boardFiledeleteAll(Board_Num);
+	public void boardFileDeleteAll(int Board_Num) {
+		fileMapper.boardFileDeleteAll(Board_Num);
 	}
 	
 	@Override

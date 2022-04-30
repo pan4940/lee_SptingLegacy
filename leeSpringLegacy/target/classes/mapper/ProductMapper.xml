@@ -43,7 +43,7 @@
 	
 	<insert id="productRegister" parameterType="ProductDTO">
 		insert into PRODUCT (
-    		PRODUCT_NUMBER,
+    		PRODUCT_num,
     		PRODUCT_NAME,
     		PRODUCT_PRICE,
     		CATECODE1,
@@ -66,11 +66,11 @@
 	</insert>
 	
 	<insert id="productRegisterSelectKey" parameterType="ProductDTO">
-		<selectKey keyProperty="product_number" order="BEFORE" resultType="int">
+		<selectKey keyProperty="product_num" order="BEFORE" resultType="int">
 			select SEQ_PRODUCT_ID.nextval from dual
 		</selectKey>
 		insert into PRODUCT (
-    		PRODUCT_NUMBER,
+    		PRODUCT_num,
     		PRODUCT_NAME,
     		PRODUCT_PRICE,
     		BRAND_NAME,
@@ -80,61 +80,60 @@
     		CATECODE3,
     		BRANDCATEGORY
     	) values (
-    		#{product_number},
+    		#{product_num},
     		#{product_name},
     		#{product_price},
     		#{brand_name},
     		#{product_descrip},
-    		#{CATECODE1},
-    		#{CATECODE2},
-    		#{CATECODE3},
-    		#{BRANDCATEGORY}
+    		#{cateCode1},
+    		#{cateCode2},
+    		#{cateCode3},
+    		#{brandCategory}
     	)
 	</insert>
 	
 	<insert id="productRegisterCategory_link" parameterType="ProductDTO">
 		begin
 			insert into product_category_link(
-			    PRODUCT_NUMBER,
+			    PRODUCT_NUM,
 			    PRODUCT_CATEGORY_NUM
 			) values (
-			    #{product_number},
+			    #{product_num},
 			    #{cateCode1}
 			);
 			
 			insert into product_category_link(
-			    PRODUCT_NUMBER,
+			    PRODUCT_NUM,
 			    PRODUCT_CATEGORY_NUM
 			) values (
-			    #{product_number},
+			    #{product_num},
 			    #{cateCode2}
 			);
 			
 			<if test="cateCode3 != 0">
 				insert into product_category_link(
-				    PRODUCT_NUMBER,
+				    PRODUCT_NUM,
 				    PRODUCT_CATEGORY_NUM
 				) values (
-				    #{product_number},
+				    #{product_num},
 				    #{cateCode3}
 				);
 			</if>
 			
 			
 			insert into product_category_link(
-			    PRODUCT_NUMBER,
+			    PRODUCT_NUM,
 			    PRODUCT_CATEGORY_NUM
 			) values (
-			    #{product_number},
+			    #{product_num},
 			    #{brandCategory}
 			);
 		end;	
 	</insert>
 		
-	    	
 	
 	<select id="getProduct" parameterType="int" resultType="ProductDTO">
-		select * from product where board_num = #{product_number}
+		select * from product where board_num = #{product_num}
 	</select>
 	
 	<select id="searchProductName" parameterType="String" resultType="ProductDTO">
@@ -161,8 +160,30 @@
 	</select>
 	
 	<select id="getProductByProductNum" parameterType="String" resultType="ProductDTO">
-		select * from product where product_number = #{product_number}
+		select * from product where product_num = #{product_num}
 	</select>
 	
+	
+	<update id="modify" parameterType="ProductDTO">
+		update product set 
+		<if test="cateCode1 != 0">
+			catecode1 = #{catecode1},
+		</if>
+		<if test="cateCode2 != 0">
+			catecode2 = #{catecode2},
+		</if>
+		<if test="cateCode3 != 0">
+			catecode3 = #{catecode3},
+		</if>
+		<if test="brandCategory != 0">
+			brandCategory = #{brandCategory},
+		</if>
+			product_name = #{product_name}, 
+			product_price = #{product_price}, 
+			product_descrip = #{product_descrip}, 
+			updatedate = sysdate 
+		where product_num = #{product_num}
+	
+	</update>
 	
 </mapper>

@@ -49,7 +49,7 @@ public class BoardServiceImpl implements BoardService {
 		boardMapper.writeSelectKey(boardDTO);
 		
 		boardDTO.getFileList().forEach(t -> {
-			t.setBoard_number(boardDTO.getBoard_num());
+			t.setBoard_num(boardDTO.getBoard_num());
 			System.out.println("fileDTO : " + t);
 			fileMapper.boardFileInsert(t);
 		});
@@ -58,13 +58,13 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	@Transactional
 	public void modify(BoardDTO boardDTO) {
-		fileMapper.boardFiledeleteAll(boardDTO.getBoard_num());
+		fileMapper.boardFileDeleteAll(boardDTO.getBoard_num());
 		boardMapper.modify(boardDTO);
 		
 		if (boardDTO.getFileList() != null) {
 			
 			boardDTO.getFileList().forEach(t -> {
-				t.setBoard_number(boardDTO.getBoard_num());
+				t.setBoard_num(boardDTO.getBoard_num());
 				System.out.println("fileDTO : " + t);
 				fileMapper.boardFileInsert(t);
 			});
@@ -96,7 +96,7 @@ public class BoardServiceImpl implements BoardService {
 	
 	@Override
 	public void delete(int board_num) {
-		fileMapper.boardFiledeleteAll(board_num);
+		fileMapper.boardFileDeleteAll(board_num);
 		boardMapper.delete(board_num);
 	}
 	

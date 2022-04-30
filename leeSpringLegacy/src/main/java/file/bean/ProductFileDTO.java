@@ -8,5 +8,5 @@ public class ProductFileDTO {
 	private String fileName;
 	private String uploadPath;
 	private String uuid;
-	private int product_number;
+	private int product_num;
 }

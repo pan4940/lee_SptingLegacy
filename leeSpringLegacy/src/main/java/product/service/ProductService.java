@@ -18,15 +18,17 @@ public interface ProductService {
 
 	public void productRegister(ProductDTO productDTO);
 
-	public ProductDTO getProduct(int product_number);
+	public ProductDTO getProduct(int product_num);
 
 	public ProductDTO searchProductName(String product_name);
 
 	public List<ProductDTO> getProductByCategory(Map<String, String> map);
 
-	public ProductDTO getProductByProductNum(String product_number);
+	public ProductDTO getProductByProductNum(String product_num);
 
-	public List<ProductFileDTO> getFileList(int product_number);
+	public List<ProductFileDTO> getFileList(int product_num);
+
+	public void modify(ProductDTO productDTO);
 
 
 

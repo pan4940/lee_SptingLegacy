@@ -156,7 +156,7 @@ textarea#gdsDes { width:400px; height:180px; }
 			
 			<form id="productModifyForm" method="post" action="/product/modify" autocomplete="off">
 			
-			<input type="text" id="product_number" name="product_number" value="" />
+			<input type="text" id="product_num" name="product_num" value="" />
 			
 			<div class="inputArea">
 				<div id="category1">	
@@ -533,7 +533,7 @@ $("#search_Btn").on("click", function(){
 								"<td>설명</td>" +
 								"</tr>" +
 								
-								"<td><a class='move' href='" + item.product_number +"'>" + item.product_name + "</a></td>"+
+								"<td><a class='move' href='" + item.product_num +"'>" + item.product_name + "</a></td>"+
 								"<td>" + item.brand_name + "</td>"+
 								"<td>" + item.cateCode1 + "</td>"+
 								"<td>" + item.cateCode2 + "</td>"+
@@ -556,12 +556,12 @@ $(document).on("click", "a.move", function(e){
 	
 	$.ajax({
 		type: 'post',
-		data: 'product_number=' + $(".move").attr("href"),
+		data: 'product_num=' + $(".move").attr("href"),
 		url: '/product/getProductByProductNum',
 		dataType: 'json',
 		success: function(result){
 			console.log(result.fileList);
-			$("#product_number").val(result.product_number);
+			$("#product_num").val(result.product_num);
 			$("#product_name").val(result.product_name);
 			$("#product_price").val(result.product_price);
 			$("#product_descrip").val(result.product_descrip);
@@ -590,7 +590,7 @@ $("button[type='submit']").on("click", function(e){
       str += "<input type='hidden' name='fileList["+i+"].fileName' value='"+jobj.data("filename")+"'>";
       str += "<input type='hidden' name='fileList["+i+"].uuid' value='"+jobj.data("uuid")+"'>";
       str += "<input type='hidden' name='fileList["+i+"].uploadPath' value='"+jobj.data("path")+"'>";
-      str += "<input type='hidden' name='fileList["+i+"].product_number' value='"+jobj.data("product_number")+"'>";
+      str += "<input type='hidden' name='fileList["+i+"].product_num' value='"+jobj.data("product_num")+"'>";
       //console.log(str);
    });
    
@@ -677,8 +677,8 @@ function showUploadedFile(uploadResultArr){
       console.log("fileCallPath : " + fileCallPath);
       console.log("originPath : " + originPath);
       console.log("originPathRegex : " + originPathRegex);
-      //str +="<li data-path='" +  obj.uploadPath + "' data-uuid='" + obj.uuid + "'data-filename='" + obj.fileName + "'data-product_number='" + obj.uploadPath +"'>";
-      str +="<li data-path='" +  originPathRegex + "' data-uuid='" + obj.uuid + "'data-filename='" + obj.fileName + "'data-product_number='" + obj.product_number +"'>";
+      //str +="<li data-path='" +  obj.uploadPath + "' data-uuid='" + obj.uuid + "'data-filename='" + obj.fileName + "'data-product_num='" + obj.uploadPath +"'>";
+      str +="<li data-path='" +  originPathRegex + "' data-uuid='" + obj.uuid + "'data-filename='" + obj.fileName + "'data-product_num='" + $("#product_num").val() +"'>";
       str +="<div>"
          str +="<span>" + obj.fileName +"</span>"
          str +="<button type='button' data-file=\'" + fileCallPath + "\' data-type='image'> X </button><br>";

@@ -412,7 +412,7 @@ $("button[type='submit']").on("click", function(e){
       str += "<input type='hidden' name='fileList["+i+"].fileName' value='"+jobj.data("filename")+"'>";
        str += "<input type='hidden' name='fileList["+i+"].uuid' value='"+jobj.data("uuid")+"'>";
        str += "<input type='hidden' name='fileList["+i+"].uploadPath' value='"+jobj.data("path")+"'>";
-       str += "<input type='hidden' name='fileList["+i+"].linked_number' value='"+jobj.data("linked_number")+"'>";
+       str += "<input type='hidden' name='fileList["+i+"].board_num' value='"+jobj.data("board_num")+"'>";
        console.log(str);
    });
    
@@ -492,8 +492,8 @@ function showUploadedFile(uploadResultArr){
       console.log("fileCallPath : " + fileCallPath);
       console.log("originPath : " + originPath);
       console.log("aaa : " + aaa);
-      //str +="<li data-path='" +  obj.uploadPath + "' data-uuid='" + obj.uuid + "'data-filename='" + obj.fileName + "'data-linked_number='" + obj.uploadPath +"'>";
-      str +="<li data-path='" +  aaa + "' data-uuid='" + obj.uuid + "'data-filename='" + obj.fileName + "'data-linked_number='" + obj.uploadPath +"'>";
+      //str +="<li data-path='" +  obj.uploadPath + "' data-uuid='" + obj.uuid + "'data-filename='" + obj.fileName + "'data-linked_num='" + obj.uploadPath +"'>";
+      str +="<li data-path='" +  aaa + "' data-uuid='" + obj.uuid + "'data-filename='" + obj.fileName + "'data-board_num='" + $("#board_num").val() +"'>";
       str +="<div>"
          str +="<span>" + obj.fileName +"</span>"
          str +="<button type='button' data-file=\'" + fileCallPath + "\' data-type='image'> X </button><br>";

@@ -11,8 +11,8 @@
 	</insert>
 	
 	<insert id="productFileInsert" parameterType="ProductFileDTO">
-		INSERT into ProductFile (ProductFile_id, uuid, uploadPath, fileName, product_number) 
-		VALUES (seq_productfile_id.nextval, #{uuid}, #{uploadPath}, #{fileName}, #{linked_num})
+		INSERT into ProductFile (ProductFile_id, uuid, uploadPath, fileName, product_num) 
+		VALUES (seq_productfile_id.nextval, #{uuid}, #{uploadPath}, #{fileName}, #{product_num})
 	</insert>
 
 	<delete id="boardFiledelete">
@@ -20,14 +20,18 @@
 	</delete>	
 
 	<delete id="boardFiledeleteAll">
-		delete BoardFile where BOARD_NUMBER = #{board_num}
+		delete BoardFile where BOARD_num = #{board_num}
 	</delete>
 
 	<select id="findByBoardNum" parameterType="int" resultType="BoardFileDTO">
-		select * from BoardFile where board_number = #{board_number} order by boardfile_id
+		select * from BoardFile where board_num = #{board_num} order by boardfile_id
 	</select>
 
 	<select id="findByProductNum" parameterType="int" resultType="ProductFileDTO">
-		select * from PRODUCTFILE where product_number = #{product_number} order by productfile_id
+		select * from PRODUCTFILE where product_num = #{product_num} order by productfile_id
 	</select>
+	
+	<delete id="productFileDeleteAll">
+		delete ProductFile where product_num = #{product_num}
+	</delete>
 </mapper>

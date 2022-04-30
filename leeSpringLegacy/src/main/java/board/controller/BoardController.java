@@ -179,9 +179,7 @@ public class BoardController {
 	public String modify(@RequestParam Map<String, String> map, 
 			@ModelAttribute BoardDTO boardDTO, 
 			RedirectAttributes redirectAttributes) {
-		System.out.println("여긴가?");
-		System.out.println(boardDTO);
-		//boardService.modify(boardDTO);
+		boardService.modify(boardDTO);
 		redirectAttributes.addAttribute("board_category_num", map.get("board_category_num"));
 		redirectAttributes.addAttribute("pageNum", map.get("pageNum"));
 		redirectAttributes.addAttribute("amount", map.get("amount"));

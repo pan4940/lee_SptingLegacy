@@ -117,20 +117,27 @@ public class ProductController {
 		} else if (map.get("cateCode2").equals(map.get("cateCode3"))) {
 			map.replace("cateCode3", map.get("cateCode3"), "");
 		}
-		System.out.println("after search category : " + map);
 		List<ProductDTO> list;
+		System.out.println("after search category : " + map);
 		
 		list = productService.getProductByCategory(map);
+		for (ProductDTO productDTO : list) {
+			System.out.println("productDTO : " + productDTO);
+			List<ProductFileDTO> productFileList = productService.getFileList(productDTO.getProduct_num());
+			System.out.println("fileList : " + productFileList);
+			productDTO.setFileList(productFileList);
+		}
+		
 		System.out.println("list : " + list);
 		return list;
 	}
 	
 	@PostMapping("/getProductByProductNum")
 	@ResponseBody
-	public ProductDTO getProductByProductNum(String product_number) {
-		ProductDTO productDTO = productService.getProductByProductNum(product_number);
+	public ProductDTO getProductByProductNum(String product_num) {
+		ProductDTO productDTO = productService.getProductByProductNum(product_num);
 		
-		List<ProductFileDTO> list = productService.getFileList(productDTO.getProduct_number());
+		List<ProductFileDTO> list = productService.getFileList(productDTO.getProduct_num());
 		System.out.println(list);
 		productDTO.setFileList(list);
 		System.out.println(productDTO);
@@ -138,15 +145,15 @@ public class ProductController {
 	}
 	
 	//개별 상품 패이지 조회
-	//category_number, product_number, pageNum, amount넘겨받음. 
+	//category_num, product_num, pageNum, amount넘겨받음. 
 	@PostMapping("/get")
 	public String get(@RequestParam Map<String, String> map, Model model) {
 		
 		System.out.println("get map : " + map);
-		int product_number = Integer.parseInt(map.get("product_number")) ;
+		int product_num = Integer.parseInt(map.get("product_num")) ;
 		
-		ProductDTO productDTO = productService.getProduct(product_number);
-		productDTO.setFileList(productService.getFileList(product_number));
+		ProductDTO productDTO = productService.getProduct(product_num);
+		productDTO.setFileList(productService.getFileList(product_num));
 		
 		model.addAttribute("map", map);
 		model.addAttribute("productDTO", productDTO);
@@ -160,9 +167,9 @@ public class ProductController {
 	//상품의 첨부파일 불러옴
 	@PostMapping("/getFileList")
 	@ResponseBody
-	public List<ProductFileDTO> getFileList(int product_number) {
+	public List<ProductFileDTO> getFileList(int product_num) {
 		System.out.println("getFileList...........");
-		return productService.getFileList(product_number);
+		return productService.getFileList(product_num);
 	}
 	
 	
@@ -175,8 +182,9 @@ public class ProductController {
 	*/
 	
 	@PostMapping("/modify")
-	public void modify(@RequestParam Map<String, String> map) {
-		System.out.println("modify map : " + map);
+	public void modify(@ModelAttribute ProductDTO productDTO) {
+		System.out.println("modify productDTO : " + productDTO);
+		productService.modify(productDTO);
 	}
 	
 }

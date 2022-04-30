@@ -8,9 +8,9 @@ import file.bean.BoardFileDTO;
 public interface FileService {
 	public void boardFileInsert(BoardFileDTO fileDTO);
 	
-	public void boardFiledelete(String uuid);
+	public void boardFileDelete(String uuid);
 	
-	public void boardFiledeleteAll(int Board_Num);
+	public void boardFileDeleteAll(int Board_Num);
 	
 	public List<BoardFileDTO> findByBoardNum(int Board_Num);
 }

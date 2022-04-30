@@ -10,7 +10,7 @@ public interface ReplyService {
 	
 	public int write(ReplyDTO replyDTO);
 
-	public List<ReplyDTO> getList(int board_num);
+	public List<ReplyDTO> getList(int board_number);
 
 	public ReplyDTO get(int reply_num);
 
