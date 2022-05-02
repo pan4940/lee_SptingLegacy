@@ -167,13 +167,13 @@
 	<update id="modify" parameterType="ProductDTO">
 		update product set 
 		<if test="cateCode1 != 0">
-			catecode1 = #{catecode1},
+			cateCode1 = #{cateCode1},
 		</if>
 		<if test="cateCode2 != 0">
-			catecode2 = #{catecode2},
+			cateCode2 = #{cateCode2},
 		</if>
 		<if test="cateCode3 != 0">
-			catecode3 = #{catecode3},
+			cateCode3 = #{cateCode3},
 		</if>
 		<if test="brandCategory != 0">
 			brandCategory = #{brandCategory},

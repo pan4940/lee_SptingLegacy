@@ -80,7 +80,6 @@ public class ProductController {
 		System.out.println("register ProductDTO : " + productDTO);
 		productService.productRegister(productDTO);
 		
-		
 		return "/product/register";
 	}
 	

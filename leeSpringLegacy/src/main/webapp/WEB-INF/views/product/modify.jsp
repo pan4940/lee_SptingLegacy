@@ -560,10 +560,11 @@ $(document).on("click", "a.move", function(e){
 		url: '/product/getProductByProductNum',
 		dataType: 'json',
 		success: function(result){
-			console.log(result.fileList);
+			console.log(result);
 			$("#product_num").val(result.product_num);
 			$("#product_name").val(result.product_name);
 			$("#product_price").val(result.product_price);
+			$(".category4").val(result.brandCategory);
 			$("#product_descrip").val(result.product_descrip);
 			showUploadedFile(result.fileList);
 		},
@@ -596,6 +597,7 @@ $("button[type='submit']").on("click", function(e){
    
    
    $("#productModifyForm").append(str).submit();
+   //$("#productModifyForm").append(str);
 });
 
 

@@ -97,9 +97,33 @@ public class ProductServiceImpl implements ProductService {
 		return fileMapper.findByProductNum(product_num);
 	}
 	
+	
 	@Override
+	@Transactional
 	public void modify(ProductDTO productDTO) {
+		
+		
+		if (productDTO.getFileList() == null || productDTO.getFileList().size() <= 0) {
+			return;
+		}
+		
+		String brand_name = productMapper.findBrandNameByBrandCategory(productDTO.getBrandCategory());
+		productDTO.setBrand_name(brand_name);
+		
+		if (productDTO.getCateCode2() == productDTO.getCateCode3()) {
+			System.out.println("3번 카테고리 없음");
+			productDTO.setCateCode3(0);
+		}
+
 		fileMapper.productFileDeleteAll(productDTO.getProduct_num());
+		
+		productDTO.getFileList().forEach(t -> {
+			t.setProduct_num(productDTO.getProduct_num());
+			System.out.println("productDTO : " + t);
+			fileMapper.productFileInsert(t);
+		});
+		
+		System.out.println(productDTO);
 		productMapper.modify(productDTO);
 	}
 }

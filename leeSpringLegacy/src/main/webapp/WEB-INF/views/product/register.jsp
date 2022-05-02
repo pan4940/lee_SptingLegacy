@@ -166,10 +166,10 @@ textarea#productDes { width:400px; height:180px; }
 				<input type="text" id="product_price" name="product_price" />
 			</div>
 			
-			<div class="inputArea">
+			<!-- <div class="inputArea">
 				<label for="gdsStock">상품수량</label>
 				<input type="text" id="gdsStock" name="gdsStock" />
-			</div>
+			</div> -->
 			
 			<div class="inputArea">
 				<label for="product_descrip">상품소개</label>
@@ -446,6 +446,7 @@ $("button[type='submit']").on("click", function(e){
        console.log(str);
    });
    
+   //$("#productWriteForm").append(str);
    $("#productWriteForm").append(str).submit();
 });
 
