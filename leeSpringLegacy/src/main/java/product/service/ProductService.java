@@ -30,6 +30,9 @@ public interface ProductService {
 
 	public void modify(ProductDTO productDTO);
 
+	public void delete(int parseInt);
+
+
 
 
 }

@@ -158,7 +158,7 @@ public class ProductController {
 		model.addAttribute("productDTO", productDTO);
 		
 		//model.addAttribute("display", "/WEB-INF/board/get.jsp");
-		return "/produec/detail";
+		return "/product/detail";
 		
 		//return "/board/get";
 	}
@@ -184,6 +184,16 @@ public class ProductController {
 	public void modify(@ModelAttribute ProductDTO productDTO) {
 		System.out.println("modify productDTO : " + productDTO);
 		productService.modify(productDTO);
+	}
+	
+	@PostMapping("/delete")
+	@ResponseBody
+	public void delete(@RequestParam String[] checkProduct_num) {
+		for (String string : checkProduct_num) {
+			System.out.println("delete product_num : " + string);
+			productService.delete(Integer.parseInt(string));
+		}
+		
 	}
 	
 }

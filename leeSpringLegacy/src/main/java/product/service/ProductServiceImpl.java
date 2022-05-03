@@ -124,6 +124,15 @@ public class ProductServiceImpl implements ProductService {
 		});
 		
 		System.out.println(productDTO);
-		productMapper.modify(productDTO);
+		productMapper.modifyProduct(productDTO);
+	}
+	
+	
+	@Transactional
+	@Override
+	public void delete(int product_num) {
+		fileMapper.productFileDeleteAll(product_num);
+		productMapper.productDeleteCategory_link(product_num);
+		productMapper.deleteProduct(product_num);
 	}
 }

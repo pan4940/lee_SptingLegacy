@@ -164,7 +164,7 @@
 	</select>
 	
 	
-	<update id="modify" parameterType="ProductDTO">
+	<update id="modifyProduct" parameterType="ProductDTO">
 		update product set 
 		<if test="cateCode1 != 0">
 			cateCode1 = #{cateCode1},
@@ -186,4 +186,11 @@
 	
 	</update>
 	
+	<delete id="productDeleteCategory_link" parameterType="int"> 
+		delete PRODUCT_CATEGORY_LINK where product_num = #{product_num}
+	</delete>
+	
+	<delete id="deleteProduct" parameterType="int">
+		delete product where product_num = #{product_num}
+	</delete>
 </mapper>

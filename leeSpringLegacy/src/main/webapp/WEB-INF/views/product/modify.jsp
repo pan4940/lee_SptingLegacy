@@ -151,6 +151,10 @@ textarea#gdsDes { width:400px; height:180px; }
 				</table>
 			</div>
 			
+			<form id="deleteProductList" action="/product/delete" method="post">
+			
+			</form>
+			
 			
 			<h2>상품 수정</h2>
 			
@@ -223,9 +227,9 @@ textarea#gdsDes { width:400px; height:180px; }
 				<div class="bigPicture">
 				</div>
 			</div>
-			
 			<div class="inputArea">
-				<button type="submit" id="update_Btn" class="btn btn-primary">수정</button>
+				<button type="button" id="delete_Btn" class="btn btn-primary">삭제</button>
+				<button type="button" id="update_Btn" class="btn btn-primary">수정</button>
 				<button type="button" id="back_Btn" class="btn btn-warning">취소</button>			
 			</div>
 			
@@ -521,18 +525,22 @@ $("#search_Btn").on("click", function(){
 			console.log(productList);
 			
 			$("#tr").children().remove();
+			
+			$("#tr").append("<tr>" +
+					"<td>목록추가</td>" +
+					"<td>상품명</td>" +
+					"<td>브랜드명</td>" +
+					"<td>카테고리1</td>" + 
+					"<td>카테고리2</td>" +
+					"<td>카테고리3</td>" +
+					"<td>카테고리4</td>" +
+					"<td>가격</td>" +
+					"<td>설명</td>" +
+					"</tr>");
+			
 			$.each(result, function(index, item){
-				$("#tr").append("<tr>" +
-								"<td>상품명</td>" +
-								"<td>브랜드명</td>" +
-								"<td>카테고리1</td>" + 
-								"<td>카테고리2</td>" +
-								"<td>카테고리3</td>" +
-								"<td>카테고리4</td>" +
-								"<td>가격</td>" +
-								"<td>설명</td>" +
-								"</tr>" +
-								
+				$("#tr").append(
+								"<tr><td><input type='checkbox' id='checkProduct_num' name='checkProduct_num' value='" + item.product_num + "'></td>" +
 								"<td><a class='move' href='" + item.product_num +"'>" + item.product_name + "</a></td>"+
 								"<td>" + item.brand_name + "</td>"+
 								"<td>" + item.cateCode1 + "</td>"+
@@ -579,7 +587,7 @@ $(document).on("click", "a.move", function(e){
 
 <script type="text/javascript">
 //수정 버튼 클릭시 이벤트
-$("button[type='submit']").on("click", function(e){
+$("#update_Btn").on("click", function(e){
    e.preventDefault();
    console.log("product register......");
    let str = ""
@@ -601,6 +609,48 @@ $("button[type='submit']").on("click", function(e){
 });
 
 
+function getDeleteProductList(){
+    let obj = $("[name=checkProduct_num]");
+    let deleteProductArray = new Array(); // 배열 선언
+
+    $('input:checkbox[name=checkProduct_num]:checked').each(function() { // 체크된 체크박스의 value 값을 가지고 온다.
+    	deleteProductArray.push(this.value);
+    });
+    
+    return deleteProductArray;
+}
+
+
+
+//상품 삭제
+$("#delete_Btn").on("click", function(e) {
+	e.preventDefault();
+	deleteProductList = $("#deleteProductList");
+	
+	let str = ""
+	let deleteArray = new Array();
+	deleteArray = getDeleteProductList();
+	
+	
+	str += "<input type='text' name='checkProduct_num' value='" + deleteArray + "'>"; 
+	
+	deleteProductList.append(str);
+	
+	$.ajax({
+		url : '/product/delete',
+		type: 'post',
+		data: deleteProductList.serialize(),
+		//contentType: "application/json; charset=UTF-8;",
+		success: function(){
+			console.log("성공");
+			alert("상품을 삭제했습니다.");
+			location.href="modifyForm";
+		},
+		
+	});
+	
+	
+});
 //let regex = new RegExp("(.*?)\.(exe|sh|zip|alz)$");
 let regex = new RegExp("(.*?)\.(png|bmp|jpeg|jpg)$");
 let maxSize = 1024 * 1024 * 5; //5MB

@@ -38,6 +38,10 @@ public interface ProductMapper {
 
 	public List<BoardFileDTO> getFileList(int product_num);
 
-	public void modify(ProductDTO productDTO);
+	public void modifyProduct(ProductDTO productDTO);
+
+	public void productDeleteCategory_link(int product_num);
+
+	public void deleteProduct(int product_num);
 
 }
