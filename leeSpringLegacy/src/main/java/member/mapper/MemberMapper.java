@@ -1,5 +1,6 @@
 package member.mapper;
 
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -28,5 +29,7 @@ public interface MemberMapper {
 	public MemberDTO findMemberByID(String member_id);
 
 	public void updatePwdAndRank(MemberDTO memberDTO);
+
+	public List<MemberDTO> getMember(Map<String, String> map);
 
 }

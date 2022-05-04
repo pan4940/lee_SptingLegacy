@@ -1,5 +1,6 @@
 package member.service;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -34,6 +35,9 @@ public interface MemberService {
 	public void updatePwdAndRank(MemberDTO memberDTO);
 
 	public void tempPwdByPhone(HttpSession httpSession, String member_id);
+
+	public List<MemberDTO> getMember(Map<String, String> map);
+
 
 
 

@@ -61,4 +61,16 @@
 			rank_num = #{rank_num}
 		where member_id = #{member_id}		
 	</update>
+	
+	<select id="getMember" parameterType="java.util.Map" resultType="MemberDTO">
+		<if test="member_id != '' and member_name != ''">
+			select * from member where member_id LIKE '%'||#{member_id}||'%' and member_name LIKE '%'||#{member_name}||'%'		
+		</if>
+		<if test="member_id == '' and member_name != ''">
+			select * from member where member_name LIKE '%'||#{member_name}||'%'
+		</if>
+		<if test="member_id != '' and member_name == ''">
+			select * from member where member_id LIKE '%'||#{member_id}||'%'	
+		</if>
+	</select>
 </mapper>

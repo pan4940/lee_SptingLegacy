@@ -2,6 +2,7 @@ package member.service;
 
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
@@ -175,6 +176,11 @@ public class MemberServiceImpl implements MemberService {
     		System.out.println(e.getMessage());
     		System.out.println(e.getCode());
     	}
+	}
+	
+	@Override
+	public List<MemberDTO> getMember(Map<String, String> map) {
+		return memberMapper.getMember(map);
 	}
 	
 }

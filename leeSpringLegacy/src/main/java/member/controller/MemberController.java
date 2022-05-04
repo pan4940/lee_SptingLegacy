@@ -1,6 +1,8 @@
 package member.controller;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
@@ -39,6 +41,8 @@ public class MemberController {
 		model.addAttribute("display", "/WEB-INF/views/member/login.jsp");
 		return "index";
 	}
+	
+	
 	@PostMapping("/loginOK")
 	@ResponseBody
 	public String loginOK(HttpSession httpSession, @RequestParam Map<String, String> map) {
@@ -76,6 +80,8 @@ public class MemberController {
 		memberService.join(memberDTO);
 		model.addAttribute("display", "/WEB-INF/views/member/join.jsp");
 	}
+	
+	
 	//회원가입시 아이디 중복체크
 	@PostMapping("/checkId")
 	@ResponseBody
@@ -256,15 +262,28 @@ public class MemberController {
 	
 	
 	
-	//회원정보객체 반환
+	//member 관리 페이지 이동
+	@GetMapping("/management")
+	public String management() {
+		return "/member/management";
+	}
+	
+	
+	//관리자 모드에서 사용. id로 회원정보 찾기
+	@PostMapping("/getMember")
+	@ResponseBody
+	public void getMember(@RequestParam Map<String, String> map) {
+		System.out.println(map);
+		List<MemberDTO> list = memberService.getMember(map);
+		
+		for (MemberDTO memberDTO : list) {
+			System.out.println(memberDTO);
+		}
+		
+	}
 	
 	
 	
-	
-	//로그인
-	
-	
-	
-	
+	//관리자 모드에서 사용. 이름으로 회원정보 찾기
 	
 }
