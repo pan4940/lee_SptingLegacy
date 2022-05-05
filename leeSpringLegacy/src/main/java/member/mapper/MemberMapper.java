@@ -6,6 +6,7 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 
 import member.bean.MemberDTO;
+import member.bean.MemberRankDTO;
 
 @Mapper
 public interface MemberMapper {
@@ -31,5 +32,7 @@ public interface MemberMapper {
 	public void updatePwdAndRank(MemberDTO memberDTO);
 
 	public List<MemberDTO> getMember(Map<String, String> map);
+
+	public List<MemberRankDTO> getRankNum();
 
 }

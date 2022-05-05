@@ -123,11 +123,11 @@ textarea#gdsDes { width:400px; height:180px; }
 				<div class="searchInputArea">	
 					<div class="inputArea">
 						<label for="member_id">회원ID</label>
-						<input type="text" id="member_id" name="member_id" style="width:300px"/>
+						<input type="text" id="searchMember_id" name="member_id" style="width:300px"/>
 					</div>
 					<div class="inputArea">
 						<label for="member_name">회원명</label>
-						<input type="text" id="member_name" name="member_name" style="width:300px"/>
+						<input type="text" id="searchMember_name" name="member_name" style="width:300px"/>
 					</div>		
 				
 				
@@ -140,7 +140,6 @@ textarea#gdsDes { width:400px; height:180px; }
 				<input id="searchProduct" type="text" value="">
 				<table id="tr" border="1">
 					
-					<!-- <tr id="tr"></tr> -->
 				</table>
 			</div>
 			
@@ -159,18 +158,18 @@ textarea#gdsDes { width:400px; height:180px; }
 				
 				<div class="inputArea">
 					<label for="member_id">아이디</label>
-					<input type="text" id="member_id" name="member_id" style="width:300px"/>
+					<input type="text" id="member_id" name="member_id" value="" style="width:300px"/>
 				</div>
 				
 				<div class="inputArea">
 					<label for="member_name">이름</label>
-					<input type="text" id="member_name" name="member_name" style="width:300px"/>
+					<input type="text" id="member_name" name="member_name" value="" style="width:300px"/>
 				</div>
 				
-				<div id="category1">	
+				<div id="rank_num">	
 					<label>회원등급</label>
-					<select class="" name="cateCode1">
-						<option value="">전체</option>
+					<select id="selectRank_num" class="rank_num" name="rank_num">
+						<option value=""></option>
 					</select>
 				</div>
 				
@@ -219,6 +218,55 @@ $("#back_Btn").click(function(){
 	//location.href = "/admin/goods/view?n=" + ${goods.gdsNum};
 });		
 
+
+//rank_num 목록 가져오기
+function getRankNum() {
+	
+	$.ajax({
+		type: 'post',
+		url: '/member/getRankNum',
+		dataType: 'json',
+		
+		success: function(rankList){
+			
+			let rankArr = new Array();
+			let rankObj = new Object();
+			
+			for(var i = 0; i < rankList.length; i++) {
+				
+				rankObj = new Object();  // 초기화
+				
+				// rank에 rank_num와 rank_name를 저장
+				rankObj.rank_num = rankList[i].rank_num; 
+				rankObj.rank_name = rankList[i].rank_name;
+				
+				// rank에 저장된 값을 rankArr 배열에 저장
+				rankArr.push(rankObj);
+			}
+
+			// 랭크 셀렉트 박스에 데이터 삽입
+			let rankSelect = $("#selectRank_num")
+			rankSelect.children().remove();
+
+			for(let i = 0; i < rankArr.length; i++) {
+
+				// rankArr에 저장된 값을 cate1Select에 추가
+				rankSelect.append("<option value='" + rankArr[i].rank_num + "'>"
+									+ rankArr[i].rank_name + "</option>");	
+			}
+			 
+		},
+		error: function(e) {
+			console.log(e);
+			
+		}
+	});
+	
+	
+}
+
+
+
 //검색버튼 클릭
 
 let productList;
@@ -228,37 +276,31 @@ $("#search_Btn").on("click", function(){
 		type: 'post',
 		data: $("#searchForm").serialize(),
 		url: '/member/getMember',
-		//dataType: 'json',
-		success: function(){
-			/* 
+		dataType: 'json',
+		success: function(MemberDTOList){
+			console.log(MemberDTOList);
+			
+			$("#tr").children().remove();
 			$("#tr").append("<tr>" +
 					"<td>목록추가</td>" +
-					"<td>상품명</td>" +
-					"<td>브랜드명</td>" +
-					"<td>카테고리1</td>" + 
-					"<td>카테고리2</td>" +
-					"<td>카테고리3</td>" +
-					"<td>카테고리4</td>" +
-					"<td>가격</td>" +
-					"<td>설명</td>" +
+					"<td>ID</td>" +
+					"<td>회원명</td>" +
+					"<td>연락처</td>" +
 					"</tr>");
 			
-			$.each(result, function(index, item){
+			$.each(MemberDTOList, function(index, item){
 				$("#tr").append(
-								"<tr><td><input type='checkbox' id='checkProduct_num' name='checkProduct_num' value='" + item.product_num + "'></td>" +
-								"<td><a class='move' href='" + item.product_num +"'>" + item.product_name + "</a></td>"+
-								"<td>" + item.brand_name + "</td>"+
-								"<td>" + item.cateCode1 + "</td>"+
-								"<td>" + item.cateCode2 + "</td>"+
-								"<td>" + item.cateCode3 + "</td>"+
-								"<td>" + item.brandCategory + "</td>"+
-								"<td>" + item.product_price + "</td>"+
-								"<td>" + item.product_descrip + "</td></tr>"
+								"<tr>" +
+								"<td><input type='checkbox' id='checkMember_id' name='checkMember_id' value='" + item.member_id + "'></td>" +
+								"<td><a class='move' href='" + item.member_id +"' value='" + item.member_name + "'>" + item.member_id + "</a></td>"+
+								"<td>" + item.member_name + "</td>"+
+								"<td>" + item.tel1 + "-" + item.tel2 + "-" + item.tel3 + "</td></tr>"
 				);
-			}); */
+			}); 
 		},
 		error: function(e) {
 			console.log(e);
+			
 		}
 	});
 });
@@ -266,21 +308,29 @@ $("#search_Btn").on("click", function(){
 
 $(document).on("click", "a.move", function(e){
 	e.preventDefault();
+	console.log(e);
 	
+	$("#member_id").val('');
+	$("#member_name").val('');
+	$("#selectRank_num").val('');
+	
+	getRankNum();
 	$.ajax({
+		url: '/member/getMember',
 		type: 'post',
-		data: 'product_num=' + $(".move").attr("href"),
-		url: '/product/getProductByProductNum',
+		data: {
+			'member_id' : $(".move").attr("href"),
+			'member_name' : $(".move").attr("value"),
+		},
 		dataType: 'json',
 		success: function(result){
 			console.log(result);
-			$("#product_num").val(result.product_num);
-			$("#product_name").val(result.product_name);
-			$("#product_price").val(result.product_price);
-			$(".category4").val(result.brandCategory);
-			$("#product_descrip").val(result.product_descrip);
-			showUploadedFile(result.fileList);
+			
+			$("#member_id").val(result[0].member_id);
+			$("#member_name").val(result[0].member_name);
+			$("#selectRank_num").val(result[0].rank_num);
 		},
+		
 		error: function(e) {
 			console.log(e);
 		}

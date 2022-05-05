@@ -6,6 +6,7 @@ import java.util.Map;
 import javax.servlet.http.HttpSession;
 
 import member.bean.MemberDTO;
+import member.bean.MemberRankDTO;
 
 public interface MemberService {
 	
@@ -37,6 +38,8 @@ public interface MemberService {
 	public void tempPwdByPhone(HttpSession httpSession, String member_id);
 
 	public List<MemberDTO> getMember(Map<String, String> map);
+
+	public List<MemberRankDTO> getRankNum();
 
 
 

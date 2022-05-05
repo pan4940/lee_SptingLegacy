@@ -15,6 +15,8 @@ import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.config.PropertyPlaceholderConfigurer;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,6 +28,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import member.bean.MemberDTO;
+import member.bean.MemberRankDTO;
 import member.service.MemberService;
 
 @Controller
@@ -269,19 +272,21 @@ public class MemberController {
 	}
 	
 	
-	//관리자 모드에서 사용. id로 회원정보 찾기
+	//관리자 모드에서 사용. id와 이름으로 회원정보 찾기
 	@PostMapping("/getMember")
 	@ResponseBody
-	public void getMember(@RequestParam Map<String, String> map) {
+	public List<MemberDTO> getMember(@RequestParam Map<String, String> map) {
 		System.out.println(map);
-		List<MemberDTO> list = memberService.getMember(map);
-		
-		for (MemberDTO memberDTO : list) {
-			System.out.println(memberDTO);
-		}
-		
+		return memberService.getMember(map);
 	}
 	
+	
+	//맴버 등급 정보 가져오기
+	@PostMapping("/getRankNum")
+	@ResponseBody
+	public List<MemberRankDTO> getRankNum() {
+		return memberService.getRankNum();
+	}
 	
 	
 	//관리자 모드에서 사용. 이름으로 회원정보 찾기

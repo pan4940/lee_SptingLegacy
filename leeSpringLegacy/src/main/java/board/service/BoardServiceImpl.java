@@ -69,9 +69,6 @@ public class BoardServiceImpl implements BoardService {
 				fileMapper.boardFileInsert(t);
 			});
 		}
-		
-		
-		
 	}
 	
 	@Override
@@ -93,7 +90,7 @@ public class BoardServiceImpl implements BoardService {
 	}
 	
 	
-	
+	@Transactional
 	@Override
 	public void delete(int board_num) {
 		fileMapper.boardFileDeleteAll(board_num);

@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import file.bean.BoardFileDTO;
 import file.bean.ProductFileDTO;
 import file.mapper.FileMapper;
 import product.bean.ProductCategoryDTO;

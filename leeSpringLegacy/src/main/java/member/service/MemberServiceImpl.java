@@ -19,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import member.bean.MemberDTO;
+import member.bean.MemberRankDTO;
 import member.controller.MyAuthentication;
 import member.mapper.MemberMapper;
 import net.nurigo.java_sdk.api.Message;
@@ -181,6 +182,11 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public List<MemberDTO> getMember(Map<String, String> map) {
 		return memberMapper.getMember(map);
+	}
+	
+	@Override
+	public List<MemberRankDTO> getRankNum() {
+		return memberMapper.getRankNum();
 	}
 	
 }

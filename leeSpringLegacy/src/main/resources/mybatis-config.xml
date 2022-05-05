@@ -10,6 +10,7 @@
 		<typeAlias type="file.bean.BoardFileDTO" alias="BoardFileDTO"/>
 		<typeAlias type="file.bean.ProductFileDTO" alias="ProductFileDTO"/>
 		<typeAlias type="member.bean.MemberDTO" alias="MemberDTO"/>
+		<typeAlias type="member.bean.MemberRankDTO" alias="MemberRankDTO"/>
 		<typeAlias type="product.bean.ProductDTO" alias="ProductDTO"/>
 		<typeAlias type="product.bean.ProductCategoryDTO" alias="ProductCategoryDTO"/>
 	</typeAliases>

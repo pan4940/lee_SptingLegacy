@@ -73,4 +73,9 @@
 			select * from member where member_id LIKE '%'||#{member_id}||'%'	
 		</if>
 	</select>
+	
+	
+	<select id="getRankNum" resultType="MemberRankDTO">
+		select * from MEMBER_RANK
+	</select>
 </mapper>
