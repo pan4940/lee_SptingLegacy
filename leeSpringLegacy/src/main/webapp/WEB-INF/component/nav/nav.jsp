@@ -30,7 +30,7 @@ MemberDTO memberDTO = (MemberDTO)session.getAttribute("memberDTO");
 	    </span>   
 	    <!-- <span><a href="/list?category=sale">SALE</a>
 	    </span> -->
-	    <span><a href="/brands">BRANDS</a>
+	    <span><a href="/product/brands">BRANDS</a>
 	    </span>
 	    <span><a href="/board/list?board_category_num=7">POST</a>
 	    </span>
@@ -90,7 +90,7 @@ MemberDTO memberDTO = (MemberDTO)session.getAttribute("memberDTO");
 		</div>   
 		<!-- <div><a href="/list?category=sale">SALE</a>
 		</div> -->
-		<div><a href="/brands">BRANDS</a>
+		<div><a href="/product/brands">BRANDS</a>
 		</div>
 		<div><a href="/board/list?board_category_num=7">POST</a>
 		</div>

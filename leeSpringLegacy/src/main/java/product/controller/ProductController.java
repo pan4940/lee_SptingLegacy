@@ -196,4 +196,10 @@ public class ProductController {
 		
 	}
 	
+	@GetMapping("/brands")
+	public String brands(Model model) {
+		model.addAttribute("display", "/WEB-INF/views/product/brands.jsp");
+		return "index";
+	}
+	
 }

@@ -288,7 +288,12 @@ public class MemberController {
 		return memberService.getRankNum();
 	}
 	
+	//관리자모드에서 사용. 멤버 등급 조정
 	
-	//관리자 모드에서 사용. 이름으로 회원정보 찾기
+	@PostMapping("/memberGradeUpdate")
+	public void memberGradeUpdate(@RequestParam Map<String, String> map) {
+		System.out.println(map);
+		memberService.memberGradeUpdate(map);
+	}
 	
 }

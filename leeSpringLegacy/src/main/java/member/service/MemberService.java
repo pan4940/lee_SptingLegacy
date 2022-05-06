@@ -41,6 +41,7 @@ public interface MemberService {
 
 	public List<MemberRankDTO> getRankNum();
 
+	public void memberGradeUpdate(Map<String, String> map);
 
 
 

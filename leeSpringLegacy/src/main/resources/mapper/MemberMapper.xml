@@ -78,4 +78,11 @@
 	<select id="getRankNum" resultType="MemberRankDTO">
 		select * from MEMBER_RANK
 	</select>
+	
+	
+	<select id="memberGradeUpdate" parameterType="java.util.Map">
+		update member set
+			rank_num = #{rank_num}
+		where member_id = #{member_id}	
+	</select>
 </mapper>

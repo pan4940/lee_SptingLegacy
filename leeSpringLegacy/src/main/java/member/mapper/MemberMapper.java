@@ -35,4 +35,6 @@ public interface MemberMapper {
 
 	public List<MemberRankDTO> getRankNum();
 
+	public void memberGradeUpdate(Map<String, String> map);
+
 }

@@ -9,35 +9,3 @@ $(".bread_container ul li a").mouseleave(function () {
 });
 
 
-
-
-/*$(".image_file").mouseenter(function(event){
-	$.ajax({
-		type:'post',
-		url:'/user/getImage',
-		data:'value='+event.target.innerText,
-		dataType:'json',
-		success: function(data) {
-			//console.log(data)
-			$.each(data,function(index,item){
-				
-				
-			$('#img'+(index+1)).attr('src','storage/'+item)	;
-				
-			});
-		},
-		error:function(err){
-			console.log(err);
-		}
-		
-		
-		
-	});
-	
-	
-	
-	
-	
-	
-	
-});*/

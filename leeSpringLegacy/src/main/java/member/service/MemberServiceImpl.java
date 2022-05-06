@@ -189,4 +189,10 @@ public class MemberServiceImpl implements MemberService {
 		return memberMapper.getRankNum();
 	}
 	
+	
+	
+	@Override
+	public void memberGradeUpdate(Map<String, String> map) {
+		memberMapper.memberGradeUpdate(map);
+	}
 }

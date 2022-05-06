@@ -150,51 +150,30 @@ textarea#gdsDes { width:400px; height:180px; }
 			
 			<h2>회원 등급 수정</h2>
 			
-			<form id="productModifyForm" method="post" action="/product/modify" autocomplete="off">
-			
-			<input type="text" id="product_num" name="product_num" value="" />
-			
-			<div class="inputArea">
-				
+			<form id="memberGradeUpdate" method="post" action="/product/memberGradeUpdate">
 				<div class="inputArea">
-					<label for="member_id">아이디</label>
-					<input type="text" id="member_id" name="member_id" value="" style="width:300px"/>
+					<div class="inputArea">
+						<label for="member_id">아이디</label>
+						<input type="text" id="member_id" name="member_id" value="" style="width:300px" readonly="readonly"/>
+					</div>
+					
+					<div class="inputArea">
+						<label for="member_name">이름</label>
+						<input type="text" id="member_name" name="member_name" value="" style="width:300px" readonly="readonly"/>
+					</div>
+					
+					<div id="rank_num">	
+						<label>회원등급</label>
+						<select id="selectRank_num" class="rank_num" name="rank_num">
+							<option value=""></option>
+						</select>
+					</div>
 				</div>
-				
+							
 				<div class="inputArea">
-					<label for="member_name">이름</label>
-					<input type="text" id="member_name" name="member_name" value="" style="width:300px"/>
+					<button type="button" id="update_Btn" class="btn btn-primary">수정</button>
+					<button type="button" id="back_Btn" class="btn btn-warning">취소</button>			
 				</div>
-				
-				<div id="rank_num">	
-					<label>회원등급</label>
-					<select id="selectRank_num" class="rank_num" name="rank_num">
-						<option value=""></option>
-					</select>
-				</div>
-				
-			</div>
-			
-			
-						
-			<div class="uploadDiv">
-				<input type="file" name="uploadFile" multiple>
-			</div>   
-			             
-			<div class="uploadResult">
-				<ul>
-				</ul>
-			</div>
-			             
-			<div class="bigPictureWrapper">
-				<div class="bigPicture">
-				</div>
-			</div>
-			<div class="inputArea">
-				<button type="button" id="delete_Btn" class="btn btn-primary">삭제</button>
-				<button type="button" id="update_Btn" class="btn btn-primary">수정</button>
-				<button type="button" id="back_Btn" class="btn btn-warning">취소</button>			
-			</div>
 			
 			</form>
 			
@@ -306,6 +285,22 @@ $("#search_Btn").on("click", function(){
 });
 
 
+$("#update_Btn").on("click", function(){
+	$.ajax({
+		type: 'post',
+		data: $("#memberGradeUpdate").serialize(),
+		url: '/member/memberGradeUpdate',
+		success: function(){
+			alert("회원등급을 변경했습니다.");
+			window.location.href = "/member/management";
+		},
+		error: function(e) {
+			console.log(e);
+			
+		}
+	});	
+});
+
 $(document).on("click", "a.move", function(e){
 	e.preventDefault();
 	console.log(e);
@@ -319,8 +314,8 @@ $(document).on("click", "a.move", function(e){
 		url: '/member/getMember',
 		type: 'post',
 		data: {
-			'member_id' : $(".move").attr("href"),
-			'member_name' : $(".move").attr("value"),
+			'member_id' : $(this).attr("href"),
+			'member_name' : $(this).attr("value"),
 		},
 		dataType: 'json',
 		success: function(result){
@@ -341,71 +336,10 @@ $(document).on("click", "a.move", function(e){
 </script>
 
 <script type="text/javascript">
-//수정 버튼 클릭시 이벤트
-$("#update_Btn").on("click", function(e){
-   e.preventDefault();
-   console.log("product register......");
-   let str = ""
-   $(".uploadResult ul li").each(function(i, obj) {
-      let jobj = $(obj);
-      console.log($(obj).html());
-      //console.log(jobj.data("filename"));
-
-      str += "<input type='hidden' name='fileList["+i+"].fileName' value='"+jobj.data("filename")+"'>";
-      str += "<input type='hidden' name='fileList["+i+"].uuid' value='"+jobj.data("uuid")+"'>";
-      str += "<input type='hidden' name='fileList["+i+"].uploadPath' value='"+jobj.data("path")+"'>";
-      str += "<input type='hidden' name='fileList["+i+"].product_num' value='"+jobj.data("product_num")+"'>";
-      //console.log(str);
-   });
-   
-   
-   $("#productModifyForm").append(str).submit();
-   //$("#productModifyForm").append(str);
-});
-
-
-function getDeleteProductList(){
-    let obj = $("[name=checkProduct_num]");
-    let deleteProductArray = new Array(); // 배열 선언
-
-    $('input:checkbox[name=checkProduct_num]:checked').each(function() { // 체크된 체크박스의 value 값을 가지고 온다.
-    	deleteProductArray.push(this.value);
-    });
-    
-    return deleteProductArray;
-}
-
 
 
 //회원 휴면 처리
-$("#delete_Btn").on("click", function(e) {
-	e.preventDefault();
-	deleteProductList = $("#deleteProductList");
-	
-	let str = ""
-	let deleteArray = new Array();
-	deleteArray = getDeleteProductList();
-	
-	
-	str += "<input type='text' name='checkProduct_num' value='" + deleteArray + "'>"; 
-	
-	deleteProductList.append(str);
-	
-	$.ajax({
-		url : '/product/delete',
-		type: 'post',
-		data: deleteProductList.serialize(),
-		//contentType: "application/json; charset=UTF-8;",
-		success: function(){
-			console.log("성공");
-			alert("상품을 삭제했습니다.");
-			location.href="modifyForm";
-		},
-		
-	});
-	
-	
-});
+
 </script>
 
 
