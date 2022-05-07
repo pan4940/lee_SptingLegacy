@@ -215,9 +215,10 @@ $("#select_Btn").on("click", function(){
 		url: '/product/getProductCategoryDTO',
 		dataType: 'json',
 		success: function(result){
+			console.log(result);
 			console.log(result.fileList);
-			
-			$("#product_category_num").val(result.brand_num);
+			console.log(result.product_category_num);
+			$("#product_category_num").val(result.product_category_num);
 			$("#product_category_name").val(result.product_category_name);
 			$("#product_category_descrip").val(result.product_category_descrip);
 			showUploadedFile(result.fileList);
@@ -265,8 +266,8 @@ $("#modify_Btn").on("click", function(e){
    });
    
    //$("#brandCategoryForm").attr("action", "/product/modifyBrandCategory").append(str).submit();
-   $("#brandCategoryForm").attr("action", "/product/modifyBrandCategory").append(str);
-   $("#brandCategoryForm").submit();
+   $("#brandCategoryForm").attr("action", "/product/modifyBrandCategory").append(str).submit();
+   //$("#brandCategoryForm");
 });
 
 
