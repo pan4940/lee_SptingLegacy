@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import file.bean.BoardFileDTO;
+import file.bean.BrandFileDTO;
 import file.bean.ProductFileDTO;
 import product.bean.ProductCategoryDTO;
 import product.bean.ProductDTO;
@@ -14,7 +15,7 @@ public interface ProductService {
 
 	public List<ProductCategoryDTO> getBrandsCategoryList();
 
-	public void createBrandCategory(String product_category_name);
+	public void createBrandCategorySelectKey(ProductCategoryDTO productCategoryDTO);
 
 	public void productRegister(ProductDTO productDTO);
 
@@ -26,11 +27,17 @@ public interface ProductService {
 
 	public ProductDTO getProductByProductNum(String product_num);
 
-	public List<ProductFileDTO> getFileList(int product_num);
+	public List<ProductFileDTO> getProductFileList(int product_num);
 
 	public void modify(ProductDTO productDTO);
 
 	public void delete(int parseInt);
+
+	public ProductCategoryDTO getProductCategoryDTO(int product_category_num);
+
+	public List<BrandFileDTO> getBrandFileList(int brand_num);
+
+	public void modifyBrandCategory(ProductCategoryDTO productCategoryDTO);
 
 
 

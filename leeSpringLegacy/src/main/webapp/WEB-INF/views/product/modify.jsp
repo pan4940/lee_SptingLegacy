@@ -763,7 +763,6 @@ $(".bigPictureWrapper").on("click", function(e){
 //삭제버튼 클릭 이벤트
 $(".uploadResult").on("click", "button", function(e){
 
-
 	let targetFile = $(this).data("file");
 	console.log("targetFile : " + targetFile);
 

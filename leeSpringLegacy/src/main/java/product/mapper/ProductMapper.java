@@ -14,7 +14,7 @@ import product.bean.ProductDTO;
 public interface ProductMapper {
 
 
-	public void createBrandCategory(String product_category_name);
+	public void createBrandCategorySelectKey(ProductCategoryDTO productCategoryDTO);
 
 	public List<ProductCategoryDTO> getBrandsCategoryList();
 
@@ -43,5 +43,10 @@ public interface ProductMapper {
 	public void productDeleteCategory_link(int product_num);
 
 	public void deleteProduct(int product_num);
+
+	public ProductCategoryDTO getProductCategoryDTO(int product_category_num);
+
+
+	public void modifyBrandCategory(ProductCategoryDTO productCategoryDTO);
 
 }

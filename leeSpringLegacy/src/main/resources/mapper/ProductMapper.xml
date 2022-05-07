@@ -29,13 +29,21 @@
     	]]>
     </select>
     
-    <insert id="createBrandCategory" parameterType="String">
+    <insert id="createBrandCategorySelectKey" parameterType="ProductCategoryDTO">
+    	<selectKey keyProperty="product_category_num" order="BEFORE" resultType="int">
+			select SEQ_PRODUCT_CATEGORY_NUM.nextval from dual
+		</selectKey>
+    	
     	insert into PRODUCT_CATEGORY (
-    		product_category_num,
-    		product_category_name
+    		product_category_num, 
+    		product_category_name, 
+    		product_category_num_ref, 
+    		product_category_descrip
     	) values (
-    		SEQ_PRODUCT_CATEGORY_NUM.nextval,
-    		#{product_category_name}
+    		#{product_category_num},
+    		#{product_category_name},
+    		#{product_category_num_ref},
+    		#{product_category_descrip}
     	)
     </insert>
 	
@@ -159,6 +167,10 @@
 		</if>
 	</select>
 	
+	<select id="getProductCategoryDTO" parameterType="int" resultType="ProductCategoryDTO">
+		select * from product_category where product_category_num = #{product_category_num}
+	</select>
+	
 	<select id="getProductByProductNum" parameterType="String" resultType="ProductDTO">
 		select * from product where product_num = #{product_num}
 	</select>
@@ -185,6 +197,14 @@
 		where product_num = #{product_num}
 	
 	</update>
+	
+	<update id="modifyBrandCategory" parameterType="ProductCategoryDTO">
+		update PRODUCT_CATEGORY set
+    		product_category_name = #{product_category_name}, 
+    		product_category_descrip = #{product_category_descrip}
+    	where product_category_num = #{product_category_num}
+	</update>
+	
 	
 	<delete id="productDeleteCategory_link" parameterType="int"> 
 		delete PRODUCT_CATEGORY_LINK where product_num = #{product_num}

@@ -15,6 +15,12 @@
 		VALUES (seq_productfile_id.nextval, #{uuid}, #{uploadPath}, #{fileName}, #{product_num})
 	</insert>
 
+
+	<insert id="brandFileInsert" parameterType="BrandFileDTO">
+		INSERT into BrandFile (brandfile_id, uuid, uploadPath, fileName, brand_num) 
+		VALUES (seq_brandfile_id.nextval, #{uuid}, #{uploadPath}, #{fileName}, #{brand_num})
+	</insert>
+
 	<delete id="boardFiledelete">
 		delete from BoardFile where uuid = #{uuid}
 	</delete>	
@@ -31,7 +37,15 @@
 		select * from PRODUCTFILE where product_num = #{product_num} order by productfile_id
 	</select>
 	
+	<select id="findByBrandNum" parameterType="int" resultType="BrandFileDTO">
+		select * from BRANDFILE where BRAND_NUM = #{product_category_num} order by brandfile_id
+	</select>
+	
 	<delete id="productFileDeleteAll">
 		delete ProductFile where product_num = #{product_num}
+	</delete>
+	
+	<delete id="brandFileDeleteAll">
+		delete BRANDFILE where BRAND_NUM = #{product_category_num}
 	</delete>
 </mapper>

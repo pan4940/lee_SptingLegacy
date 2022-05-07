@@ -41,7 +41,7 @@ public class FileUploadController {
 		return "/file/uploadForm";
 	}
 	
-	
+	/*
 	@PostMapping("/fileUpload")
 	//getOriginalFilename()시 크롬과 IE의 결과값이 약간 다르다..
 	public void fileUpload(MultipartFile[] uploadFile, Model model)  {
@@ -69,31 +69,41 @@ public class FileUploadController {
 		}
 		
 	}
+	*/
+	
 	
 	@GetMapping("/uploadAjax")
 	public void uploadAjax() {
 		System.out.println("uploadAjax");
 	}
 	
-	@PostMapping("/uploadAjaxAction")
+	@PostMapping("/brandfileUploadAjax")
 	@ResponseBody
-	public List<BoardFileDTO> fileUploadAjax(MultipartFile[] uploadFile, Model model)  {
+	public List<BoardFileDTO> brandfileUploadAjax(MultipartFile[] uploadFile, Model model)  {
+		
+		String uploadFolder = "C:\\thec\\brands";
+		
+		return fileUploadAjax(uploadFolder, uploadFile, model);
+	}
+	
+	public List<BoardFileDTO> fileUploadAjax(String uploadFolder, MultipartFile[] uploadFile, Model model)  {
+		System.out.println("uploadFolder : " + uploadFolder);
 		for (MultipartFile multipartFile : uploadFile) {
 			System.out.println("uploadFile : " + multipartFile.getOriginalFilename());
 		}
 		
 		List<BoardFileDTO> list = new ArrayList<>();
 		
-		String uploadFolder = "C:\\thec";
 		
 		String uploadFolderPath = getFolder();
+		
 		//make folder
+		//uploadFolder의 하위경로로 uploadFolderPath 결과 생성
 		File uploadPath = new File(uploadFolder, uploadFolderPath);
-		
-		
 		if (uploadPath.exists() == false) {
 			uploadPath.mkdirs();
 		}
+		
 		
 		for (MultipartFile multipartFile : uploadFile) {
 			
@@ -120,7 +130,8 @@ public class FileUploadController {
 			File saveFile = new File(uploadPath, uploadFileName);
 			
 			fileDTO.setUuid(uuid.toString());
-			fileDTO.setUploadPath(uploadFolderPath);
+			fileDTO.setUploadPath(uploadPath.toString());
+			//fileDTO.setUploadPath(uploadFolder);
 			
 			System.out.println("fileDTO: " + fileDTO);
 			try {
@@ -141,14 +152,17 @@ public class FileUploadController {
 	
 	
 	
+	
+	
+	
 	//이미지 경로 요청하여 이미지 보기
 	@GetMapping("/display")
 	@ResponseBody
 	public ResponseEntity<byte[]> getFile(String fileName) {
 		System.out.println("fileName : " + fileName);
 		
-		File file = new File("c:\\thec\\" + fileName);
-		//File file = new File(fileName);
+		//File file = new File("c:\\thec\\" + fileName);
+		File file = new File(fileName);
 		
 		System.out.println("file : " + file);
 		

@@ -45,6 +45,16 @@ public class ProductController {
 	}
 	
 	
+	//하나의 ProductCategoryDTO 반환
+	@PostMapping("/getProductCategoryDTO")
+	@ResponseBody
+	public ProductCategoryDTO  getProductCategoryDTO(@RequestParam int product_category_num) {
+		System.out.println("product_category_num : " + product_category_num);
+		ProductCategoryDTO productCategoryDTO = productService.getProductCategoryDTO(product_category_num);
+		System.out.println("productCategoryDTO : " + productCategoryDTO);
+		return productCategoryDTO;
+	}
+	
 	//카테고리 목록 반환
 	@PostMapping("/getBrandsCategoryList")
 	@ResponseBody
@@ -55,9 +65,23 @@ public class ProductController {
 	}
 	
 	//브랜드 카테고리 생성
-	@PostMapping("/createbrandCategory")
-	public String createbrandCategory(String product_category_name) {
-		productService.createBrandCategory(product_category_name);
+	@PostMapping("/createBrandCategory")
+	public String createbrandCategory(@ModelAttribute ProductCategoryDTO productCategoryDTO) {
+		productCategoryDTO.setProduct_category_num_ref(10000);
+		System.out.println("productCategoryDTO : " + productCategoryDTO);
+		
+		productService.createBrandCategorySelectKey(productCategoryDTO);
+		return "/product/category";
+	}
+	
+	
+	//브랜드 카테고리 수정
+	@PostMapping("/modifyBrandCategory")
+	public String modifyBrandCategory(@ModelAttribute ProductCategoryDTO productCategoryDTO) {
+		productCategoryDTO.setProduct_category_num_ref(10000);
+		System.out.println("productCategoryDTO : " + productCategoryDTO);
+		
+		productService.modifyBrandCategory(productCategoryDTO);
 		return "/product/category";
 	}
 	
@@ -122,7 +146,7 @@ public class ProductController {
 		list = productService.getProductByCategory(map);
 		for (ProductDTO productDTO : list) {
 			System.out.println("productDTO : " + productDTO);
-			List<ProductFileDTO> productFileList = productService.getFileList(productDTO.getProduct_num());
+			List<ProductFileDTO> productFileList = productService.getProductFileList(productDTO.getProduct_num());
 			System.out.println("fileList : " + productFileList);
 			productDTO.setFileList(productFileList);
 		}
@@ -136,7 +160,7 @@ public class ProductController {
 	public ProductDTO getProductByProductNum(String product_num) {
 		ProductDTO productDTO = productService.getProductByProductNum(product_num);
 		
-		List<ProductFileDTO> list = productService.getFileList(productDTO.getProduct_num());
+		List<ProductFileDTO> list = productService.getProductFileList(productDTO.getProduct_num());
 		System.out.println(list);
 		productDTO.setFileList(list);
 		System.out.println(productDTO);
@@ -152,7 +176,7 @@ public class ProductController {
 		int product_num = Integer.parseInt(map.get("product_num")) ;
 		
 		ProductDTO productDTO = productService.getProduct(product_num);
-		productDTO.setFileList(productService.getFileList(product_num));
+		productDTO.setFileList(productService.getProductFileList(product_num));
 		
 		model.addAttribute("map", map);
 		model.addAttribute("productDTO", productDTO);
@@ -168,17 +192,10 @@ public class ProductController {
 	@ResponseBody
 	public List<ProductFileDTO> getFileList(int product_num) {
 		System.out.println("getFileList...........");
-		return productService.getFileList(product_num);
+		return productService.getProductFileList(product_num);
 	}
 	
 	
-	//상품수정
-	/*
-	@PostMapping("/modify")
-	public void modify(@ModelAttribute ProductDTO productDTO) {
-		System.out.println("modify productDTO : " + productDTO);
-	}
-	*/
 	
 	@PostMapping("/modify")
 	public void modify(@ModelAttribute ProductDTO productDTO) {

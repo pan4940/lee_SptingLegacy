@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 import file.bean.BoardFileDTO;
+import file.bean.BrandFileDTO;
 import file.bean.ProductFileDTO;
 
 
@@ -25,6 +26,12 @@ public interface FileMapper {
 	public List<ProductFileDTO> findByProductNum(int product_num);
 
 	public void productFileDeleteAll(int product_num);
+
+	public void brandFileInsert(BrandFileDTO t);
+
+	public List<BrandFileDTO> findByBrandNum(int product_category_num);
+
+	public void brandFileDeleteAll(int product_category_num);
 
 	
 }
