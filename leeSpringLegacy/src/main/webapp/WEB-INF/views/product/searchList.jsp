@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<input type="hidden" id="prd" value="${requestScope.product_name}">
+<input type="text" id="prd" value="${list}">
 
 <div>
 <div id="searchResultDiv"></div>
@@ -8,4 +8,4 @@
             </div>
 <div id="searchPagingDiv"></div>
 </div>
-<script type="text/javascript" src="../js/searchList.js"></script>
+<script type="text/javascript" src="/resources/js/searchList.js"></script>

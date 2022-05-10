@@ -15,8 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import board.bean.BoardDTO;
-import file.bean.BoardFileDTO;
-import file.bean.ProductFileDTO;
+import file.bean.FileDTO;
 import product.bean.ProductCategoryDTO;
 import product.bean.ProductDTO;
 import product.service.ProductService;
@@ -60,7 +59,7 @@ public class ProductController {
 	@ResponseBody
 	public List<ProductCategoryDTO> getBrandsCategoryList() {
 		List<ProductCategoryDTO> list = productService.getBrandsCategoryList();
-		//System.out.println(list);
+		System.out.println(list);
 		return list;
 	}
 	
@@ -88,6 +87,7 @@ public class ProductController {
 	
 	
 	
+	
 	/* 상품관련항목 */
 	// 상품 등록 페이지 이동
 	@GetMapping("/registerForm")
@@ -101,16 +101,29 @@ public class ProductController {
 	@PostMapping("/register")
 	public String productRegister(@ModelAttribute ProductDTO productDTO) {
 		
+		String brandname = productService.getBrandnameByBrandcategory(productDTO.getBrandCategory());
+		productDTO.setBrand_name(brandname);
 		System.out.println("register ProductDTO : " + productDTO);
 		productService.productRegister(productDTO);
 		
 		return "/product/register";
 	}
 	
-	// 상품 목록 페이지 이동
-	@GetMapping("/product/list")
-	public String productList() {
-		return "/product/list";
+	// 브랜드명으로 상품목록 페이지 이동
+	@GetMapping("/list-brand")
+	public String moveListBrand(@RequestParam int product_category_num, Model model) {
+		//List<ProductDTO> productDTOs = productService.getProductsByBrandCategory(product_category_num);
+		model.addAttribute("product_category_num", product_category_num);
+		model.addAttribute("display", "/WEB-INF/views/product/list-brand.jsp");
+		return "index";
+		
+		//return "/product/list-brand";
+	}
+	
+	@PostMapping("/getProductsByBrandCategory")
+	@ResponseBody
+	public List<ProductDTO> getProductsByBrandCategory(@RequestParam int product_category_num, Model model) {
+		return productService.getProductsByBrandCategory(product_category_num);
 	}
 	
 	
@@ -146,7 +159,7 @@ public class ProductController {
 		list = productService.getProductByCategory(map);
 		for (ProductDTO productDTO : list) {
 			System.out.println("productDTO : " + productDTO);
-			List<ProductFileDTO> productFileList = productService.getProductFileList(productDTO.getProduct_num());
+			List<FileDTO> productFileList = productService.getProductFileList(productDTO.getProduct_num());
 			System.out.println("fileList : " + productFileList);
 			productDTO.setFileList(productFileList);
 		}
@@ -155,12 +168,13 @@ public class ProductController {
 		return list;
 	}
 	
+	
 	@PostMapping("/getProductByProductNum")
 	@ResponseBody
 	public ProductDTO getProductByProductNum(String product_num) {
 		ProductDTO productDTO = productService.getProductByProductNum(product_num);
 		
-		List<ProductFileDTO> list = productService.getProductFileList(productDTO.getProduct_num());
+		List<FileDTO> list = productService.getProductFileList(productDTO.getProduct_num());
 		System.out.println(list);
 		productDTO.setFileList(list);
 		System.out.println(productDTO);
@@ -169,28 +183,28 @@ public class ProductController {
 	
 	//개별 상품 패이지 조회
 	//category_num, product_num, pageNum, amount넘겨받음. 
-	@PostMapping("/get")
+	@GetMapping("/detail")
 	public String get(@RequestParam Map<String, String> map, Model model) {
 		
 		System.out.println("get map : " + map);
 		int product_num = Integer.parseInt(map.get("product_num")) ;
 		
-		ProductDTO productDTO = productService.getProduct(product_num);
-		productDTO.setFileList(productService.getProductFileList(product_num));
-		
 		model.addAttribute("map", map);
-		model.addAttribute("productDTO", productDTO);
+		model.addAttribute("display", "/WEB-INF/views/product/detail.jsp");
+		return "index";
+	}
+	
+	@PostMapping("/getProductDTO")
+	@ResponseBody
+	public ProductDTO getProductDTO(@RequestParam int product_num) {
 		
-		//model.addAttribute("display", "/WEB-INF/board/get.jsp");
-		return "/product/detail";
-		
-		//return "/board/get";
+		return productService.getProductDTO(product_num);
 	}
 	
 	//상품의 첨부파일 불러옴
 	@PostMapping("/getFileList")
 	@ResponseBody
-	public List<ProductFileDTO> getFileList(int product_num) {
+	public List<FileDTO> getFileList(int product_num) {
 		System.out.println("getFileList...........");
 		return productService.getProductFileList(product_num);
 	}

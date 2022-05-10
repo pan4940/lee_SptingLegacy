@@ -3,7 +3,7 @@ package board.bean;
 import java.util.Date;
 import java.util.List;
 
-import file.bean.BoardFileDTO;
+import file.bean.FileDTO;
 import lombok.Data;
 
 
@@ -25,5 +25,5 @@ public class BoardDTO {
 	private int reply;
 	private String pwd;
 	
-	private List<BoardFileDTO> fileList;
+	private List<FileDTO> fileList;
 }

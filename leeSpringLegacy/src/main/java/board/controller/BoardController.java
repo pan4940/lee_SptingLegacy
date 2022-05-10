@@ -26,7 +26,7 @@ import board.bean.BoardDTO;
 import board.bean.Criteria;
 import board.bean.PageDTO;
 import board.service.BoardService;
-import file.bean.BoardFileDTO;
+import file.bean.FileDTO;
 
 
 
@@ -100,7 +100,7 @@ public class BoardController {
 		int board_category_num = Integer.parseInt(map.get("board_category_num")); 
 		
 		if (board_category_num == 7) {
-			List<BoardFileDTO> list = boardDTO.getFileList();
+			List<FileDTO> list = boardDTO.getFileList();
 			System.out.println("fileDTO list : " + list);
 			
 			boardService.write(boardDTO);
@@ -130,7 +130,7 @@ public class BoardController {
 		
 		if (board_category_num == 7) {
 			BoardDTO boardDTO = boardService.get(board_num);
-			List<BoardFileDTO> list = boardService.getFileList(board_num);
+			List<FileDTO> list = boardService.getFileList(board_num);
 			boardDTO.setFileList(list);
 			System.out.println("get boardDTO : " + boardDTO);
 			
@@ -233,7 +233,7 @@ public class BoardController {
 		System.out.println(map);
 		System.out.println("DeleteboardNum : " + map.get("board_num"));
 		int board_num = Integer.parseInt(map.get("board_num")) ;
-		List<BoardFileDTO> fileList = boardService.getFileList(board_num);
+		List<FileDTO> fileList = boardService.getFileList(board_num);
 		if (fileList != null) {
 			System.out.println("fileList : " + fileList);
 			deleteFiles(fileList);
@@ -253,14 +253,14 @@ public class BoardController {
 	//게시물의 첨부파일 불러옴
 	@PostMapping("/getFileList")
 	@ResponseBody
-	public List<BoardFileDTO> getFileList(int board_num) {
+	public List<FileDTO> getFileList(int board_num) {
 		System.out.println("getFileList...........");
 		return boardService.getFileList(board_num);
 	}
 	
 	//게시물 삭제시 첨부파일 삭제
 	
-	public void deleteFiles(List<BoardFileDTO> fileList) {
+	public void deleteFiles(List<FileDTO> fileList) {
 		if (fileList == null || fileList.size() == 0) {
 			return;
 		}

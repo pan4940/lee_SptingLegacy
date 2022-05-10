@@ -33,3 +33,24 @@
 #currentPaging{
 	color:lightgray;
 }
+
+.thumbnail-info {
+    padding: 15px 0;
+    position: relative;
+    min-height: 120px;
+    clear: both;
+}
+
+.thumbnail-info p {
+    font-size: 13px;
+    line-height: 16px;
+}
+
+.thumbnail-info p.brand {
+    margin: 0 0 10px 0;
+}
+
+.thumbnail-image {
+    font-size: 0em;
+    position: relative;
+}

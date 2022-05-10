@@ -2,8 +2,7 @@ package product.bean;
 
 import java.util.List;
 
-import file.bean.BrandFileDTO;
-import file.bean.ProductFileDTO;
+import file.bean.FileDTO;
 import lombok.Data;
 
 
@@ -16,6 +15,6 @@ public class ProductCategoryDTO {
 	private String product_category_descrip;
 	private int level;
 	
-	private List<BrandFileDTO> fileList;
+	private List<FileDTO> fileList;
 	
 }

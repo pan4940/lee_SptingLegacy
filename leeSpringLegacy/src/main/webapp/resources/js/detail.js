@@ -1,5 +1,5 @@
 $(function() {
-	$.ajax({
+	/*$.ajax({
 		url: '/board/getReview',
 		data: {
 			'product_number': $('#product_number').val()
@@ -35,27 +35,35 @@ $(function() {
 		error: function(err) {
 			console.log(err)
 		}
-	})
+	})*/
 
 
 	$.ajax({
-		url: '/getDetail',
+		url: '/product/getProductDTO',
 		type: 'post',
 		data: {
-			'product_number': $('#product_number').val()
+			'product_num': $('#product_number').val()
 		},
 		dataType: 'json',
 		success: function(data) {
 			console.log(data);
-			$.each(data.imgs, function(index, item) {
-				$('<div/>', { class: "col-12 col-sm-6 target" ,'data-scale':"2"}).append($('<img/>', { 'src': '/storage/' + item.stored_thumbnail })).appendTo($('#detailImg'));
+			let str = "";
+			let fileCallPath = "";
+			$.each(data.fileList, function(index, item) {
+				fileCallPath = encodeURIComponent(item.uploadPath + "/" +item.uuid + "_" + item.fileName);
+				str += "<div class='col-12 col-sm-6 target'>";
+				str += "<img src='/file/display?fileName=/" +  fileCallPath  +  "' class='thumb-img'>"
 			});
-			$('#productNameDiv').text(data.productDTO.product_name);
-			$('<span/>').text(data.productDTO.product_price.toLocaleString() + '원').prependTo($('#orderDiv'));
-			$('<pre/>', { text: data.productDTO.product_descrip }).appendTo($('#details'));
+			console.log(str);
+			$('#detailImg').append(str);
+			
+			
+			$('#productNameDiv').text(data.product_name);
+			$('<span/>').text(data.product_price.toLocaleString() + '원').prependTo($('#orderDiv'));
+			$('<pre/>', { text: data.product_descrip }).appendTo($('#details'));
 
 
-			$.each(data.sizes, function(index, item) {
+			/*$.each(data.sizes, function(index, item) {
 				$('<option/>', { value: item.product_sort_num, 'text': '  ' + item.product_size }).appendTo($('#sizesSelect'))
 				$('<th/>', { text: item.product_size }).appendTo($('#product_size'));
 				if (item.product_length != 0)
@@ -81,7 +89,7 @@ $(function() {
 				if (item.product_detail != null)
 					$('<td/>', { text: item.product_detail, 'colspan': 'auto' }).appendTo($('#product_detail'))
 
-			});
+			});*/
 			$.each($('table tr'), function(index, item) {
 				if (item.childElementCount == 1 || item.childElementCount == 0) {
 					item.style.display = 'none';
@@ -94,7 +102,7 @@ $(function() {
 			})
 			$('#addCart').click(function() {
 				if ($('#sizesSelect').val() == '') {
-					Swal.fire({
+					alert({
 						icon: 'warning',
 						title: '사이즈를 선택해 주세요',
 					})
@@ -106,14 +114,14 @@ $(function() {
 							'product_sort_number': $('#sizesSelect').val()
 						},
 						success: function() {
-							Swal.fire({
+							alert({
 								icon: 'success',
 								title: '상품을 담았습니다',
 								closeOnClickOutside: true
-							})
+							});
 						},
 						error: function(err) {
-							Swal.fire({
+							alert({
 								icon: 'error',
 								title: '로그인후 이용해주세요!',
 							})
@@ -123,7 +131,7 @@ $(function() {
 			});
 			$('#quickorder').click(function() {
 				if ($('#sizesSelect').val() == '') {
-					Swal.fire({
+					alert({
 						icon: 'warning',
 						title: '사이즈를 선택해 주세요',
 					})

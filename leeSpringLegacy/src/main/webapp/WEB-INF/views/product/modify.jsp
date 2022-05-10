@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <html>
 <head>
-	<title>kubg Admin</title>
+	<title>Admin</title>
 	
 
 <link rel="stylesheet" href="/resources/bootstrap/bootstrap.min.css">

@@ -5,20 +5,20 @@
 
 <mapper namespace="file.mapper.FileMapper">
 	 
-    <insert id="boardFileInsert" parameterType="BoardFileDTO">
+    <insert id="boardFileInsert" parameterType="FileDTO">
 		INSERT into BoardFile (boardfile_id, uuid, uploadPath, fileName, board_Num) 
-		VALUES (seq_boardfile_id.nextval, #{uuid}, #{uploadPath}, #{fileName}, #{board_Num})
+		VALUES (seq_boardfile_id.nextval, #{uuid}, #{uploadPath}, #{fileName}, #{linked_num})
 	</insert>
 	
-	<insert id="productFileInsert" parameterType="ProductFileDTO">
-		INSERT into ProductFile (ProductFile_id, uuid, uploadPath, fileName, product_num) 
-		VALUES (seq_productfile_id.nextval, #{uuid}, #{uploadPath}, #{fileName}, #{product_num})
+	<insert id="productFileInsert" parameterType="FileDTO">
+		INSERT into ProductFile (id, uuid, uploadPath, fileName, linked_num) 
+		VALUES (seq_productfile_id.nextval, #{uuid}, #{uploadPath}, #{fileName}, #{linked_num})
 	</insert>
 
 
-	<insert id="brandFileInsert" parameterType="BrandFileDTO">
-		INSERT into BrandFile (brandfile_id, uuid, uploadPath, fileName, brand_num) 
-		VALUES (seq_brandfile_id.nextval, #{uuid}, #{uploadPath}, #{fileName}, #{brand_num})
+	<insert id="brandFileInsert" parameterType="FileDTO">
+		INSERT into BrandFile (id, uuid, uploadPath, fileName, linked_num) 
+		VALUES (seq_brandfile_id.nextval, #{uuid}, #{uploadPath}, #{fileName}, #{linked_num})
 	</insert>
 
 	<delete id="boardFiledelete">
@@ -26,26 +26,26 @@
 	</delete>	
 
 	<delete id="boardFiledeleteAll">
-		delete BoardFile where BOARD_num = #{board_num}
+		delete BoardFile where LINKED_NUM = #{linked_num}
 	</delete>
 
-	<select id="findByBoardNum" parameterType="int" resultType="BoardFileDTO">
-		select * from BoardFile where board_num = #{board_num} order by boardfile_id
+	<select id="findByBoardNum" parameterType="int" resultType="FileDTO">
+		select * from BoardFile where LINKED_NUM = #{linked_num} order by boardfile_id
 	</select>
 
-	<select id="findByProductNum" parameterType="int" resultType="ProductFileDTO">
-		select * from PRODUCTFILE where product_num = #{product_num} order by productfile_id
+	<select id="findByProductNum" parameterType="int" resultType="FileDTO">
+		select * from PRODUCTFILE where LINKED_NUM = #{linked_num} order by id
 	</select>
 	
-	<select id="findByBrandNum" parameterType="int" resultType="BrandFileDTO">
-		select * from BRANDFILE where BRAND_NUM = #{product_category_num} order by brandfile_id
+	<select id="findByBrandNum" parameterType="int" resultType="FileDTO">
+		select * from BRANDFILE where LINKED_NUM = #{product_category_num} order by id
 	</select>
 	
 	<delete id="productFileDeleteAll">
-		delete ProductFile where product_num = #{product_num}
+		delete ProductFile where LINKED_NUM = #{linked_num}
 	</delete>
 	
 	<delete id="brandFileDeleteAll">
-		delete BRANDFILE where BRAND_NUM = #{product_category_num}
+		delete BRANDFILE where LINKED_NUM = #{product_category_num}
 	</delete>
 </mapper>

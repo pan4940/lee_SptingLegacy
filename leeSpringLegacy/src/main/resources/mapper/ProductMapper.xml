@@ -20,7 +20,7 @@
 	<select id="getBrandsCategoryList" resultType="ProductCategoryDTO">
 		<![CDATA[
 		select 
-			level, PRODUCT_CATEGORY_NUM, PRODUCT_CATEGORY_NAME, PRODUCT_CATEGORY_NUM_REF 
+			level, PRODUCT_CATEGORY_NUM, PRODUCT_CATEGORY_NAME, PRODUCT_CATEGORY_NUM_REF, PRODUCT_CATEGORY_DESCRIP 
 		from 
 			product_category
 		where 
@@ -141,7 +141,7 @@
 		
 	
 	<select id="getProduct" parameterType="int" resultType="ProductDTO">
-		select * from product where board_num = #{product_num}
+		select * from product where product_num = #{product_num}
 	</select>
 	
 	<select id="searchProductName" parameterType="String" resultType="ProductDTO">
@@ -175,6 +175,14 @@
 		select * from product where product_num = #{product_num}
 	</select>
 	
+	
+	<select id="getProductsByBrandCategory" parameterType="int" resultType="ProductDTO">
+		select * from product where BRANDCATEGORY = #{brandCategory}
+	</select>
+	
+	<select id="getBrandnameByBrandcategory" parameterType="int" resultType="String">
+		select PRODUCT_CATEGORY_NAME from PRODUCT_CATEGORY where PRODUCT_CATEGORY_NUM = #{brandCategory}
+	</select>
 	
 	<update id="modifyProduct" parameterType="ProductDTO">
 		update product set 

@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <div id="detailDiv" style="display: flex; flex-wrap: wrap; justify-content: center;">
-	<input type="hidden" id="product_number" value="${param.seq}">
+	<input type="text" id="product_number" value="${map.product_num}">
 	<div id="detailImg" class="col-12 col-sm-7"
 		style="display: flex; flex-wrap: wrap"></div>
 	<div id="detailProductDiv" class="col-12 col-sm-5">
@@ -151,4 +151,4 @@ Exchange & Returns
 		</div>
 		
 	</div>
-	<script type="text/javascript" src="../js/detail.js"></script>
+	<script type="text/javascript" src="/resources/js/detail.js"></script>

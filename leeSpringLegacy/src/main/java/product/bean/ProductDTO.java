@@ -3,8 +3,7 @@ package product.bean;
 import java.util.Date;
 import java.util.List;
 
-import file.bean.BoardFileDTO;
-import file.bean.ProductFileDTO;
+import file.bean.FileDTO;
 import lombok.Data;
 
 
@@ -22,7 +21,7 @@ public class ProductDTO {
 	private Date legDate;
 	private Date updateDate;
 	
-	private List<ProductFileDTO> fileList;
+	private List<FileDTO> fileList;
 	
 	
 	//product, PRODUCT_CATEGORY_LINK, PRODUCTFILE

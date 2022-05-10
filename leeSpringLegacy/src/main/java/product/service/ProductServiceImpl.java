@@ -7,8 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import file.bean.BrandFileDTO;
-import file.bean.ProductFileDTO;
+import file.bean.FileDTO;
 import file.mapper.FileMapper;
 import product.bean.ProductCategoryDTO;
 import product.bean.ProductDTO;
@@ -30,7 +29,7 @@ public class ProductServiceImpl implements ProductService {
 		productMapper.createBrandCategorySelectKey(productCategoryDTO);
 		
 		productCategoryDTO.getFileList().forEach(t -> {
-			t.setBrand_num(productCategoryDTO.getProduct_category_num());
+			t.setLinked_num(productCategoryDTO.getProduct_category_num());
 			System.out.println("productCategoryDTO : " + t);
 			fileMapper.brandFileInsert(t);
 		});
@@ -41,7 +40,11 @@ public class ProductServiceImpl implements ProductService {
 	
 	@Override
 	public List<ProductCategoryDTO> getBrandsCategoryList() {
-		return productMapper.getBrandsCategoryList();
+		List<ProductCategoryDTO> list = productMapper.getBrandsCategoryList();
+		for (ProductCategoryDTO productCategoryDTO : list) {
+			productCategoryDTO.setFileList(fileMapper.findByBrandNum(productCategoryDTO.getProduct_category_num()));
+		}
+		return list; 
 	}
 	
 	@Override
@@ -69,7 +72,7 @@ public class ProductServiceImpl implements ProductService {
 		
 		
 		productDTO.getFileList().forEach(t -> {
-			t.setProduct_num(productDTO.getProduct_num());
+			t.setLinked_num(productDTO.getProduct_num());
 			System.out.println("productDTO : " + t);
 			fileMapper.productFileInsert(t);
 		});
@@ -79,9 +82,10 @@ public class ProductServiceImpl implements ProductService {
 	}
 	
 	@Override
-	public ProductDTO getProduct(int product_num) {
-		
-		return productMapper.getProduct(product_num);
+	public ProductDTO getProductDTO(int product_num) {
+		ProductDTO productDTO = productMapper.getProductDTO(product_num);
+		productDTO.setFileList(fileMapper.findByProductNum(product_num));
+		return productDTO;
 	}
 	
 	
@@ -104,7 +108,7 @@ public class ProductServiceImpl implements ProductService {
 	}
 	
 	@Override
-	public List<ProductFileDTO> getProductFileList(int product_num) {
+	public List<FileDTO> getProductFileList(int product_num) {
 		return fileMapper.findByProductNum(product_num);
 	}
 	
@@ -129,7 +133,7 @@ public class ProductServiceImpl implements ProductService {
 		fileMapper.productFileDeleteAll(productDTO.getProduct_num());
 		
 		productDTO.getFileList().forEach(t -> {
-			t.setProduct_num(productDTO.getProduct_num());
+			t.setLinked_num(productDTO.getProduct_num());
 			System.out.println("productDTO : " + t);
 			fileMapper.productFileInsert(t);
 		});
@@ -152,7 +156,7 @@ public class ProductServiceImpl implements ProductService {
 		
 		ProductCategoryDTO productCategoryDTO = productMapper.getProductCategoryDTO(product_category_num);
 		
-		List<BrandFileDTO> brandFileDTOList = getBrandFileList(product_category_num);
+		List<FileDTO> brandFileDTOList = getBrandFileList(product_category_num);
 		System.out.println("brandFileDTOList : " + brandFileDTOList);
 		productCategoryDTO.setFileList(brandFileDTOList);
 		
@@ -160,8 +164,8 @@ public class ProductServiceImpl implements ProductService {
 	}
 	
 	@Override
-	public List<BrandFileDTO> getBrandFileList(int product_category_num) {
-		List<BrandFileDTO> list = fileMapper.findByBrandNum(product_category_num);
+	public List<FileDTO> getBrandFileList(int product_category_num) {
+		List<FileDTO> list = fileMapper.findByBrandNum(product_category_num);
 		System.out.println("list : " + fileMapper.findByBrandNum(product_category_num));
 		return list;
 	}
@@ -177,12 +181,27 @@ public class ProductServiceImpl implements ProductService {
 		fileMapper.brandFileDeleteAll(productCategoryDTO.getProduct_category_num());
 		
 		productCategoryDTO.getFileList().forEach(t -> {
-			t.setBrand_num(productCategoryDTO.getProduct_category_num());
+			t.setLinked_num(productCategoryDTO.getProduct_category_num());
 			System.out.println("BrandFileDTO : " + t);
 			fileMapper.brandFileInsert(t);
 		});
 		
 		System.out.println(productCategoryDTO);
 		productMapper.modifyBrandCategory(productCategoryDTO);
+	}
+	
+	@Override
+	public List<ProductDTO> getProductsByBrandCategory(int brandCategory) {
+		List<ProductDTO> list = productMapper.getProductsByBrandCategory(brandCategory);
+		for (ProductDTO productDTO : list) {
+			productDTO.setFileList(fileMapper.findByProductNum(productDTO.getProduct_num()));
+		}
+		return list;
+	}
+	
+	
+	@Override
+	public String getBrandnameByBrandcategory(int brandCategory) {
+		return productMapper.getBrandnameByBrandcategory(brandCategory);
 	}
 }

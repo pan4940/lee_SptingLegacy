@@ -6,7 +6,7 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import file.bean.BoardFileDTO;
+import file.bean.FileDTO;
 import product.bean.ProductCategoryDTO;
 import product.bean.ProductDTO;
 
@@ -36,7 +36,7 @@ public interface ProductMapper {
 
 	public ProductDTO getProductByProductNum(String product_num);
 
-	public List<BoardFileDTO> getFileList(int product_num);
+	public List<FileDTO> getFileList(int product_num);
 
 	public void modifyProduct(ProductDTO productDTO);
 
@@ -48,5 +48,11 @@ public interface ProductMapper {
 
 
 	public void modifyBrandCategory(ProductCategoryDTO productCategoryDTO);
+
+	public List<ProductDTO> getProductsByBrandCategory(int brandCategory);
+
+	public String getBrandnameByBrandcategory(int brandCategory);
+
+	public ProductDTO getProductDTO(int product_num);
 
 }

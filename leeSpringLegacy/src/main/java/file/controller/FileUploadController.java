@@ -28,7 +28,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import file.bean.BoardFileDTO;
+import file.bean.FileDTO;
 
 @Controller
 @RequestMapping("/file")
@@ -79,20 +79,31 @@ public class FileUploadController {
 	
 	@PostMapping("/brandfileUploadAjax")
 	@ResponseBody
-	public List<BoardFileDTO> brandfileUploadAjax(MultipartFile[] uploadFile, Model model)  {
+	public List<FileDTO> brandfileUploadAjax(MultipartFile[] uploadFile, Model model)  {
 		
 		String uploadFolder = "C:\\thec\\brands";
 		
 		return fileUploadAjax(uploadFolder, uploadFile, model);
 	}
 	
-	public List<BoardFileDTO> fileUploadAjax(String uploadFolder, MultipartFile[] uploadFile, Model model)  {
+	
+	@PostMapping("/productfileUploadAjax")
+	@ResponseBody
+	public List<FileDTO> productfileUploadAjax(MultipartFile[] uploadFile, Model model)  {
+		
+		String uploadFolder = "C:\\thec\\product";
+		
+		return fileUploadAjax(uploadFolder, uploadFile, model);
+	}
+	
+	
+	public List<FileDTO> fileUploadAjax(String uploadFolder, MultipartFile[] uploadFile, Model model)  {
 		System.out.println("uploadFolder : " + uploadFolder);
 		for (MultipartFile multipartFile : uploadFile) {
 			System.out.println("uploadFile : " + multipartFile.getOriginalFilename());
 		}
 		
-		List<BoardFileDTO> list = new ArrayList<>();
+		List<FileDTO> list = new ArrayList<>();
 		
 		
 		String uploadFolderPath = getFolder();
@@ -107,7 +118,7 @@ public class FileUploadController {
 		
 		for (MultipartFile multipartFile : uploadFile) {
 			
-			BoardFileDTO fileDTO = new BoardFileDTO();
+			FileDTO fileDTO = new FileDTO();
 			
 			System.out.println("-----------------------");
 			System.out.println("upload file name : " + multipartFile.getOriginalFilename());

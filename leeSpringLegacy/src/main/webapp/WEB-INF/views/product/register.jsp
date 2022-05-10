@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="utf-8"%>
 <html>
 <head>
-	<title>Admin</title>
+	<title>Product Register</title>
 
 <link rel="stylesheet" href="/resources/bootstrap/bootstrap.min.css">
 <link rel="stylesheet" href="/resources/bootstrap/bootstrap-theme.min.css">
@@ -442,7 +442,6 @@ $("button[type='submit']").on("click", function(e){
       str += "<input type='hidden' name='fileList["+i+"].fileName' value='"+jobj.data("filename")+"'>";
        str += "<input type='hidden' name='fileList["+i+"].uuid' value='"+jobj.data("uuid")+"'>";
        str += "<input type='hidden' name='fileList["+i+"].uploadPath' value='"+jobj.data("path")+"'>";
-       /* str += "<input type='hidden' name='fileList["+i+"].product_num' value=''>"; */
        console.log(str);
    });
    
@@ -491,7 +490,7 @@ $("input[type='file']").change(function(e){
    
    console.log(formData);
    $.ajax({
-      url: '/file/uploadAjaxAction',
+      url: '/file/productfileUploadAjax',
       processData: false, // data 파라미터로 전달된 데이터를 Query String으로 변환하지 않음. 파일전송시에는 이렇게 해야함
       contentType: false, // //contentType의 default는 application/x-www-form-urlencoded; charset=UTF-8, 파일전송시에는 false로 해줘야 함
       data: formData,

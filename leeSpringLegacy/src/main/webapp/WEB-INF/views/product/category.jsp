@@ -141,7 +141,7 @@ textarea#gdsDes { width:400px; height:180px; }
 			<h2>카테고리 관리</h2>
 			
 			<form id="brandCategoryForm" action="/product/createBrandCategory" method="post">
-				<input type="hidden" id="product_category_num" name="product_category_num" value="">
+				<input type="hidden" id="product_category_num" name="product_category_num" value="0">
  				<div class="inputArea">
 					<label for="brandName">브랜드명</label>
 					<input type="text" id="product_category_name" name="product_category_name" cols="30"/>
