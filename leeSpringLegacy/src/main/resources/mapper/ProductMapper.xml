@@ -140,7 +140,7 @@
 	</insert>
 		
 	
-	<select id="getProduct" parameterType="int" resultType="ProductDTO">
+	<select id="getProductDTO" parameterType="int" resultType="ProductDTO">
 		select * from product where product_num = #{product_num}
 	</select>
 	
@@ -183,6 +183,42 @@
 	<select id="getBrandnameByBrandcategory" parameterType="int" resultType="String">
 		select PRODUCT_CATEGORY_NAME from PRODUCT_CATEGORY where PRODUCT_CATEGORY_NUM = #{brandCategory}
 	</select>
+	
+	<insert id="registerProductSize">
+		insert into Product_Size (
+			PRODUCT_SIZE_ID, 
+			PRODUCT_SIZE, 
+			PRODUCT_TOP_LENGTH, 
+			PRODUCT_SHOULDER, 
+			PRODUCT_CHEST, 
+			PRODUCT_SLEEVE, 
+			PRODUCT_WAIST_WIDTH, 
+			PRODUCT_THIGH_WIDTH, 
+			PRODUCT_BOTTOM_LENGTH, 
+			PRODUCT_ANKLE_CIRCUMFERENCE, 
+			PRODUCT_FRONT_RISE, 
+			PRODUCT_CAP_LENGTH, 
+			PRODUCT_CAP_CIRCUMFERENCE, 
+			PRODUCT_CAP_DEPTH, 
+			PRODUCT_NUM
+		) values (
+			seq_product_size_id.nextval,
+			product_size, 
+			product_top_length, 
+			product_shoulder, 
+			product_chest, 
+			product_sleeve, 
+			product_waist_width, 
+			product_thigh_width, 
+			product_bottom_length, 
+			product_ankle_circumference, 
+			product_front_rise, 
+			product_cap_length, 
+			product_cap_circumference, 
+			product_cap_depth, 
+			product_num
+		)
+	</insert>
 	
 	<update id="modifyProduct" parameterType="ProductDTO">
 		update product set 

@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <div id="detailDiv" style="display: flex; flex-wrap: wrap; justify-content: center;">
-	<input type="text" id="product_number" value="${map.product_num}">
+	<input type="hidden" id="product_number" value="${map.product_num}">
 	<div id="detailImg" class="col-12 col-sm-7"
 		style="display: flex; flex-wrap: wrap"></div>
 	<div id="detailProductDiv" class="col-12 col-sm-5">
@@ -42,7 +42,7 @@
 						<tr id="product_size">
 							<th>SIZE(CM)</th>
 						</tr>
-						<tr id="product_length">
+						<tr id="product_top_length">
 							<td>기장[LENGTH]</td>
 						</tr>
 						<tr id="product_shoulder">
@@ -60,6 +60,9 @@
 						<tr id="product_thigh_width">
 							<td>허벅지[THIGH WIDTH]</td>
 						</tr>
+						<tr id="product_bottom_length">
+							<td>기장[LENGTH]</td>
+						</tr>
 						<tr id="product_ankle_circumference">
 							<td>밑단[ANKLE CIRCUMFERENCE]</td>
 						</tr>
@@ -72,6 +75,10 @@
 						<tr id="product_cap_circumference">
 							<td>챙둘레[CAP CIRCUMFERENCE]</td>
 						</tr>
+						<tr id="product_cap_depth">
+							<td>깊이[CAP DEPTH]</td>
+						</tr>
+						
 						<tr id="product_detail" style="border-style: none;">
 						</tr>
 					</table>

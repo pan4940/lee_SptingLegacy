@@ -11,6 +11,7 @@ import file.bean.FileDTO;
 import file.mapper.FileMapper;
 import product.bean.ProductCategoryDTO;
 import product.bean.ProductDTO;
+import product.bean.ProductSizeDTO;
 import product.mapper.ProductMapper;
 
 @Service
@@ -203,5 +204,10 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public String getBrandnameByBrandcategory(int brandCategory) {
 		return productMapper.getBrandnameByBrandcategory(brandCategory);
+	}
+	
+	@Override
+	public void registerProductSize(ProductSizeDTO productSizeDTO) {
+		productMapper.registerProductSize(productSizeDTO);
 	}
 }

@@ -6,6 +6,7 @@ import java.util.Map;
 import file.bean.FileDTO;
 import product.bean.ProductCategoryDTO;
 import product.bean.ProductDTO;
+import product.bean.ProductSizeDTO;
 
 public interface ProductService {
 
@@ -41,7 +42,6 @@ public interface ProductService {
 
 	public String getBrandnameByBrandcategory(int brandCategory);
 
-
-
-
+	public void registerProductSize(ProductSizeDTO productSizeDTO);
+	
 }

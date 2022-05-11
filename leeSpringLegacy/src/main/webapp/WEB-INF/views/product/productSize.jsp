@@ -6,9 +6,8 @@
 
 <link rel="stylesheet" href="/resources/bootstrap/bootstrap.min.css">
 <link rel="stylesheet" href="/resources/bootstrap/bootstrap-theme.min.css">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 <script src="/resources/bootstrap/bootstrap.min.js"></script>
-
-<script src="/resources/ckeditor/ckeditor.js"></script>
 	
 <style>
 	body { font-family:'맑은 고딕', verdana; padding:0; margin:0; }
@@ -122,7 +121,7 @@ textarea#gdsDes { width:400px; height:180px; }
 		</aside>
 		
 		<div id="container_box">
-			<h2>상품 검색</h2>
+			<h2>사이즈 관리</h2>
 			<form id="searchForm" method="post" autocomplete="off">
 				<div class="searchInputArea">	
 				<label>1차 분류</label>
@@ -160,160 +159,92 @@ textarea#gdsDes { width:400px; height:180px; }
 			</form>
 			
 			
-			<h2>상품 수정</h2>
-			
-			<form id="productModifyForm" method="post" action="/product/modify" autocomplete="off">
-			
-			<input type="text" id="product_num" name="product_num" value="" />
-			
-			<div class="inputArea">
-				<div id="category1">	
-					<label>1차 분류</label>
-					<select class="category1" name="cateCode1">
-						<option value="">전체</option>
-					</select>
-				</div>
-				
-				<div id="category2">	
-					<label>2차 분류</label>
-					<select class="category2" name="cateCode2">
-						<option value="">전체</option>
-					</select>
-				</div>
-				<div id="category3">	
-					<label>3차 분류</label>
-					<select class="category3" name="cateCode3">
-						<option value="">전체</option>
-					</select>
-				</div>
-				
-				<div id="category4">	
-					<label>브랜드명</label>
-					<select class="category4" name="brandCategory">
-						<option value="">전체</option>
-					</select>
-				</div>
-			</div>
-			
-			<div class="inputArea">
-				<label for="gdsName">상품명</label>
-				<input type="text" id="product_name" name="product_name" style="width:300px"/>
-			</div>
-			
-			<div class="inputArea">
-				<label for="gdsPrice">상품가격</label>
-				<input type="text" id="product_price" name="product_price" style="width:300px"/>
-			</div>
-			
-			<!-- <div class="inputArea">
-				<label for="gdsStock">상품수량</label>
-				<input type="text" id="gdsStock" name="gdsStock" style="width:300px"/>
-			</div> -->
-			
-			<div class="inputArea">
-				<label for="product_descrip">상품소개</label>
-				<textarea rows="5" cols="50" id="product_descrip" name="product_descrip"></textarea>
-				
-				
-			</div>
-			
-						
-			<div class="uploadDiv">
-				<input type="file" name="uploadFile" multiple>
-			</div>   
-			             
-			<div class="uploadResult">
-				<ul>
-				</ul>
-			</div>
-			             
-			<div class="bigPictureWrapper">
-				<div class="bigPicture">
-				</div>
-			</div>
-			
-			
 			<!-- 사이즈 등록 수정 -->
 			<div>
 			<h2>사이즈 관리</h2>
-				<form>
+				<form id="registerProductSize" action="/product/registerProductSize" method="post">
 					<div class="tab-pane container" id="size">
+						<input type="hidden" id="product_num" name="product_num" value="">
+						<div class="psize">
+							<label>상품명</label>
+							<input type="text" id="product_name" name="product_name" value="">
+						</div>
+						
 						<div class="psize">
 							<label>SIZE</label>
 							<input type="text" id="product_size" name="product_size" value="">
 						</div>
 						
-						
-						<div class="psize">
-							<label>기장</label>
-							<input type="text" id="product_top_length" name="product_top_length" value="">
-						</div>
-						<div class="psize">
-							<label>어깨</label>
-							<input type="text" id="product_shoulder" name="product_shoulder" value="">
-						</div>
-						<div class="psize">
-							<label>가슴</label>
-							<input type="text" id="product_chest" name="product_chest" value="">
-						</div>
-						<div class="psize">
-							<label>소매</label>
-							<input type="text" id="product_sleeve" name="product_sleeve" value="">
-						</div>
-						
-						
-						<div class="psize">
-							<label>허리</label>
-							<input type="text" id="product_waist_width" name="product_waist_width" value="">
-						</div>
-						<div class="psize">
-							<label>허벅지</label>
-							<input type="text" id="product_thigh_width" name="product_thigh_width" value="">
-						</div>
-						<div class="psize">
-							<label>기장</label>
-							<input type="text" id="product_bottom_length" name="product_bottom_length" value="">
-						</div>
-						<div class="psize">
-							<label>밑단</label>
-							<input type="text" id="product_ankle_circumference" name="product_ankle_circumference" value="">
-						</div>
-						<div class="psize">
-							<label>밑위</label>
-							<input type="text" id="product_front_rise" name="product_front_rise" value="">
+						<div class="top">
+							<div class="psize">
+								<label>기장</label>
+								<input type="text" id="product_top_length" name="product_top_length" value="">
+							</div>
+							<div class="psize">
+								<label>어깨</label>
+								<input type="text" id="product_shoulder" name="product_shoulder" value="">
+							</div>
+							<div class="psize">
+								<label>가슴</label>
+								<input type="text" id="product_chest" name="product_chest" value="">
+							</div>
+							<div class="psize">
+								<label>소매</label>
+								<input type="text" id="product_sleeve" name="product_sleeve" value="">
+							</div>
 						</div>
 						
+						<div class="bottom">
+							<div class="psize">
+								<label>허리</label>
+								<input type="text" id="product_waist_width" name="product_waist_width" value="">
+							</div>
+							<div class="psize">
+								<label>허벅지</label>
+								<input type="text" id="product_thigh_width" name="product_thigh_width" value="">
+							</div>
+							<div class="psize">
+								<label>기장</label>
+								<input type="text" id="product_bottom_length" name="product_bottom_length" value="">
+							</div>
+							<div class="psize">
+								<label>밑단</label>
+								<input type="text" id="product_ankle_circumference" name="product_ankle_circumference" value="">
+							</div>
+							<div class="psize">
+								<label>밑위</label>
+								<input type="text" id="product_front_rise" name="product_front_rise" value="">
+							</div>
+						</div>
 						
-						<div class="psize">
-							<label>챙길이</label>
-							<input type="text" id="product_cap_length" name="product_cap_length" value="">
-						</div>
-						<div class="psize">
-							<label>챙둘레</label>
-							<input type="text" id="product_cap_circumference" name="product_cap_circumference" value="">
-						</div>
-						<div class="psize">
-							<label>깊이</label>
-							<input type="text" id="product_cap_depth" name="product_cap_depth" value="">
+						<div class="cap">
+							<div class="psize">
+								<label>챙길이</label>
+								<input type="text" id="product_cap_length" name="product_cap_length" value="">
+							</div>
+							<div class="psize">
+								<label>챙둘레</label>
+								<input type="text" id="product_cap_circumference" name="product_cap_circumference" value="">
+							</div>
+							<div class="psize">
+								<label>깊이</label>
+								<input type="text" id="product_cap_depth" name="product_cap_depth" value="">
+							</div>
 						</div>
 						
 						<div id="product_detail" style="border-style: none;">
 						</div>
-				</div>				
-				
-				
-				
+						
+					</div>				
 				</form>
-			
-			
-			
 			</div>
 			
 			
 			<div class="inputArea">
-				<button type="button" id="delete_Btn" class="btn btn-primary">삭제</button>
+				<button type="button" id="register_Btn" class="btn btn-primary">등록</button>
 				<button type="button" id="update_Btn" class="btn btn-primary">수정</button>
 				<button type="button" id="back_Btn" class="btn btn-warning">취소</button>			
+
 			</div>
 			
 			</form>
@@ -329,7 +260,6 @@ textarea#gdsDes { width:400px; height:180px; }
 	</footer>
 
 </div>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 <script>
 // 컨트롤러에서 데이터 받기
 // 필요한 배열과 오브젝트 변수 생성
@@ -361,6 +291,10 @@ $(document).ready(function(){
 	});
 	//jsonData = $("#list").val();
 	//console.log(jsonData[0]);
+	
+	$(".top").hide();
+	$(".bottom").hide();
+	$(".cap").hide();
 }());
 
 $("#back_Btn").click(function(){
@@ -400,17 +334,30 @@ function createBrandCategory(jsonData){
 							+ brandCateArr[i].product_category_name + "</option>");	
 	}
 	
-	
-	//수정 폼 내의 브랜드명 셀렉트 박스에 데이터 삽입
-	var brandSelect2 = $("select.category4")
-
-	for(var i = 0; i < brandCateArr.length; i++) {
-
-		// cate1Arr에 저장된 값을 cate1Select에 추가
-		brandSelect2.append("<option value='" + brandCateArr[i].product_category_num + "'>"
-							+ brandCateArr[i].product_category_name + "</option>");	
-	}
 };
+
+
+$("#register_Btn").on("click", function(){
+	$.ajax({
+		type: 'post',
+		data: $("#registerProductSize").serialize(),
+		url: '/product/registerProductSize',
+		success: function(){
+			
+		},
+		error: function(e) {
+			console.log(e);
+		}
+	});	
+});
+
+
+
+
+
+
+
+
 
 
 function createCate(ProductsCategoryList){
@@ -439,14 +386,6 @@ function createCate(ProductsCategoryList){
 							+ cate1Arr[i].product_category_name + "</option>");	
 	}
 	
-	var cate1Select2 = $("select.category1")
-
-	for(var i = 0; i < cate1Arr.length; i++) {
-
-		// cate1Arr에 저장된 값을 cate1Select에 추가
-		cate1Select2.append("<option value='" + cate1Arr[i].product_category_num + "'>"
-							+ cate1Arr[i].product_category_name + "</option>");	
-	}
 };
 
 
@@ -526,6 +465,7 @@ function change1(lee){
 		}		
 	});
 }
+
 
 
 function change2(lee){
@@ -651,15 +591,16 @@ $(document).on("click", "a.move", function(e){
 		url: '/product/getProductByProductNum',
 		dataType: 'json',
 		success: function(result){
-			
 			console.log(result);
-			$("#product_num").val(result.product_num);
 			$("#product_name").val(result.product_name);
-			$("#product_price").val(result.product_price);
-			$(".category4").val(result.brandCategory);
-			$("#product_descrip").val(result.product_descrip);
-			showUploadedFile(result.fileList);
-			
+			$("#product_num").val(result.product_num);
+			if (result.cateCode2 == 1100 || result.cateCode2 == 2100) {
+				$(".top").show();
+			} else if (result.cateCode2 == 1200 || result.cateCode2 == 2200) {
+				$(".bottom").show();
+			} else if (result.cateCode2 == 1400 || result.cateCode2 == 2400) {
+				$(".cap").show();
+			} 
 			
 		},
 		error: function(e) {
@@ -695,168 +636,14 @@ $("#update_Btn").on("click", function(e){
 });
 
 
-function getDeleteProductList(){
-    let obj = $("[name=checkProduct_num]");
-    let deleteProductArray = new Array(); // 배열 선언
-
-    $('input:checkbox[name=checkProduct_num]:checked').each(function() { // 체크된 체크박스의 value 값을 가지고 온다.
-    	deleteProductArray.push(this.value);
-    });
-    
-    return deleteProductArray;
-}
 
 
 
-//상품 삭제
-$("#delete_Btn").on("click", function(e) {
-	e.preventDefault();
-	deleteProductList = $("#deleteProductList");
-	
-	let str = ""
-	let deleteArray = new Array();
-	deleteArray = getDeleteProductList();
-	
-	
-	str += "<input type='text' name='checkProduct_num' value='" + deleteArray + "'>"; 
-	
-	deleteProductList.append(str);
-	
-	$.ajax({
-		url : '/product/delete',
-		type: 'post',
-		data: deleteProductList.serialize(),
-		//contentType: "application/json; charset=UTF-8;",
-		success: function(){
-			console.log("성공");
-			alert("상품을 삭제했습니다.");
-			location.href="modifyForm";
-		},
-		
-	});
-	
-	
-});
 //let regex = new RegExp("(.*?)\.(exe|sh|zip|alz)$");
 let regex = new RegExp("(.*?)\.(png|bmp|jpeg|jpg)$");
 let maxSize = 1024 * 1024 * 5; //5MB
 
 
-//파일 사이즈와 종류 확인
-function checkExtension(fileName, fileSize) {
-   if(fileSize >= maxSize){
-      alert("파일 사이즈 초과");
-      return false;
-   }
-
-   if (!regex.test(fileName)) {
-      alert("해당 종류의 파일은 업로드 할 수 없습니다.");
-      return false;
-   }
-   return true;
-}
-
-let cloneObj = $(".uploadDiv").clone();
-
-
-//파일 업로드
-$("input[type='file']").change(function(e){
-   let formData = new FormData();
-   let inputFile = $("input[name='uploadFile']");
-   
-   let files = inputFile[0].files;
-   
-   //add file to formdata
-   for (let i = 0; i < files.length; i++) {
-      if(!checkExtension(files[i].name, files[i].size)){
-         return false;
-      }
-      
-      formData.append("uploadFile", files[i]);
-   }
-   
-   //formData.append("board_num", $("#board_num").val());
-   console.log(formData);
-   $.ajax({
-      url: '/file/uploadAjaxAction',
-      processData: false, // data 파라미터로 전달된 데이터를 Query String으로 변환하지 않음. 파일전송시에는 이렇게 해야함
-      contentType: false, // //contentType의 default는 application/x-www-form-urlencoded; charset=UTF-8, 파일전송시에는 false로 해줘야 함
-      data: formData,
-      type: 'post',
-      dataType: 'json',
-      
-      success: function(result) {
-         console.log(result);
-         showUploadedFile(result);   
-         //$(".uploadDiv").html(cloneObj.html());
-      },
-   });
-});
-
-
-let uploadResult = $(".uploadResult ul");
-
-function showUploadedFile(uploadResultArr){
-   
-   if(!uploadResultArr || uploadResultArr.length == 0) {return;}
-   
-   let str = "";
-   
-   $(uploadResultArr).each(function(i, obj){
-      /* console.log(obj.uploadPath);
-      console.log(obj.uuid);
-      console.log(obj.fileName); */
-      console.log(obj)
-      originPathRegex = obj.uploadPath;
-      let fileCallPath = encodeURIComponent(obj.uploadPath + "/" +obj.uuid + "_" + obj.fileName);
-      let originPath = obj.uploadPath + "\\" +obj.uuid + "_" + obj.fileName;
-      originPath = originPath.replace(new RegExp(/\\/g), "/");
-      originPathRegex = originPathRegex.replace(new RegExp(/\\/g), "/");
-      console.log("fileCallPath : " + fileCallPath);
-      console.log("originPath : " + originPath);
-      console.log("originPathRegex : " + originPathRegex);
-      //str +="<li data-path='" +  obj.uploadPath + "' data-uuid='" + obj.uuid + "'data-filename='" + obj.fileName + "'data-product_num='" + obj.uploadPath +"'>";
-      str +="<li data-path='" +  originPathRegex + "' data-uuid='" + obj.uuid + "'data-filename='" + obj.fileName + "'data-product_num='" + $("#product_num").val() +"'>";
-      str +="<div>"
-         str +="<span>" + obj.fileName +"</span>"
-         str +="<button type='button' data-file=\'" + fileCallPath + "\' data-type='image'> X </button><br>";
-         str +="<a href=\"javascript:showImage(\'" + originPath + "\')\">"
-            str +="<img src='/file/display?fileName=/" + fileCallPath + "'>";
-         str +="</a>";
-      str +="</div>"
-   str +="</li>";
-      console.log(str);
-   });
-   uploadResult.append(str);
-}
-   
-
-//이미지 클릭시 확대
-function showImage(fileCallPath){
-   console.log(fileCallPath)
-   $(".bigPictureWrapper").css("display", "flex").show();
-   $(".bigPicture").html("<img src='/file/display?fileName=/" + fileCallPath + "'>")
-               .animate({width: '100%', height: '100%'}, 0);
-}
-
-//확대 이미지 가리기
-$(".bigPictureWrapper").on("click", function(e){
-   $(".bigPicture").animate({width: '0%', height: '0%'}, 0);
-   $(".bigPictureWrapper").hide();
-});
-
-
-//삭제버튼 클릭 이벤트
-$(".uploadResult").on("click", "button", function(e){
-
-	let targetFile = $(this).data("file");
-	console.log("targetFile : " + targetFile);
-
-	if (confirm("파일을 제거하시겠습니까?")) {
-		let targetLi = $(this).closest("li");
-		targetLi.remove();
-	}
-});
 </script>
 
 

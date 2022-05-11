@@ -9,6 +9,7 @@ import org.apache.ibatis.annotations.Mapper;
 import file.bean.FileDTO;
 import product.bean.ProductCategoryDTO;
 import product.bean.ProductDTO;
+import product.bean.ProductSizeDTO;
 
 @Mapper
 public interface ProductMapper {
@@ -24,7 +25,6 @@ public interface ProductMapper {
 
 	public void productRegisterSelectKey(ProductDTO productDTO);
 
-	public ProductDTO getProduct(int product_num);
 
 	public ProductDTO searchProductName(String product_name);
 
@@ -54,5 +54,7 @@ public interface ProductMapper {
 	public String getBrandnameByBrandcategory(int brandCategory);
 
 	public ProductDTO getProductDTO(int product_num);
+
+	public void registerProductSize(ProductSizeDTO productSizeDTO);
 
 }

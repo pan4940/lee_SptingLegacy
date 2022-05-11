@@ -52,12 +52,12 @@ $(function() {
 			$.each(data.fileList, function(index, item) {
 				fileCallPath = encodeURIComponent(item.uploadPath + "/" +item.uuid + "_" + item.fileName);
 				str += "<div class='col-12 col-sm-6 target'>";
-				str += "<img src='/file/display?fileName=/" +  fileCallPath  +  "' class='thumb-img'>"
+				str += "<img src='/file/display?fileName=/" +  fileCallPath  +  "' class='thumb-img'></div>"
 			});
 			console.log(str);
 			$('#detailImg').append(str);
 			
-			
+			console.log(data.product_name);
 			$('#productNameDiv').text(data.product_name);
 			$('<span/>').text(data.product_price.toLocaleString() + '원').prependTo($('#orderDiv'));
 			$('<pre/>', { text: data.product_descrip }).appendTo($('#details'));
@@ -67,7 +67,7 @@ $(function() {
 				$('<option/>', { value: item.product_sort_num, 'text': '  ' + item.product_size }).appendTo($('#sizesSelect'))
 				$('<th/>', { text: item.product_size }).appendTo($('#product_size'));
 				if (item.product_length != 0)
-					$('<td/>', { text: item.product_length }).appendTo($('#product_length'))
+					$('<td/>', { text: item.product_top_length }).appendTo($('#product_top_length'))
 				if (item.product_shoulder != 0)
 					$('<td/>', { text: item.product_shoulder }).appendTo($('#product_shoulder'))
 				if (item.product_chest != 0)
@@ -78,6 +78,8 @@ $(function() {
 					$('<td/>', { text: item.product_waist_width }).appendTo($('#product_waist_width'))
 				if (item.product_thigh_width != 0)
 					$('<td/>', { text: item.product_thigh_width }).appendTo($('#product_thigh_width'))
+				if (item.product_bottom_length != 0)
+					$('<td/>', { text: item.product_thigh_width }).appendTo($('#product_bottom_length'))	
 				if (item.product_ankle_circumference != 0)
 					$('<td/>', { text: item.product_ankle_circumference }).appendTo($('#product_ankle_circumference'))
 				if (item.product_front_rise != 0)
@@ -86,6 +88,9 @@ $(function() {
 					$('<td/>', { text: item.product_cap_length }).appendTo($('#product_cap_length'))
 				if (item.product_cap_circumference != 0)
 					$('<td/>', { text: item.product_cap_circumference }).appendTo($('#product_cap_circumference'))
+				if (item.product_cap_depth != 0)
+					$('<td/>', { text: item.product_cap_depth }).appendTo($('#product_cap_depth'))	
+				
 				if (item.product_detail != null)
 					$('<td/>', { text: item.product_detail, 'colspan': 'auto' }).appendTo($('#product_detail'))
 

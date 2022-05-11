@@ -16,8 +16,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import board.bean.BoardDTO;
 import file.bean.FileDTO;
+import oracle.jdbc.proxy.annotation.Post;
 import product.bean.ProductCategoryDTO;
 import product.bean.ProductDTO;
+import product.bean.ProductSizeDTO;
 import product.service.ProductService;
 
 @Controller
@@ -231,6 +233,17 @@ public class ProductController {
 	public String brands(Model model) {
 		model.addAttribute("display", "/WEB-INF/views/product/brands.jsp");
 		return "index";
+	}
+	
+	@GetMapping("/productSizeForm")
+	public String productSizeForm() {
+		return "/product/productSize";
+	}
+	
+	@PostMapping("/registerProductSize")
+	public void registerProductSize(@ModelAttribute ProductSizeDTO productSizeDTO) {
+		System.out.println("ProductSizeDTO : " + productSizeDTO);
+		productService.registerProductSize(productSizeDTO);
 	}
 	
 }
