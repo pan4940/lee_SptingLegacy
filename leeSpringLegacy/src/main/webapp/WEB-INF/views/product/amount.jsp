@@ -121,7 +121,7 @@ textarea#gdsDes { width:400px; height:180px; }
 		</aside>
 		
 		<div id="container_box">
-			<h2>사이즈 관리</h2>
+			<h2>수량 관리</h2>
 			<form id="searchForm" method="post" autocomplete="off">
 				<div class="searchInputArea">	
 				<label>1차 분류</label>
@@ -160,7 +160,7 @@ textarea#gdsDes { width:400px; height:180px; }
 			
 			<!-- 사이즈 등록 수정 -->
 			<div>
-			<h2>사이즈 관리</h2>
+			<h2>수량 관리</h2>
 			
 				<div class="searchSizeResult">
 					<table border="1">
@@ -594,7 +594,8 @@ $(document).on("click", "a.searchProductMove", function(e){
 					"<td>목록추가</td>" +
 					"<td>상품명</td>" +
 					"<td>사이즈</td>" +
-					"<td>삭제</td>" +
+					"<td>수량</td>" +
+					"<td>입력</td>" +
 					"</tr>"
 			);
 			
@@ -603,7 +604,10 @@ $(document).on("click", "a.searchProductMove", function(e){
 					"<tr><td><input type='checkbox' id='searchProduct_size_id' name='searchProduct_size_id' value='" + item.product_size_id + "'></td>" +
 					"<td>" + result.product_name + "</td>"+
 					"<td><a class='searchProductSizemove' href='" + item.product_size_id +"'>" + item.product_size + "</a></td>" +
-					"<td><button type='button' id='delete_Btn' value='" + item.product_size_id + "'>삭제</button></td>" + 
+					"<td>" + 
+					"<input type='text' id='amount' name='amount' value='" + item.detailProductList.size + "'>" + 
+					"</td>" +
+					"<td><button type='button' id='register_Btn' value='" + item.product_size_id + "'>입력</button></td>" + 
 					"</tr>"
 				);
 			});

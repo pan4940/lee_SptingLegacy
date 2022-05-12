@@ -208,6 +208,63 @@ public class ProductServiceImpl implements ProductService {
 	
 	@Override
 	public void registerProductSize(ProductSizeDTO productSizeDTO) {
-		productMapper.registerProductSize(productSizeDTO);
+		ProductDTO productDTO = productMapper.getProductByProductNum(productSizeDTO.getProduct_num() + "");
+		System.out.println("registerProductSize productDTO: " + productDTO);
+		
+		if (productDTO.getCateCode2() == 1100 || productDTO.getCateCode2() == 2100) {
+			System.out.println("상의 상품");
+			productMapper.registerTopProductSize(productSizeDTO);
+		} else if (productDTO.getCateCode2() == 1200 || productDTO.getCateCode2() == 2100) {
+			System.out.println("하의 상품");
+			productMapper.registerBottomProductSize(productSizeDTO);
+		} else if (productDTO.getCateCode2() == 1400 || productDTO.getCateCode2() == 2400) {
+			System.out.println("모자 상품");
+			productMapper.registerCapProductSize(productSizeDTO);
+		} else {
+			System.out.println("원사이즈 상품");
+			productMapper.registerOneSizeProductSize(productSizeDTO);
+		}
 	}
+	
+	
+	@Override
+	public void modifyProductSize(ProductSizeDTO productSizeDTO) {
+		ProductDTO productDTO = productMapper.getProductByProductNum(productSizeDTO.getProduct_num() + "");
+		System.out.println("Modify ProductSize productDTO: " + productDTO);
+		
+		if (productDTO.getCateCode2() == 1100 || productDTO.getCateCode2() == 2100) {
+			System.out.println("상의 상품");
+			productMapper.modifyTopProductSize(productSizeDTO);
+		} else if (productDTO.getCateCode2() == 1200 || productDTO.getCateCode2() == 2100) {
+			System.out.println("하의 상품");
+			productMapper.modifyBottomProductSize(productSizeDTO);
+		} else if (productDTO.getCateCode2() == 1400 || productDTO.getCateCode2() == 2400) {
+			System.out.println("모자 상품");
+			productMapper.modifyCapProductSize(productSizeDTO);
+		} else {
+			System.out.println("원사이즈 상품");
+			productMapper.modifyOneSizeProductSize(productSizeDTO);
+		}
+	}
+	
+	
+	@Override
+	public List<ProductSizeDTO> getProductByProductSize(int product_num) {
+		return productMapper.getProductByProductSize(product_num);
+	}
+	
+	@Override
+	public ProductSizeDTO getProductSizeByProductSizeId(int product_size_id) {
+		ProductSizeDTO productSizeDTO = productMapper.getProductSizeByProductSizeId(product_size_id);
+		System.out.println("product_size_id : " + product_size_id);
+		
+		return productSizeDTO;
+	}
+	
+	@Override
+	public void deleteProductSize(int product_size_id) {
+		productMapper.deleteProductSize(product_size_id);
+	}
+	
+	
 }

@@ -177,8 +177,9 @@ public class ProductController {
 		ProductDTO productDTO = productService.getProductByProductNum(product_num);
 		
 		List<FileDTO> list = productService.getProductFileList(productDTO.getProduct_num());
-		System.out.println(list);
 		productDTO.setFileList(list);
+		List<ProductSizeDTO> productSizeDTOList = productService.getProductByProductSize(productDTO.getProduct_num());
+		productDTO.setProductSizeList(productSizeDTOList);
 		System.out.println(productDTO);
 		return productDTO;
 	}
@@ -244,6 +245,36 @@ public class ProductController {
 	public void registerProductSize(@ModelAttribute ProductSizeDTO productSizeDTO) {
 		System.out.println("ProductSizeDTO : " + productSizeDTO);
 		productService.registerProductSize(productSizeDTO);
+	}
+	
+	@PostMapping("/getProductSizeByProductSizeId")
+	@ResponseBody
+	public ProductSizeDTO getProductSizeByProductSizeId(@RequestParam int product_size_id) {
+		System.out.println("getProductSizeByProductSizeId : " + product_size_id);
+		return productService.getProductSizeByProductSizeId(product_size_id);
+	}
+	
+	@PostMapping("/modifyProductSize")
+	@ResponseBody
+	public void modifyProductSize(@ModelAttribute ProductSizeDTO productSizeDTO) {
+		System.out.println("Modify ProductSizeDTO : " + productSizeDTO);
+		productService.modifyProductSize(productSizeDTO);
+	}
+	
+	@PostMapping("/deleteProductSize")
+	@ResponseBody
+	public void deleteProductSize(@RequestParam int product_size_id) {
+		System.out.println("delete : " + product_size_id);
+		productService.deleteProductSize(product_size_id);
+	}
+	
+	
+	
+	//수량 관련
+	//수량 관리 페이지 이동
+	@GetMapping("/amountForm")
+	public String amountForm() {
+		return "/product/amount";
 	}
 	
 }

@@ -55,6 +55,27 @@ public interface ProductMapper {
 
 	public ProductDTO getProductDTO(int product_num);
 
-	public void registerProductSize(ProductSizeDTO productSizeDTO);
+	public void registerTopProductSize(ProductSizeDTO productSizeDTO);
+
+	public void registerBottomProductSize(ProductSizeDTO productSizeDTO);
+
+	public void registerCapProductSize(ProductSizeDTO productSizeDTO);
+
+	public void registerOneSizeProductSize(ProductSizeDTO productSizeDTO);
+
+	public List<ProductSizeDTO> getProductByProductSize(int product_num);
+
+	public ProductSizeDTO getProductSizeByProductSizeId(int product_size_id);
+
+	public void modifyTopProductSize(ProductSizeDTO productSizeDTO);
+
+	public void modifyBottomProductSize(ProductSizeDTO productSizeDTO);
+
+	public void modifyCapProductSize(ProductSizeDTO productSizeDTO);
+
+	public void modifyOneSizeProductSize(ProductSizeDTO productSizeDTO);
+
+	public void deleteProductSize(int product_size_id);
+
 
 }

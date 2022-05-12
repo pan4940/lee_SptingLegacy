@@ -5,10 +5,10 @@ import lombok.Data;
 @Data
 public class ProductSizeDTO {
 	
-	private int product_size_num;
+	private int product_size_id;
 	
 	//상의
-	private String product_size_id; //사이즈명 모든 품목이 사용한다. 
+	private String product_size; //사이즈명 모든 품목이 사용한다. 
 	private String product_top_length;	//상의 기장
 	private String product_shoulder;	// 어깨
 	private String product_chest;		//가슴 

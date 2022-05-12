@@ -21,6 +21,8 @@ public class ProductDTO {
 	private Date legDate;
 	private Date updateDate;
 	
+	
+	private List<ProductSizeDTO> productSizeList;
 	private List<FileDTO> fileList;
 	
 	
