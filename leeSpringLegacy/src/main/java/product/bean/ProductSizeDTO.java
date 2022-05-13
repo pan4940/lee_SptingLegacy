@@ -1,5 +1,7 @@
 package product.bean;
 
+import java.util.List;
+
 import lombok.Data;
 
 @Data
@@ -29,7 +31,8 @@ public class ProductSizeDTO {
 	
 	
 	//상의 하의 모자 외에는 다 os로 표기
-	
 	private int product_num;
+	
+	private List<DetailProductDTO> detailProductDTOList;
 	
 }

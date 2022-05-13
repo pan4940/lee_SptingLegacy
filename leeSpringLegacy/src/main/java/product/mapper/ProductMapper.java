@@ -7,6 +7,7 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 
 import file.bean.FileDTO;
+import product.bean.DetailProductDTO;
 import product.bean.ProductCategoryDTO;
 import product.bean.ProductDTO;
 import product.bean.ProductSizeDTO;
@@ -76,6 +77,13 @@ public interface ProductMapper {
 	public void modifyOneSizeProductSize(ProductSizeDTO productSizeDTO);
 
 	public void deleteProductSize(int product_size_id);
+
+	public List<DetailProductDTO> getDetailProductListByProductSizeID(int product_size_id);
+
+	public List<DetailProductDTO> getDetailProductListByProductSizeId(int product_size_id);
+
+	public void addDetailProduct(DetailProductDTO detailProductDTO);
+
 
 
 }

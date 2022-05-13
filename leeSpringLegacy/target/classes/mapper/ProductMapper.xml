@@ -341,4 +341,8 @@
 	<delete id="deleteProductSize" parameterType="int">
 		delete PRODUCT_SIZE where product_size_id = #{product_size_id}
 	</delete>
+	
+	<select id="getDetailProductListByProductSizeId" parameterType="int" resultType="DetailProductDTO">
+		select * from detail_product where product_size_id = #{product_size_id}
+	</select>
 </mapper>

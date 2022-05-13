@@ -17,5 +17,6 @@
 		<typeAlias type="product.bean.ProductDTO" alias="ProductDTO"/>
 		<typeAlias type="product.bean.ProductCategoryDTO" alias="ProductCategoryDTO"/>
 		<typeAlias type="product.bean.ProductSizeDTO" alias="ProductSizeDTO"/>
+		<typeAlias type="product.bean.DetailProductDTO" alias="DetailProductDTO"/>
 	</typeAliases>
 </configuration>

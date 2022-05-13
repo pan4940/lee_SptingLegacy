@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import file.bean.FileDTO;
+import product.bean.DetailProductDTO;
 import product.bean.ProductCategoryDTO;
 import product.bean.ProductDTO;
 import product.bean.ProductSizeDTO;
@@ -51,5 +52,9 @@ public interface ProductService {
 	public void modifyProductSize(ProductSizeDTO productSizeDTO);
 
 	public void deleteProductSize(int product_size_id);
+
+	public List<DetailProductDTO> getDetailProductListByProductSizeId(int product_size_id);
+
+	public void addDetailProduct(DetailProductDTO detailProductDTO);
 	
 }

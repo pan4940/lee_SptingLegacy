@@ -168,82 +168,20 @@ textarea#gdsDes { width:400px; height:180px; }
 						<!-- <tr id="tr"></tr> -->
 					</table>
 				</div>
+				
+			<h2>세부 관리</h2>	
+				<div class="deTailProductResult">
+					<table border="1">
+						
+						<!-- <tr id="tr"></tr> -->
+					</table>
+				</div>
 			
-				<form id="productSize" action="/product/registerProductSize" method="post">
-					<div class="tab-pane container" id="size">
-						<input type="hidden" id="product_num" name="product_num" value="">
-						<input type="hidden" id="product_size_id" name="product_size_id" value="">
-						<div class="psize">
-							<label>상품명</label>
-							<input type="text" id="product_name" name="product_name" value="">
-						</div>
-						
-						<div class="psize">
-							<label>SIZE</label>
-							<input type="text" id="product_size" name="product_size" value="">
-						</div>
-						
-						<div class="top">
-							<div class="psize">
-								<label>기장</label>
-								<input type="text" id="product_top_length" name="product_top_length" value="">
-							</div>
-							<div class="psize">
-								<label>어깨</label>
-								<input type="text" id="product_shoulder" name="product_shoulder" value="">
-							</div>
-							<div class="psize">
-								<label>가슴</label>
-								<input type="text" id="product_chest" name="product_chest" value="">
-							</div>
-							<div class="psize">
-								<label>소매</label>
-								<input type="text" id="product_sleeve" name="product_sleeve" value="">
-							</div>
-						</div>
-						
-						<div class="bottom">
-							<div class="psize">
-								<label>허리</label>
-								<input type="text" id="product_waist_width" name="product_waist_width" value="">
-							</div>
-							<div class="psize">
-								<label>허벅지</label>
-								<input type="text" id="product_thigh_width" name="product_thigh_width" value="">
-							</div>
-							<div class="psize">
-								<label>기장</label>
-								<input type="text" id="product_bottom_length" name="product_bottom_length" value="">
-							</div>
-							<div class="psize">
-								<label>밑단</label>
-								<input type="text" id="product_ankle_circumference" name="product_ankle_circumference" value="">
-							</div>
-							<div class="psize">
-								<label>밑위</label>
-								<input type="text" id="product_front_rise" name="product_front_rise" value="">
-							</div>
-						</div>
-						
-						<div class="cap">
-							<div class="psize">
-								<label>챙길이</label>
-								<input type="text" id="product_cap_length" name="product_cap_length" value="">
-							</div>
-							<div class="psize">
-								<label>챙둘레</label>
-								<input type="text" id="product_cap_circumference" name="product_cap_circumference" value="">
-							</div>
-							<div class="psize">
-								<label>깊이</label>
-								<input type="text" id="product_cap_depth" name="product_cap_depth" value="">
-							</div>
-						</div>
-						
-						<div id="product_detail" style="border-style: none;">
-						</div>
-						
-					</div>				
+			
+				<form id="detailProductManager" action="" method="post">
+					<input type="hidden" id="product_num" name="product_num" value="">
+					<input type="hidden" id="product_size_id" name="product_size_id" value="">
+					<input type="hidden" id="addProductsAmount" name="addProductsAmount" value="">
 				</form>
 			</div>
 			
@@ -536,8 +474,8 @@ $("#search_Btn").on("click", function(){
 		url: '/product/getProductByCategory',
 		dataType: 'json',
 		success: function(result){
-			productList = result;
-			console.log(productList);
+			console.log("검색 결과");
+			console.log(result);
 			
 			$(".searchResult").children('table').children().remove();
 			
@@ -577,8 +515,6 @@ $("#search_Btn").on("click", function(){
 $(document).on("click", "a.searchProductMove", function(e){
 	e.preventDefault();
 	
-	
-	
 	$.ajax({
 		type: 'post',
 		data: 'product_num=' + $(".searchProductMove").attr("href"),
@@ -586,43 +522,65 @@ $(document).on("click", "a.searchProductMove", function(e){
 		dataType: 'json',
 		
 		success: function(result){
-			console.log(result.productSizeList);
+			console.log("개별 상품 클릭 결과");
+			console.log(result);
+			$("#product_num").val(result.product_num);
 			
 			$(".searchSizeResult").children('table').children().remove();
 			
-			$(".searchSizeResult").children('table').append("<tr>" +
+			let detailProductList;
+			
+			if (result.detailProductList == null) {
+				detailProductList = 0 + "개";
+			} else {
+				detailProductList = result.detailProductList + "개";
+			}
+			
+			$(".searchSizeResult").children('table').append(
+					"<tr>" +
 					"<td>목록추가</td>" +
 					"<td>상품명</td>" +
 					"<td>사이즈</td>" +
-					"<td>수량</td>" +
-					"<td>입력</td>" +
+					"<td>현재수량</td>" +
+					"<td>추가수량</td>" +
+					"<td>수량추가</td>" +
 					"</tr>"
 			);
 			
-			$.each(result.productSizeList, function(index, item){
+			
+			$.each(result.productSizeList, function(i, item){
 				$(".searchSizeResult").children('table').append(
 					"<tr><td><input type='checkbox' id='searchProduct_size_id' name='searchProduct_size_id' value='" + item.product_size_id + "'></td>" +
 					"<td>" + result.product_name + "</td>"+
 					"<td><a class='searchProductSizemove' href='" + item.product_size_id +"'>" + item.product_size + "</a></td>" +
-					"<td>" + 
-					"<input type='text' id='amount' name='amount' value='" + item.detailProductList.size + "'>" + 
-					"</td>" +
-					"<td><button type='button' id='register_Btn' value='" + item.product_size_id + "'>입력</button></td>" + 
+					"<td><input type='text' id='amount' name='amount' value='" + detailProductList + "'  readonly='readonly'></td>" +
+					"<td><input type='text' id='addAmount' name='addAmount' value='' ></td>" +
+					"<td><button type='button' id='addDetailProduct' value='" + item.product_size_id + "'>추가</button></td>" + 
 					"</tr>"
-				);
+				);	
 			});
+			
+			/* if (result.productSizeList != null) {
+				$.each(result.productSizeList, function(i, item){
+					$(".deTailProductResult").children('table').append(
+						"<td>목록추가</td>" +
+						"<td>상품명</td>" +
+						"<td>사이즈</td>" +
+						"<td>상품ID</td>" +
+						"<td>수량추가</td>" +
+						"</tr>"+	
+						"<tr><td><input type='checkbox' id='searchProduct_size_id' name='searchProduct_size_id' value='" + item.product_size_id + "'></td>" +
+						"<td>" + result.product_name + "</td>"+
+						"<td><a class='searchProductSizemove' href='" + item.product_size_id +"'>" + item.product_size + "</a></td>" +
+						"<td><input type='text' id='amount' name='amount' value='" + item.productSizeList[i].product_size_id + "'  readonly='readonly'></td>" +
+						"<td><button type='button' id='addDetailProduct' value='" + item.productSizeList[i].product_size_id + "'>추가</button></td>" + 
+						"</tr>"
+					);
+				});
+			} */
 			
 			$("#product_name").val(result.product_name);
 			$("#product_num").val(result.product_num);
-			
-			if (result.cateCode2 == 1100 || result.cateCode2 == 2100) {
-				$(".top").show();
-								
-			} else if (result.cateCode2 == 1200 || result.cateCode2 == 2200) {
-				$(".bottom").show();
-			} else if (result.cateCode2 == 1400 || result.cateCode2 == 2400) {
-				$(".cap").show();
-			} 
 		},
 		
 		error: function(e) {
@@ -635,39 +593,19 @@ $(document).on("click", "a.searchProductMove", function(e){
 
 $(document).on("click", "a.searchProductSizemove", function(e){
 	e.preventDefault();
-	
-	$("#register_Btn").hide();
-	
+	console.log("product size id clicked")
+	console.log($(this).attr("href"))
 	$.ajax({
 		type: 'post',
 		data: 'product_size_id=' + $(".searchProductSizemove").attr("href"),
-		url: '/product/getProductSizeByProductSizeId',
+		url: '/product/getDetailProductListByProductSizeId',
 		dataType: 'json',
 		success: function(result){
 			console.log(result);
-			$("#product_size_id").val(result.product_size_id);
-			$("#product_size").val(result.product_size);
-			$("#product_top_length").val(result.product_top_length);
-			$("#product_shoulder").val(result.product_shoulder);
-			$("#product_chest").val(result.product_chest);
-			$("#product_sleeve").val(result.product_sleeve);
-			$("#product_waist_width").val(result.product_waist_width);
-			$("#product_thigh_width").val(result.product_thigh_width);
-			$("#product_bottom_length").val(result.product_bottom_length);
-			$("#product_ankle_circumference").val(result.product_ankle_circumference);
-			$("#product_front_rise").val(result.product_front_rise);
-			$("#product_cap_length").val(result.product_cap_length);
-			$("#product_cap_circumference").val(result.product_cap_length);
-			$("#product_cap_depth").val(result.product_cap_length);
-
-			/* if (result.cateCode2 == 1100 || result.cateCode2 == 2100) {
-				$(".top").show();
-								
-			} else if (result.cateCode2 == 1200 || result.cateCode2 == 2200) {
-				$(".bottom").show();
-			} else if (result.cateCode2 == 1400 || result.cateCode2 == 2400) {
-				$(".cap").show();
-			}  */
+			if (Array.isArray(result) && result.length === 0) {
+				alert("등록된 수량이 없습니다.")
+			}
+			
 			
 		},
 		error: function(e) {
@@ -678,22 +616,39 @@ $(document).on("click", "a.searchProductSizemove", function(e){
 
 $(document).on("click", "#delete_Btn", function(e){
 	console.log("delete click");
+	
+	
+});
+
+
+$(document).on("click", "#addDetailProduct", function(e){
+	console.log("addDetailProduct click");
 	console.log($(this).val());
+	
+	
+	$("#product_size_id").val($(this).val());
+	$("#addProductsAmount").val($("#addAmount").val());
+	
+	
 	$.ajax({
 		type: 'post',
-		data: 'product_size_id=' +  $(this).val(),
-		url: '/product/deleteProductSize',
+		data: $("#detailProductManager").serialize(),
+		url: '/product/addDetailProduct',
 		success: function(){
-			
+			console.log("성공");
 		},
 		error: function(e) {
 			console.log(e);
 		}
 	});	
 	
+	
 });
 
+
 </script>
+
+
 
 <script type="text/javascript">
 //수정 버튼 클릭시 이벤트

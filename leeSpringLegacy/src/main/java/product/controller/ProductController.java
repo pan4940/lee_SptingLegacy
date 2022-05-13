@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import board.bean.BoardDTO;
 import file.bean.FileDTO;
 import oracle.jdbc.proxy.annotation.Post;
+import product.bean.DetailProductDTO;
 import product.bean.ProductCategoryDTO;
 import product.bean.ProductDTO;
 import product.bean.ProductSizeDTO;
@@ -277,4 +278,32 @@ public class ProductController {
 		return "/product/amount";
 	}
 	
+	
+	//productSizeID로 DetailProductList 가져옴
+	
+	@PostMapping("/getDetailProductListByProductSizeId")
+	@ResponseBody
+	public List<DetailProductDTO> getDetailProductListByProductSizeId(@RequestParam int product_size_id) {
+		return productService.getDetailProductListByProductSizeId(product_size_id);
+	}
+	
+	@PostMapping("/addDetailProduct")
+	@ResponseBody
+	public void addDetailProduct(
+			@RequestParam int product_num, 
+			@RequestParam int product_size_id,
+			@RequestParam int addProductsAmount
+			) {
+		
+		System.out.println("product_num : " + product_num);
+		System.out.println("product_size_id : " + product_size_id);
+		System.out.println("addProductsAmount : " + addProductsAmount);
+		
+		DetailProductDTO detailProductDTO = new DetailProductDTO();
+		detailProductDTO.setProduct_num(product_num);
+		detailProductDTO.setProductSizeDTO(productService.getProductSizeByProductSizeId(product_size_id));
+		detailProductDTO.setAddProductsAmount(addProductsAmount);
+		
+		 productService.addDetailProduct(detailProductDTO);
+	}
 }

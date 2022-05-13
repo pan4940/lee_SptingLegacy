@@ -1,5 +1,6 @@
 package product.service;
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -9,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import file.bean.FileDTO;
 import file.mapper.FileMapper;
+import product.bean.DetailProductDTO;
 import product.bean.ProductCategoryDTO;
 import product.bean.ProductDTO;
 import product.bean.ProductSizeDTO;
@@ -266,5 +268,17 @@ public class ProductServiceImpl implements ProductService {
 		productMapper.deleteProductSize(product_size_id);
 	}
 	
+	@Override
+	public List<DetailProductDTO> getDetailProductListByProductSizeId(int product_size_id) {
+		return productMapper.getDetailProductListByProductSizeId(product_size_id);
+	}
+	
+	
+	@Override
+	public void addDetailProduct(DetailProductDTO detailProductDTO) {
+		for (int i = 0; i < detailProductDTO.getAddProductsAmount(); i++) {
+			productMapper.addDetailProduct(detailProductDTO);
+		}
+	}
 	
 }
