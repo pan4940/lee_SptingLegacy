@@ -343,6 +343,24 @@
 	</delete>
 	
 	<select id="getDetailProductListByProductSizeId" parameterType="int" resultType="DetailProductDTO">
-		select * from detail_product where product_size_id = #{product_size_id}
+		select * from detail_product where product_size_id = #{product_size_id} and status = 1
 	</select>
+	
+	<insert id="addDetailProduct" parameterType="DetailProductDTO">
+		insert into DETAIL_PRODUCT (
+			DETAIL_PRODUCT_ID, 
+			PRODUCT_SIZE_ID, 
+			PRODUCT_NUM, 
+			STATUS
+		) values (
+			SEQ_DETAIL_PRODUCT_ID.nextval,
+			#{product_size_id},
+			#{product_num},
+			#{status}
+		)
+	</insert>
+	
+	<delete id="deleteDetailProductByDetailProductID" parameterType="int">
+		delete DETAIL_PRODUCT where DETAIL_PRODUCT_ID = #{detail_product_id}	
+	</delete>
 </mapper>

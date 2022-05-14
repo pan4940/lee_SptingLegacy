@@ -55,7 +55,7 @@ $(function() {
 				str += "<img src='/file/display?fileName=/" +  fileCallPath  +  "' class='thumb-img'></div>"
 			});
 			console.log(str);
-			$('#detailImg').append(str);
+			$('#productDetailImage').append(str);
 			
 			console.log(data.product_name);
 			$('#productNameDiv').text(data.product_name);
@@ -63,38 +63,42 @@ $(function() {
 			$('<pre/>', { text: data.product_descrip }).appendTo($('#details'));
 
 
-			/*$.each(data.sizes, function(index, item) {
-				$('<option/>', { value: item.product_sort_num, 'text': '  ' + item.product_size }).appendTo($('#sizesSelect'))
+			$.each(data.productSizeList, function(index, item) {
+				$('<option/>', { value: item.product_size_id, 'text': '' + item.product_size }).appendTo($('#sizesSelect'))
 				$('<th/>', { text: item.product_size }).appendTo($('#product_size'));
-				if (item.product_length != 0)
+				if (item.product_top_length != null)
 					$('<td/>', { text: item.product_top_length }).appendTo($('#product_top_length'))
-				if (item.product_shoulder != 0)
+				if (item.product_shoulder != null)
 					$('<td/>', { text: item.product_shoulder }).appendTo($('#product_shoulder'))
-				if (item.product_chest != 0)
+				if (item.product_chest != null)
 					$('<td/>', { text: item.product_chest }).appendTo($('#product_chest'))
-				if (item.product_sleeve != 0)
+				if (item.product_sleeve != null)
 					$('<td/>', { text: item.product_sleeve }).appendTo($('#product_sleeve'))
-				if (item.product_waist_width != 0)
+				
+				if (item.product_waist_width != null)
 					$('<td/>', { text: item.product_waist_width }).appendTo($('#product_waist_width'))
-				if (item.product_thigh_width != 0)
+				if (item.product_thigh_width != null)
 					$('<td/>', { text: item.product_thigh_width }).appendTo($('#product_thigh_width'))
-				if (item.product_bottom_length != 0)
+				if (item.product_bottom_length != null)
 					$('<td/>', { text: item.product_thigh_width }).appendTo($('#product_bottom_length'))	
-				if (item.product_ankle_circumference != 0)
+				if (item.product_ankle_circumference != null)
 					$('<td/>', { text: item.product_ankle_circumference }).appendTo($('#product_ankle_circumference'))
-				if (item.product_front_rise != 0)
+				if (item.product_front_rise != null)
 					$('<td/>', { text: item.product_front_rise }).appendTo($('#product_front_rise'))
-				if (item.product_cap_length != 0)
+					
+				if (item.product_cap_length != null)
 					$('<td/>', { text: item.product_cap_length }).appendTo($('#product_cap_length'))
-				if (item.product_cap_circumference != 0)
+				if (item.product_cap_circumference != null)
 					$('<td/>', { text: item.product_cap_circumference }).appendTo($('#product_cap_circumference'))
-				if (item.product_cap_depth != 0)
+				if (item.product_cap_depth != null)
 					$('<td/>', { text: item.product_cap_depth }).appendTo($('#product_cap_depth'))	
 				
 				if (item.product_detail != null)
 					$('<td/>', { text: item.product_detail, 'colspan': 'auto' }).appendTo($('#product_detail'))
-
-			});*/
+			});
+			
+			
+			
 			$.each($('table tr'), function(index, item) {
 				if (item.childElementCount == 1 || item.childElementCount == 0) {
 					item.style.display = 'none';
@@ -104,56 +108,106 @@ $(function() {
 						item.style.display = 'block';
 				}
 
-			})
-			$('#addCart').click(function() {
-				if ($('#sizesSelect').val() == '') {
-					alert({
-						icon: 'warning',
-						title: '사이즈를 선택해 주세요',
-					})
-				} else {
-					$.ajax({
-						url: '/addCart',
-						type: 'post',
-						data: {
-							'product_sort_number': $('#sizesSelect').val()
-						},
-						success: function() {
-							alert({
-								icon: 'success',
-								title: '상품을 담았습니다',
-								closeOnClickOutside: true
-							});
-						},
-						error: function(err) {
-							alert({
-								icon: 'error',
-								title: '로그인후 이용해주세요!',
-							})
-						},
-					})
-				}
 			});
-			$('#quickorder').click(function() {
-				if ($('#sizesSelect').val() == '') {
-					alert({
-						icon: 'warning',
-						title: '사이즈를 선택해 주세요',
-					})
-				} else {
-					location.href = "/quickorder?seq=" + $('#sizesSelect').val()
-				}
-			});
-			$('.target')
-    .append('<div class="photo"></div>')
-    .children('.photo').css({
-            'background-image': 'url(' + $('.target img').attr('src') + ')'
-    })
-   },
+			
+			/**/
+			
+			$('.target').append('<div class="photo"></div>').children('.photo').css({
+            	'background-image': 'url(' + $('.target img').attr('src') + ')'
+    		});
+   		},
 		error: function(err) {
 			console.log(err);
 		}
 	});
+	
+	
+	
+	
+	$(document).on("click", "#addCart", function(){
+		console.log("클릭");
+		console.log($('#sizesSelect').val());
+		
+		if ($('#sizesSelect').val() == '') {
+			alert('사이즈를 선택해 주세요');
+		} else {
+			console.log("전송");
+			
+			$.ajax({
+				url: '/order/addCart',
+				type: 'post',
+				data: {
+					'product_size_id': $('#sizesSelect').val()
+				},
+				success: function() {
+					alert('상품을 담았습니다');
+				},
+				error: function(err) {
+					alert('로그인후 이용해주세요!');
+				},
+			}); //end ajax
+		}
+		
+	});		
+
+	
+	
+	/*$('#addCart').click(function() {
+		
+	});*/
+			
+	$('#quickorder').click(function() {
+		if ($('#sizesSelect').val() == '') {
+			alert({
+				icon: 'warning',
+				title: '사이즈를 선택해 주세요',
+			})
+		} else {
+			location.href = "/quickorder?seq=" + $('#sizesSelect').val()
+		}
+	});
+
+	/*$('#addCart').click(function() {
+		if ($('#sizesSelect').val() == '') {
+			alert({
+				icon: 'warning',
+				title: '사이즈를 선택해 주세요',
+			})
+		} else {
+			$.ajax({
+				url: '/addCart',
+				type: 'post',
+				data: {
+					'product_sort_number': $('#sizesSelect').val()
+				},
+				success: function() {
+					alert({
+						icon: 'success',
+						title: '상품을 담았습니다',
+						closeOnClickOutside: true
+					});
+				},
+				error: function(err) {
+					alert({
+						icon: 'error',
+						title: '로그인후 이용해주세요!',
+					})
+				},
+			})
+		}
+	});
+			
+	$('#quickorder').click(function() {
+		if ($('#sizesSelect').val() == '') {
+			alert({
+				icon: 'warning',
+				title: '사이즈를 선택해 주세요',
+			})
+		} else {
+			location.href = "/quickorder?seq=" + $('#sizesSelect').val()
+		}
+	});*/
+	
 });
 // Select all tabs
 $('.nav-tabs a').click(function() {

@@ -56,5 +56,7 @@ public interface ProductService {
 	public List<DetailProductDTO> getDetailProductListByProductSizeId(int product_size_id);
 
 	public void addDetailProduct(DetailProductDTO detailProductDTO);
+
+	public void deleteDetailProductByDetailProductID(int detail_product_id);
 	
 }

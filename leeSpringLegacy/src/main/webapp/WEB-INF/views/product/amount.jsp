@@ -160,7 +160,7 @@ textarea#gdsDes { width:400px; height:180px; }
 			
 			<!-- 사이즈 등록 수정 -->
 			<div>
-			<h2>수량 관리</h2>
+			<h2>사이즈 선택</h2>
 			
 				<div class="searchSizeResult">
 					<table border="1">
@@ -177,18 +177,13 @@ textarea#gdsDes { width:400px; height:180px; }
 					</table>
 				</div>
 			
-			
-				<form id="detailProductManager" action="" method="post">
-					<input type="hidden" id="product_num" name="product_num" value="">
-					<input type="hidden" id="product_size_id" name="product_size_id" value="">
-					<input type="hidden" id="addProductsAmount" name="addProductsAmount" value="">
-				</form>
+		
 			</div>
 			
 			
 			<div class="inputArea">
-				<button type="button" id="register_Btn" class="btn btn-primary">등록</button>
-				<button type="button" id="update_Btn" class="btn btn-primary">수정</button>
+				<!-- <button type="button" id="register_Btn" class="btn btn-primary">등록</button>
+				<button type="button" id="update_Btn" class="btn btn-primary">수정</button> -->
 				<button type="button" id="back_Btn" class="btn btn-warning">초기화</button>			
 
 			</div>
@@ -524,7 +519,7 @@ $(document).on("click", "a.searchProductMove", function(e){
 		success: function(result){
 			console.log("개별 상품 클릭 결과");
 			console.log(result);
-			$("#product_num").val(result.product_num);
+			//$("#product_num").val(result.product_num);
 			
 			$(".searchSizeResult").children('table').children().remove();
 			
@@ -544,43 +539,27 @@ $(document).on("click", "a.searchProductMove", function(e){
 					"<td>현재수량</td>" +
 					"<td>추가수량</td>" +
 					"<td>수량추가</td>" +
+					"<input type='hidden' id='product_num' name='product_num' value='" + result.product_num +"' >" +
 					"</tr>"
 			);
 			
 			
-			$.each(result.productSizeList, function(i, item){
+			$.each(result.productSizeList, function(i, item){   
+				console.log(item.detailProductDTOList.length);
 				$(".searchSizeResult").children('table').append(
 					"<tr><td><input type='checkbox' id='searchProduct_size_id' name='searchProduct_size_id' value='" + item.product_size_id + "'></td>" +
 					"<td>" + result.product_name + "</td>"+
 					"<td><a class='searchProductSizemove' href='" + item.product_size_id +"'>" + item.product_size + "</a></td>" +
-					"<td><input type='text' id='amount' name='amount' value='" + detailProductList + "'  readonly='readonly'></td>" +
-					"<td><input type='text' id='addAmount' name='addAmount' value='' ></td>" +
+					"<td><input type='text' id='amount' name='amount' value='" + item.detailProductDTOList.length +   "개'  readonly='readonly'></td>" +
+					"<td><input type='text' id='addProductsAmount' name='addProductsAmount' value='' ></td>" +
 					"<td><button type='button' id='addDetailProduct' value='" + item.product_size_id + "'>추가</button></td>" + 
 					"</tr>"
 				);	
 			});
 			
-			/* if (result.productSizeList != null) {
-				$.each(result.productSizeList, function(i, item){
-					$(".deTailProductResult").children('table').append(
-						"<td>목록추가</td>" +
-						"<td>상품명</td>" +
-						"<td>사이즈</td>" +
-						"<td>상품ID</td>" +
-						"<td>수량추가</td>" +
-						"</tr>"+	
-						"<tr><td><input type='checkbox' id='searchProduct_size_id' name='searchProduct_size_id' value='" + item.product_size_id + "'></td>" +
-						"<td>" + result.product_name + "</td>"+
-						"<td><a class='searchProductSizemove' href='" + item.product_size_id +"'>" + item.product_size + "</a></td>" +
-						"<td><input type='text' id='amount' name='amount' value='" + item.productSizeList[i].product_size_id + "'  readonly='readonly'></td>" +
-						"<td><button type='button' id='addDetailProduct' value='" + item.productSizeList[i].product_size_id + "'>추가</button></td>" + 
-						"</tr>"
-					);
-				});
-			} */
 			
 			$("#product_name").val(result.product_name);
-			$("#product_num").val(result.product_num);
+			//$("#product_num").val(result.product_num);
 		},
 		
 		error: function(e) {
@@ -590,6 +569,7 @@ $(document).on("click", "a.searchProductMove", function(e){
 	
 	
 });
+
 
 $(document).on("click", "a.searchProductSizemove", function(e){
 	e.preventDefault();
@@ -602,11 +582,7 @@ $(document).on("click", "a.searchProductSizemove", function(e){
 		dataType: 'json',
 		success: function(result){
 			console.log(result);
-			if (Array.isArray(result) && result.length === 0) {
-				alert("등록된 수량이 없습니다.")
-			}
-			
-			
+			createProductSize(result);
 		},
 		error: function(e) {
 			console.log(e);
@@ -614,10 +590,56 @@ $(document).on("click", "a.searchProductSizemove", function(e){
 	});
 }); 
 
-$(document).on("click", "#delete_Btn", function(e){
-	console.log("delete click");
+
+function createProductSize(result) {
+	if (Array.isArray(result) && result.length === 0) {
+		alert("등록된 수량이 없습니다.");
+		return;
+	}
 	
+	$(".deTailProductResult").children('table').children().remove();
+
+	$(".deTailProductResult").children('table').append(
+		"<tr>"	+
+		"<td>목록추가</td>" +
+		"<td>상품ID</td>" +
+		"<td>상세상품ID</td>" +
+		"<td>상품SIZE_ID</td>" +
+		"<td>등록일</td>" +
+		"</tr>"	
+	);
+
+	$.each(result, function(i, item){
+		$(".deTailProductResult").children('table').append(
+			"<tr>" +
+			"<td><input type='checkbox' id='detail_product_id' name='detail_product_id' value='" + item.detail_product_id + "' readonly='readonly'></td>" +
+			"<td><input type='text' id='detail_product_num' name='detail_product_num' value='" + item.product_num + "' readonly='readonly'></td>"+
+			"<td><input type='text' id='detail_product_id' name='detail_product_id' value='" + item.detail_product_id + "' readonly='readonly'></td>"+
+			"<td><input type='text' id='product_size_id' name='product_size_id' value='" + item.product_size_id + "'  readonly='readonly'></td>" +
+			"<td><input type='text' id='legDate' name='legDate' value='" + item.legDate + "'  readonly='readonly'></td>" +
+			"<td><button type='button' id='deleteDetailProduct_Btn' value='" + item.detail_product_id + "'>삭제</button></td>" + 
+			"</tr>"	
+		);
+	});
+}
+
+
+$(document).on("click", "#deleteDetailProduct_Btn", function(e){
+	console.log("deleteDetailProduct_Btn click");
+	console.log($(this).val());
 	
+	$.ajax({
+		type: 'post',
+		data: 'detail_product_id=' + $(this).val(),
+		url: '/product/deleteDetailProductByDetailProductID',
+		success: function(){
+			alert("삭제했습니다.");
+			location.href = "/product/amountForm";
+		},
+		error: function(e) {
+			console.log(e);
+		}
+	});	
 });
 
 
@@ -626,13 +648,13 @@ $(document).on("click", "#addDetailProduct", function(e){
 	console.log($(this).val());
 	
 	
-	$("#product_size_id").val($(this).val());
-	$("#addProductsAmount").val($("#addAmount").val());
-	
-	
 	$.ajax({
 		type: 'post',
-		data: $("#detailProductManager").serialize(),
+		data: {
+			'product_num' : $("#product_num").val(),
+			'product_size_id' : $(this).val(), 
+			'addProductsAmount' : $("#addProductsAmount").val(),
+		},
 		url: '/product/addDetailProduct',
 		success: function(){
 			console.log("성공");
@@ -663,7 +685,7 @@ $("#update_Btn").on("click", function(e){
 		success: function(){
 			console.log("사이즈 정보 수정");
 			alert("수정이 완료되었습니다.");
-			location.href = "/product/productSizeForm";
+			location.href = "/product/amountForm";
 		},
 		error: function(e) {
 			console.log(e);

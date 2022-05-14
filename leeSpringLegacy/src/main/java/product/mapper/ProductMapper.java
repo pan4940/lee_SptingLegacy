@@ -84,6 +84,8 @@ public interface ProductMapper {
 
 	public void addDetailProduct(DetailProductDTO detailProductDTO);
 
+	public void deleteDetailProductByDetailProductID(int detail_product_id);
+
 
 
 }

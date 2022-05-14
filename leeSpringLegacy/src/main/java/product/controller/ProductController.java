@@ -180,6 +180,11 @@ public class ProductController {
 		List<FileDTO> list = productService.getProductFileList(productDTO.getProduct_num());
 		productDTO.setFileList(list);
 		List<ProductSizeDTO> productSizeDTOList = productService.getProductByProductSize(productDTO.getProduct_num());
+		for (ProductSizeDTO productSizeDTO : productSizeDTOList) {
+			productSizeDTO.setDetailProductDTOList(
+					productService.getDetailProductListByProductSizeId(productSizeDTO.getProduct_size_id()));
+		}
+		
 		productDTO.setProductSizeList(productSizeDTOList);
 		System.out.println(productDTO);
 		return productDTO;
@@ -201,8 +206,9 @@ public class ProductController {
 	@PostMapping("/getProductDTO")
 	@ResponseBody
 	public ProductDTO getProductDTO(@RequestParam int product_num) {
-		
-		return productService.getProductDTO(product_num);
+		ProductDTO productDTO = productService.getProductDTO(product_num);
+		productDTO.setProductSizeList(productService.getProductByProductSize(product_num));
+		return productDTO;
 	}
 	
 	//상품의 첨부파일 불러옴
@@ -301,9 +307,19 @@ public class ProductController {
 		
 		DetailProductDTO detailProductDTO = new DetailProductDTO();
 		detailProductDTO.setProduct_num(product_num);
-		detailProductDTO.setProductSizeDTO(productService.getProductSizeByProductSizeId(product_size_id));
+		detailProductDTO.setProduct_size_id(product_size_id);
 		detailProductDTO.setAddProductsAmount(addProductsAmount);
+		detailProductDTO.setStatus(1);
+		System.out.println(detailProductDTO);
 		
-		 productService.addDetailProduct(detailProductDTO);
+		productService.addDetailProduct(detailProductDTO);
+	}
+	
+	@PostMapping("/deleteDetailProductByDetailProductID")
+	@ResponseBody
+	public void deleteDetailProductByDetailProductID(@RequestParam int detail_product_id) {
+		System.out.println("detail_product_id : " + detail_product_id);
+		productService.deleteDetailProductByDetailProductID(detail_product_id);
+		
 	}
 }

@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <div id="detailDiv" style="display: flex; flex-wrap: wrap; justify-content: center;">
 	<input type="hidden" id="product_number" value="${map.product_num}">
-	<div id="detailImg" class="col-12 col-sm-7"
+	<div id="productDetailImage" class="col-12 col-sm-7"
 		style="display: flex; flex-wrap: wrap"></div>
 	<div id="detailProductDiv" class="col-12 col-sm-5">
 		<div id="productNameDiv"></div>
@@ -15,12 +15,10 @@
 			</select>
 		</div>
 		<div id="orderDiv">
-			<div id="addCart" style="float: right; cursor: pointer">ADD TO
-				CART</div>
+			<div id="addCart" style="float: right; cursor: pointer">ADD TO CART</div>
 		</div>
 		<div>
-			<div id="quickorder" style="float: right; cursor: pointer">quick
-				order</div>
+			<div id="quickorder" style="float: right; cursor: pointer">quick order</div>
 		</div>
 		<div id="detailContent">
 			<!-- Nav tabs -->
@@ -54,6 +52,7 @@
 						<tr id="product_sleeve">
 							<td>소매[SLEEVE]</td>
 						</tr>
+						
 						<tr id="product_waist_width">
 							<td>허리[WAIST WIDTH]</td>
 						</tr>

@@ -281,4 +281,9 @@ public class ProductServiceImpl implements ProductService {
 		}
 	}
 	
+	@Override
+	public void deleteDetailProductByDetailProductID(int detail_product_id) {
+		productMapper.deleteDetailProductByDetailProductID(detail_product_id);
+	}
+	
 }
