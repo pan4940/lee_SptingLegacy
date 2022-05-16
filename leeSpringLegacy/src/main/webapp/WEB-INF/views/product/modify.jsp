@@ -233,81 +233,6 @@ textarea#gdsDes { width:400px; height:180px; }
 			</div>
 			
 			
-			<!-- 사이즈 등록 수정 -->
-			<div>
-			<h2>사이즈 관리</h2>
-				<form>
-					<div class="tab-pane container" id="size">
-						<div class="psize">
-							<label>SIZE</label>
-							<input type="text" id="product_size" name="product_size" value="">
-						</div>
-						
-						
-						<div class="psize">
-							<label>기장</label>
-							<input type="text" id="product_top_length" name="product_top_length" value="">
-						</div>
-						<div class="psize">
-							<label>어깨</label>
-							<input type="text" id="product_shoulder" name="product_shoulder" value="">
-						</div>
-						<div class="psize">
-							<label>가슴</label>
-							<input type="text" id="product_chest" name="product_chest" value="">
-						</div>
-						<div class="psize">
-							<label>소매</label>
-							<input type="text" id="product_sleeve" name="product_sleeve" value="">
-						</div>
-						
-						
-						<div class="psize">
-							<label>허리</label>
-							<input type="text" id="product_waist_width" name="product_waist_width" value="">
-						</div>
-						<div class="psize">
-							<label>허벅지</label>
-							<input type="text" id="product_thigh_width" name="product_thigh_width" value="">
-						</div>
-						<div class="psize">
-							<label>기장</label>
-							<input type="text" id="product_bottom_length" name="product_bottom_length" value="">
-						</div>
-						<div class="psize">
-							<label>밑단</label>
-							<input type="text" id="product_ankle_circumference" name="product_ankle_circumference" value="">
-						</div>
-						<div class="psize">
-							<label>밑위</label>
-							<input type="text" id="product_front_rise" name="product_front_rise" value="">
-						</div>
-						
-						
-						<div class="psize">
-							<label>챙길이</label>
-							<input type="text" id="product_cap_length" name="product_cap_length" value="">
-						</div>
-						<div class="psize">
-							<label>챙둘레</label>
-							<input type="text" id="product_cap_circumference" name="product_cap_circumference" value="">
-						</div>
-						<div class="psize">
-							<label>깊이</label>
-							<input type="text" id="product_cap_depth" name="product_cap_depth" value="">
-						</div>
-						
-						<div id="product_detail" style="border-style: none;">
-						</div>
-				</div>				
-				
-				
-				
-				</form>
-			
-			
-			
-			</div>
 			
 			
 			<div class="inputArea">
@@ -359,8 +284,6 @@ $(document).ready(function(){
 			createBrandCategory(BrandsCategoryList);
 		},
 	});
-	//jsonData = $("#list").val();
-	//console.log(jsonData[0]);
 }());
 
 $("#back_Btn").click(function(){
@@ -388,7 +311,6 @@ function createBrandCategory(jsonData){
 			brandCateArr.push(brandCateObj);
 		}
 	}
-	//console.log(brandCateArr);
 
 	// 검색조건 브랜드명 셀렉트 박스에 데이터 삽입
 	var brandSelect1 = $("select.searchBrandCategory")
@@ -427,7 +349,6 @@ function createCate(ProductsCategoryList){
 			cate1Arr.push(cate1Obj);
 		}
 	}
-	console.log(cate1Arr);
 
 	// 1차 분류 셀렉트 박스에 데이터 삽입
 	var cate1Select1 = $("select.searchCategory1")
@@ -491,7 +412,6 @@ function change1(lee){
 		} 
 	}
 	
-	console.log(cate2Arr);
 	
 	var cate1Select;
 	var cate2Select;
@@ -506,7 +426,6 @@ function change1(lee){
 		cate1Select = $("select.category1");
 		cate2Select = $("select.category2");
 	}
-	console.log(cate2Select);
 	
 	cate2Select.children().remove();
 	// cate2Select의 값을 제거함(초기화)
@@ -514,7 +433,6 @@ function change1(lee){
 	// cate1Select에서 선택한 값을 기준으로 cate2Select의 값을 조정
 	$("option:selected", cate1Select).each(function(){
 		var selectVal = cate1Select.val();  // 현재 선택한 cate1Select의 값을 저장
-		console.log(selectVal);
 		cate2Select.append("<option value='" + selectVal + "'>전체</option>");  // cate2Select의 '전체'에 현재 선택한 cate1Select와 같은 값 부여
 		// cate2Arr의 데이터를 cate2Select에 추가
 		for(var i = 0; i < cate2Arr.length; i++) {
@@ -618,7 +536,7 @@ $("#search_Btn").on("click", function(){
 					"<td>카테고리3</td>" +
 					"<td>카테고리4</td>" +
 					"<td>가격</td>" +
-					"<td>설명</td>" +
+					
 					"</tr>");
 			
 			$.each(result, function(index, item){
@@ -631,7 +549,7 @@ $("#search_Btn").on("click", function(){
 								"<td>" + item.cateCode3 + "</td>"+
 								"<td>" + item.brandCategory + "</td>"+
 								"<td>" + item.product_price + "</td>"+
-								"<td>" + item.product_descrip + "</td></tr>"
+								"</td></tr>"
 				);
 			});
 		},
@@ -642,12 +560,13 @@ $("#search_Btn").on("click", function(){
 });
 
 
+//검색된 상품 이름 클릭
 $(document).on("click", "a.move", function(e){
 	e.preventDefault();
-	
+	uploadResult.children().remove();
 	$.ajax({
 		type: 'post',
-		data: 'product_num=' + $(".move").attr("href"),
+		data: 'product_num=' + $(this).attr("href"),
 		url: '/product/getProductByProductNum',
 		dataType: 'json',
 		success: function(result){
@@ -675,18 +594,15 @@ $(document).on("click", "a.move", function(e){
 //수정 버튼 클릭시 이벤트
 $("#update_Btn").on("click", function(e){
    e.preventDefault();
-   console.log("product register......");
+   
    let str = ""
    $(".uploadResult ul li").each(function(i, obj) {
       let jobj = $(obj);
-      console.log($(obj).html());
-      //console.log(jobj.data("filename"));
-
+      
       str += "<input type='hidden' name='fileList["+i+"].fileName' value='"+jobj.data("filename")+"'>";
       str += "<input type='hidden' name='fileList["+i+"].uuid' value='"+jobj.data("uuid")+"'>";
       str += "<input type='hidden' name='fileList["+i+"].uploadPath' value='"+jobj.data("path")+"'>";
       str += "<input type='hidden' name='fileList["+i+"].product_num' value='"+jobj.data("product_num")+"'>";
-      //console.log(str);
    });
    
    
@@ -729,8 +645,8 @@ $("#delete_Btn").on("click", function(e) {
 		//contentType: "application/json; charset=UTF-8;",
 		success: function(){
 			console.log("성공");
-			alert("상품을 삭제했습니다.");
-			location.href="modifyForm";
+			//alert("상품을 삭제했습니다.");
+			//location.href="modifyForm";
 		},
 		
 	});
@@ -775,8 +691,7 @@ $("input[type='file']").change(function(e){
       formData.append("uploadFile", files[i]);
    }
    
-   //formData.append("board_num", $("#board_num").val());
-   console.log(formData);
+   
    $.ajax({
       url: '/file/uploadAjaxAction',
       processData: false, // data 파라미터로 전달된 데이터를 Query String으로 변환하지 않음. 파일전송시에는 이렇게 해야함
@@ -786,7 +701,6 @@ $("input[type='file']").change(function(e){
       dataType: 'json',
       
       success: function(result) {
-         console.log(result);
          showUploadedFile(result);   
          //$(".uploadDiv").html(cloneObj.html());
       },
@@ -803,18 +717,12 @@ function showUploadedFile(uploadResultArr){
    let str = "";
    
    $(uploadResultArr).each(function(i, obj){
-      /* console.log(obj.uploadPath);
-      console.log(obj.uuid);
-      console.log(obj.fileName); */
-      console.log(obj)
       originPathRegex = obj.uploadPath;
       let fileCallPath = encodeURIComponent(obj.uploadPath + "/" +obj.uuid + "_" + obj.fileName);
       let originPath = obj.uploadPath + "\\" +obj.uuid + "_" + obj.fileName;
       originPath = originPath.replace(new RegExp(/\\/g), "/");
       originPathRegex = originPathRegex.replace(new RegExp(/\\/g), "/");
-      console.log("fileCallPath : " + fileCallPath);
-      console.log("originPath : " + originPath);
-      console.log("originPathRegex : " + originPathRegex);
+      
       //str +="<li data-path='" +  obj.uploadPath + "' data-uuid='" + obj.uuid + "'data-filename='" + obj.fileName + "'data-product_num='" + obj.uploadPath +"'>";
       str +="<li data-path='" +  originPathRegex + "' data-uuid='" + obj.uuid + "'data-filename='" + obj.fileName + "'data-product_num='" + $("#product_num").val() +"'>";
       str +="<div>"
@@ -824,16 +732,15 @@ function showUploadedFile(uploadResultArr){
             str +="<img src='/file/display?fileName=/" + fileCallPath + "'>";
          str +="</a>";
       str +="</div>"
-   str +="</li>";
-      console.log(str);
+   	  str +="</li>";
    });
+   console.log(str);
    uploadResult.append(str);
 }
    
 
 //이미지 클릭시 확대
 function showImage(fileCallPath){
-   console.log(fileCallPath)
    $(".bigPictureWrapper").css("display", "flex").show();
    $(".bigPicture").html("<img src='/file/display?fileName=/" + fileCallPath + "'>")
                .animate({width: '100%', height: '100%'}, 0);

@@ -483,7 +483,6 @@ $("#search_Btn").on("click", function(){
 					"<td>카테고리3</td>" +
 					"<td>카테고리4</td>" +
 					"<td>가격</td>" +
-					"<td>설명</td>" +
 					"</tr>");
 			
 			$.each(result, function(index, item){
@@ -496,7 +495,7 @@ $("#search_Btn").on("click", function(){
 								"<td>" + item.cateCode3 + "</td>"+
 								"<td>" + item.brandCategory + "</td>"+
 								"<td>" + item.product_price + "</td>"+
-								"<td>" + item.product_descrip + "</td></tr>"
+								"</td></tr>"
 				);
 			});
 		},
@@ -512,7 +511,7 @@ $(document).on("click", "a.searchProductMove", function(e){
 	
 	$.ajax({
 		type: 'post',
-		data: 'product_num=' + $(".searchProductMove").attr("href"),
+		data: 'product_num=' + $(this).attr("href"),
 		url: '/product/getProductByProductNum',
 		dataType: 'json',
 		
@@ -551,7 +550,7 @@ $(document).on("click", "a.searchProductMove", function(e){
 					"<td>" + result.product_name + "</td>"+
 					"<td><a class='searchProductSizemove' href='" + item.product_size_id +"'>" + item.product_size + "</a></td>" +
 					"<td><input type='text' id='amount' name='amount' value='" + item.detailProductDTOList.length +   "개'  readonly='readonly'></td>" +
-					"<td><input type='text' id='addProductsAmount' name='addProductsAmount' value='' ></td>" +
+					"<td><input type='text' id='addProductsAmount" + item.product_size_id + "' name='addProductsAmount' value='' ></td>" +
 					"<td><button type='button' id='addDetailProduct' value='" + item.product_size_id + "'>추가</button></td>" + 
 					"</tr>"
 				);	
@@ -645,26 +644,27 @@ $(document).on("click", "#deleteDetailProduct_Btn", function(e){
 
 $(document).on("click", "#addDetailProduct", function(e){
 	console.log("addDetailProduct click");
-	console.log($(this).val());
-	
+	console.log($("#product_num").val());
+	let product_size_id = $(this).val()
+	console.log(product_size_id);
+	console.log($("#addProductsAmount" + product_size_id).val());
 	
 	$.ajax({
 		type: 'post',
 		data: {
 			'product_num' : $("#product_num").val(),
 			'product_size_id' : $(this).val(), 
-			'addProductsAmount' : $("#addProductsAmount").val(),
+			'addProductsAmount' : $("#addProductsAmount" + product_size_id).val(),
 		},
 		url: '/product/addDetailProduct',
 		success: function(){
-			console.log("성공");
+			alert("수량이 추가되었씁니다.");
+			location.href = "/product/amountForm";
 		},
 		error: function(e) {
 			console.log(e);
 		}
-	});	
-	
-	
+	});
 });
 
 

@@ -146,7 +146,6 @@ public class ProductServiceImpl implements ProductService {
 	}
 	
 	
-	@Transactional
 	@Override
 	public void delete(int product_num) {
 		fileMapper.productFileDeleteAll(product_num);

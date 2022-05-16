@@ -346,6 +346,12 @@
 		select * from detail_product where product_size_id = #{product_size_id} and status = 1
 	</select>
 	
+	
+	<select id="getDetailProductByDetailProductId" parameterType="int" resultType="DetailProductDTO">
+		select * from detail_product where detail_product_id = #{detail_product_id}
+	</select>
+	
+	
 	<insert id="addDetailProduct" parameterType="DetailProductDTO">
 		insert into DETAIL_PRODUCT (
 			DETAIL_PRODUCT_ID, 

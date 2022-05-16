@@ -1,10 +1,12 @@
 package product.controller;
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import board.bean.BoardDTO;
 import file.bean.FileDTO;
+import lombok.extern.log4j.Log4j2;
 import oracle.jdbc.proxy.annotation.Post;
 import product.bean.DetailProductDTO;
 import product.bean.ProductCategoryDTO;
@@ -25,6 +28,7 @@ import product.service.ProductService;
 
 @Controller
 @RequestMapping(value = "/product", method = {RequestMethod.GET, RequestMethod.POST})
+@Log4j2
 public class ProductController {
 	
 	@Autowired
@@ -42,7 +46,6 @@ public class ProductController {
 	@ResponseBody
 	public List<ProductCategoryDTO> getProductCategoryList() {
 		List<ProductCategoryDTO> list = productService.getProductCategoryList();
-		//System.out.println(list);
 		return list;
 	}
 	
@@ -51,9 +54,7 @@ public class ProductController {
 	@PostMapping("/getProductCategoryDTO")
 	@ResponseBody
 	public ProductCategoryDTO  getProductCategoryDTO(@RequestParam int product_category_num) {
-		System.out.println("product_category_num : " + product_category_num);
 		ProductCategoryDTO productCategoryDTO = productService.getProductCategoryDTO(product_category_num);
-		System.out.println("productCategoryDTO : " + productCategoryDTO);
 		return productCategoryDTO;
 	}
 	
@@ -62,7 +63,6 @@ public class ProductController {
 	@ResponseBody
 	public List<ProductCategoryDTO> getBrandsCategoryList() {
 		List<ProductCategoryDTO> list = productService.getBrandsCategoryList();
-		System.out.println(list);
 		return list;
 	}
 	
@@ -70,7 +70,6 @@ public class ProductController {
 	@PostMapping("/createBrandCategory")
 	public String createbrandCategory(@ModelAttribute ProductCategoryDTO productCategoryDTO) {
 		productCategoryDTO.setProduct_category_num_ref(10000);
-		System.out.println("productCategoryDTO : " + productCategoryDTO);
 		
 		productService.createBrandCategorySelectKey(productCategoryDTO);
 		return "/product/category";
@@ -81,7 +80,6 @@ public class ProductController {
 	@PostMapping("/modifyBrandCategory")
 	public String modifyBrandCategory(@ModelAttribute ProductCategoryDTO productCategoryDTO) {
 		productCategoryDTO.setProduct_category_num_ref(10000);
-		System.out.println("productCategoryDTO : " + productCategoryDTO);
 		
 		productService.modifyBrandCategory(productCategoryDTO);
 		return "/product/category";
@@ -106,7 +104,6 @@ public class ProductController {
 		
 		String brandname = productService.getBrandnameByBrandcategory(productDTO.getBrandCategory());
 		productDTO.setBrand_name(brandname);
-		System.out.println("register ProductDTO : " + productDTO);
 		productService.productRegister(productDTO);
 		
 		return "/product/register";
@@ -140,7 +137,6 @@ public class ProductController {
 	@PostMapping("/search")
 	@ResponseBody
 	public ProductDTO searchProductName(String product_name) {
-		System.out.println("search product_name: " + product_name);
 		return productService.searchProductName(product_name);
 	}
 	
@@ -149,7 +145,6 @@ public class ProductController {
 	@PostMapping("/getProductByCategory")
 	@ResponseBody
 	public List<ProductDTO> getProductByCategory(@RequestParam Map<String, String> map) {
-		System.out.println("search category : " + map);
 		
 		if (map.get("cateCode1").equals(map.get("cateCode2"))) {
 			map.replace("cateCode2", map.get("cateCode2"), "");
@@ -157,17 +152,13 @@ public class ProductController {
 			map.replace("cateCode3", map.get("cateCode3"), "");
 		}
 		List<ProductDTO> list;
-		System.out.println("after search category : " + map);
 		
 		list = productService.getProductByCategory(map);
 		for (ProductDTO productDTO : list) {
-			System.out.println("productDTO : " + productDTO);
 			List<FileDTO> productFileList = productService.getProductFileList(productDTO.getProduct_num());
-			System.out.println("fileList : " + productFileList);
 			productDTO.setFileList(productFileList);
 		}
 		
-		System.out.println("list : " + list);
 		return list;
 	}
 	
@@ -176,7 +167,6 @@ public class ProductController {
 	@ResponseBody
 	public ProductDTO getProductByProductNum(String product_num) {
 		ProductDTO productDTO = productService.getProductByProductNum(product_num);
-		
 		List<FileDTO> list = productService.getProductFileList(productDTO.getProduct_num());
 		productDTO.setFileList(list);
 		List<ProductSizeDTO> productSizeDTOList = productService.getProductByProductSize(productDTO.getProduct_num());
@@ -186,7 +176,6 @@ public class ProductController {
 		}
 		
 		productDTO.setProductSizeList(productSizeDTOList);
-		System.out.println(productDTO);
 		return productDTO;
 	}
 	
@@ -195,7 +184,6 @@ public class ProductController {
 	@GetMapping("/detail")
 	public String get(@RequestParam Map<String, String> map, Model model) {
 		
-		System.out.println("get map : " + map);
 		int product_num = Integer.parseInt(map.get("product_num")) ;
 		
 		model.addAttribute("map", map);
@@ -215,7 +203,6 @@ public class ProductController {
 	@PostMapping("/getFileList")
 	@ResponseBody
 	public List<FileDTO> getFileList(int product_num) {
-		System.out.println("getFileList...........");
 		return productService.getProductFileList(product_num);
 	}
 	
@@ -223,19 +210,19 @@ public class ProductController {
 	
 	@PostMapping("/modify")
 	public void modify(@ModelAttribute ProductDTO productDTO) {
-		System.out.println("modify productDTO : " + productDTO);
 		productService.modify(productDTO);
 	}
 	
+	
+	@Transactional
 	@PostMapping("/delete")
 	@ResponseBody
 	public void delete(@RequestParam String[] checkProduct_num) {
-		for (String string : checkProduct_num) {
-			System.out.println("delete product_num : " + string);
-			productService.delete(Integer.parseInt(string));
+		for (int i = 0; i < checkProduct_num.length; i++) {
+			productService.delete(Integer.parseInt(checkProduct_num[i]));
 		}
-		
 	}
+	
 	
 	@GetMapping("/brands")
 	public String brands(Model model) {
@@ -249,29 +236,27 @@ public class ProductController {
 	}
 	
 	@PostMapping("/registerProductSize")
+	@ResponseBody
 	public void registerProductSize(@ModelAttribute ProductSizeDTO productSizeDTO) {
-		System.out.println("ProductSizeDTO : " + productSizeDTO);
+		System.out.println(productSizeDTO);
 		productService.registerProductSize(productSizeDTO);
 	}
 	
 	@PostMapping("/getProductSizeByProductSizeId")
 	@ResponseBody
 	public ProductSizeDTO getProductSizeByProductSizeId(@RequestParam int product_size_id) {
-		System.out.println("getProductSizeByProductSizeId : " + product_size_id);
 		return productService.getProductSizeByProductSizeId(product_size_id);
 	}
 	
 	@PostMapping("/modifyProductSize")
 	@ResponseBody
 	public void modifyProductSize(@ModelAttribute ProductSizeDTO productSizeDTO) {
-		System.out.println("Modify ProductSizeDTO : " + productSizeDTO);
 		productService.modifyProductSize(productSizeDTO);
 	}
 	
 	@PostMapping("/deleteProductSize")
 	@ResponseBody
 	public void deleteProductSize(@RequestParam int product_size_id) {
-		System.out.println("delete : " + product_size_id);
 		productService.deleteProductSize(product_size_id);
 	}
 	
@@ -296,21 +281,18 @@ public class ProductController {
 	@PostMapping("/addDetailProduct")
 	@ResponseBody
 	public void addDetailProduct(
-			@RequestParam int product_num, 
-			@RequestParam int product_size_id,
-			@RequestParam int addProductsAmount
+			@RequestParam String product_num, 
+			@RequestParam String product_size_id,
+			@RequestParam String addProductsAmount
 			) {
-		
-		System.out.println("product_num : " + product_num);
-		System.out.println("product_size_id : " + product_size_id);
-		System.out.println("addProductsAmount : " + addProductsAmount);
-		
+		System.out.println(product_num);
+		System.out.println(product_size_id);
+		System.out.println(addProductsAmount);
 		DetailProductDTO detailProductDTO = new DetailProductDTO();
-		detailProductDTO.setProduct_num(product_num);
-		detailProductDTO.setProduct_size_id(product_size_id);
-		detailProductDTO.setAddProductsAmount(addProductsAmount);
+		detailProductDTO.setProduct_num(Integer.parseInt(product_num));
+		detailProductDTO.setProduct_size_id(Integer.parseInt(product_size_id));
+		detailProductDTO.setAddProductsAmount(Integer.parseInt(addProductsAmount));
 		detailProductDTO.setStatus(1);
-		System.out.println(detailProductDTO);
 		
 		productService.addDetailProduct(detailProductDTO);
 	}
@@ -318,7 +300,6 @@ public class ProductController {
 	@PostMapping("/deleteDetailProductByDetailProductID")
 	@ResponseBody
 	public void deleteDetailProductByDetailProductID(@RequestParam int detail_product_id) {
-		System.out.println("detail_product_id : " + detail_product_id);
 		productService.deleteDetailProductByDetailProductID(detail_product_id);
 		
 	}

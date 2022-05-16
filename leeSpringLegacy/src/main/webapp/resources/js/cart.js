@@ -2,7 +2,8 @@ $(function(){
 	
 	$.ajax({
 		type:'post',
-		url:'/getCartList',
+		url:'/order/getCartList',
+		dataType: 'json',
 		success:function(data){
 			
 			console.log(data)
@@ -14,25 +15,33 @@ $(function(){
 				$('#side').hide()
 				$('#noCart').show()
 			}
-			$.each(data,function(index,item){
-			$('<div/>',{class:'product'}).append(
-				$('<div/>',{class:'detail'}).append(
-					$('<div/>',{class:'img'}).append($('<img/>',{src:'/storage/'+item.stored_thumbnail}))
-				).append(
-					$('<div/>',{class:'detailDiv'}).append(
-						$('<a/>',{href:"/detail?seq="+item.product_number,text:item.product_name})
-					).append(
-						$('<span/>').text(item.product_size)
-					).append(
-						$('<span/>').text(item.product_price.toLocaleString()+'원')
-					).append(
-						$('<div/>',{class:'number'}).append($('<span/>').text(item.product_count+' 개'))
-					)
-				)
+			
+			if(data.length === 0){
+				console.log("데이터 없음");
 				
-			).append($('<div/>',{class:'remove',value:item.cart_number}).text('remove')).appendTo($('#mid'));
-				subTotalValue=subTotalValue+item.product_count*item.product_price
-			});//each
+			} else {
+				$.each(data,function(index,item){
+					$('<div/>',{class:'product'}).append(
+						$('<div/>',{class:'detail'}).append(
+							$('<div/>',{class:'img'}).append($('<img/>',{src:'/storage/'+item.stored_thumbnail}))
+						).append(
+							$('<div/>',{class:'detailDiv'}).append(
+								$('<a/>',{href:"/detail?seq="+item.product_number,text:item.product_name})
+							).append(
+								$('<span/>').text(item.product_size)
+							).append(
+								$('<span/>').text(item.product_price.toLocaleString()+'원')
+							).append(
+								$('<div/>',{class:'number'}).append($('<span/>').text(item.product_count+' 개'))
+							)
+						)
+						
+					).append($('<div/>',{class:'remove',value:item.cart_number}).text('remove')).appendTo($('#mid'));
+						subTotalValue=subTotalValue+item.product_count*item.product_price
+				});// end each
+			}
+			
+				
 			totalValue=subTotalValue+shippingValue;
 			$('#totalvalue').text(totalValue.toLocaleString()+'원')
 			$('#subtotalvalue').text(subTotalValue.toLocaleString()+'원')

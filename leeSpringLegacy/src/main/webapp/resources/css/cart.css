@@ -4,7 +4,6 @@ body {
 }
 
 #cartok {
-  display:flex;
   flex-wrap:wrap;
   padding: 10px;
   margin-bottom: 100px;
@@ -17,8 +16,7 @@ body {
   border-bottom: solid black 3px;
   margin-top: 10vh;
   padding: 0px;
-  display: flex;
-  text-align: end;
+  text-align: start;
 }
 #cartok #top h3 {
   margin: 20px;
@@ -29,7 +27,6 @@ body {
 #cartok .product {
   width: 100%;
   border-bottom: 3px solid black;
-  display: flex;
   justify-content: space-between;
   padding: 10px 0;
 }
@@ -38,7 +35,6 @@ body {
 }
 #cartok .detail {
   width: 80%;
-  display: flex;
 }
 #cartok .img {
   width: 90px;

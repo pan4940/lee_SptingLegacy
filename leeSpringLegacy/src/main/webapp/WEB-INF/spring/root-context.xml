@@ -37,7 +37,7 @@
 		<property name="configLocation" value="classpath:mybatis-config.xml"></property>
 	</bean>
 	
-	<mybatis-spring:scan base-package="admin.mapper" />
+	<!-- <mybatis-spring:scan base-package="admin.mapper" />
 	<mybatis-spring:scan base-package="board.mapper" />
 	<mybatis-spring:scan base-package="file.mapper" />
 	<mybatis-spring:scan base-package="member.mapper" />
@@ -47,7 +47,7 @@
 	<context:component-scan base-package="board.*"/>
 	<context:component-scan base-package="file.*"/>
 	<context:component-scan base-package="member.*"/>
-	<context:component-scan base-package="product.*"/>
+	<context:component-scan base-package="product.*"/> -->
 	
 	<aop:aspectj-autoproxy></aop:aspectj-autoproxy>
 	<tx:annotation-driven/>

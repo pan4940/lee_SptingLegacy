@@ -131,7 +131,6 @@ $(function() {
 		if ($('#sizesSelect').val() == '') {
 			alert('사이즈를 선택해 주세요');
 		} else {
-			console.log("전송");
 			
 			$.ajax({
 				url: '/order/addCart',

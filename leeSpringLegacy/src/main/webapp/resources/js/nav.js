@@ -310,6 +310,6 @@ $('input[id="keyword"]').keydown(function(event) {
 });
 
 $('.cart').click(function() {
-	location.href = '/cart'
+	location.href = '/order/cart'
 })
 

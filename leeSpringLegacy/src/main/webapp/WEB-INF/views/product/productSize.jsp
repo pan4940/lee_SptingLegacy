@@ -172,7 +172,7 @@ textarea#gdsDes { width:400px; height:180px; }
 				<form id="productSize" action="/product/registerProductSize" method="post">
 					<div class="tab-pane container" id="size">
 						<input type="hidden" id="product_num" name="product_num" value="">
-						<input type="hidden" id="product_size_id" name="product_size_id" value="">
+						<input type="hidden" id="product_size_id" name="product_size_id" value="0">
 						<div class="psize">
 							<label>상품명</label>
 							<input type="text" id="product_name" name="product_name" value="">
@@ -550,7 +550,6 @@ $("#search_Btn").on("click", function(){
 					"<td>카테고리3</td>" +
 					"<td>카테고리4</td>" +
 					"<td>가격</td>" +
-					"<td>설명</td>" +
 					"</tr>");
 			
 			$.each(result, function(index, item){
@@ -563,7 +562,7 @@ $("#search_Btn").on("click", function(){
 								"<td>" + item.cateCode3 + "</td>"+
 								"<td>" + item.brandCategory + "</td>"+
 								"<td>" + item.product_price + "</td>"+
-								"<td>" + item.product_descrip + "</td></tr>"
+								"</td></tr>"
 				);
 			});
 		},
@@ -578,10 +577,9 @@ $(document).on("click", "a.searchProductMove", function(e){
 	e.preventDefault();
 	
 	
-	
 	$.ajax({
 		type: 'post',
-		data: 'product_num=' + $(".searchProductMove").attr("href"),
+		data: 'product_num=' + $(this).attr("href"),
 		url: '/product/getProductByProductNum',
 		dataType: 'json',
 		
@@ -680,7 +678,8 @@ $(document).on("click", "#delete_Btn", function(e){
 		data: 'product_size_id=' +  $(this).val(),
 		url: '/product/deleteProductSize',
 		success: function(){
-			
+			alert("사이즈를 삭제했습니다.");
+			location.href = "/product/productSizeForm";
 		},
 		error: function(e) {
 			console.log(e);
@@ -720,7 +719,8 @@ $("#register_Btn").on("click", function(){
 		data: $("#productSize").serialize(),
 		url: '/product/registerProductSize',
 		success: function(){
-			
+			alert("사이즈가 등록되었습니다.");
+			location.href = "/product/productSizeForm";
 		},
 		error: function(e) {
 			console.log(e);

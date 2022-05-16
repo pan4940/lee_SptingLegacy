@@ -37,39 +37,9 @@ public class FileUploadController {
 	
 	@GetMapping("/uploadForm")
 	public String uploadForm() {
-		System.out.println("upload form");
 		return "/file/uploadForm";
 	}
 	
-	/*
-	@PostMapping("/fileUpload")
-	//getOriginalFilename()시 크롬과 IE의 결과값이 약간 다르다..
-	public void fileUpload(MultipartFile[] uploadFile, Model model)  {
-		
-		String uploadFolder = "C:\\thec";
-		
-		for (MultipartFile multipartFile : uploadFile) {
-			System.out.println("-----------------------");
-			System.out.println("upload file name : " + multipartFile.getOriginalFilename());
-			System.out.println("upload file size : " + multipartFile.getSize());
-			
-			String uploadFileName = multipartFile.getOriginalFilename();
-			
-			//IE fileName
-			uploadFileName = uploadFileName.substring(uploadFileName.lastIndexOf("\\") + 1);
-			System.out.println("only file name : " + uploadFileName);
-			
-			File saveFile = new File(uploadFolder, uploadFileName);
-			
-			try {
-				multipartFile.transferTo(saveFile);
-			} catch (IllegalStateException | IOException e) {
-				e.printStackTrace();
-			}
-		}
-		
-	}
-	*/
 	
 	
 	@GetMapping("/uploadAjax")
@@ -98,7 +68,6 @@ public class FileUploadController {
 	
 	
 	public List<FileDTO> fileUploadAjax(String uploadFolder, MultipartFile[] uploadFile, Model model)  {
-		System.out.println("uploadFolder : " + uploadFolder);
 		for (MultipartFile multipartFile : uploadFile) {
 			System.out.println("uploadFile : " + multipartFile.getOriginalFilename());
 		}
@@ -120,23 +89,17 @@ public class FileUploadController {
 			
 			FileDTO fileDTO = new FileDTO();
 			
-			System.out.println("-----------------------");
-			System.out.println("upload file name : " + multipartFile.getOriginalFilename());
-			System.out.println("upload file size : " + multipartFile.getSize());
 			
 			String uploadFileName = multipartFile.getOriginalFilename();
 			fileDTO.setFileName(uploadFileName);
 			
 			//IE fileName
 			uploadFileName = uploadFileName.substring(uploadFileName.lastIndexOf("\\") + 1);
-			System.out.println("only file name : " + uploadFileName);
 			
 			//파일명 중복시, 파일을 덮어쓰기 때문에 파일명 중복을 막기위한 처리
 			UUID uuid = UUID.randomUUID();
 			uploadFileName = uuid.toString() + "_" + uploadFileName;
 			
-			System.out.println("uuid file name : " + uploadFileName);
-			System.out.println("uploadPath : " + uploadPath);
 			
 			File saveFile = new File(uploadPath, uploadFileName);
 			
@@ -144,7 +107,6 @@ public class FileUploadController {
 			fileDTO.setUploadPath(uploadPath.toString());
 			//fileDTO.setUploadPath(uploadFolder);
 			
-			System.out.println("fileDTO: " + fileDTO);
 			try {
 				multipartFile.transferTo(saveFile);
 				
@@ -170,12 +132,10 @@ public class FileUploadController {
 	@GetMapping("/display")
 	@ResponseBody
 	public ResponseEntity<byte[]> getFile(String fileName) {
-		System.out.println("fileName : " + fileName);
 		
 		//File file = new File("c:\\thec\\" + fileName);
 		File file = new File(fileName);
 		
-		System.out.println("file : " + file);
 		
 		ResponseEntity<byte[]> result = null;
 		
@@ -195,11 +155,7 @@ public class FileUploadController {
 	//MIME 타입을 다운로드 할 수 있는 APPLICATION_OCTET_STREAM_VALUE 타입으로 설정
 	@ResponseBody
 	public ResponseEntity<Resource> downloadFile(@RequestHeader("User-Agent") String userAgent, String fileName) {
-		System.out.println("download file : " + fileName);
 		Resource resource = new FileSystemResource("c:\\thec\\" + fileName);
-		System.out.println("resource : " + resource);
-		System.out.println("resource.getFilename() : " + resource.getFilename());
-		System.out.println("userAgent : " + userAgent);
 		if (resource.exists() == false) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
@@ -213,19 +169,14 @@ public class FileUploadController {
 			
 			//브라우저가 인터넷 익스플로러의 경우
 			if (userAgent.contains("Trident")) {
-				System.out.println("Internet Explorer");
 				downloadName = URLEncoder.encode(resourceName, "UTF-8").replaceAll("\\" + ",", " ");
-				System.out.println("Internet Explorer name : " + downloadName);
 				
 			//브라우저가 마이크로소프트 Edge의 경우
 			} else if (userAgent.contains("Edg")) {
-				System.out.println("Microsoft Edge");
 				downloadName = URLEncoder.encode(resourceName, "UTF-8");
-				System.out.println("Microsoft Edge name : " + downloadName);
 			
 			//브라우저가 Chrome의 경우
 			} else {
-				System.out.println("Chrome");
 				downloadName = new String(resourceName.getBytes("UTF-8"), "ISO-8859-1");
 			}
 			
@@ -242,11 +193,9 @@ public class FileUploadController {
 	@PostMapping("/deleteFile")
 	@ResponseBody
 	public ResponseEntity<String> deleteFile(String fileName) {
-		System.out.println("delete File : " + fileName);
 		File file;
 		
 		try {
-			System.out.println("decoding : " + URLDecoder.decode(fileName, "UTF-8"));
 			file = new File("c:\\thec\\" + URLDecoder.decode(fileName, "UTF-8"));
 			file.delete();
 			
