@@ -39,7 +39,7 @@
 	</div>
 	<div id="noCart" style="display: none">
 		<p>
-			Your cart is empty. <a href="/list?category=men">Go Shopping</a>
+			장바구니가 비어 있습니다.. <a href="/list?category=men">Go Shopping</a>
 		</p>
 	</div>
 </div>

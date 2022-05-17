@@ -50,8 +50,8 @@ public class BoardController {
 			model.addAttribute("board_category_num", board_category_num);
 			
 			for (BoardDTO boardDTO : list) {
-				System.out.println("boardDTO : " + boardDTO);
 				boardDTO.setFileList(boardService.getFileList(boardDTO.getBoard_num()));
+				System.out.println("boardDTO : " + boardDTO);
 			}
 			
 			model.addAttribute("list", list);

@@ -8,5 +8,20 @@
 	<select id="getCartList" parameterType="String" resultType="CartDTO">
 		select * from CART where member_id = #{member_id}
 	</select>
-   
+	
+	
+	
+   	<insert id="addCart" parameterType="CartDTO">
+   		insert into CART(
+			member_id, 
+			detail_product_id 
+		) values (
+			#{member_id},
+			#{detail_product_id}
+		)
+   	</insert>
+   	
+   	<select id="getCartDtoByDetailProductId" parameterType="int" resultType="CartDTO">
+   		select * from CART where detail_product_id = #{detail_product_id}
+   	</select>
 </mapper>

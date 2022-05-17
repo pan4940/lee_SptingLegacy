@@ -78,7 +78,6 @@ public interface ProductMapper {
 
 	public void deleteProductSize(int product_size_id);
 
-	public List<DetailProductDTO> getDetailProductListByProductSizeID(int product_size_id);
 
 	public List<DetailProductDTO> getDetailProductListByProductSizeId(int product_size_id);
 
@@ -87,5 +86,8 @@ public interface ProductMapper {
 	public void deleteDetailProductByDetailProductID(int detail_product_id);
 
 	public DetailProductDTO getDetailProductByDetailProductId(int detail_product_id);
+
+	public List<DetailProductDTO> getDetailProductListByProductMemberId(String member_id);
+
 
 }

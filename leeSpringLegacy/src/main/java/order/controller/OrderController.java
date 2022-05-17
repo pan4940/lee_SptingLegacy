@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import member.bean.MemberDTO;
+import order.bean.CartDTO;
 import order.service.OrderService;
 import product.bean.DetailProductDTO;
 import product.bean.ProductDTO;
@@ -27,8 +28,14 @@ public class OrderController {
 	
 	@PostMapping("/addCart")
 	@ResponseBody
-	public void addCart(String product_size_id) {
+	public void addCart(HttpSession httpSession, String product_size_id) {
+		MemberDTO memberDTO = (MemberDTO) httpSession.getAttribute("memberDTO");
+		System.out.println("MemberDTO : " + memberDTO);
 		System.out.println("product_size_id : " + product_size_id);
+		String member_id = memberDTO.getMember_id();
+		
+		orderService.addCart(member_id, product_size_id);
+		
 	}
 	
 	
@@ -44,11 +51,9 @@ public class OrderController {
 	@ResponseBody
 	//productSizeList는 해당 사이즈만 얻게끔 설정
 	public List<ProductDTO> getCartList(HttpSession httpSession) {
-		//MemberDTO memberDTO = (MemberDTO) httpSession.getAttribute("memberDTO");
-		//String member_id = memberDTO.getMember_id();
-		String member_id = "rlatjdgus";
+		MemberDTO memberDTO = (MemberDTO) httpSession.getAttribute("memberDTO");
+		String member_id = memberDTO.getMember_id();
 		List<ProductDTO> list = orderService.getCartList(member_id);
-		System.out.println(list);
 		return list;
 	}
 	

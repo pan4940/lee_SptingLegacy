@@ -2,6 +2,7 @@ package order.bean;
 
 import org.springframework.stereotype.Component;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Component

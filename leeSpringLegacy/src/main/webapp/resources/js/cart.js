@@ -23,21 +23,21 @@ $(function(){
 				$.each(data,function(index,item){
 					$('<div/>',{class:'product'}).append(
 						$('<div/>',{class:'detail'}).append(
-							$('<div/>',{class:'img'}).append($('<img/>',{src:'/storage/'+item.stored_thumbnail}))
+							$('<div/>',{class:'img'}).append($('<img/>',{src:'/file/display?fileName=/'+item.fileList[0].uploadPath + item.fileList[0].uuid + "_" +  item.fileList[0].fileName}))
 						).append(
 							$('<div/>',{class:'detailDiv'}).append(
-								$('<a/>',{href:"/detail?seq="+item.product_number,text:item.product_name})
+								$('<a/>',{href:"/produec/detail?product_num="+item.product_num,text:item.product_name})
 							).append(
-								$('<span/>').text(item.product_size)
+								$('<span/>').text(item.productSizeDTO.product_size)
 							).append(
 								$('<span/>').text(item.product_price.toLocaleString()+'원')
-							).append(
+							)/*.append(
 								$('<div/>',{class:'number'}).append($('<span/>').text(item.product_count+' 개'))
-							)
+							)*/
 						)
 						
-					).append($('<div/>',{class:'remove',value:item.cart_number}).text('remove')).appendTo($('#mid'));
-						subTotalValue=subTotalValue+item.product_count*item.product_price
+					).append($('<div/>',{class:'remove',value:item.productSizeDTO.detailProductDTO.detail_product_id}).text('remove')).appendTo($('#mid'));
+						subTotalValue += item.product_price;
 				});// end each
 			}
 			
@@ -46,6 +46,7 @@ $(function(){
 			$('#totalvalue').text(totalValue.toLocaleString()+'원')
 			$('#subtotalvalue').text(subTotalValue.toLocaleString()+'원')
 			$('#shippingvalue').text(shippingValue.toLocaleString()+'원')
+			
 			$('.remove').click(function(event){
 				const swalWithBootstrapButtons = Swal.mixin({
                   customClass: {
@@ -58,7 +59,7 @@ $(function(){
                   title: '정말로 삭제 하실껀가요?',
                   icon: 'warning',
                   showCancelButton: true,
-                  confirmButtonText: '넹!!',
+                  confirmButtonText: '네!!',
                   cancelButtonText: '아니요!!',
                   reverseButtons: false
                }).then((result) => {
