@@ -29,9 +29,13 @@
 		<div id="total">
 			<label id="totallabel" style="color: black">TOTAL AMOUNT</label> <br />
 			<span id="totalvalue" style="color: black; font-size: 25pt">value</span>
-			<br /> <label class="gray">Subtotal</label> <span id="subtotalvalue">value원</span>
-			<br /> <label class="gray">Shpping</label> <span id="shippingvalue">value원</span>
-			<br /> <br /> <a href="/checkout"
+			<br /> 
+			<label class="gray">Subtotal</label> <span id="subtotalvalue">value원</span>
+			<br /> 
+			<label class="gray">Shpping</label> <span id="shippingvalue">value원</span>
+			<br /> 
+			<br /> 
+			<a href="/order/checkout"
 				style="font-size: 30px; font-weight: bold">CHECK OUT</a>
 			<hr>
 		</div>

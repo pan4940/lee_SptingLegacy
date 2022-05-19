@@ -120,3 +120,12 @@ body {
   font-weight: bold;
   cursor: pointer;
 }
+
+#cart_main {
+  height: 75vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+

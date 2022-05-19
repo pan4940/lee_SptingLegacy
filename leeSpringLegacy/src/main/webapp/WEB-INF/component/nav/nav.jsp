@@ -35,7 +35,8 @@ MemberDTO memberDTO = (MemberDTO)session.getAttribute("memberDTO");
 	    <span><a href="/board/list?board_category_num=7">POST</a>
 	    </span>
 	  </div>
-	
+		
+	  <button type="button" id="autoLogin"></button>
 	  <div>
 	    <a href="/board/list?board_category_num=5&pageNum=1&amount=10">HELP</a>
 	    <button class="search"style="border: 0; background-color: white;"><i class="fa-solid fa-magnifying-glass"></i></button>
@@ -128,3 +129,28 @@ MemberDTO memberDTO = (MemberDTO)session.getAttribute("memberDTO");
 </form>
 <a href="#" id="searchCloseBtn">close</a>
 </div>
+
+<script type="text/javascript">
+$("#autoLogin").on("click", function() {
+	$.ajax({
+        type:'post',
+        url:'/member/loginOK',
+        data: {
+           'member_id': 'rlatjdgus',
+           'member_pwd': '@a123456'
+        },
+        dataType:'text',
+        success:function(data){
+           data = data.trim();
+           if(data =='ok'){
+            
+           }else if(data=='fail'){
+              
+           }
+        },
+        error:function(err){
+           alert(err);
+        }
+     });
+});
+</script>

@@ -2,54 +2,18 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>  
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>   
-<link rel="stylesheet" href="/css/orderdetail.css" />
+<link rel="stylesheet" href="/resources/css/orderdetail.css" />
 <script type="text/javascript"
 	src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
 <div id="orderdetailDiv" class="col-12 col-lg-6">
 	<h3>
 		<center>YOUR CART</center>
 	</h3>
+	<input type="text" value="${memberDTO}">
 	<div id="cartList">
-		<!-- 
-	<div class="youcartDiv">
-		<div class="col-2">
-			<img src="" />
-		</div>
-		<div class="youcartName col-6">
-			<p style="margin: 0px 0px 10px 20px">아크테릭스 GAMMA LT HOODY-BLACK</p>
-			<span>XL</span>
-		</div>
-		<div class="col-2">
-			<input type="number" min="1" value="1" style="border:none;width:80%;text-align: center;">
-		</div>
-		<div class="col-2">금액</div>
-	</div>  
-	-->
+	
 	</div>
-	<!-- <div class="youcartDiv">
-		<div class="col-2">
-			<img src="" />
-		</div>
-		<div class="youcartName col-6">
-			<p style="margin: 0px 0px 10px 20px">아크테릭스 GAMMA LT HOODY-BLACK</p>
-			<span>XL</span>
-		</div>
-		<div class="col-2">
-			<input type="number" min="1" value="1" style="border:none;width:80%;text-align: center;">
-		</div>
-		<div class="col-2">금액</div>
-	</div> -->
-	<!-- 
-	<div class="youcartDiv">
-		<img src="" />
-		<div class="youcartName">
-			<p style="margin: 0px 0px 20px 20px">아크테릭스 GAMMA LT HOODY-BLACK</p>
-			<span>XL</span>
-		</div>
-		<div>수량</div>
-		<div>금액</div>
-	</div> 
-	-->
+	
 	<div id="carttotal">
 		<label id="totalamount">TOTAL AMOUNT</label> <span id="total"
 			style="font-size: 20pt">토탈금액</span>
@@ -63,24 +27,28 @@
 		<h3>
 			<center>주문자 정보</center>
 		</h3>
-		<label style="color: gray">이름</label><br /> <input type="text"
-			id="name" name="name" value="${memUser_InfoDTO.name }" readonly
-			style="width: 25%; border: 0px; border-bottom: 1px solid gray" /> <br />
-		<label style="color: gray">우편번호</label><br /> <input type="text"
-			id="zipcode" name="zipcode" readonly
-			value="${memUser_InfoDTO.zipcode}"
-			style="width: 10%; border: 0px; border-bottom: 1px solid gray" />
+		<label style="color: gray">이름</label><br /> 
+			<input type="text"
+				id="member_name" name="member_name" value="${memberDTO.member_name }" readonly
+				style="width: 25%; border: 0px; border-bottom: 1px solid gray" /> <br />
+		<label style="color: gray">우편번호</label><br /> 
+			<input type="text"
+				id="zipcode" name="zipcode" readonly
+				value="${memberDTO.zipcode}"
+				style="width: 10%; border: 0px; border-bottom: 1px solid gray" />
 		<button id="search">SEARCH</button>
-		<br /> <label style="color: gray">주소</label><br /> <input
-			type="text" id="addr1" name="addr1" readonly
-			value="${memUser_InfoDTO.addr1}"
-			style="width: 80%; border: 0px; border-bottom: 1px solid gray" /> <input
-			type="text" id="addr2" name="addr2" value="${memUser_InfoDTO.addr2}"
-			style="width: 80%; border: 0px; border-bottom: 1px solid gray" /> <br />
+		<br /> <label style="color: gray">주소</label><br /> 
+			<input
+				type="text" id="addr1" name="addr1" readonly
+				value="${memberDTO.addr1}"
+				style="width: 80%; border: 0px; border-bottom: 1px solid gray" /> 
+			<input
+				type="text" id="addr2" name="addr2" value="${memberDTO.addr2}"
+				style="width: 80%; border: 0px; border-bottom: 1px solid gray" /> <br />
 		<label for="phone" style="color: gray">전화</label>
 		<p></p>
 		<select id="tel1" name="tel1" style="height: 30px">
-			<option value="02" selected>02</option>
+			<option value="02">02</option>
 			<option value="031">031</option>
 			<option value="032">032</option>
 			<option value="033">033</option>
@@ -112,9 +80,9 @@
 			<option value="017">017</option>
 			<option value="018">018</option>
 			<option value="019">019</option>
-		</select> - <input type="text" name="tel2" value="${tel2}"
+		</select> - <input type="text" name="tel2" value="${memberDTO.tel2}"
 			style="width: 50px; border: 0px; border-bottom: 1px solid gray" /> -
-		<input type="text" name="tel3" value="${tel3}"
+		<input type="text" name="tel3" value="${memberDTO.tel3}"
 			style="width: 50px; border: 0px; border-bottom: 1px solid gray" />
 
 		<p></p>
@@ -127,15 +95,15 @@
 			<option value="017">017</option>
 			<option value="018">018</option>
 			<option value="019">019</option>
-		</select> - <input type="text" id="phone2" name="phone2" value="${phone2}"
+		</select> - <input type="text" id="phone2" name="phone2" value="${memberDTO.phone2}"
 			style="width: 50px; border: 0px; border-bottom: 1px solid gray" /> -
-		<input type="text" id="phone3" name="phone3" value="${phone3}"
+		<input type="text" id="phone3" name="phone3" value="${memberDTO.phone3}"
 			style="width: 50px; border: 0px; border-bottom: 1px solid gray" />
 		<p></p>
 		<label for="email" style="color: gray">이메일</label>
 		<p></p>
 		<input type="text" id="email" name="email"
-			value="${memUser_InfoDTO.email}"
+			value="${memberDTO.email}"
 			style="width: 50%; border: 0px; border-bottom: 1px solid gray" />
 		<!--  @
 		<input type="text" id="email" name="email"
@@ -157,23 +125,24 @@
 			<center>배송지 정보</center>
 		</h3>
 		<label style="color: gray">이름</label><br /> <input type="text"
-			id="name" name="name" value="${memUser_InfoDTO.name }"
+			id="member_name" name="member_name" value="${memberDTO.member_name }"
 			style="width: 25%; border: 0px; border-bottom: 1px solid gray" /> <br />
+			<input type="hidden" value="${memberDTO.member_id}"> 
 		<label style="color: gray">우편번호</label><br /> <input type="text"
 			id="zipcode" name="zipcode" readonly
-			value="${memUser_InfoDTO.zipcode }"
+			value="${memberDTO.zipcode }"
 			style="width: 10%; border: 0px; border-bottom: 1px solid gray" />
 		<button>SEARCH</button>
 		<br /> <label style="color: gray">주소</label><br /> <input
 			type="text" id="addr1" name="addr1" readonly
-			value="${memUser_InfoDTO.addr1 }"
+			value="${memberDTO.addr1 }"
 			style="width: 80%; border: 0px; border-bottom: 1px solid gray" /> <input
-			type="text" id="addr2" name="addr2" value="${memUser_InfoDTO.addr2 }"
+			type="text" id="addr2" name="addr2" value="${memberDTO.addr2 }"
 			style="width: 80%; border: 0px; border-bottom: 1px solid gray" /> <br />
 		<label for="phone" style="color: gray">전화</label>
 		<p></p>
 		<select id="tel1" name="tel1" style="height: 30px">
-			<option value="02" selected>02</option>
+			<option value="02" >02</option>
 			<option value="031">031</option>
 			<option value="032">032</option>
 			<option value="033">033</option>
@@ -205,9 +174,9 @@
 			<option value="017">017</option>
 			<option value="018">018</option>
 			<option value="019">019</option>
-		</select> - <input type="text" id="tel2" name="tel2" value="${tel2 }"
+		</select> - <input type="text" id="tel2" name="tel2" value="${memberDTO.tel2 }"
 			style="width: 50px; border: 0px; border-bottom: 1px solid gray" /> -
-		<input type="text" id="tel3" name="tel3" value="${tel3 }"
+		<input type="text" id="tel3" name="tel3" value="${memberDTO.tel3 }"
 			style="width: 50px; border: 0px; border-bottom: 1px solid gray" />
 
 		<p></p>
@@ -220,9 +189,9 @@
 			<option value="017">017</option>
 			<option value="018">018</option>
 			<option value="019">019</option>
-		</select> - <input type="text" id="phone2" name="phone2" value="${phone2 }"
+		</select> - <input type="text" id="phone2" name="phone2" value="${memberDTO.phone2 }"
 			style="width: 50px; border: 0px; border-bottom: 1px solid gray" /> -
-		<input type="text" id="phone3" name="phone3" value="${phone3 }"
+		<input type="text" id="phone3" name="phone3" value="${memberDTO.phone3 }"
 			style="width: 50px; border: 0px; border-bottom: 1px solid gray" />
 
 		<p></p>
@@ -236,12 +205,14 @@
 		</h3>
 
 		<input id="mileageInput" name="mileageInput" type="number" value="0" min=0
-			max=${memUser_InfoDTO.mileage }
+			max=${memberDTO.mileage }
 			style="width: 12%; border: 0px; border-bottom: 1px solid gray" />
-		<span style="margin-left: 10px">total:${memUser_InfoDTO.mileage }</span>
+		<span style="margin-left: 10px">total:${memberDTO.mileage }</span>
 	</div>
-		<input id="totalPrice" name="finalTotalPrice" type="hidden" value="">
-		<input id="user_id" name="user_id" type="hidden" value="${memUser_InfoDTO.user_id }">
+		<input id="totalPrice" name="totalPrice" type="hidden" value="">
+		<input id="status" name="status" type="hidden" value="">
+		<input id="deliveryCost" name="deliveryCost" type="hidden" value="">
+		<input id="member_id" name="member_id" type="hidden" value="${memberDTO.member_id }">
 		<input id="order_name" name="order_name" type="hidden" value="">
 		
 	
@@ -264,7 +235,7 @@
 	</div>
 </div>
 
-<script type="text/javascript" src="../js/checkout.js"></script>
+<script type="text/javascript" src="/resources/js/checkout.js"></script>
 
 <script type="text/javascript">
 	//주문 요청
@@ -272,83 +243,99 @@
     	$("#checkoutBtn").click(function (){
     		console.log($('.youcartName')[0].innerText.split('\n')[0])
     		console.log($('.youcartName').length)
-    		 var itemName=$('.youcartName')[0].innerText.split('\n')[0];
+			let itemName=$('.youcartName')[0].innerText.split('\n')[0];
     		console.log(itemName)
     		if($('.youcartName').length > 1){
     			itemName=itemName+' 외 '+($('.youcartName').length-1)+' 건';
     		}
     		$('#order_name').val(itemName);
-            var IMP=window.IMP;
+    		$("#shippinginformationForm").append($("#cartList"));
+	   		console.log($('#shippinginformationForm').serialize());
+    		
+    		$.ajax({
+        		type:'post',
+        		url:'/order/registerOrderDTO',
+        		//contentType : "application/json; charset=utf-8",
+        		data: $('#shippinginformationForm').serialize(),
+        		//success: function(order_id) {
+        		success: function() {	
+					Swal.fire({
+						icon: 'success',
+						title: ' 주문이 완료되었습니다!'
+					}).then(function() {
+						location.href = '/order/orderhistory';
+					});
+        			/*
+        			$.each($('.youcartDiv'),function(index){
+        				$.ajax({
+        					url:'/orderdetail',
+        					type:'post',
+        					data:{
+        						order_id:order_id,
+        						product_count:$('#countInput_'+index).val(),
+        						product_sort_num:$('#product_sort_number_'+index).val()
+        					},
+        					success:function(){
+        						 Swal.fire({
+                  	               icon: 'success',
+                  	               title: ' 주문이 완료되었습니다!'
+                  	            }).then(function() {
+                  	               location.href = '/orderhistory';
+                  	            });
+                  	        
+        					},
+        					error:function(){
+        						alert(err);
+        					}
+        				})
+        				
+        			});
+        			*/ 
+        			console.log("성공");
+        	    },
+       	        error: function(err) {
+       	            console.log(err);
+       	        }
+        		
+        	})  
+        	//오더넘버를 보여주고
+        	//카트를 비워야되고
+        	//오더정보를 넘겨야하고
+        	//오더디테일로 넘겨야한다
+        	/* 
+        	
+            msg += '고유아이디: '+rsp.imp_uid;
+            msg += '상점 거래 아이디'+rsp.merchant_uid;
+            msg += '결제 금액' +rsp.paid_amount;
+            msg += '카드 승인번호'+rsp.apply_num;
+			*/
+    		
+    		
+    		
+    		
+    		
+    		
+    		/* var IMP=window.IMP;
             IMP.init('imp54168513');
             IMP.request_pay({
                 pg: 'html5_inicis',
                 pay_method:'card',
                 merchant_uid: 'merchant_'+new Date().getTime(),
                 name: itemName,
-                //amount: $('#totalPrice').val(),
+                //amount: $('#totalPrice').val(), 결재금액
                 amount: 100,
-                buyer_email:'${memUser_InfoDTO.email}',
+                buyer_email:'${memberDTO.email}',
                 buyer_tel: $('#phone1').val()+'-'+$('#phone2').val()+'-'+$('#phone3').val(),
                 buyer_addr: $('#addr1').val()+' '+$('#addr2').val(),
                 buyer_postcode:$('#zipcode').val(),
-                m_redirect_url: 'https://127.0.0.1:8090/'
+                m_redirect_url: 'https://127.0.0.1:8080/'
 
             }, function (rsp){
                 console.log(rsp);
                 if (rsp.success){
                 	var msg='결제 완료';
                 	
-                	$.ajax({
-                		type:'post',
-                		url:'/checkout',
-                		data:
-                				$('#shippinginformationForm').serialize()
-                		,
-                		success: function(order_id) {
-                			
-                			
-                			$.each($('.youcartDiv'),function(index){
-                				$.ajax({
-                					url:'/orderdetail',
-                					type:'post',
-                					data:{
-                						order_id:order_id,
-                						product_count:$('#countInput_'+index).val(),
-                						product_sort_num:$('#product_sort_number_'+index).val()
-                					},
-                					success:function(){
-                						 Swal.fire({
-                          	               icon: 'success',
-                          	               title: ' 주문이 완료되었습니다! (๑>ᴗ<๑)'
-                          	            }).then(function() {
-                          	               location.href = '/orderhistory';
-                          	            });
-                          	        
-                					},
-                					error:function(){
-                						alert(err);
-                					}
-                				})
-                				
-                			})
-                	         
-                	         },
-                	         error: function(err) {
-                	            alert(err); //console.log(err);
-                	         }
-                		
-                	}) 
-                	//오더넘버를 보여주고
-                	//카트를 비워야되고
-                	//오더정보를 넘겨야하고
-                	//오더디테일로 넘겨야한다
-                	/* 
                 	
-                    msg += '고유아이디: '+rsp.imp_uid;
-                    msg += '상점 거래 아이디'+rsp.merchant_uid;
-                    msg += '결제 금액' +rsp.paid_amount;
-                    msg += '카드 승인번호'+rsp.apply_num;
-					*/
                 	
                 }else {
                     var msg='결제 실패';
@@ -359,7 +346,7 @@
                    });
                 }
                 
-            });
-        });
-    })
+            }); */
+        }); //end $("#checkoutBtn").click
+    }); // $(function(){
 </script>

@@ -14,7 +14,7 @@ public class DetailOrderDTO {
 	private int detail_order_id;
 	private int order_id;
 	private int detail_product_id;
-	private int price;
+	private int product_price;
 	private Date legDate; 
 	private Date updateDate;
 	

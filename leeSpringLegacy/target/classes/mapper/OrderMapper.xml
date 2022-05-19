@@ -21,7 +21,41 @@
 		)
    	</insert>
    	
+   	<insert id="registerOrderDTO" parameterType="OrderDTO">
+   		insert into ORDERS(
+			member_id, 
+			zipcode,
+			addr1,
+			addr2,
+			tel1,
+			tel2, 
+			tel3, 
+			phone1, 
+			phone2, 
+			phone3, 
+			status, 
+			deliveryCost
+		) values (
+			#{member_id}, 
+			#{zipcode}, 
+			#{addr1}, 
+			#{addr2}, 
+			#{tel1}, 
+			#{tel2}, 
+			#{tel3}, 
+			#{phone1}, 
+			#{phone2}, 
+			#{phone3}, 
+			#{status}, 
+			#{deliveryCost}
+		)
+   	</insert>
+   	
    	<select id="getCartDtoByDetailProductId" parameterType="int" resultType="CartDTO">
    		select * from CART where detail_product_id = #{detail_product_id}
    	</select>
+   	
+   	<delete id="deleteCart" parameterType="int">
+   		delete CART where detail_product_id = #{detail_product_id}
+   	</delete>
 </mapper>

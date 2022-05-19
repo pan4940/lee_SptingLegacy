@@ -21,9 +21,10 @@ $(function(){
 				
 			} else {
 				$.each(data,function(index,item){
+					let fileCallPath = encodeURIComponent(item.fileList[0].uploadPath + "/" + item.fileList[0].uuid + "_" +  item.fileList[0].fileName);
 					$('<div/>',{class:'product'}).append(
 						$('<div/>',{class:'detail'}).append(
-							$('<div/>',{class:'img'}).append($('<img/>',{src:'/file/display?fileName=/'+item.fileList[0].uploadPath + item.fileList[0].uuid + "_" +  item.fileList[0].fileName}))
+							$('<div/>',{class:'img'}).append($('<img/>',{src:'/file/display?fileName=/'+ fileCallPath}))
 						).append(
 							$('<div/>',{class:'detailDiv'}).append(
 								$('<a/>',{href:"/produec/detail?product_num="+item.product_num,text:item.product_name})
@@ -56,7 +57,7 @@ $(function(){
                   buttonsStyling: false
                });
                swalWithBootstrapButtons.fire({
-                  title: '정말로 삭제 하실껀가요?',
+                  title: '상품을 삭제하시겠습니까?',
                   icon: 'warning',
                   showCancelButton: true,
                   confirmButtonText: '네!!',
@@ -64,11 +65,12 @@ $(function(){
                   reverseButtons: false
                }).then((result) => {
                   if (result.isConfirmed) {
-                     $.ajax({
+                    console.log(result.isConfirmed); 
+					$.ajax({
                         type: 'post',
-                        url: '/deleteCart',
+                        url: '/order/deleteCart',
                         data: {
-                           'cart_number': event.target.getAttribute("value")
+                           'detail_product_id': event.target.getAttribute("value")
                         },
                         success: function() {
                        
@@ -77,7 +79,7 @@ $(function(){
                               title: '항목 1개가 삭제되었습니다.',
                               closeOnClickOutside: false
                            }).then(function() {
-                              location.href = '/cart';
+                              location.href = '/order/cart';
                            });
 
                         },
@@ -89,12 +91,13 @@ $(function(){
 
                   } else if (
                      /* Read more about handling dismissals below */
+
                      result.dismiss === Swal.DismissReason.cancel
                   ) {
                      
                   }
                });
-			})
+			}) // end remove click event
 		},
 		error:function(err){
 			$('#mid').hide()

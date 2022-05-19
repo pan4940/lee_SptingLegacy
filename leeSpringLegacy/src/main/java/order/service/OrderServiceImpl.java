@@ -67,9 +67,22 @@ public class OrderServiceImpl implements OrderService {
 				cartDTO2.setDetail_product_id(detailProductDTO.getDetail_product_id());
 				cartDTO2.setMember_id(member_id);
 				orderMapper.addCart(cartDTO2);
+				break;
 			}
 		}
 		
 	}	
+	
+	@Override
+	public void deleteCart(int detail_product_id) {
+		orderMapper.deleteCart(detail_product_id);
+	}
+	
+	@Override
+	public void registerOrderDTO(OrderDTO orderDTO) {
+		//먼저 orderDTO등록. selectKey
+		//이후 orderDTO.getDetailOrderDTOList()로 리스트 받아와서 DetailOrderDTO 등록 반복문 필요
+		orderMapper.registerOrderDTO(orderDTO);
+	}
 		
 }

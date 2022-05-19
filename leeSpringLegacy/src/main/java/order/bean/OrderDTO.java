@@ -15,10 +15,10 @@ public class OrderDTO {
 	private int order_id;
 	
 	/* 주문 회원 아이디 */
-	private int member_id;
+	private String member_id;
 	
 	//주소정보는 회원이 언제던지 변경할 수 있으므로 별로도 저장 필요
-	private int zipcode;
+	private String zipcode;
 	private String addr1;
 	private String addr2;
 	private String tel1;
@@ -32,7 +32,7 @@ public class OrderDTO {
 	private String status;
 	
 	/* 배송비 */
-	private int deliveryCost;
+	private String deliveryCost;
 	
 	/* 주문 날짜 */
 	private Date orderDate;
@@ -48,5 +48,5 @@ public class OrderDTO {
 	private MemberDTO memberDTO;
 	private int totalPrice;
 	private List<DetailOrderDTO> detailOrderDTOList;
-
+	
 }

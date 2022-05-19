@@ -20,5 +20,6 @@
 		<typeAlias type="product.bean.DetailProductDTO" alias="DetailProductDTO"/>
 		
 		<typeAlias type="order.bean.CartDTO" alias="CartDTO"/>
+		<typeAlias type="order.bean.OrderDTO" alias="OrderDTO"/>
 	</typeAliases>
 </configuration>

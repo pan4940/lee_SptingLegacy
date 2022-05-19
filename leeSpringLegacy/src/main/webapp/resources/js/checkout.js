@@ -2,15 +2,17 @@ var total = 0;
 $(function() {
 	$.ajax({
 		type: 'post',
-		url: '/getCartList',
+		url: '/order/getCartList',
+		dataType: 'json',
 		success: function(data) {
 			console.log(data)
 
 			let subtotal = 0;
 			let shipping = 0;
 			$.each(data, function(index, item) {
+				let fileCallPath = encodeURIComponent(item.fileList[0].uploadPath + "/" + item.fileList[0].uuid + "_" +  item.fileList[0].fileName);
 				$('<div/>', { class: 'youcartDiv' }).append(
-					$('<div/>', { class: 'col-2' }).append($('<img/>', { 'src': '/storage/' + item.stored_thumbnail }))
+					$('<div/>', { class: 'col-2' }).append($('<img/>', { 'src': '/file/display?fileName=/' + fileCallPath }))
 				).append(
 					$('<div/>', { class: 'youcartName col-6' }).append(
 						$('<p/>', { style: 'margin: 0px 0px 10px 20px' }).text(item.product_name)
@@ -20,35 +22,25 @@ $(function() {
 						$('<input/>',{type:'hidden',id:'product_sort_number_'+index,value:item.product_sort_number})
 					)
 				).append(
-					$('<div/>', { class: 'col-2' }).append($('<input/>', { name: 'number', type: 'number', min: '1', value: '1', style: 'border:none;width:80%;text-align:center;', id: 'countInput_' + index }))
+					$('<div/>', { class: 'col-2' })
+						.append($('<input/>', { type: 'hidden', id: 'detail_product_id', name: 'detailOrderDTOList['+ index +'].detail_product_id', value: item.productSizeDTO.detailProductDTO.detail_product_id}))
+						.append($('<input/>', { type: 'hidden', id: 'product_price', name: 'detailOrderDTOList[' + index +'].product_price', value: item.product_price}))
 				).append(
 					$('<div/>', { class: 'col-2', id: 'amount_' + index, 'data-val': item.product_price }).text(item.product_price.toLocaleString() + '원')
-				).appendTo($('#cartList'))
+				).appendTo($('#cartList'));
 				subtotal = subtotal + item.product_price;
-				$('#subtotal').text(subtotal.toLocaleString() + '원')
-				$('#shipping').text(shipping.toLocaleString() + '원')
+				$('#subtotal').text(subtotal.toLocaleString() + '원');
+				$('#shipping').text(shipping.toLocaleString() + '원');
 				total = subtotal + shipping;
-				$('#total').text(total.toLocaleString() + '원')
-				$('#lastTotal').text((total - $('#mileageInput').val()).toLocaleString() + '원')
-				$('#totalPrice').val((total - $('#mileageInput').val()))
-			})
+				$('#total').text(total.toLocaleString() + '원');
+				$('#lastTotal').text((total - $('#mileageInput').val()).toLocaleString() + '원');
+				$('#deliveryCost').val('2500');
+				$('#status').val('1');
+				$('#totalPrice').val((total - $('#mileageInput').val()));
+								
+			});
 
-			$('input[name=number]').change(function() {
-				let subtotal = 0;
-				$.each($('input[name=number]'), function(index) {
-					subtotal = subtotal + ($('#countInput_' + index).val() * Number($('#amount_' + index).attr('data-val')))
-					$('#amount_' + index).text(($('#countInput_' + index).val() * Number($('#amount_' + index).attr('data-val'))).toLocaleString() + '원')
-					console.log(subtotal)
-				});//each
-				$('#subtotal').text(subtotal.toLocaleString() + '원')
-				$('#shipping').text(shipping.toLocaleString() + '원')
-				total = subtotal + shipping;
-
-				console.log(shipping)
-				$('#total').text(total.toLocaleString() + '원')
-				$('#lastTotal').text((total - $('#mileageInput').val()).toLocaleString() + '원')
-				$('#totalPrice').val((total - $('#mileageInput').val()))
-			})
+			
 
 		},
 		error: function(err) {

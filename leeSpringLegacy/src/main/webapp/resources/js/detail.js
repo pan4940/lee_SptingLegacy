@@ -151,9 +151,7 @@ $(function() {
 
 	
 	
-	/*$('#addCart').click(function() {
-		
-	});*/
+	
 			
 	$('#quickorder').click(function() {
 		if ($('#sizesSelect').val() == '') {
