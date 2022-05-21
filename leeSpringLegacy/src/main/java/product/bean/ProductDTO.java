@@ -23,6 +23,8 @@ public class ProductDTO {
 	
 	private ProductSizeDTO productSizeDTO;
 	
+	
+	
 	private List<ProductSizeDTO> productSizeList;
 	private List<FileDTO> fileList;
 	

@@ -11,7 +11,7 @@ import member.bean.MemberRankDTO;
 @Mapper
 public interface MemberMapper {
 
-	public MemberDTO checkId(String member_id);
+	public MemberDTO getMemberDtoByMemberId(String member_id);
 
 	public MemberDTO loginOK(Map<String, String> map);
 
@@ -36,5 +36,6 @@ public interface MemberMapper {
 	public List<MemberRankDTO> getRankNum();
 
 	public void memberGradeUpdate(Map<String, String> map);
+
 
 }

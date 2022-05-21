@@ -16,5 +16,9 @@ public interface OrderService {
 
 
 	public void registerOrderDTO(OrderDTO orderDTO);
+
+	public List<OrderDTO> getOrderHistory(String member_id);
+
+	public ProductDTO getQuickorder(int product_size_id);
 	
 }

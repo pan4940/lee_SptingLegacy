@@ -147,65 +147,22 @@ $(function() {
 			}); //end ajax
 		}
 		
-	});		
+	});	
+	
+	$(document).on("click", "#quickOrder", function(){
+		
+		if ($('#sizesSelect').val() == '') {
+			alert('사이즈를 선택해 주세요');
+		} else {
+			location.href = "/order/quickOrder?product_num=" + $('#sizesSelect').val();
+		}
+		
+	});	
 
-	
-	
-	
-			
-	$('#quickorder').click(function() {
-		if ($('#sizesSelect').val() == '') {
-			alert({
-				icon: 'warning',
-				title: '사이즈를 선택해 주세요',
-			})
-		} else {
-			location.href = "/quickorder?seq=" + $('#sizesSelect').val()
-		}
-	});
-
-	/*$('#addCart').click(function() {
-		if ($('#sizesSelect').val() == '') {
-			alert({
-				icon: 'warning',
-				title: '사이즈를 선택해 주세요',
-			})
-		} else {
-			$.ajax({
-				url: '/addCart',
-				type: 'post',
-				data: {
-					'product_sort_number': $('#sizesSelect').val()
-				},
-				success: function() {
-					alert({
-						icon: 'success',
-						title: '상품을 담았습니다',
-						closeOnClickOutside: true
-					});
-				},
-				error: function(err) {
-					alert({
-						icon: 'error',
-						title: '로그인후 이용해주세요!',
-					})
-				},
-			})
-		}
-	});
-			
-	$('#quickorder').click(function() {
-		if ($('#sizesSelect').val() == '') {
-			alert({
-				icon: 'warning',
-				title: '사이즈를 선택해 주세요',
-			})
-		} else {
-			location.href = "/quickorder?seq=" + $('#sizesSelect').val()
-		}
-	});*/
-	
 });
+
+
+	
 // Select all tabs
 $('.nav-tabs a').click(function() {
 	$(this).tab('show');

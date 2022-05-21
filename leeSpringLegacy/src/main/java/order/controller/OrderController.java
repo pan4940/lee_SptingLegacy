@@ -74,13 +74,47 @@ public class OrderController {
 		return "index";
 	}
 	
+	@GetMapping("/orderHistory")
+	public String orderHistory(Model model) {
+		model.addAttribute("display", "/WEB-INF/views/order/orderHistory.jsp");
+		return "index";
+	}
+	
+	
+	@PostMapping("/getOrderHistory")
+	@ResponseBody
+	public List<OrderDTO> getOrderHistory(HttpSession httpSession) {
+		MemberDTO memberDTO = (MemberDTO) httpSession.getAttribute("memberDTO");
+		System.out.println(memberDTO);
+		String member_id = memberDTO.getMember_id();
+		System.out.println("member_id : " + member_id);
+		List<OrderDTO> orderDTOList = orderService.getOrderHistory(member_id);
+		System.out.println(orderDTOList);
+		return orderDTOList;
+	}
+	
 	@PostMapping("/registerOrderDTO")
 	@ResponseBody
 	public void registerOrderDTO(@ModelAttribute OrderDTO orderDTO) {
-		System.out.println("동작함");
+		System.out.println("컨트롤러 registerOrderDTO");
 		System.out.println(orderDTO);
-		//orderService.registerOrderDTO(orderDTO);
-		
+		orderService.registerOrderDTO(orderDTO);
+		System.out.println(orderDTO);
+	}
+	
+	@GetMapping(value="/quickOrder")
+	public String moveQuickOrder(Model model) {
+		model.addAttribute("display", "/WEB-INF/views/order/quickorder.jsp");
+		return "index";
+	}
+	
+	@PostMapping(value = "/getQuickorder")
+	@ResponseBody
+	public ProductDTO addQuickOrder(@RequestParam int product_size_id, HttpSession httpSession) {
+		MemberDTO memberDTO = (MemberDTO) httpSession.getAttribute("memberDTO");
+		String member_id = memberDTO.getMember_id();
+		ProductDTO productDTO = orderService.getQuickorder(product_size_id);
+		return productDTO;
 	}
 	
 }

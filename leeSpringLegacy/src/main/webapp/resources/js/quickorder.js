@@ -2,10 +2,11 @@ var total = 0;
 $(function() {
 	$.ajax({
 		type: 'post',
-		url: '/getQuickorder',
+		url: '/order/getQuickorder',
 		data: {
-			'product_sort_number': window.location.search.split('=')[1]
+			'product_size_id': window.location.search.split('=')[1]
 		},
+		dataType: 'json',
 		success: function(data) {
 			console.log(data)
 			total = 0;

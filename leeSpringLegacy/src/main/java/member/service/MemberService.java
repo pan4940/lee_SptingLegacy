@@ -11,7 +11,7 @@ import member.bean.MemberRankDTO;
 public interface MemberService {
 	
 	//회원가입시 아이디 중복체크
-	public MemberDTO checkId(String member_id);
+	public MemberDTO getMemberDtoByMemberId(String member_id);
 
 	//로그인
 	public MemberDTO loginOK(Map<String, String> map);

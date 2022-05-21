@@ -49,7 +49,7 @@ MemberDTO memberDTO = (MemberDTO)session.getAttribute("memberDTO");
 		<div id="account_drop" >
 			<ul>
 				<li><a href="/member/account">ACCOUNT DETAIL</a></li>
-				<li><a href="/member/orderhistory">ORDER HISTORY</a></li>
+				<li><a href="/order/orderHistory">ORDER HISTORY</a></li>
 				<li><a href="/member/addresses">ADDRESSES</a></li>
 				<li><a href="/board/list?board_category_num=5">HELP</a></li>
 				<li><a class="logoutBtn">LOGOUT</a></li>
@@ -114,7 +114,7 @@ MemberDTO memberDTO = (MemberDTO)session.getAttribute("memberDTO");
 	<c:if test="${not empty sessionScope.memberDTO }">
 		<div><a href="/member/account">ACCOUNT DETAIL</a>
 		</div>
-		<div><a href="/orderhistory">ORDER HISTORY</a>
+		<div><a href="/order/orderHistory">ORDER HISTORY</a>
 		</div>
 		<div><a href="/addresses">ADDRESSES</a>
 		</div>	

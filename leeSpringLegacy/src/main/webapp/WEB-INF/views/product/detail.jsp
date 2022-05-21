@@ -18,7 +18,7 @@
 			<div id="addCart" style="float: right; cursor: pointer">ADD TO CART</div>
 		</div>
 		<div>
-			<div id="quickorder" style="float: right; cursor: pointer">quick order</div>
+			<div id="quickOrder" style="float: right; cursor: pointer">quick order</div>
 		</div>
 		<div id="detailContent">
 			<!-- Nav tabs -->

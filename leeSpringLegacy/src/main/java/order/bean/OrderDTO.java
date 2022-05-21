@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.springframework.stereotype.Component;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import lombok.Data;
 import member.bean.MemberDTO;
 
@@ -12,7 +14,7 @@ import member.bean.MemberDTO;
 @Data
 public class OrderDTO {
 	/* 주문 번호 */
-	private int order_id;
+	private String order_id;
 	
 	/* 주문 회원 아이디 */
 	private String member_id;
@@ -35,7 +37,9 @@ public class OrderDTO {
 	private String deliveryCost;
 	
 	/* 주문 날짜 */
-	private Date orderDate;
+	@JsonFormat(pattern = "yyyy/MM/dd")
+	private Date legDate;
+	@JsonFormat(pattern = "yyyy/MM/dd")
 	private Date updateDate;
 	
 	//주문시 남기는 메세지

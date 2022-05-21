@@ -1,14 +1,20 @@
 package order.service;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import file.bean.FileDTO;
 import file.mapper.FileMapper;
+import member.bean.MemberDTO;
+import member.mapper.MemberMapper;
 import order.bean.CartDTO;
+import order.bean.DetailOrderDTO;
 import order.bean.OrderDTO;
 import order.mapper.OrderMapper;
 import product.bean.DetailProductDTO;
@@ -27,6 +33,9 @@ public class OrderServiceImpl implements OrderService {
 	
 	@Autowired
 	private FileMapper fileMapper;
+	
+	@Autowired
+	private MemberMapper memberMapper;
 	
 	@Override
 	public List<ProductDTO> getCartList(String member_id) {
@@ -78,11 +87,62 @@ public class OrderServiceImpl implements OrderService {
 		orderMapper.deleteCart(detail_product_id);
 	}
 	
+	@Transactional
 	@Override
 	public void registerOrderDTO(OrderDTO orderDTO) {
 		//먼저 orderDTO등록. selectKey
 		//이후 orderDTO.getDetailOrderDTOList()로 리스트 받아와서 DetailOrderDTO 등록 반복문 필요
+		System.out.println("서비스 계층");
+		/*
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+		Date date = new Date();
+		String str1 = sdf.format(date);
+		int random = (int)(Math.random() * (100000));
+		String str2 = String.format("%05d", random);
+		String order_id = str1 + str2;
+		orderDTO.setOrder_id(order_id);
+		*/
+		System.out.println(orderDTO);
+		
 		orderMapper.registerOrderDTO(orderDTO);
+
+		for (DetailOrderDTO detailOrderDTO : orderDTO.getDetailOrderDTOList()) {
+			detailOrderDTO.setOrder_id(orderDTO.getOrder_id());
+			System.out.println(detailOrderDTO);
+			orderMapper.registerDetailOrderDTO(detailOrderDTO);
+		}
+		
+		//장바구니에서 목록 삭제
+		orderMapper.deleteCart(orderDTO.getMember_id());
+	}
+	
+	@Override
+	public List<OrderDTO> getOrderHistory(String member_id) {
+		List<OrderDTO> orderDTOList = orderMapper.getOrderHistory(member_id);
+		for (OrderDTO orderDTO : orderDTOList) {
+			List<DetailOrderDTO> detailOrderDTOList = orderMapper.getDetailOrderDtoByOrderId(orderDTO.getOrder_id()); 
+			orderDTO.setDetailOrderDTOList(detailOrderDTOList);
+			
+			MemberDTO memberDTO = memberMapper.getMemberDtoByMemberId(member_id);
+			orderDTO.setMemberDTO(memberDTO);
+			
+			System.out.println(orderDTO);
+		}
+		return orderDTOList;
+	}
+	
+	@Override
+	public ProductDTO getQuickorder(int product_size_id) {
+		
+		ProductSizeDTO productSizeDTO = productMapper.getProductSizeByProductSizeId(product_size_id);
+		List<DetailProductDTO> detailProductDTOList = productMapper.getDetailProductListByProductSizeId(product_size_id);
+		productSizeDTO.setDetailProductDTOList(detailProductDTOList);
+		
+		ProductDTO productDTO = productMapper.getProductDTO(productSizeDTO.getProduct_num());
+		productDTO.setProductSizeDTO(productSizeDTO);
+		System.out.println(productDTO);
+		
+		return productDTO;
 	}
 		
 }

@@ -90,7 +90,7 @@ public class MemberController {
 	@ResponseBody
 	public String checkId(String member_id) {
 		System.out.println("check member_id : " + member_id);
-		MemberDTO memberDTO = memberService.checkId(member_id);
+		MemberDTO memberDTO = memberService.getMemberDtoByMemberId(member_id);
 		
 		if (memberDTO != null) {
 			return "exist";

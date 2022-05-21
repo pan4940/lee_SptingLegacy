@@ -32,8 +32,8 @@ public class MemberServiceImpl implements MemberService {
 	private MemberMapper memberMapper;
 	
 	@Override
-	public MemberDTO checkId(String member_id) {
-		return memberMapper.checkId(member_id);
+	public MemberDTO getMemberDtoByMemberId(String member_id) {
+		return memberMapper.getMemberDtoByMemberId(member_id);
 	}
 	
 	@Override
