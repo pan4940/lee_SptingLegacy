@@ -18,8 +18,6 @@ $(function() {
 						$('<p/>', { style: 'margin: 0px 0px 10px 20px' }).text(item.product_name)
 					).append(
 						$('<span/>').text(item.product_size)
-					).append(
-						$('<input/>',{type:'hidden',id:'product_sort_number_'+index,value:item.product_sort_number})
 					)
 				).append(
 					$('<div/>', { class: 'col-2' })

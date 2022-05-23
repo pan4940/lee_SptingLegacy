@@ -93,15 +93,7 @@ public class OrderServiceImpl implements OrderService {
 		//먼저 orderDTO등록. selectKey
 		//이후 orderDTO.getDetailOrderDTOList()로 리스트 받아와서 DetailOrderDTO 등록 반복문 필요
 		System.out.println("서비스 계층");
-		/*
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
-		Date date = new Date();
-		String str1 = sdf.format(date);
-		int random = (int)(Math.random() * (100000));
-		String str2 = String.format("%05d", random);
-		String order_id = str1 + str2;
-		orderDTO.setOrder_id(order_id);
-		*/
+		
 		System.out.println(orderDTO);
 		
 		orderMapper.registerOrderDTO(orderDTO);
@@ -138,8 +130,13 @@ public class OrderServiceImpl implements OrderService {
 		List<DetailProductDTO> detailProductDTOList = productMapper.getDetailProductListByProductSizeId(product_size_id);
 		productSizeDTO.setDetailProductDTOList(detailProductDTOList);
 		
+		
 		ProductDTO productDTO = productMapper.getProductDTO(productSizeDTO.getProduct_num());
 		productDTO.setProductSizeDTO(productSizeDTO);
+		
+		List<FileDTO> fileDTOList = fileMapper.findByProductNum(productDTO.getProduct_num());
+		productDTO.setFileList(fileDTOList);
+		
 		System.out.println(productDTO);
 		
 		return productDTO;

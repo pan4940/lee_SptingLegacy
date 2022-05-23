@@ -97,8 +97,7 @@ public class OrderController {
 	@ResponseBody
 	public void registerOrderDTO(@ModelAttribute OrderDTO orderDTO) {
 		System.out.println("컨트롤러 registerOrderDTO");
-		System.out.println(orderDTO);
-		orderService.registerOrderDTO(orderDTO);
+		//orderService.registerOrderDTO(orderDTO);
 		System.out.println(orderDTO);
 	}
 	

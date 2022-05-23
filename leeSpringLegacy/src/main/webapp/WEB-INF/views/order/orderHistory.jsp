@@ -39,7 +39,7 @@ $(function(){
 						$('<td/>',{text:item.legDate})	
 					).append(
 						$('<td/>',{text:item.order_id})
-						itemName=itemName+' 외 '+($('.youcartName').length-1)+' 건';
+						//itemName=itemName+' 외 '+($('.youcartName').length-1)+' 건';
 					).append(
 						$('<td/>',{text:item.totalPrice.toLocaleString()+' 원'})
 					).append(

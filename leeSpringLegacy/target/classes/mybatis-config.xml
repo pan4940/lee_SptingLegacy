@@ -6,6 +6,7 @@
 	<typeAliases>
 		<typeAlias type="board.bean.BoardDTO" alias="BoardDTO"/>
 		<typeAlias type="board.bean.ReplyDTO" alias="ReplyDTO"/>
+		
 		<typeAlias type="file.bean.FileDTO" alias="FileDTO"/>
 		<!-- 
 		<typeAlias type="file.bean.BoardFileDTO" alias="BoardFileDTO"/>

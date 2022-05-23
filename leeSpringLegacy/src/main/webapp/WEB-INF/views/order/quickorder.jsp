@@ -1,26 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<script type="text/javascript"
+	src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script> 	
 <link rel="stylesheet" href="/resources/css/orderdetail.css" />
 <div id="orderdetailDiv" class="col-12 col-lg-6">
 	<h3>
 		<center>QUICK ORDER</center>
 	</h3>
+	
+	<input type="hidden" id="memberDTOtel1" value="${memberDTO.tel1}">
+	<input type="hidden" id="memberDTOphone1" value="${memberDTO.phone1}">
 	<div id="quickorderList"></div>
-	<!-- 
-	<div class="youcartDiv">
-		<div class="col-2">
-			<img src="" />
-		</div>
-		<div class="youcartName col-6">
-			<p style="margin: 0px 0px 10px 20px">아크테릭스 GAMMA LT HOODY-BLACK</p>
-			<span>XL</span>
-		</div>
-		<div class="col-2">
-			<input type="number" min="1" value="1" style="border:none;width:80%;text-align: center;">
-		</div>
-		<div class="col-2">금액</div>
-	</div> 
-	-->
+	
 	<div id="carttotal">
 		<label id="totalamount">TOTAL AMOUNT</label> 
 		<span id="total"
@@ -30,26 +21,33 @@
 			<span id="shipping">value</span>
 		</div>
 	</div>
-<div id="orderinformation">
+
+		<div id="orderinformation">
 		<h3>
 			<center>주문자 정보</center>
 		</h3>
-		<label style="color: gray">이름</label><br /> <input type="text"
-			id="name" name="name" value="${memUser_InfoDTO.name }" readonly
-			style="width: 25%; border: 0px; border-bottom: 1px solid gray" /> <br />
-		<label style="color: gray">우편번호</label><br /> <input type="text"
-			id="zipcode" name="zipcode" readonly value="${memUser_InfoDTO.zipcode}" style=
-			"width: 10%; border: 0px; border-bottom: 1px solid gray" />
-		<button id="search">SEARCH</button>
-		<br /> <label style="color: gray">주소</label><br /> <input
-			type="text" id="addr1" name="addr1" readonly value="${memUser_InfoDTO.addr1}"
-			style="width: 80%; border: 0px; border-bottom: 1px solid gray" /> <input
-			type="text" id="addr2" name="addr2" value="${memUser_InfoDTO.addr2}"
-			style="width: 80%; border: 0px; border-bottom: 1px solid gray" /> <br />
+		<label style="color: gray">이름</label><br /> 
+			<input type="text"
+				id="member_name" name="member_name" value="${memberDTO.member_name }" readonly="readonly"
+				style="width: 25%; border: 0px; border-bottom: 1px solid gray" /> <br />
+		<label style="color: gray">우편번호</label><br /> 
+			<input type="text"
+				id="zipcode" name="zipcode" readonly="readonly"
+				value="${memberDTO.zipcode}"
+				style="width: 10%; border: 0px; border-bottom: 1px solid gray" />
+		
+		<br /> <label style="color: gray">주소</label><br /> 
+			<input
+				type="text" id="addr1" name="addr1" readonly="readonly"
+				value="${memberDTO.addr1}"
+				style="width: 80%; border: 0px; border-bottom: 1px solid gray" /> 
+			<input
+				type="text" id="addr2" name="addr2" value="${memberDTO.addr2}"
+				style="width: 80%; border: 0px; border-bottom: 1px solid gray" readonly="readonly"/> <br />
 		<label for="phone" style="color: gray">전화</label>
 		<p></p>
-		<select id="tel1" name="tel1" style="height: 30px">
-			<option value="02" selected>02</option>
+		<select id="memberTel1" name="tel1" style="height: 30px">
+			<option value="02">02</option>
 			<option value="031">031</option>
 			<option value="032">032</option>
 			<option value="033">033</option>
@@ -81,64 +79,63 @@
 			<option value="017">017</option>
 			<option value="018">018</option>
 			<option value="019">019</option>
-		</select> - <input type="text" name="tel2" value="${tel2}"
-			style="width: 50px; border: 0px; border-bottom: 1px solid gray" /> - <input
-			type="text" name="tel3" value="${tel3}"
-			style="width: 50px; border: 0px; border-bottom: 1px solid gray" />
+		</select> - <input type="text" name="tel2" value="${memberDTO.tel2}"
+			style="width: 50px; border: 0px; border-bottom: 1px solid gray" readonly="readonly"/> -
+		<input type="text" name="tel3" value="${memberDTO.tel3}"
+			style="width: 50px; border: 0px; border-bottom: 1px solid gray" readonly="readonly"/>
 
 		<p></p>
 		<label for="phone2" style="color: gray">휴대전화</label>
 		<p></p>
-		<select id="tel2" name="phone1" style="height: 30px; width: 55px">
+		<select id="memberPhone1" name="phone1" style="height: 30px; width: 55px">
 			<option value="010">010</option>
 			<option value="011">011</option>
 			<option value="016">016</option>
 			<option value="017">017</option>
 			<option value="018">018</option>
 			<option value="019">019</option>
-		</select> - <input type="text" id="phone2" name="phone2"   value="${phone2}"
-			style="width: 50px; border: 0px; border-bottom: 1px solid gray" /> - <input
-			type="text" id="phone3" name="phone3" value="${phone3}"
-			style="width: 50px; border: 0px; border-bottom: 1px solid gray" />
+		</select> - 
+		<input type="text" id="phone2" name="phone2" value="${memberDTO.phone2}"
+			style="width: 50px; border: 0px; border-bottom: 1px solid gray" readonly="readonly"/> -
+		<input type="text" id="phone3" name="phone3" value="${memberDTO.phone3}"
+			style="width: 50px; border: 0px; border-bottom: 1px solid gray" readonly="readonly"/>
 		<p></p>
 		<label for="email" style="color: gray">이메일</label>
 		<p></p>
-		<input type="text" id="email" name="email" value="${memUser_InfoDTO.email}"
-			style="width: 50%; border: 0px; border-bottom: 1px solid gray" /><!--  @
 		<input type="text" id="email" name="email"
-			style="width: 25%; border: 0px; border-bottom: 1px solid gray" /> <select
-			id="email" name="email" style="height: 30px; width: 200px">
-			<option value="">==이메일 선택==</option>
-			<option value="naver">naver.com</option>
-			<option value="daum">daum.net</option>
-			<option value="nate">nate.com</option>
-			<option value="hotmail">hotmail.com</option>
-			<option value="empas">empas.com</option>
-			<option value="gmail">gmail.com</option>
-			<option value="choice">직접입력</option>
-		</select> -->
+			value="${memberDTO.email}"
+			style="width: 50%; border: 0px; border-bottom: 1px solid gray" readonly="readonly"/>
+		
 	</div>
-
-	<div id="shippinginformation">
+	<form id='shippinginformationForm' >
+	<div id="shippinginformation" name="shippinginformation">
 		<h3>
 			<center>배송지 정보</center>
 		</h3>
-		<label style="color: gray">이름</label><br /> <input type="text"
-			id="name" name="name" value="${memUser_InfoDTO.name }"
+		<label style="color: gray">이름</label><br /> 
+			<input type="text"
+			id="member_name" name="member_name" value="${memberDTO.member_name }"
 			style="width: 25%; border: 0px; border-bottom: 1px solid gray" /> <br />
-		<label style="color: gray">우편번호</label><br /> <input type="text"
-			id="zipcode" name="zipcode" readonly value="${memUser_InfoDTO.zipcode }"
+			<input type="hidden" value="${memberDTO.member_id}">
+		
+		<label style="color: gray">우편번호</label><br /> 
+		<input type="text"
+			id="zipcode" name="zipcode" readonly="readonly"
+			value="${memberDTO.zipcode }"
 			style="width: 10%; border: 0px; border-bottom: 1px solid gray" />
 		<button>SEARCH</button>
-		<br /> <label style="color: gray">주소</label><br /> <input
-			type="text" id="addr1" name="addr1" readonly value="${memUser_InfoDTO.addr1 }"
-			style="width: 80%; border: 0px; border-bottom: 1px solid gray" /> <input
-			type="text" id="addr2" name="addr2" value="${memUser_InfoDTO.addr2 }"
+		<br /> <label style="color: gray">주소</label><br /> 
+		<input
+			type="text" id="addr1" name="addr1" readonly="readonly" value="${memberDTO.addr1 }"
+			style="width: 80%; border: 0px; border-bottom: 1px solid gray" /> 
+		<input
+			type="text" id="addr2" name="addr2" value="${memberDTO.addr2}" readonly="readonly"
 			style="width: 80%; border: 0px; border-bottom: 1px solid gray" /> <br />
+		
 		<label for="phone" style="color: gray">전화</label>
 		<p></p>
 		<select id="tel1" name="tel1" style="height: 30px">
-			<option value="02" selected>02</option>
+			<option value="02" >02</option>
 			<option value="031">031</option>
 			<option value="032">032</option>
 			<option value="033">033</option>
@@ -170,41 +167,55 @@
 			<option value="017">017</option>
 			<option value="018">018</option>
 			<option value="019">019</option>
-		</select> - <input type="text" name="tel2" value="${tel2 }"
-			style="width: 50px; border: 0px; border-bottom: 1px solid gray" /> - <input
-			type="text" name="tel3" value="${tel3 }"
+		</select> - <input type="text" id="tel2" name="tel2" value="${memberDTO.tel2 }"
+			style="width: 50px; border: 0px; border-bottom: 1px solid gray" /> -
+		<input type="text" id="tel3" name="tel3" value="${memberDTO.tel3 }"
 			style="width: 50px; border: 0px; border-bottom: 1px solid gray" />
 
 		<p></p>
 		<label for="phone2" style="color: gray">휴대전화</label>
 		<p></p>
-		<select id="tel2" name="phone1" style="height: 30px; width: 55px">
+		<select id="phone1" name="phone1" style="height: 30px; width: 55px">
 			<option value="010">010</option>
 			<option value="011">011</option>
 			<option value="016">016</option>
 			<option value="017">017</option>
 			<option value="018">018</option>
 			<option value="019">019</option>
-		</select> - <input type="text" id="phone" name="phone2" value="${phone2 }"
-			style="width: 50px; border: 0px; border-bottom: 1px solid gray" /> - <input
-			type="text" id="phone1" name="phone3" value="${phone3 }"
+		</select> - <input type="text" id="phone2" name="phone2" value="${memberDTO.phone2 }"
+			style="width: 50px; border: 0px; border-bottom: 1px solid gray" /> -
+		<input type="text" id="phone3" name="phone3" value="${memberDTO.phone3 }"
 			style="width: 50px; border: 0px; border-bottom: 1px solid gray" />
 
 		<p></p>
 		<label style="color: gray">배송메세지</label> <br />
-		<textarea> </textarea>
+		<textarea name="message"> </textarea>
 	</div>
-
+	
 	<div id="point">
 		<h3 style="margin-bottom: 80px">
 			<center>적립금 사용</center>
 		</h3>
 
-		<input id="mileageInput" type="number" value="0" min=0 max=${memUser_InfoDTO.mileage}
-			style="width: 12%; border: 0px; border-bottom: 1px solid gray"  /> <span
-			style="margin-left: 10px">total:${memUser_InfoDTO.mileage }</span>
+		<input id="mileageInput" name="mileageInput" type="number" value="0" min=0
+			max=${memberDTO.mileage }
+			style="width: 12%; border: 0px; border-bottom: 1px solid gray" />
+		<span style="margin-left: 10px">total:${memberDTO.mileage }</span>
 	</div>
+		<input id="totalPrice" name="totalPrice" type="hidden" value="">
+		<input id="status" name="status" type="hidden" value="">
+		<input id="deliveryCost" name="deliveryCost" type="hidden" value="">
+		<input id="member_id" name="member_id" type="hidden" value="${memberDTO.member_id }">
+		<input id="order_name" name="order_name" type="hidden" value="">
+		<input id="order_id" name="order_id" type="hidden"  value=""> 
+	
+	</form>
 
+
+
+
+
+	
 	<div id="payment">
 		<h3>
 			<center>결제 정보</center>
@@ -214,12 +225,130 @@
 				<label>총 결제 금액</label> <span id="lastTotal">금액</span>
 			</div>
 			<div id="rightDiv">
-				<label>결제 방법</label> <input type="radio" checked /> <span>이니시스
-					결제</span>
+				<label>결제 방법</label> 
+				<input type="radio" checked /> 
+				<span>이니시스 결제</span>
 			</div>
 		</div>
 		<button id="checkoutBtn">Checkout Now</button>
 	</div>
+		
+   
+  
 </div>
 
 <script type="text/javascript" src="/resources/js/quickorder.js"></script>
+
+<script type="text/javascript">
+//주문 요청
+$(function(){
+	
+	console.log($("#memberDTOtel1").val());
+	console.log($("#memberDTOphone1").val());
+	
+	$("#memberTel1").val($("#memberDTOtel1").val()).attr("selected", "selected");
+	$("#memberPhone1").val($("#memberDTOphone1").val()).attr("selected", "selected");
+
+	$("#memberTel1 option").not(":selected").remove();
+	$("#memberPhone1 option").not(":selected").remove();
+	
+	
+	$("#tel1").val($("#memberDTOtel1").val()).attr("selected", "selected");
+	$("#phone1").val($("#memberDTOphone1").val()).attr("selected", "selected");
+
+	
+	$("#checkoutBtn").click(function (){
+		console.log($('.youcartName')[0].innerText.split('\n')[0])
+   		console.log($('.youcartName').length)
+		let itemName=$('.youcartName')[0].innerText.split('\n')[0];
+   		
+   		if($('.youcartName').length > 1){
+   			itemName=itemName+' 외 '+($('.youcartName').length-1)+' 건';
+   		}
+   		$('#order_name').val(itemName);
+   		
+   		let order_id = createOrderId();
+   		console.log(order_id);
+   		$('#order_id').val(order_id);
+   		$("#shippinginformationForm").append($("#quickorderList"));
+   		console.log(itemName)
+   		console.log($('#shippinginformationForm').serialize());
+   		
+   		
+  		//OrderDTO 와 DetailOrderDTO등록
+   		/* let IMP = window.IMP; // 생략 가능
+   	    IMP.init("imp68632155"); //
+		console.log(order_id);
+		IMP.request_pay({
+			pg: 'html5_inicis',
+			pay_method:'card',
+			merchant_uid: order_id,
+			name: itemName,
+			//amount: $('#totalPrice').val(),
+			amount: 100,
+			buyer_email:'${memberDTO.email}',
+			buyer_tel: $('#phone1').val()+'-'+$('#phone2').val()+'-'+$('#phone3').val(),
+			buyer_addr: $('#addr1').val()+' '+$('#addr2').val(),
+			buyer_postcode:$('#zipcode').val(),
+			m_redirect_url: 'localhost:8090/'
+		}, function (rsp){
+			console.log(rsp);
+			
+			if (rsp.success){
+         		var msg='결제 완료'; */
+	         	$.ajax({
+	        		type:'post',
+	        		url:'/order/registerOrderDTO',
+	        		data: $('#shippinginformationForm').serialize(),
+	        		//success: function() {	
+	        		success: function() {
+	        			
+	        			Swal.fire({
+	 					icon: 'success',
+	 					title: ' 주문이 완료되었습니다!'
+	 				}).then(function() {
+	 					//location.href = '/order/orderHistory';
+	 				});
+	        			
+	        			console.log("성공");
+	        	    },
+	    	        error: function(err) {
+	    	            console.log(err);
+	    	        },
+        		}); //end ajax 
+			/* } else {
+				var msg='결제 실패';
+				msg += '\n애러내용: '+rsp.error_msg;
+				Swal.fire({
+					icon: 'warning',
+					title: msg,
+            	});
+         	}
+		}); //end pay */
+  		
+	}); //end $("#checkoutBtn").click 
+}); // $(function(){
+	
+
+function createOrderId() {
+	date = new Date();
+	let year = date.getFullYear().toString();
+	let month = (date.getMonth() + 1).toString();
+	
+	if (month < 10) {
+		month = '0' + month;
+	}
+	let today = date.getDate().toString();
+	
+	if (today < 10) {
+		month = '0' + today;
+	}
+	
+	let random = Math.floor((Math.random() * (100000))).toString().padStart(5, '0');
+	
+	let order_id = year + month + today + random;
+	return order_id;
+}	
+	
+</script>
+	

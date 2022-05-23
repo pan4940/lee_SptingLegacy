@@ -122,17 +122,21 @@
 			id="member_name" name="member_name" value="${memberDTO.member_name }"
 			style="width: 25%; border: 0px; border-bottom: 1px solid gray" /> <br />
 			<input type="hidden" value="${memberDTO.member_id}">
-		<label style="color: gray">우편번호</label><br /> <input type="text"
+		
+		<label style="color: gray">우편번호</label><br /> 
+		<input type="text"
 			id="zipcode" name="zipcode" readonly="readonly"
 			value="${memberDTO.zipcode }"
 			style="width: 10%; border: 0px; border-bottom: 1px solid gray" />
 		<button>SEARCH</button>
-		<br /> <label style="color: gray">주소</label><br /> <input
-			type="text" id="addr1" name="addr1" readonly="readonly"
-			value="${memberDTO.addr1 }"
-			style="width: 80%; border: 0px; border-bottom: 1px solid gray" /> <input
-			type="text" id="addr2" name="addr2" value="${memberDTO.addr2 }" readonly="readonly"
+		<br /> <label style="color: gray">주소</label><br /> 
+		<input
+			type="text" id="addr1" name="addr1" readonly="readonly" value="${memberDTO.addr1 }"
+			style="width: 80%; border: 0px; border-bottom: 1px solid gray" /> 
+		<input
+			type="text" id="addr2" name="addr2" value="${memberDTO.addr2}" readonly="readonly"
 			style="width: 80%; border: 0px; border-bottom: 1px solid gray" /> <br />
+		
 		<label for="phone" style="color: gray">전화</label>
 		<p></p>
 		<select id="tel1" name="tel1" style="height: 30px">
@@ -226,8 +230,9 @@
 				<label>총 결제 금액</label> <span id="lastTotal">금액</span>
 			</div>
 			<div id="rightDiv">
-				<label>결제 방법</label> <input type="radio" checked /> <span>이니시스
-					결제</span>
+				<label>결제 방법</label> 
+				<input type="radio" checked /> 
+				<span>이니시스 결제</span>
 			</div>
 		</div>
 		<button id="checkoutBtn">Checkout Now</button>
