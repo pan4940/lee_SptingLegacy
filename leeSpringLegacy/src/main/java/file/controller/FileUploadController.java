@@ -66,6 +66,15 @@ public class FileUploadController {
 		return fileUploadAjax(uploadFolder, uploadFile, model);
 	}
 	
+	@PostMapping("/boardfileUploadAjax")
+	@ResponseBody
+	public List<FileDTO> boardfileUploadAjax(MultipartFile[] uploadFile, Model model)  {
+		
+		String uploadFolder = "C:\\thec\\board";
+		
+		return fileUploadAjax(uploadFolder, uploadFile, model);
+	}
+	
 	
 	public List<FileDTO> fileUploadAjax(String uploadFolder, MultipartFile[] uploadFile, Model model)  {
 		for (MultipartFile multipartFile : uploadFile) {

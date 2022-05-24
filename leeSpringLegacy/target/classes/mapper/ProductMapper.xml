@@ -17,6 +17,8 @@
     	]]>
     </select>
     
+    
+    
 	<select id="getBrandsCategoryList" resultType="ProductCategoryDTO">
 		<![CDATA[
 		select 
@@ -27,6 +29,12 @@
 			product_category_num > 10000	
     	start with PRODUCT_CATEGORY_NUM_REF is null connect by prior PRODUCT_CATEGORY_NUM = PRODUCT_CATEGORY_NUM_REF
     	]]>
+    </select>
+    
+    <select id="recommendBrand" resultType="ProductCategoryDTO">
+		<![CDATA[
+		select * from (SELECT * from product_category where product_category_num > 10000) WHERE ROWNUM <= 3		
+    	]]>	
     </select>
     
     <insert id="createBrandCategorySelectKey" parameterType="ProductCategoryDTO">

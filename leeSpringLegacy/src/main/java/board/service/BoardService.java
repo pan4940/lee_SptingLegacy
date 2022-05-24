@@ -32,6 +32,8 @@ public interface BoardService {
 	
 	public List<FileDTO> getFileList(int board_num);
 
+	public BoardDTO getNewPost();
+
 
 
 }

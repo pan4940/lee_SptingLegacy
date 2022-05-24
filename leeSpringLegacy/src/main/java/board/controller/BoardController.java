@@ -10,6 +10,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -179,6 +180,7 @@ public class BoardController {
 	public String modify(@RequestParam Map<String, String> map, 
 			@ModelAttribute BoardDTO boardDTO, 
 			RedirectAttributes redirectAttributes) {
+		System.out.println("modify boardDTO : " + boardDTO);
 		boardService.modify(boardDTO);
 		redirectAttributes.addAttribute("board_category_num", map.get("board_category_num"));
 		redirectAttributes.addAttribute("pageNum", map.get("pageNum"));
@@ -226,6 +228,7 @@ public class BoardController {
 		//return "index";
 	}
 	
+	@Transactional
 	@PostMapping("/delete")
 	public String delete(@RequestParam Map<String, String> map, 
 			//@ModelAttribute BoardDTO boardDTO, 
@@ -234,8 +237,9 @@ public class BoardController {
 		System.out.println("DeleteboardNum : " + map.get("board_num"));
 		int board_num = Integer.parseInt(map.get("board_num")) ;
 		List<FileDTO> fileList = boardService.getFileList(board_num);
+		System.out.println(fileList);
 		if (fileList != null) {
-			System.out.println("fileList : " + fileList);
+			System.out.println("fileList not null : " + fileList);
 			deleteFiles(fileList);
 		}
 		
@@ -266,15 +270,23 @@ public class BoardController {
 		}
 		
 		System.out.println("delete files.....");
-		System.out.println("fileList : " + fileList);
+		System.out.println("contoroller fileList : " + fileList);
 		fileList.forEach(t -> {
 			try {
 				Path file = Paths.get("C:\\thec\\" + t.getUploadPath() + "\\" + t.getUuid() + "_" + t.getFileName());
+				System.out.println(file);
 				Files.deleteIfExists(file);
 			} catch (IOException e) {
 				System.out.println("delete file error " + e.getMessage());
 			}
-			
 		});
+	}
+	
+	//메인페이지 post 관련 메소드. 가장 최근에 등록한 post 정보. boardDTO가져온다. 
+	
+	@PostMapping("/getNewPost")
+	@ResponseBody
+	public BoardDTO getNewPost() {
+		return boardService.getNewPost();
 	}
 }

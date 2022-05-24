@@ -162,7 +162,8 @@ MemberDTO memberDTO = (MemberDTO)session.getAttribute("memberDTO");
          <c:choose>
             <c:when test="${map.board_category_num eq '7'}">
                <form id="boardWriteForm" action="/board/write" method="post">
-                  <input type="hidden" name="user_id" value="${map.user_id}">
+                  <input type="hidden" name="member_id" value="<%= memberDTO.getMember_id() %>">
+	              <input type="hidden" name="member_name" value="<%= memberDTO.getMember_name() %>">
                   <input type="hidden" name="rank_num" value="${map.rank_num}">
                   <input type="hidden" name="board_category_num" value="${map.board_category_num}"> 
                   
@@ -174,13 +175,6 @@ MemberDTO memberDTO = (MemberDTO)session.getAttribute("memberDTO");
                               <input type="text" id="subject" name="subject" value="">
                            <span class="label-box"></span>
                         </li>
-                        
-                        
-                        <!-- <li>
-                           <label>user_name</label> 
-                              <input type="text" id="user_name" name="user_name" value=""> 
-                           <span class="label-box"></span>
-                        </li> -->
                         
                         <li>
                            <label>Content</label>
@@ -234,10 +228,11 @@ MemberDTO memberDTO = (MemberDTO)session.getAttribute("memberDTO");
                               <input type="text" id="subject" name="subject" value="">
                            <span class="label-box"></span>
                         </li>
-	                    <input type="hidden" name="user_id" value="<%= memberDTO.getMember_id() %>">
+	                    <input type="hidden" name="member_id" value="<%= memberDTO.getMember_id() %>">
+	                    <input type="hidden" name="member_name" value="<%= memberDTO.getMember_name() %>">
 	                    <!-- 
                         <li> 
-                        	<input type="hidden" id="user_name" name="user_name" value=""> 
+                        	 
                         	<span class="label-box"></span>
                         </li> -->
                         
@@ -456,7 +451,7 @@ $("input[type='file']").change(function(e){
    formData.append("board_num", $("#board_num").val());
 
    $.ajax({
-      url: '/file/uploadAjaxAction',
+      url: '/file/boardfileUploadAjax',
       processData: false, // data 파라미터로 전달된 데이터를 Query String으로 변환하지 않음. 파일전송시에는 이렇게 해야함
       contentType: false, // //contentType의 default는 application/x-www-form-urlencoded; charset=UTF-8, 파일전송시에는 false로 해줘야 함
       data: formData,

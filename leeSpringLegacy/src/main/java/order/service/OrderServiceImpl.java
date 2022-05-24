@@ -83,8 +83,8 @@ public class OrderServiceImpl implements OrderService {
 	}	
 	
 	@Override
-	public void deleteCart(int detail_product_id) {
-		orderMapper.deleteCart(detail_product_id);
+	public void deleteDetailProductFromCart(int detail_product_id) {
+		orderMapper.deleteDetailProductFromCart(detail_product_id);
 	}
 	
 	@Transactional

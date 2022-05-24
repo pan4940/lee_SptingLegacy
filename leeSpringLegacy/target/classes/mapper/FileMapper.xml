@@ -6,7 +6,7 @@
 <mapper namespace="file.mapper.FileMapper">
 	 
     <insert id="boardFileInsert" parameterType="FileDTO">
-		INSERT into BoardFile (boardfile_id, uuid, uploadPath, fileName, board_Num) 
+		INSERT into BoardFile (boardfile_id, uuid, uploadPath, fileName, LINKED_NUM) 
 		VALUES (seq_boardfile_id.nextval, #{uuid}, #{uploadPath}, #{fileName}, #{linked_num})
 	</insert>
 	
@@ -25,8 +25,8 @@
 		delete from BoardFile where uuid = #{uuid}
 	</delete>	
 
-	<delete id="boardFiledeleteAll">
-		delete BoardFile where LINKED_NUM = #{linked_num}
+	<delete id="boardFileDeleteAll" parameterType="int">
+		delete BOARDFILE where LINKED_NUM = #{board_num}
 	</delete>
 
 	<select id="findByBoardNum" parameterType="int" resultType="FileDTO">

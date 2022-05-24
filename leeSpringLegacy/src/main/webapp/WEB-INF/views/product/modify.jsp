@@ -693,7 +693,7 @@ $("input[type='file']").change(function(e){
    
    
    $.ajax({
-      url: '/file/uploadAjaxAction',
+      url: '/file/productfileUploadAjax',
       processData: false, // data 파라미터로 전달된 데이터를 Query String으로 변환하지 않음. 파일전송시에는 이렇게 해야함
       contentType: false, // //contentType의 default는 application/x-www-form-urlencoded; charset=UTF-8, 파일전송시에는 false로 해줘야 함
       data: formData,

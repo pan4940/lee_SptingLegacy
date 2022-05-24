@@ -3,6 +3,7 @@ package product.service;
 import java.util.List;
 import java.util.Map;
 
+import board.bean.BoardDTO;
 import file.bean.FileDTO;
 import product.bean.DetailProductDTO;
 import product.bean.ProductCategoryDTO;
@@ -58,5 +59,8 @@ public interface ProductService {
 	public void addDetailProduct(DetailProductDTO detailProductDTO);
 
 	public void deleteDetailProductByDetailProductID(int detail_product_id);
+
+	public List<ProductCategoryDTO> recommendBrand();
+
 	
 }

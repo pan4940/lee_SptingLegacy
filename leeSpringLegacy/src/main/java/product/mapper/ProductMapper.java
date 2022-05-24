@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import board.bean.BoardDTO;
 import file.bean.FileDTO;
 import product.bean.DetailProductDTO;
 import product.bean.ProductCategoryDTO;
@@ -88,6 +89,9 @@ public interface ProductMapper {
 	public DetailProductDTO getDetailProductByDetailProductId(int detail_product_id);
 
 	public List<DetailProductDTO> getDetailProductListByProductMemberId(String member_id);
+
+	public List<ProductCategoryDTO> recommendBrand();
+
 
 
 }

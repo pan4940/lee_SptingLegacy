@@ -1,32 +1,36 @@
 $(function() {
+	
 	$.ajax({
 		type: 'post',
-		url: '/getMainImg',
+		url: '/product/recommendBrand',
+		dataType: 'json',
 		success: function(data) {
 			$.each(data, function(index, item) {
-				if ($('#' + item.menu).length != 0) {
-					$('#' + item.menu + ' img').attr('src', '/storage/menu/' + item.stored_thumbnail);
-				}
-			})
+				let fileCallPath = encodeURIComponent(item.fileList[0].uploadPath + "/" +item.fileList[0].uuid + "_" + item.fileList[0].fileName);
+				$('#recommendBrand' + index + ' img').attr('src', '/file/display?fileName=/' + fileCallPath);
+			});
 		},
 		error: function(err) {
 			console.log(err)
 		}
 	})
+	
 	$.ajax({
 		type: 'post',
 		url: '/board/getNewPost',
-		success: function(data) {
-			console.log(data)
-			$('<a/>', { href: data.boardDTO.board_num, class: 'move' }).append(
-				$('<img/>', { src: '/file/display?fileName=/' + data.fileDTO.uploadPath + '/' + data.fileDTO.uuid + '_' + data.fileDTO.fileName })
+		dataType: 'json',
+		success: function(boardDTO) {
+			console.log(boardDTO)
+			$('<a/>', { href: boardDTO.board_num, class: 'move' }).append(
+				$('<img/>', { src: '/file/display?fileName=/' + boardDTO.fileList[0].uploadPath + '/' + boardDTO.fileList[0].uuid + '_' + boardDTO.fileList[0].fileName })
 			).appendTo($('#post_image'));
-			$('<a/>', { href: data.boardDTO.board_num, class: 'move' }).append(
-				$('<span/>').text(data.boardDTO.subject)
+			$('<a/>', { href: boardDTO.board_num, class: 'move' }).append(
+				$('<span/>').text(boardDTO.subject)
 			).appendTo($('#post_content'));
-			$('<p/>').html(data.boardDTO.content).appendTo($('#post_content'));
-			$('<a/>', { href: data.boardDTO.board_num, class: 'move' }).text('Read more').appendTo($('#post_content'));
+			$('<p/>').html(boardDTO.content).appendTo($('#post_content'));
+			$('<a/>', { href: boardDTO.board_num, class: 'move' }).text('Read more').appendTo($('#post_content'));
 			let actionForm = $("#actionForm");
+			
 			$(".move").on("click", function(e) {
 				e.preventDefault();
 				console.log($(this).attr("href"));
@@ -39,7 +43,7 @@ $(function() {
 			console.log(err)
 		}
 	});
-	$.ajax({
+	/*$.ajax({
 		type: 'post',
 		url: '/getMainProduct',
 		success: function(data) {
@@ -62,5 +66,5 @@ $(function() {
 		error: function(data) {
 			console.log(data)
 		}
-	});
+	});*/
 })

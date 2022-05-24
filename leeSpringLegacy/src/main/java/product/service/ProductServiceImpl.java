@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import board.bean.BoardDTO;
 import file.bean.FileDTO;
 import file.mapper.FileMapper;
 import product.bean.DetailProductDTO;
@@ -284,5 +285,19 @@ public class ProductServiceImpl implements ProductService {
 	public void deleteDetailProductByDetailProductID(int detail_product_id) {
 		productMapper.deleteDetailProductByDetailProductID(detail_product_id);
 	}
+	
+	@Override
+	public List<ProductCategoryDTO> recommendBrand() {
+		List<ProductCategoryDTO> list = productMapper.recommendBrand();
+		
+		for (ProductCategoryDTO productCategoryDTO : list) {
+			productCategoryDTO.setFileList(fileMapper.findByBrandNum(productCategoryDTO.getProduct_category_num()));
+		}
+		return list;
+	}
+	
+	
+	
+	
 	
 }

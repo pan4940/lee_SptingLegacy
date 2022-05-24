@@ -51,7 +51,7 @@ MemberDTO memberDTO = (MemberDTO)session.getAttribute("memberDTO");
 				<li><a href="/member/account">ACCOUNT DETAIL</a></li>
 				<li><a href="/order/orderHistory">ORDER HISTORY</a></li>
 				<li><a href="/member/addresses">ADDRESSES</a></li>
-				<li><a href="/board/list?board_category_num=5">HELP</a></li>
+				<li><a href="/board/list?board_category_num=5&pageNum=1&amount=10">HELP</a></li>
 				<li><a class="logoutBtn">LOGOUT</a></li>
 			</ul>
 		</div>
@@ -136,7 +136,7 @@ $("#autoLogin").on("click", function() {
         type:'post',
         url:'/member/loginOK',
         data: {
-           'member_id': 'rlatjdgus',
+           'member_id': 'dltjdgus',
            'member_pwd': '@a123456'
         },
         dataType:'text',

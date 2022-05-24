@@ -21,8 +21,8 @@ $(function() {
 					)
 				).append(
 					$('<div/>', { class: 'col-2' })
-						.append($('<input/>', { type: 'hidden', id: 'detail_product_id', name: 'detailOrderDTOList['+ index +'].detail_product_id', value: item.productSizeDTO.detailProductDTO.detail_product_id}))
-						.append($('<input/>', { type: 'hidden', id: 'product_price', name: 'detailOrderDTOList[' + index +'].product_price', value: item.product_price}))
+						.append($('<input/>', { type: 'hidden', name: 'detailOrderDTOList['+ index +'].detail_product_id', value: item.productSizeDTO.detailProductDTO.detail_product_id}))
+						.append($('<input/>', { type: 'hidden', name: 'detailOrderDTOList['+ index +'].product_price', value: item.product_price}))
 				).append(
 					$('<div/>', { class: 'col-2', id: 'amount_' + index, 'data-val': item.product_price }).text(item.product_price.toLocaleString() + '원')
 				).appendTo($('#cartList'));

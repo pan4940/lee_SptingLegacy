@@ -18,7 +18,7 @@ public interface OrderMapper {
 
 	public CartDTO getCartDtoByDetailProductId(int detail_product_id);
 
-	public void deleteCart(int detail_product_id);
+	public void deleteDetailProductFromCart(int detail_product_id);
 
 	public void registerOrderDTO(OrderDTO orderDTO);
 

@@ -31,6 +31,8 @@ public interface BoardMapper {
 	public void writeSelectKey(BoardDTO boardDTO);
 
 	public List<BoardDTO> getPostList(int board_category_num);
+
+	public BoardDTO getNewPost();
 	
 	
 }

@@ -122,7 +122,8 @@ background-color: white;
 					<form id="boardModifyForm" action="/board/modify" method="post">
 						<input type="text" id="board_num" name="board_num" value="${boardDTO.board_num}">
 						<input type="text" name="board_category_num" value="${boardDTO.board_category_num}"> 
-						<input type="hidden" name="member_id" value="${boardDTO.member_id}">
+						<input type="hidden" id="member_id" name="member_id" value="${boardDTO.member_id}"> 
+						<input type="hidden" name="member_name" value="${member_name}">
 						<div>
 							<ul class="form-submit-board">
 								<li>
@@ -134,7 +135,6 @@ background-color: white;
 								
 								<li>
 									
-									<input type="hidden" id="member_id" name="member_id" value="${boardDTO.member_id}"> 
 									<span class="label-box"></span>
 								</li>
 								<li>
@@ -319,7 +319,7 @@ $("input[type='file']").change(function(e){
 	formData.append("board_num", $("#board_num").val());
 
 	$.ajax({
-		url: '/file/uploadAjaxAction',
+		url: '/file/boardfileUploadAjax',
 		processData: false, // data 파라미터로 전달된 데이터를 Query String으로 변환하지 않음. 파일전송시에는 이렇게 해야함
 		contentType: false, // //contentType의 default는 application/x-www-form-urlencoded; charset=UTF-8, 파일전송시에는 false로 해줘야 함
 		data: formData,

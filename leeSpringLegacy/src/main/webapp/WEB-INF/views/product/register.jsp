@@ -446,7 +446,21 @@ $("button[type='submit']").on("click", function(e){
    });
    
    //$("#productWriteForm").append(str);
-   $("#productWriteForm").append(str).submit();
+   //$("#productWriteForm").append(str).submit();
+   $("#productWriteForm").append(str);
+	   $.ajax({
+			type:'post',
+			url:'/product/register',
+			data: $('#productWriteForm').serialize(),
+			//success: function() {	
+			success: function() {
+				console.log("성공");
+		    },
+	       error: function(err) {
+	           console.log(err);
+	       },
+		}); //end ajax 
+   
 });
 
 

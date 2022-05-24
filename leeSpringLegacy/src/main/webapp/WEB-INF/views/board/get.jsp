@@ -146,8 +146,6 @@ fieldset #replyer:focus{
             <h3 class="POST_board_title">POST</h3>
          </c:if>
 		
-		<!-- <input type="hidden" value="${map}"> -->
-		<!-- <input type="hidden" value="${boardDTO}"> -->
 		<div class="clearfix"></div>
 			<form id="boardForm" action="" method="post">
 				<input type='hidden' name='board_category_num' value='${map.board_category_num}'>

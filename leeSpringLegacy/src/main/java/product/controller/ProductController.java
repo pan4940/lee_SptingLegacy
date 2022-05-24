@@ -303,4 +303,15 @@ public class ProductController {
 		productService.deleteDetailProductByDetailProductID(detail_product_id);
 		
 	}
+	
+	
+	//메인페이지 추천 브랜드 관련 메소드. 추후 관리자 페이지에서 선택하여 가능하게끔..현재는 최신 3개 브랜드 자동 노출
+	@PostMapping("/recommendBrand")
+	@ResponseBody
+	public List<ProductCategoryDTO> recommendBrand() {
+		return productService.recommendBrand();
+	}
+	
+	
+	
 }

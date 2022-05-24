@@ -296,4 +296,23 @@ public class MemberController {
 		memberService.memberGradeUpdate(map);
 	}
 	
+	
+	@GetMapping("/shipping")
+	public String shipping(Model model) {
+		model.addAttribute("display", "/WEB-INF/views/member/shipping.jsp");
+		return "index";
+	}
+	
+	@GetMapping("/privacy")
+	public String privacy(Model model) {
+		model.addAttribute("display", "/WEB-INF/views/member/privacy.jsp");
+		return "index";
+	}
+	
+	@GetMapping("/term")
+	public String term(Model model) {
+		model.addAttribute("display", "/WEB-INF/views/member/term.jsp");
+		return "index";
+	}
+	
 }

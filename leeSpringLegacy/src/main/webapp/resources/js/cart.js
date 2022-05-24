@@ -68,7 +68,7 @@ $(function(){
                     console.log(result.isConfirmed); 
 					$.ajax({
                         type: 'post',
-                        url: '/order/deleteCart',
+                        url: '/order/deleteDetailProductFromCart',
                         data: {
                            'detail_product_id': event.target.getAttribute("value")
                         },

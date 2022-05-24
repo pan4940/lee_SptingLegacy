@@ -61,11 +61,11 @@ public class OrderController {
 		return list;
 	}
 	
-	@PostMapping("/deleteCart")
+	@PostMapping("/deleteDetailProductFromCart")
 	@ResponseBody
 	public void deleteCart(@RequestParam int detail_product_id) {
 		System.out.println("detail_product_id : " + detail_product_id);
-		orderService.deleteCart(detail_product_id);
+		orderService.deleteDetailProductFromCart(detail_product_id);
 	}
 	
 	@GetMapping("/checkout")
@@ -96,8 +96,9 @@ public class OrderController {
 	@PostMapping("/registerOrderDTO")
 	@ResponseBody
 	public void registerOrderDTO(@ModelAttribute OrderDTO orderDTO) {
+		
 		System.out.println("컨트롤러 registerOrderDTO");
-		//orderService.registerOrderDTO(orderDTO);
+		orderService.registerOrderDTO(orderDTO);
 		System.out.println(orderDTO);
 	}
 	

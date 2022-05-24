@@ -19,6 +19,10 @@
 		]]>
     </select>
     
+    <select id="getNewPost" resultType="BoardDTO">
+		select * from  (select * from board where board_category_num = 7 order by board_num desc) where rownum = 1   
+    </select>
+    
     <select id="getTotalCount" parameterType="String" resultType="int">
     	select count(*) from board where board_category_num = #{board_category_num}
     </select>
@@ -65,6 +69,7 @@
 		insert into board (
 	        board_num,
 	        member_id,
+	        member_name,
 	        subject,
 	        content, 
 	        group_num,
@@ -74,6 +79,7 @@
 	    ) values (
 	        #{board_num},
 	        #{member_id},
+	        #{member_name},
 	        #{subject},
 	        #{content},
 	        seq_board.currval,

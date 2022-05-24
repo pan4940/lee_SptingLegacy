@@ -12,7 +12,7 @@ public interface OrderService {
 
 	public void addCart(String member_id, String product_size_id);
 
-	public void deleteCart(int detail_product_id);
+	public void deleteDetailProductFromCart(int detail_product_id);
 
 
 	public void registerOrderDTO(OrderDTO orderDTO);

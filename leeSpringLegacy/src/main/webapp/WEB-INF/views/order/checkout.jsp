@@ -281,8 +281,8 @@ $(function(){
    		
    		
   		//OrderDTO 와 DetailOrderDTO등록
-   		let IMP = window.IMP; // 생략 가능
-   	    IMP.init("imp68632155"); //
+   		/* let IMP = window.IMP; // 생략 가능
+   	    IMP.init(""); //
 		console.log(order_id);
 		IMP.request_pay({
 			pg: 'html5_inicis',
@@ -299,7 +299,7 @@ $(function(){
 		}, function (rsp){
 			console.log(rsp);
 			
-			if (rsp.success){
+			if (rsp.success){ */
          		var msg='결제 완료';
 	         	$.ajax({
 	        		type:'post',
@@ -320,8 +320,8 @@ $(function(){
 	    	        error: function(err) {
 	    	            console.log(err);
 	    	        },
-        	}); //end ajax 
-			} else {
+        		}); //end ajax 
+			/* } else {
 				var msg='결제 실패';
 				msg += '\n애러내용: '+rsp.error_msg;
 				Swal.fire({
@@ -329,7 +329,7 @@ $(function(){
 					title: msg,
             	});
          	}
-		}); //end pay
+		}); //end pay */
   		
 	}); //end $("#checkoutBtn").click 
 }); // $(function(){

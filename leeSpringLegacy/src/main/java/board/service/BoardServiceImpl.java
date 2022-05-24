@@ -47,7 +47,7 @@ public class BoardServiceImpl implements BoardService {
 			return;
 		}
 		boardMapper.writeSelectKey(boardDTO);
-		
+		System.out.println("게시글 등록은 완료");
 		boardDTO.getFileList().forEach(t -> {
 			t.setLinked_num(boardDTO.getBoard_num());
 			System.out.println("fileDTO : " + t);
@@ -93,6 +93,7 @@ public class BoardServiceImpl implements BoardService {
 	@Transactional
 	@Override
 	public void delete(int board_num) {
+		System.out.println("서비스");
 		fileMapper.boardFileDeleteAll(board_num);
 		boardMapper.delete(board_num);
 	}
@@ -107,5 +108,12 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public List<FileDTO> getFileList(int board_num) {
 		return fileMapper.findByBoardNum(board_num);
+	}
+	
+	@Override
+	public BoardDTO getNewPost() {
+		BoardDTO boardDTO = boardMapper.getNewPost();
+		boardDTO.setFileList(fileMapper.findByBoardNum(boardDTO.getBoard_num()));
+		return boardDTO;
 	}
 }

@@ -67,7 +67,7 @@ MemberDTO memberDTO = (MemberDTO)session.getAttribute("memberDTO");
 	<div class="xans-element- xans-product xans-product-detail collection-single-wrap ">
 		<div class="single-top">
 			<input type="text" value="${map}">
-			<input type="text" value="${boardDTO}">
+			<%-- <input type="hidden" value="${boardDTO}"> --%>
 			<p></p>
 			<h1 style="margin:100px 20px">${boardDTO.subject}</h1>
 		</div>
