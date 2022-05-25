@@ -454,7 +454,8 @@ $("button[type='submit']").on("click", function(e){
 			data: $('#productWriteForm').serialize(),
 			//success: function() {	
 			success: function() {
-				console.log("성공");
+				alert("상품 등록");
+				location.href = "/product/register";
 		    },
 	       error: function(err) {
 	           console.log(err);

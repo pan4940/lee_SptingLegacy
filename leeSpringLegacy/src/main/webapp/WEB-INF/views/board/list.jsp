@@ -72,7 +72,6 @@ ul {
 		<input type="hidden" value="${board_category_num}">
 		<input id="pageNum" type="hidden" value="${pageDTO.criteria.pageNum}">
 		
-		
  		<div id="QNA" class="col-12 col-lg-8" style="margin:auto;">
 			<c:if test="${board_category_num eq '1'}">
 				<h3 class="QNA_board_title">공지</h3>
@@ -149,7 +148,7 @@ ul {
 				</div>
 				
 				<c:if test="<%= memberDTO != null %>">
-					<a id="moveWriteForm" href="#">Write</a>
+					<a id="moveWriteForm" href="/board/write">Write</a>
 				</c:if>
 				
 				<div class='pull-right'>

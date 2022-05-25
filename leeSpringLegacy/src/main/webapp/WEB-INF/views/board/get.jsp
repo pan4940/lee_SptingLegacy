@@ -157,9 +157,9 @@ fieldset #replyer:focus{
 				<div>
 					<h4 id="h4subject">
 						${boardDTO.subject}
-						<span id="written" style="margin-left:20px">Written by ${boardDTO.name}</span>
+						<span id="written" style="margin-left:20px">Written by ${boardDTO.member_name}</span>
 					
-					<span style="float:right; font-size:10pt"><fmt:formatDate pattern="yyyy-MM-dd"	value="${boardDTO.logtime}" /><span></h4>
+					<span style="float:right; font-size:10pt"><fmt:formatDate pattern="yyyy-MM-dd"	value="${boardDTO.regDate}" /><span></h4>
 					<div class="clearfix"></div>
 					<div class="board-detail-contents">
 						<div class="board-contents">
@@ -463,6 +463,8 @@ $("#replyDelete").click(function(e){
 
 $(function(){
 	showList();
+	
+	
 });	
 	
 

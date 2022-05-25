@@ -56,7 +56,7 @@ public class BoardServiceImpl implements BoardService {
 	}
 	
 	@Override
-	@Transactional
+	@Transactional(rollbackFor = Exception.class)
 	public void modify(BoardDTO boardDTO) {
 		fileMapper.boardFileDeleteAll(boardDTO.getBoard_num());
 		boardMapper.modify(boardDTO);
@@ -90,7 +90,7 @@ public class BoardServiceImpl implements BoardService {
 	}
 	
 	
-	@Transactional
+	@Transactional(rollbackFor = Exception.class)
 	@Override
 	public void delete(int board_num) {
 		System.out.println("서비스");

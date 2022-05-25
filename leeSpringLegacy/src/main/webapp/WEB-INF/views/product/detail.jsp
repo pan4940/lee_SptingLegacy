@@ -1,6 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
+	
+	
 <div id="detailDiv" style="display: flex; flex-wrap: wrap; justify-content: center;">
+	<input type="hidden" id="member_id" value="${memberDTO.member_id}">
 	<input type="hidden" id="product_number" value="${map.product_num}">
 	<div id="productDetailImage" class="col-12 col-sm-7"
 		style="display: flex; flex-wrap: wrap"></div>
@@ -128,17 +133,20 @@ Exchange & Returns
 			</div>
 		</div>
 	</div>
+	
 	<form id='actionForm' action="/board/list" method='post'>
-					<input type='hidden' name='board_category_num' value='4'>
-					<input id="board_num" type='hidden' name='board_num' value="">
-					<input type='hidden' name='pageNum' value='1'>
-					<input type='hidden' name='amount' value='10'>
-					
-				</form>
+		<input type='hidden' name='board_category_num' value='4'>
+		<input id="board_num" type='hidden' name='board_num' value="">
+		<input type='hidden' name='pageNum' value='1'>
+		<input type='hidden' name='amount' value='10'>
+		<input type='hidden' name='product_num' value='${map.product_num}'>
+	</form>
+	
 	<div id="reviewBoardDiv" class="col-12 col-lg-9">
 		<div>Review
 		<span>
-		<a id="moveWriteForm" style="display:none">WRITE</a>
+		
+		<a id="moveWriteForm">WRITE</a>
 		<a id="moveListForm">VIEW ALL</a>
 		</span>
 		</div>
@@ -158,3 +166,5 @@ Exchange & Returns
 		
 	</div>
 	<script type="text/javascript" src="/resources/js/detail.js"></script>
+	
+	

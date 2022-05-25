@@ -37,6 +37,12 @@
     	]]>	
     </select>
     
+    <select id="recommendShoesBrand" resultType="ProductDTO">
+		<![CDATA[
+		select * from (SELECT * from product where CATECODE2 = 1600 or CATECODE2 = 2600) WHERE ROWNUM <= 3	
+    	]]>	
+    </select>
+    
     <insert id="createBrandCategorySelectKey" parameterType="ProductCategoryDTO">
     	<selectKey keyProperty="product_category_num" order="BEFORE" resultType="int">
 			select SEQ_PRODUCT_CATEGORY_NUM.nextval from dual

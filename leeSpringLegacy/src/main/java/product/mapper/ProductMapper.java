@@ -92,6 +92,8 @@ public interface ProductMapper {
 
 	public List<ProductCategoryDTO> recommendBrand();
 
+	public List<ProductDTO> recommendShoesBrand();
+
 
 
 }

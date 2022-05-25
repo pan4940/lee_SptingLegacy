@@ -82,10 +82,12 @@ public class BoardController {
 	
 	
 	//원글작성
-	@PostMapping("/writeForm")
+	@GetMapping("/writeForm")
 	public String writeForm(@RequestParam Map<String, String> map, Model model) {
 		model.addAttribute("map", map);
-		return "/board/write";
+		model.addAttribute("display", "/WEB-INF/views/board/write.jsp");
+		return "index";
+		
 	}
 	
 	@PostMapping("/write")
@@ -95,7 +97,7 @@ public class BoardController {
 		
 		System.out.println("map : " + map);
 		
-		boardDTO.setPwd("11");
+		//boardDTO.setPwd("11");
 		System.out.println("boardDTO : " + boardDTO);
 		
 		int board_category_num = Integer.parseInt(map.get("board_category_num")); 
@@ -117,7 +119,6 @@ public class BoardController {
 		
 		redirectAttributes.addAttribute("display", "/WEB-INF/views/board/list.jsp");
 		return "redirect:/board/list";
-		//return "index";
 	}
 	
 	//게시물 조회
@@ -228,7 +229,7 @@ public class BoardController {
 		//return "index";
 	}
 	
-	@Transactional
+	@Transactional(rollbackFor = Exception.class)
 	@PostMapping("/delete")
 	public String delete(@RequestParam Map<String, String> map, 
 			//@ModelAttribute BoardDTO boardDTO, 
@@ -288,5 +289,31 @@ public class BoardController {
 	@ResponseBody
 	public BoardDTO getNewPost() {
 		return boardService.getNewPost();
+	}
+	
+	
+	@PostMapping("/secretForm")
+	public String secret(@RequestParam Map<String, String> map, Model model) {
+		System.out.println("secret: " + map);
+		String rank_num = map.get("rank_num") != null? map.get("rank_num") : "0";
+		String member_id = map.get("member_id") != null? map.get("member_id") : "";
+		System.out.println("rank_num : " + rank_num);
+		System.out.println("member_id : " + member_id);
+		
+		//int rank_num = Integer.parseInt(map.get("rank_num"));
+		int board_num = Integer.parseInt(map.get("board_num"));
+		BoardDTO boardDTO = boardService.get(board_num);
+		System.out.println("boardDTO : " + boardDTO);
+		if (Integer.parseInt(rank_num) == 3 || boardDTO.getMember_id().equals(member_id)||boardDTO.getBoard_category_num()==4) {
+			System.out.println("관리자 혹은 글작성자");
+			model.addAttribute("map", map);
+			get(map, model);
+			return "index";	
+		} else {
+			map.put("pwd", boardDTO.getPwd());
+			model.addAttribute("map", map);
+			model.addAttribute("display", "/WEB-INF/views/board/secret.jsp");
+			return "/index";	
+		}	
 	}
 }

@@ -136,7 +136,7 @@ $("#autoLogin").on("click", function() {
         type:'post',
         url:'/member/loginOK',
         data: {
-           'member_id': 'dltjdgus',
+           'member_id': 'rlatjdgus',
            'member_pwd': '@a123456'
         },
         dataType:'text',

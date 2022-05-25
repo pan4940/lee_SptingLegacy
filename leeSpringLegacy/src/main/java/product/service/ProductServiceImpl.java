@@ -57,7 +57,7 @@ public class ProductServiceImpl implements ProductService {
 	}
 	
 	
-	@Transactional
+	@Transactional(rollbackFor = Exception.class)
 	@Override
 	public void productRegister(ProductDTO productDTO) {
 		if (productDTO.getFileList() == null || productDTO.getFileList().size() <= 0) {
@@ -118,7 +118,7 @@ public class ProductServiceImpl implements ProductService {
 	
 	
 	@Override
-	@Transactional
+	@Transactional(rollbackFor = Exception.class)
 	public void modify(ProductDTO productDTO) {
 		
 		
@@ -173,7 +173,7 @@ public class ProductServiceImpl implements ProductService {
 		return list;
 	}
 	
-	@Transactional
+	@Transactional(rollbackFor = Exception.class)
 	@Override
 	public void modifyBrandCategory(ProductCategoryDTO productCategoryDTO) {
 		if (productCategoryDTO.getFileList() == null || productCategoryDTO.getFileList().size() <= 0) {
@@ -297,7 +297,14 @@ public class ProductServiceImpl implements ProductService {
 	}
 	
 	
-	
+	@Override
+	public List<ProductDTO> recommendShoesBrand() {
+		List<ProductDTO> list = productMapper.recommendShoesBrand();
+		for (ProductDTO productDTO : list) {
+			productDTO.setFileList(fileMapper.findByProductNum(productDTO.getProduct_num()));
+		}
+		return list;
+	}
 	
 	
 }

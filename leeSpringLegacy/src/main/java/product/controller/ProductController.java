@@ -214,7 +214,7 @@ public class ProductController {
 	}
 	
 	
-	@Transactional
+	@Transactional(rollbackFor = Exception.class)
 	@PostMapping("/delete")
 	@ResponseBody
 	public void delete(@RequestParam String[] checkProduct_num) {
@@ -312,6 +312,11 @@ public class ProductController {
 		return productService.recommendBrand();
 	}
 	
-	
+	//메인페이지 신발 추천 브랜드 관련 메소드. 추후 관리자 페이지에서 선택하여 가능하게끔..현재는 최신 3개 브랜드 자동 노출
+	@PostMapping("/getRecommendShoesBrand")
+	@ResponseBody
+	public List<ProductDTO> recommendShoesBrand() {
+		return productService.recommendShoesBrand();
+	}
 	
 }

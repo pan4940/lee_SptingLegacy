@@ -1,13 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <form id='actionForm' action="/board/get" method='post'>
+<form id='actionForm' action="" method='post'>
 	<input type='hidden' name='board_category_num' value='7'>
 	<input type="hidden" name="board_num" value="">
 </form>
 <section><!-- 1 -->
-<div class="col-12 col-sm-4" id="recommendBrand0"><img src="" alt="" ></div>
-<div class="col-12 col-sm-4" id="recommendBrand1"><img src="" alt="" ></div>
-<div class="col-12 col-sm-4" id="recommendBrand2"><img src="" alt="" ></div>
+<div class="col-12 col-sm-4" id="recommendBrand0"><a><img src="" alt="" ></a></div>
+<div class="col-12 col-sm-4" id="recommendBrand1"><a><img src="" alt="" ></a></div>
+<div class="col-12 col-sm-4" id="recommendBrand2"><a><img src="" alt="" ></a></div>
 </section>
 <section><!-- 2 -->
 <marquee scrollamount="15px">
@@ -49,9 +49,10 @@
 	</div>
 </section>
 <section><!-- 5 -->
-<div class="col-12 col-sm-4" id=""><img src="" alt="" ></div>
-<div class="col-12 col-sm-4" id=""><img src="" alt="" ></div>
-<div class="col-12 col-sm-4" id=""><img src="" alt="" ></div>
+
+<div class="col-12 col-sm-4" id="recommendShoesBrand0"><a><img src="" alt="" ></a></div>
+<div class="col-12 col-sm-4" id="recommendShoesBrand1"><a><img src="" alt="" ></a></div>
+<div class="col-12 col-sm-4" id="recommendShoesBrand2"><a><img src="" alt="" ></a></div>
 </section>
 <section><!-- 6 -->
 <span>RECOMMEND</span>

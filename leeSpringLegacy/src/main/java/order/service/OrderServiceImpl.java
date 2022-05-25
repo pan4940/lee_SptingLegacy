@@ -87,7 +87,7 @@ public class OrderServiceImpl implements OrderService {
 		orderMapper.deleteDetailProductFromCart(detail_product_id);
 	}
 	
-	@Transactional
+	@Transactional(rollbackFor = Exception.class)
 	@Override
 	public void registerOrderDTO(OrderDTO orderDTO) {
 		//먼저 orderDTO등록. selectKey

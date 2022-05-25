@@ -24,6 +24,7 @@ public class BoardDTO {
 	private int board_category_num;
 	private int reply;
 	private String pwd;
+	private String product_num;
 	
 	private List<FileDTO> fileList;
 }

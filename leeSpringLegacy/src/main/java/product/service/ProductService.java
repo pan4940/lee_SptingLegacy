@@ -62,5 +62,7 @@ public interface ProductService {
 
 	public List<ProductCategoryDTO> recommendBrand();
 
+	public List<ProductDTO> recommendShoesBrand();
+	
 	
 }

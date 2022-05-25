@@ -1,4 +1,13 @@
 $(function() {
+	let member_id = $("#member_id").val();
+	console.log(member_id);
+	
+	if(member_id == ''){
+		$("#moveWriteForm").hide();
+	} else {
+		$("#moveWriteForm").show();
+	}
+	
 	/*$.ajax({
 		url: '/board/getReview',
 		data: {

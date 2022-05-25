@@ -6,9 +6,9 @@
 <meta charset="UTF-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<link rel="stylesheet" href="/component/nav.css" />
-<link rel="stylesheet" href="/index.css" />
-<link rel="stylesheet" href="help.css" />
+<link rel="stylesheet" href="/resources/css/nav.css" />
+<link rel="stylesheet" href="/resources/css/nav.css" />
+<link rel="stylesheet" href="/resources/js/nav.js" />
 <link href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
@@ -166,7 +166,7 @@ MemberDTO memberDTO = (MemberDTO)session.getAttribute("memberDTO");
 	              <input type="hidden" name="member_name" value="<%= memberDTO.getMember_name() %>">
                   <input type="hidden" name="rank_num" value="${map.rank_num}">
                   <input type="hidden" name="board_category_num" value="${map.board_category_num}"> 
-                  
+                  <input type="hidden" name="product_num" value="${map.product_num}">
                   <div>
                      <ul class="form-submit-board">
                      	
@@ -215,12 +215,13 @@ MemberDTO memberDTO = (MemberDTO)session.getAttribute("memberDTO");
             </c:when>
 			
 			<c:when test="${map.board_category_num eq '4'}">
+               <input type="text" value="${map }">
                <form id="boardWriteForm" action="/board/write" method="post">
-
-                  <input type="hidden" name="board_category_num" value="${map.board_category_num}"> 
+		
+                  <input type="hidden" name="board_category_num" value="4"> 
                   <input type="hidden" name="pageNum" value="${map.pageNum}"> 
                   <input type="hidden" name="amount" value="${map.amount}">
-                  
+                  <input type="hidden" name="product_num" value="${map.product_num}">
                   <div>
                      <ul class="form-submit-board">
                         <li>
@@ -370,7 +371,7 @@ MemberDTO memberDTO = (MemberDTO)session.getAttribute("memberDTO");
 
    </div> <!-- end #help_main -->
    <%-- <jsp:include page="/component/footer.jsp" /> --%>
-<script src="/WEB-INF/component/nav/nav.js"></script>
+
 
 <script type="text/javascript">
 $(function(){
@@ -412,6 +413,7 @@ $("button[type='submit']").on("click", function(e){
    });
    
    $("#boardWriteForm").append(str).submit();
+   console.log($("#boardWriteForm"));
 });
 
 
