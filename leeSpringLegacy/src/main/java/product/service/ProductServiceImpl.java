@@ -1,5 +1,7 @@
 package product.service;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -306,5 +308,63 @@ public class ProductServiceImpl implements ProductService {
 		return list;
 	}
 	
+	
+	@Override
+	public List<ProductDTO> getProductsByProductName(String product_name) {
+		List<ProductDTO> list = productMapper.getProductsByProductName(product_name);
+		for (ProductDTO productDTO : list) {
+			productDTO.setFileList(fileMapper.findByProductNum(productDTO.getProduct_num()));
+		}
+		return list;
+	}
+	
+	@Override
+	public List<ProductCategoryDTO> getNavMenProductCategoryDTO() {
+		List<ProductCategoryDTO> list = new ArrayList<>();
+		int[] arr = {10158, 10160};
+		
+		for (int product_category_num : arr) {
+			ProductCategoryDTO productCategoryDTO = productMapper.getProductCategoryDTO(product_category_num);
+			list.add(productCategoryDTO);
+			productCategoryDTO.setFileList(fileMapper.findByBrandNum(product_category_num));
+		}
+		
+		return list;
+	}
+	
+	
+	@Override
+	public List<ProductCategoryDTO> getNavWomenProductCategoryDTO() {
+		List<ProductCategoryDTO> list = new ArrayList<>();
+		int[] arr = {10163, 10164};
+		
+		for (int product_category_num : arr) {
+			ProductCategoryDTO productCategoryDTO = productMapper.getProductCategoryDTO(product_category_num);
+			list.add(productCategoryDTO);
+			productCategoryDTO.setFileList(fileMapper.findByBrandNum(product_category_num));
+		}
+		
+		return list;
+	}
+	
+	@Override
+	public Map<String, Object> getNavBrandProductCategoryDTO() {
+		List<ProductCategoryDTO> threeProductCategoryDTO = new ArrayList<>();
+		int[] arr = {10158, 10163, 10164};
+		
+		for (int product_category_num : arr) {
+			ProductCategoryDTO productCategoryDTO = productMapper.getProductCategoryDTO(product_category_num);
+			threeProductCategoryDTO.add(productCategoryDTO);
+			productCategoryDTO.setFileList(fileMapper.findByBrandNum(product_category_num));
+		}
+		Map<String, Object> map = new HashMap<>();
+		map.put("threeProductCategoryDTO", threeProductCategoryDTO);
+		
+		List<ProductCategoryDTO> brandCategory = productMapper.getNavBrandProductCategoryDTO();
+		
+		map.put("brandCategory", brandCategory);
+		
+		return map;
+	}
 	
 }

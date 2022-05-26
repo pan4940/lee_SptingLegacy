@@ -319,4 +319,39 @@ public class ProductController {
 		return productService.recommendShoesBrand();
 	}
 	
+	//nav의 검색시 결과반환 메서드. product_name을 기준으로 검색한다. 
+	
+	@PostMapping("/searchList")
+	public String searchList(@RequestParam String product_name, Model model) {
+		model.addAttribute("product_name", product_name);
+		model.addAttribute("display", "/WEB-INF/views/product/searchList.jsp");
+		return "index";
+	}
+	
+	@PostMapping("/getProductsByProductName")
+	@ResponseBody
+	public List<ProductDTO> getSearchList(@RequestParam String product_name) {
+		return productService.getProductsByProductName(product_name);
+	}
+	
+	@PostMapping("/getNavMenProductCategoryDTO")
+	@ResponseBody
+	public List<ProductCategoryDTO> getNavMenProductCategoryDTO() {
+		return productService.getNavMenProductCategoryDTO();
+	}
+	
+	@PostMapping("/getNavWomenProductCategoryDTO")
+	@ResponseBody
+	public List<ProductCategoryDTO> getNavWomenProductCategoryDTO() {
+		return productService.getNavWomenProductCategoryDTO();
+	}
+	
+	@PostMapping("/getNavBrandProductCategoryDTO")
+	@ResponseBody
+	public Map<String, Object> getNavBrandProductCategoryDTO() {
+		return productService.getNavBrandProductCategoryDTO();
+	}
+	
+	
+	
 }

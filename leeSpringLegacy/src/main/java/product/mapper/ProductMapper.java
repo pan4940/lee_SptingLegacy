@@ -38,8 +38,6 @@ public interface ProductMapper {
 
 	public ProductDTO getProductByProductNum(String product_num);
 
-	public List<FileDTO> getFileList(int product_num);
-
 	public void modifyProduct(ProductDTO productDTO);
 
 	public void productDeleteCategory_link(int product_num);
@@ -93,6 +91,12 @@ public interface ProductMapper {
 	public List<ProductCategoryDTO> recommendBrand();
 
 	public List<ProductDTO> recommendShoesBrand();
+
+	public List<ProductDTO> getProductsByProductName(String product_name);
+
+	public List<ProductCategoryDTO> getNavBrandProductCategoryDTO();
+
+
 
 
 

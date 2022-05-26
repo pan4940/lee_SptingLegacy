@@ -6,7 +6,7 @@
 	
 <div id="detailDiv" style="display: flex; flex-wrap: wrap; justify-content: center;">
 	<input type="hidden" id="member_id" value="${memberDTO.member_id}">
-	<input type="hidden" id="product_number" value="${map.product_num}">
+	<input type="hidden" id="product_num" value="${map.product_num}">
 	<div id="productDetailImage" class="col-12 col-sm-7"
 		style="display: flex; flex-wrap: wrap"></div>
 	<div id="detailProductDiv" class="col-12 col-sm-5">

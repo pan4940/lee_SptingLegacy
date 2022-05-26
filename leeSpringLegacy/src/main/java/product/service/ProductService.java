@@ -63,6 +63,14 @@ public interface ProductService {
 	public List<ProductCategoryDTO> recommendBrand();
 
 	public List<ProductDTO> recommendShoesBrand();
-	
+
+	public List<ProductDTO> getProductsByProductName(String product_name);
+
+	public List<ProductCategoryDTO> getNavMenProductCategoryDTO();
+
+	public List<ProductCategoryDTO> getNavWomenProductCategoryDTO();
+
+	//public List<ProductCategoryDTO> getNavBrandProductCategoryDTO();
+	public Map<String, Object> getNavBrandProductCategoryDTO();
 	
 }

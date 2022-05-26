@@ -8,10 +8,10 @@ $(function() {
 		$("#moveWriteForm").show();
 	}
 	
-	/*$.ajax({
-		url: '/board/getReview',
+	$.ajax({
+		url: '/board/getProductReview',
 		data: {
-			'product_number': $('#product_number').val()
+			'product_num': $('#product_num').val()
 		},
 		type: 'post',
 		dataType: 'json',
@@ -26,9 +26,9 @@ $(function() {
 					).append(
 						$('<td/>').append($('<a/>', { class:"getReview",'data-board_num':item.board_num,text:item.subject}))
 					).append(
-						$('<td/>', { text: item.name })
+						$('<td/>', { text: item.member_name })
 					).append(
-						$('<td/>', { text: item.logtime.substring(0, 10) })
+						$('<td/>', { text: item.regDate})
 					).appendTo($('#reviewTable'));
 				})
 				
@@ -39,19 +39,19 @@ $(function() {
 					$('#board_num').val(e.target.getAttribute("data-board_num"))
 					$('#actionForm').submit();
 				})
-			}
+			} //end if
 		},
 		error: function(err) {
 			console.log(err)
 		}
-	})*/
+	});
 
 
 	$.ajax({
 		url: '/product/getProductDTO',
 		type: 'post',
 		data: {
-			'product_num': $('#product_number').val()
+			'product_num': $('#product_num').val()
 		},
 		dataType: 'json',
 		success: function(data) {

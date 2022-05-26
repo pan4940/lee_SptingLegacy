@@ -17,6 +17,21 @@
     	]]>
     </select>
     
+   	<select id="getProductsByProductName" parameterType="String" resultType="ProductDTO">
+		<![CDATA[
+		select * from product where upper(product_name) like upper('%' || #{product_name} || '%')
+		]]>
+	</select>
+	
+	<select id="getNavBrandProductCategoryDTO" resultType="ProductCategoryDTO">
+    	<![CDATA[
+    	select * from 
+    		(
+    		select * from product_category where product_category_num > 10000
+			) 
+		where rownum <= 8
+		]]>
+    </select>
     
     
 	<select id="getBrandsCategoryList" resultType="ProductCategoryDTO">
@@ -158,11 +173,12 @@
 		select * from product where product_num = #{product_num}
 	</select>
 	
-	<select id="searchProductName" parameterType="String" resultType="ProductDTO">
+	<!-- <select id="searchProductName" parameterType="String" resultType="ProductDTO">
 		<![CDATA[
 		select * from product where LOWER(product_name) like '%' || #{product_name} || '%'
 		]]>
-	</select>
+	</select> -->
+	
 	
 	<select id="findBrandNameByBrandCategory" parameterType="int" resultType="String">
 		select product_category_name from product_category where product_category_num = #{brandCategory}

@@ -28,6 +28,7 @@ import board.bean.Criteria;
 import board.bean.PageDTO;
 import board.service.BoardService;
 import file.bean.FileDTO;
+import product.bean.ProductCategoryDTO;
 
 
 
@@ -291,6 +292,12 @@ public class BoardController {
 		return boardService.getNewPost();
 	}
 	
+	@PostMapping("/getProductReview")
+	@ResponseBody
+	public List<BoardDTO> getProductReview(@RequestParam int product_num) {
+		return boardService.getProductReview(product_num);
+	}
+	
 	
 	@PostMapping("/secretForm")
 	public String secret(@RequestParam Map<String, String> map, Model model) {
@@ -315,5 +322,11 @@ public class BoardController {
 			model.addAttribute("display", "/WEB-INF/views/board/secret.jsp");
 			return "/index";	
 		}	
+	}
+	
+	@PostMapping("/getNavPostBoardDTO")
+	@ResponseBody
+	public List<BoardDTO> getNavPostBoardDTO() {
+		return boardService.getNavPostBoardDTO();
 	}
 }

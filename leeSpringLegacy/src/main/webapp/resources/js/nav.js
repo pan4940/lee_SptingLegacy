@@ -1,3 +1,15 @@
+
+$(function() {
+	if (window.innerWidth < 800) {
+		$('#second_large').hide();
+	} else {
+		$('#second_small').hide();
+	}
+	$("#fourth").hide();
+	
+});
+
+
 $("#second_large span").mouseover(function(event) {
 	$("#third_large").css("display", "flex");
 	$("#third_large").empty();
@@ -5,50 +17,81 @@ $("#second_large span").mouseover(function(event) {
 		$("<div/>", { class: 'col-3' })
 			.append(
 				$("<ul/>")
-					.append($("<li/>").append($("<a/>", { text: "TOP", href: "/list?category=men_t-shirts" })))
-					.append($("<li/>").append($("<a/>", { text: "BOTTOM", href: "/list?category=men_pants" })))
-					.append($("<li/>").append($("<a/>", { text: "BAG", href: "/list?category=men_bag" })))
-					.append($("<li/>").append($("<a/>", { text: "HANDWEAR", href: "/list?category=men_handwear" })))
-					.append(
-						$("<li/>").append($("<a/>", { text: "ACCESSORIES", href: "/list?category=men_accessories" }))
-					)
-					.append($("<li/>").append($("<a/>", { text: "SHOES", href: "/list?category=men_shoes" })))
-					.append(
-						$("<li/>").append($("<a/>", { text: "COLLABORATIONS", href: "/list?category=men_balansa x carrtos" }))
-					)
+					.append($("<li/>").append($("<a/>", { text: "TOP", href: "/product/list?product_category_num=1100" })))
+					.append($("<li/>").append($("<a/>", { text: "BOTTOM", href: "/product/list?product_category_num=1200" })))
+					.append($("<li/>").append($("<a/>", { text: "BAG", href: "/product/list?product_category_num=1300" })))
+					.append($("<li/>").append($("<a/>", { text: "HANDWEAR", href: "/product/list?product_category_num=1400" })))
+					.append($("<li/>").append($("<a/>", { text: "ACCESSORIES", href: "/product/list?product_category_num=1500" })))
+					.append($("<li/>").append($("<a/>", { text: "SHOES", href: "/product/list?product_category_num=1600" })))
+					.append($("<li/>").append($("<a/>", { text: "COLLABORATIONS", href: "/product/list?product_category_num=1700" }))
+				)
 			)
-			.appendTo($("#third_large"));
+		.appendTo($("#third_large"));
+		
 		$("<div/>", { class: 'col-3' })
 			.appendTo($("#third_large"));
-		$("<div/>", { "id": "menuimage1", class: "col-3" })
-			.append($("<a/>").append($("<p/>")).append($("<img/>",{style:'margin-left:10px;height:80%'})))
-			.appendTo($("#third_large"));
-		$("<div/>", { "id": "menuimage2", class: "col-3" })
-			.append($("<a/>").append($("<p/>")).append($("<img/>",{style:'margin-left:10px;height:80%'})))
-			.appendTo($("#third_large"));
+			
+		//반복문. 2개의 남성브랜드 정보 가져와서 2번 반복하게 할 것. 
+		$.ajax({
+			type: 'post',
+			url: '/product/getNavMenProductCategoryDTO',
+			dataType: 'json',
+			success: function(data) {
+				console.log(data);
+				$.each(data, function(index,item){
+					let fileCallPath = encodeURIComponent(item.fileList[0].uploadPath + "/" + item.fileList[0].uuid + "_" +  item.fileList[0].fileName);
+					$("<div/>", { "id": "menuimage" + index, class: "col-3" })
+						.append($("<a/>").append($("<p/>")).append($("<img/>",{style:'margin-left:10px;height:80%', src: '/file/display?fileName=/' + fileCallPath})))
+						.append($("<a/>").append($("<p/>", {text: item.product_category_name})))
+						.appendTo($("#third_large"));	
+				});
+			},
+			error: function(err) {
+				console.log(err)
+			}
+		}); //end ajax
+		
+	
 	} else if (event.currentTarget.innerText == "WOMEN") {
 		$("<div/>", { class: 'col-3' })
 			.append(
 				$("<ul/>")
-					.append($("<li/>").append($("<a/>", { text: "TOP", href: "/list?category=women_top" })))
-					.append($("<li/>").append($("<a/>", { text: "BOTTOM", href: "/list?category=women_bottom" })))
-					.append($("<li/>").append($("<a/>", { text: "BAG", href: "/list?category=women_bag" })))
-					.append($("<li/>").append($("<a/>", { text: "HANDWEAR", href: "/list?category=women_handwear" })))
+					.append($("<li/>").append($("<a/>", { text: "TOP", href: "/product/list?product_category_num=2100" })))
+					.append($("<li/>").append($("<a/>", { text: "BOTTOM", href: "/product/list?product_category_num=2200" })))
+					.append($("<li/>").append($("<a/>", { text: "BAG", href: "/product/list?product_category_num=2300" })))
+					.append($("<li/>").append($("<a/>", { text: "HANDWEAR", href: "/product/list?product_category_num=2400" })))
 					.append(
-						$("<li/>").append($("<a/>", { text: "ACCESSORIES", href: "/list?category=women_accessories" }))
+						$("<li/>").append($("<a/>", { text: "ACCESSORIES", href: "/product/list?product_category_num=2500" }))
 					)
-					.append($("<li/>").append($("<a/>", { text: "SHOES", href: "/list?category=women_shoes" })))
+					.append($("<li/>").append($("<a/>", { text: "SHOES", href: "/product/list?product_category_num=2600" })))
 			)
 			.appendTo($("#third_large"));
+			
+			
 		$("<div/>", { class: 'col-3' })
 			.appendTo($("#third_large"));
-		$("<div/>", { "id": "menuimage3", class: "col-3" })
-			.append($("<a/>").append($("<p/>")).append($("<img/>",{style:'margin-left:10px;height:80%'})))
-			.appendTo($("#third_large"));
-		$("<div/>", { "id": "menuimage4", class: "col-3" })
-			.append($("<a/>").append($("<p/>")).append($("<img/>",{style:'margin-left:10px;height:80%'})))
-			.appendTo($("#third_large"));
-	} else if (event.currentTarget.innerText == "LIFE STYLE") {
+			
+		//반복문. 2개의 여성브랜드 정보 가져와서 2번 반복하게 할 것. 
+		$.ajax({
+			type: 'post',
+			url: '/product/getNavWomenProductCategoryDTO',
+			dataType: 'json',
+			success: function(data) {
+				$.each(data, function(index,item){
+					let fileCallPath = encodeURIComponent(item.fileList[0].uploadPath + "/" + item.fileList[0].uuid + "_" +  item.fileList[0].fileName);
+					$("<div/>", { "id": "menuimage" + index, class: "col-3" })
+						//.append($("<a/>").append($("<p/>")).append($("<img/>",{style:'margin-left:10px;height:80%', src: '/file/display?fileName=/' + fileCallPath})))
+						.append($("<a/>").append($("<p/>")).append($("<img/>",{style:'margin-left:10px;height:80%', src: '/file/display?fileName=/' + fileCallPath})))
+						.append($("<a/>").append($("<p/>", {text: item.product_category_name})))
+						.appendTo($("#third_large"));	
+				});
+			},
+			error: function(err) {
+				console.log(err)
+			}
+		}); //end ajax
+	
+	/*} else if (event.currentTarget.innerText == "LIFE STYLE") {
 		$("<div/>", { class: 'col-3' })
 			.append(
 				$("<ul/>")
@@ -133,68 +176,64 @@ $("#second_large span").mouseover(function(event) {
 			.appendTo($("#third_large"));
 		$("<div/>", { "id": "menuimage8", class: "col-3" })
 			.append($("<a/>").append($("<p/>")).append($("<img/>",{style:'margin-left:10px;height:80%'})))
-			.appendTo($("#third_large"));
+			.appendTo($("#third_large"));*/
+	
+	
 	} else if (event.currentTarget.innerText == "BRANDS") {
-		$("<div/>", { class: 'col-3' })
-			.append(
-				$("<ul/>")
-					.append(
-						$("<li/>").append($("<a/>", { text: "ARC'TERYX", href: "/searchList?product_name=아크테릭스" }))
+		$("<div/>", { class: 'col-3', id:'navBrands'}).append($("<ul/>")).appendTo($("#third_large"));
+			
+		$.ajax({
+			type: 'post',
+			url: '/product/getNavBrandProductCategoryDTO',
+			dataType: 'json',
+			success: function(data) {
+				console.log(data.brandCategory);
+				
+				$.each(data.brandCategory, function(index,item){
+					$("#navBrands ul").
+						append($("<li/>")
+							.append($("<a/>", { text: item.product_category_name, href: "/product/list-brand?product_category_num=" + item.product_category_num}))
 					)
-					.append(
-						$("<li/>").append($("<a/>", { text: "CARHARTT WIP", href: "/searchList?product_name=칼하트WIP" }))
-					)
-					.append($("<li/>").append($("<a/>", { text: "HELINOX", href: "/searchList?product_name=헬리녹스" })))
-					.append(
-						$("<li/>").append($("<a/>", { text: "HOKAONEONE", href: "/searchList?product_name=호카오네오네" }))
-					)
-					.append($("<li/>").append($("<a/>", { text: "MERRELL", href: "/searchList?product_name=머렐" })))
-					.append($("<li/>").append($("<a/>", { text: "POTTERY", href: "/searchList?product_name=포터리" })))
-					.append(
-						$("<li/>").append($("<a/>", { text: "THISISNEVERTHAT", href: "/searchList?product_name=디스이스네버댓" }))
-					)
-					.append(
-						$("<li/>").append(
-							$("<a/>", { text: "THEMUSEUMVISITOR", href: "/searchList?product_name=더뮤지엄비지터" })
-						)
-					)
-					.append(
-						$("<li/>").append($("<a/>", { text: "THEOPEN PRODUCT", href: "/searchList?product_name=더오픈프로덕트" }))
-					)
-					.append(
-						$("<li/>").append($("<a/>", { text: "XENIA TALER", href: "/searchList?product_name=제니아테일러" }))
-					)
-					.append($("<li/>").append($("<p/>")))
-					.append(
-						$("<li/>").append(
-							$("<a/>", { text: "VIEW ALL BRANDS",href:"/brands", class: "small-font" })
-						)
-					)
-			)
-			.appendTo($("#third_large"));
-
-		$("<div/>", { "id": "menuimage9", class: "col-3" })
-			.append($("<a/>").append($("<p/>")).append($("<img/>",{style:'margin-left:10px;height:80%'})))
-			.appendTo($("#third_large"));
-		$("<div/>", { "id": "menuimage10", class: "col-3" })
-			.append($("<a/>").append($("<p/>")).append($("<img/>",{style:'margin-left:10px;height:80%'})))
-			.appendTo($("#third_large"));
-		$("<div/>", { "id": "menuimage11", class: "col-3" })
-			.append($("<a/>").append($("<p/>")).append($("<img/>",{style:'margin-left:10px;height:80%'})))
-			.appendTo($("#third_large"));
+				});
+				$("#navBrands").appendTo($("#third_large"));
+				
+				
+				$.each(data.threeProductCategoryDTO, function(index,item){
+					let fileCallPath = encodeURIComponent(item.fileList[0].uploadPath + "/" + item.fileList[0].uuid + "_" +  item.fileList[0].fileName);
+					$("<div/>", { "id": "menuimage" + index, class: "col-3" })
+						//.append($("<a/>").append($("<p/>")).append($("<img/>",{style:'margin-left:10px;height:80%', src: '/file/display?fileName=/' + fileCallPath})))
+						.append($("<a/>").append($("<p/>")).append($("<img/>",{style:'margin-left:10px;height:80%', src: '/file/display?fileName=/' + fileCallPath})))
+						.append($("<a/>").append($("<p/>", {text: item.product_category_name})))
+						.appendTo($("#third_large"));	
+				});
+			},
+			error: function(err) {
+				console.log(err)
+			}
+		}); //end ajax
+			
 	} else if (event.currentTarget.innerText == "POST") {
-		$("<div/>", { "id": "menuimage12", class: "col-3" })
-			.append($("<a/>").append($("<p/>")).append($("<img/>",{style:'margin-left:10px;height:80%'})))
-			.appendTo($("#third_large"));
-		$("<div/>", { "id": "menuimage13", class: "col-3" })
-			.append($("<a/>").append($("<p/>")).append($("<img/>",{style:'margin-left:10px;height:80%'})))
-			.appendTo($("#third_large"));
-		$("<div/>", { "id": "menuimage14", class: "col-3" })
-			.append($("<a/>").append($("<p/>")).append($("<img/>",{style:'margin-left:10px;height:80%'})))
-			.appendTo($("#third_large"));
-		$("<div/>", { "id": "menuimage15", class: "col-3" })
-			.append($("<a/>").append($("<p/>")).append($("<img/>",{style:'margin-left:10px;height:80%'})))
-			.appendTo($("#third_large"));
+		
+		//반복문. 4개의 포스트 정보 가져와서 2번 반복하게 할 것. 
+		$.ajax({
+			type: 'post',
+			url: '/board/getNavPostBoardDTO',
+			dataType: 'json',
+			success: function(data) {
+				console.log(data);
+				$.each(data, function(index,item){
+					
+					let fileCallPath = encodeURIComponent(item.fileList[0].uploadPath + "/" + item.fileList[0].uuid + "_" +  item.fileList[0].fileName);
+					$("<div/>", { "id": "menuimage" + index, class: "col-3" })
+						.append($("<a/>").append($("<p/>")).append($("<img/>",{style:'margin-left:10px;height:80%', src: '/file/display?fileName=/' + fileCallPath})))
+						.append($("<a/>").append($("<p/>", {text: item.subject})))
+						.appendTo($("#third_large"));	
+				});
+			},
+			error: function(err) {
+				console.log(err)
+			}
+		}); //end ajax
 	}
 
 	$("li a").mouseenter(function(event) {
@@ -203,10 +242,12 @@ $("#second_large span").mouseover(function(event) {
 			"color:gray;text-decoration:underline"
 		);
 	});
+	
 	$("li a").mouseleave(function(event) {
 		event.currentTarget.setAttribute("style", "color:black");
 	});
-	$.ajax({
+	
+	/*$.ajax({
 		type: 'post',
 		url: '/getNavImg',
 		success: function(data) {
@@ -219,24 +260,13 @@ $("#second_large span").mouseover(function(event) {
 		error: function(err) {
 			console.log(err)
 		}
-	})
+	});*/
 });
 
 $("nav").mouseleave(function() {
 	$("#third_large").attr("style", "display:none");
 });
-$(function() {
-	if (window.innerWidth < 800) {
-		$('#second_large').hide();
-	} else {
-		$('#second_small').hide();
-	}
-	$("#fourth").hide();
-	
 
-
-
-});
 
 $(".search").click(function() {
 	$("#fourth ").animate({ height: "toggle" }, 300, "linear");
@@ -298,6 +328,7 @@ $('.logoutBtn').click(function() {
 });
 
 $('input[id="keyword"]').keydown(function(event) {
+	//Javascript 키보드 키코드 값.. enter는 13이다. 
 	if (event.keyCode === 13) {
 		if ($('#keyword').val() === '') {
 			event.preventDefault();

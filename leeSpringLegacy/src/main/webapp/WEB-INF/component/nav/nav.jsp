@@ -22,13 +22,13 @@ MemberDTO memberDTO = (MemberDTO)session.getAttribute("memberDTO");
 	  </div>
 	  
 	  <div id="secondmenu">
-	    <span><a href="/list?category=men">MEN</a>
+	    <span><a href="/product/list?product_category_num=1000">MEN</a>
 	    </span>
-	    <span><a href="/list?category=women">WOMEN</a>
+	    <span><a href="/product/list?product_category_num=2000">WOMEN</a>
 	    </span>    
-	    <span><a href="/list?category=lifeStyle">LIFE STYLE</a>
-	    </span>   
-	    <!-- <span><a href="/list?category=sale">SALE</a>
+	    <!-- <span><a href="/product/list?product_category_num=5000">LIFE STYLE</a>
+	    </span>    -->
+	    <!-- <span><a href="/product/list?product_category_num=?">SALE</a>
 	    </span> -->
 	    <span><a href="/product/brands">BRANDS</a>
 	    </span>
@@ -124,8 +124,8 @@ MemberDTO memberDTO = (MemberDTO)session.getAttribute("memberDTO");
 	</div>
 </div>
 <div id="fourth" class="sticky" >
-<form action="/searchList" method="post" style="width:90%">
-<input name="product_name" id="keyword" type="text" placeholder="SEARCH" list="options">
+<form action="/product/searchList" method="post" style="width:90%">
+	<input name="product_name" id="keyword" type="text" placeholder="SEARCH" list="options">
 </form>
 <a href="#" id="searchCloseBtn">close</a>
 </div>

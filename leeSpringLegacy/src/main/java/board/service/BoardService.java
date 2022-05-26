@@ -34,6 +34,10 @@ public interface BoardService {
 
 	public BoardDTO getNewPost();
 
+	public List<BoardDTO> getProductReview(int product_number);
+
+	public List<BoardDTO> getNavPostBoardDTO();
+
 
 
 }

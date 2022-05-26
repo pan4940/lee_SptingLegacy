@@ -1,5 +1,6 @@
 package board.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -11,6 +12,7 @@ import board.bean.BoardDTO;
 import board.mapper.BoardMapper;
 import file.bean.FileDTO;
 import file.mapper.FileMapper;
+import product.bean.ProductCategoryDTO;
 
 @Service
 public class BoardServiceImpl implements BoardService {
@@ -115,5 +117,21 @@ public class BoardServiceImpl implements BoardService {
 		BoardDTO boardDTO = boardMapper.getNewPost();
 		boardDTO.setFileList(fileMapper.findByBoardNum(boardDTO.getBoard_num()));
 		return boardDTO;
+	}
+	
+	@Override
+	public List<BoardDTO> getProductReview(int product_number) {
+		
+		return boardMapper.getProductReview(product_number);
+	}
+	
+	
+	@Override
+	public List<BoardDTO> getNavPostBoardDTO() {
+		List<BoardDTO> list = boardMapper.getNavPostBoardDTO();
+		for (BoardDTO boardDTO : list) {
+			boardDTO.setFileList(fileMapper.findByBoardNum(boardDTO.getBoard_num()));
+		}
+		return list;
 	}
 }

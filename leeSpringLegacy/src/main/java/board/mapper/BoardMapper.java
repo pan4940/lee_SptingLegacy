@@ -33,6 +33,10 @@ public interface BoardMapper {
 	public List<BoardDTO> getPostList(int board_category_num);
 
 	public BoardDTO getNewPost();
+
+	public List<BoardDTO> getProductReview(int product_num);
+
+	public List<BoardDTO> getNavPostBoardDTO();
 	
 	
 }

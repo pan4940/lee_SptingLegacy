@@ -19,6 +19,16 @@
 		]]>
     </select>
     
+    <select id="getNavPostBoardDTO" resultType="BoardDTO">
+    	<![CDATA[
+    	select * from 
+    		(
+    		select * from board where board_category_num = 7 order by board_num desc
+			) 
+		where rownum <= 4
+		]]>
+    </select>
+    
     <select id="getNewPost" resultType="BoardDTO">
 		select * from  (select * from board where board_category_num = 7 order by board_num desc) where rownum = 1   
     </select>
@@ -74,7 +84,8 @@
 	        content, 
 	        group_num,
 	        board_category_num,
-	        pwd
+	        pwd,
+	        product_num
 	    
 	    ) values (
 	        #{board_num},
@@ -84,7 +95,8 @@
 	        #{content},
 	        seq_board.currval,
 	        #{board_category_num},
-	        #{pwd}
+	        #{pwd},
+	        #{product_num}
 	    )
 	</insert>
 	
@@ -94,6 +106,10 @@
 	
 	<select id="get" parameterType="int" resultType="BoardDTO">
 		select * from board where board_num = #{board_num}
+	</select>
+	
+	<select id="getProductReview" parameterType="int" resultType="BoardDTO">
+		select * from board where product_num = #{product_num} order by board_num
 	</select>
 	
 	
