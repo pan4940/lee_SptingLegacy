@@ -18,7 +18,7 @@ $(function() {
 					class: 'col-12 col-sm-6 col-md-3', 
 					style: 'border:none; padding:10px' })
 					.append($('<a/>',
-						{'href':'/product/detail?seq='+productDTO.product_num})
+						{'href':'/product/detail?product_num='+productDTO.product_num})
 						.append($('<img/>', { 
 							src: '/file/display?fileName=/' + fileCallPath , 
 							style: 'border:none' }))

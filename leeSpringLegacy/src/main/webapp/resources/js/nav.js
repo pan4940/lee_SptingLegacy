@@ -41,8 +41,8 @@ $("#second_large span").mouseover(function(event) {
 				$.each(data, function(index,item){
 					let fileCallPath = encodeURIComponent(item.fileList[0].uploadPath + "/" + item.fileList[0].uuid + "_" +  item.fileList[0].fileName);
 					$("<div/>", { "id": "menuimage" + index, class: "col-3" })
-						.append($("<a/>").append($("<p/>")).append($("<img/>",{style:'margin-left:10px;height:80%', src: '/file/display?fileName=/' + fileCallPath})))
-						.append($("<a/>").append($("<p/>", {text: item.product_category_name})))
+						.append($("<a/>", {href: '/product/list-brand?product_category_num=' + item.product_category_num}).append($("<p/>")).append($("<img/>",{style:'margin-left:10px;height:80%', src: '/file/display?fileName=/' + fileCallPath})))
+						.append($("<a/>", {href: '/product/list-brand?product_category_num=' + item.product_category_num}).append($("<p/>", {text: item.product_category_name})))
 						.appendTo($("#third_large"));	
 				});
 			},
@@ -81,8 +81,8 @@ $("#second_large span").mouseover(function(event) {
 					let fileCallPath = encodeURIComponent(item.fileList[0].uploadPath + "/" + item.fileList[0].uuid + "_" +  item.fileList[0].fileName);
 					$("<div/>", { "id": "menuimage" + index, class: "col-3" })
 						//.append($("<a/>").append($("<p/>")).append($("<img/>",{style:'margin-left:10px;height:80%', src: '/file/display?fileName=/' + fileCallPath})))
-						.append($("<a/>").append($("<p/>")).append($("<img/>",{style:'margin-left:10px;height:80%', src: '/file/display?fileName=/' + fileCallPath})))
-						.append($("<a/>").append($("<p/>", {text: item.product_category_name})))
+						.append($("<a/>", {href: '/product/list-brand?product_category_num=' + item.product_category_num}).append($("<p/>")).append($("<img/>",{style:'margin-left:10px;height:80%', src: '/file/display?fileName=/' + fileCallPath})))
+						.append($("<a/>", {href: '/product/list-brand?product_category_num=' + item.product_category_num}).append($("<p/>", {text: item.product_category_name})))
 						.appendTo($("#third_large"));	
 				});
 			},
@@ -202,8 +202,8 @@ $("#second_large span").mouseover(function(event) {
 					let fileCallPath = encodeURIComponent(item.fileList[0].uploadPath + "/" + item.fileList[0].uuid + "_" +  item.fileList[0].fileName);
 					$("<div/>", { "id": "menuimage" + index, class: "col-3" })
 						//.append($("<a/>").append($("<p/>")).append($("<img/>",{style:'margin-left:10px;height:80%', src: '/file/display?fileName=/' + fileCallPath})))
-						.append($("<a/>").append($("<p/>")).append($("<img/>",{style:'margin-left:10px;height:80%', src: '/file/display?fileName=/' + fileCallPath})))
-						.append($("<a/>").append($("<p/>", {text: item.product_category_name})))
+						.append($("<a/>", {href: '/product/list-brand?product_category_num=' + item.product_category_num}).append($("<p/>")).append($("<img/>",{style:'margin-left:10px;height:80%', src: '/file/display?fileName=/' + fileCallPath})))
+						.append($("<a/>", {href: '/product/list-brand?product_category_num=' + item.product_category_num}).append($("<p/>", {text: item.product_category_name})))
 						.appendTo($("#third_large"));	
 				});
 			},
@@ -225,7 +225,7 @@ $("#second_large span").mouseover(function(event) {
 					
 					let fileCallPath = encodeURIComponent(item.fileList[0].uploadPath + "/" + item.fileList[0].uuid + "_" +  item.fileList[0].fileName);
 					$("<div/>", { "id": "menuimage" + index, class: "col-3" })
-						.append($("<a/>").append($("<p/>")).append($("<img/>",{style:'margin-left:10px;height:80%', src: '/file/display?fileName=/' + fileCallPath})))
+						.append($("<a/>", {href: '/board/get?board_category_num=7&board_num=' + item.board_num}).append($("<p/>")).append($("<img/>",{style:'margin-left:10px;height:80%', src: '/file/display?fileName=/' + fileCallPath})))
 						.append($("<a/>").append($("<p/>", {text: item.subject})))
 						.appendTo($("#third_large"));	
 				});

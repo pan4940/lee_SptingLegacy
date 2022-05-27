@@ -23,4 +23,35 @@ grid-template-rows: 50px auto 50px;"
 </div>
 
 
-<script type="text/javascript" src="/resources/js/list.js"></script>
+<!-- <script type="text/javascript" src="/resources/js/list.js"></script>
+ -->
+<script type="text/javascript">
+
+$(function() {
+	$.ajax({
+	type:'post',
+		url:'/product/getNavProductCategoryList',
+		dataType:'json',
+		success:function(data){
+			console.log(data[0]);
+			$.each(data[0].productCategoryList, function(index,item){
+				$('#categoryName')
+					.append($('<ul/>')
+						.append($('<li/>')
+							.append($('<a/>', {text: item.product_category_name, href: '/product/list?product_category_num=' + item.product_category_num}))
+						)
+					);
+								
+			});
+		},
+		error:function(err){
+			alert(err);
+		}
+	});
+	
+});
+
+
+</script>
+
+

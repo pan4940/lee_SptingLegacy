@@ -8,6 +8,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,12 +30,13 @@ import board.bean.Criteria;
 import board.bean.PageDTO;
 import board.service.BoardService;
 import file.bean.FileDTO;
+import member.bean.MemberDTO;
 import product.bean.ProductCategoryDTO;
 
 
 
 @Controller
-@RequestMapping(value = "/board", method = {RequestMethod.GET, RequestMethod.POST})
+@RequestMapping("/board")
 public class BoardController {
 	
 	@Autowired
@@ -83,8 +86,9 @@ public class BoardController {
 	
 	
 	//원글작성
-	@GetMapping("/writeForm")
+	@GetMapping("/write")
 	public String writeForm(@RequestParam Map<String, String> map, Model model) {
+		System.out.println("writeForm map : " + map);
 		model.addAttribute("map", map);
 		model.addAttribute("display", "/WEB-INF/views/board/write.jsp");
 		return "index";
@@ -122,9 +126,10 @@ public class BoardController {
 		return "redirect:/board/list";
 	}
 	
+	
 	//게시물 조회
 	//board_category_num, board_num, pageNum, amount넘겨받음. 
-	@PostMapping("/get")
+	@GetMapping("/get")
 	public String get(@RequestParam Map<String, String> map, Model model) {
 		
 		System.out.println("get map : " + map);
@@ -299,19 +304,23 @@ public class BoardController {
 	}
 	
 	
-	@PostMapping("/secretForm")
-	public String secret(@RequestParam Map<String, String> map, Model model) {
+	@GetMapping("/secret")
+	public String secret(HttpSession httpSession, @RequestParam Map<String, String> map, Model model) {
 		System.out.println("secret: " + map);
-		String rank_num = map.get("rank_num") != null? map.get("rank_num") : "0";
-		String member_id = map.get("member_id") != null? map.get("member_id") : "";
-		System.out.println("rank_num : " + rank_num);
-		System.out.println("member_id : " + member_id);
 		
-		//int rank_num = Integer.parseInt(map.get("rank_num"));
+		MemberDTO notLogin = new MemberDTO();
+		MemberDTO memberDTO = (MemberDTO) httpSession.getAttribute("memberDTO") != null? 
+								(MemberDTO) httpSession.getAttribute("memberDTO"):notLogin;
+		System.out.println("login member : " + memberDTO);
+		
+		String member_id = memberDTO.getMember_id() != null? memberDTO.getMember_id() : "";
+		
 		int board_num = Integer.parseInt(map.get("board_num"));
 		BoardDTO boardDTO = boardService.get(board_num);
 		System.out.println("boardDTO : " + boardDTO);
-		if (Integer.parseInt(rank_num) == 3 || boardDTO.getMember_id().equals(member_id)||boardDTO.getBoard_category_num()==4) {
+		System.out.println("rank_num : " + memberDTO.getRank_num());
+		System.out.println("member_id : " + memberDTO.getMember_id());
+		if (memberDTO.getRank_num() == 3 || boardDTO.getMember_id().equals(member_id)) {
 			System.out.println("관리자 혹은 글작성자");
 			model.addAttribute("map", map);
 			get(map, model);

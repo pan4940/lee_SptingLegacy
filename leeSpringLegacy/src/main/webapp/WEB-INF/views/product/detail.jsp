@@ -134,20 +134,20 @@ Exchange & Returns
 		</div>
 	</div>
 	
-	<form id='actionForm' action="/board/list" method='post'>
+	<%-- <form id='actionForm' action="/board/list" method='post'>
 		<input type='hidden' name='board_category_num' value='4'>
 		<input id="board_num" type='hidden' name='board_num' value="">
 		<input type='hidden' name='pageNum' value='1'>
 		<input type='hidden' name='amount' value='10'>
 		<input type='hidden' name='product_num' value='${map.product_num}'>
-	</form>
+	</form> --%>
 	
 	<div id="reviewBoardDiv" class="col-12 col-lg-9">
 		<div>Review
 		<span>
 		
-		<a id="moveWriteForm">WRITE</a>
-		<a id="moveListForm">VIEW ALL</a>
+		<a id="moveReviewWriteForm" href='/board/write?board_category_num=4&pageNum=1&amount=10&product_num=${map.product_num}'>WRITE</a>
+		<a id="moveListForm" href='/board/list?board_category_num=4&pageNum=1&amount=10'>VIEW ALL</a>
 		</span>
 		</div>
 		<div id="nothingContent">

@@ -130,7 +130,13 @@ ul {
 											[RE]:
 										</c:if>
 										
-										<a class="move" href='<c:out value="${board.board_num}" />'>
+										<a class="move" 
+											href='/board/secret?
+												board_category_num=<c:out value="${board.board_category_num}" />&
+												board_num=<c:out value="${board.board_num}" />&
+												pageNum=<c:out value="${pageDTO.criteria.pageNum}" />&
+												amount=<c:out value="${pageDTO.criteria.amount}" />'
+												>
 											<c:out value="${board.subject}" />
 										</a> 
 									</div>
@@ -147,9 +153,11 @@ ul {
 					</c:forEach>
 				</div>
 				
+					
 				<c:if test="<%= memberDTO != null %>">
-					<a id="moveWriteForm" href="/board/write">Write</a>
-				</c:if>
+					<a id="moveWriteForm" href='/board/write?board_category_num=<c:out value="${board_category_num}"/>&pageNum=<c:out value="${pageDTO.criteria.pageNum}"/>&amount=<c:out value="${pageDTO.criteria.amount}"/>'>Write</a>
+				</c:if>	
+					
 				
 				<div class='pull-right'>
 					<ul class="pagination" style="padding:60px 0px 20px ;justify-content: center">
@@ -176,7 +184,7 @@ ul {
 				
 				<form id='actionForm' action="/board/list" method='post'>
 					<input type='hidden' name='board_category_num' value='${board_category_num}'>
-					<input id="board_num" type='hidden' name='board_num' value="">
+					<input type='hidden' id="board_num" name='board_num' value="">
 					<input type='hidden' name='pageNum' value='${pageDTO.criteria.pageNum}'>
 					<input type='hidden' name='amount' value='${pageDTO.criteria.amount}'>
 					
@@ -191,82 +199,45 @@ ul {
 		</div>
 		
 	</div> <!-- end #help_main -->
-	<!-- <script src="/WEB-INF/component/nav/nav.js"></script> -->
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	//로그인 안할 시에는 undifined...
+	let member_id = $("#member_id").val();
+	let rank_num = $("#rank_num").val();
 	
-	<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-	<script type="text/javascript">
-		$(document).ready(function(){
-			//로그인 안할 시에는 undifined...
-			let member_id = $("#member_id").val();
-			let rank_num = $("#rank_num").val();
-			
-			console.log(member_id);
-			console.log(rank_num);	
-				
-			
-			let actionForm = $("#actionForm");
-			
-			if(member_id != null || rank_num == 3){
-				console.log("로그인함");
-				console.log(rank_num);	
-				console.log(member_id);
-				get();
-			} else {
-				get();
-			} 
-			
-			
-			
-			$(".paginate_button a").on("click", function(e){
-				e.preventDefault();
-				console.log('click');
-				actionForm.find("input[name='pageNum']").val($(this).attr("href"));
-				actionForm.submit();
-			});
-			
-			function get(){
-				$(".move").on("click", function(e){
-					e.preventDefault();
-					actionForm.find("input[name='pageNum']").val($("#pageNum").val());
-					actionForm.find("input[name='board_num']").val($(this).attr("href"));
-					
-					actionForm.attr("action", "/board/secretForm");
-					
-					console.log(actionForm);
-					actionForm.submit();
-				});
-			}
-			
-				
-			
-			$("#moveWriteForm").on("click", function(e){
-				e.preventDefault();
-				actionForm.attr("action", "/board/writeForm");
-				actionForm.submit();
-			});
-			
-		});
+	console.log(member_id);
+	console.log(rank_num);	
 		
-		function boardWriteForm(board_category_num){
-			let f = document.createElement('form');
-		    
-		    let obj1;
-		    obj = document.createElement('input');
-		    obj.setAttribute('type', 'hidden');
-		    obj.setAttribute('name', 'board_category_num');
-		    obj.setAttribute('value', board_category_num);
-		    
-		    
-		    
-		    f.appendChild(obj1);
-		    
-		    f.setAttribute('method', 'post');
-		    f.setAttribute('action', '/board/writeForm');
-		    document.body.appendChild(f);
-		    console.log(f);
-		    f.submit();
-		}
-	</script>
 	
+	let actionForm = $("#actionForm");
+	
+	if(member_id != null || rank_num == 3){
+		console.log("로그인함");
+		console.log(rank_num);	
+		console.log(member_id);
+	} else {
+		
+	} 
+	
+	
+	
+	$(".paginate_button a").on("click", function(e){
+		e.preventDefault();
+		console.log('click');
+		actionForm.find("input[name='pageNum']").val($(this).attr("href"));
+		actionForm.submit();
+	});
+	
+	
+	
+	
+		
+	
+	
+});
+</script>
+
 </body>
 </html>

@@ -122,8 +122,7 @@ background-color: white;
 					<form id="boardModifyForm" action="/board/modify" method="post">
 						<input type="text" id="board_num" name="board_num" value="${boardDTO.board_num}">
 						<input type="text" name="board_category_num" value="${boardDTO.board_category_num}"> 
-						<input type="hidden" id="member_id" name="member_id" value="${boardDTO.member_id}"> 
-						<input type="hidden" name="member_name" value="${member_name}">
+						<input type="hidden" name="member_name" value="${boardDTO.member_name}">
 						<div>
 							<ul class="form-submit-board">
 								<li>
@@ -180,17 +179,11 @@ background-color: white;
 				
 				<c:otherwise>
 					<form id="boardModifyForm" action="/board/modify" method="post">
-						<!-- 
-						<input id="product_num" name="product_num" type="hidden">
-						<input id="category_num" name="product_num" type="hidden">
-						<input onabort="order_id" name="order_id" type="hidden">
 						
-						 -->
 						<input type="text" name="board_category_num" value="${map.board_category_num}"> 
 						<input type="text" id="board_num" name="board_num" value="${map.board_num}" >
 						<input type="text" name="pageNum" value="${map.pageNum}">
 						<input type="text" name="amount" value="${map.amount}">
-						<input type="hidden" name="member_id" value="${boardDTO.member_id}">
 						<div>
 							<ul class="form-submit-board">
 								<li>
@@ -205,8 +198,8 @@ background-color: white;
 									<span class="label-box"></span>
 								</li>
 								<li>
-									<label>user_name</label>
-									<input type="text" id="name" name="name" value="${boardDTO.name}">
+									<label>member_name</label>
+									<input type="text" id="name" name="name" value="${boardDTO.member_name}">
 									<span class="label-box"></span>
 								</li>
 								<li>

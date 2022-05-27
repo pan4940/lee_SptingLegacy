@@ -119,7 +119,7 @@ li {
 				<c:forEach items="${list}" var="board">
 					<li class="xans-record-" >
 						<div class="thumbnail-image">
-							<a class="move" href='<c:out value="${board.board_num}" />'>
+							<a class="move" href='/board/get?board_category_num=7&board_num=<c:out value="${board.board_num}"/>'>
 								<img src="/file/display?fileName=/${board.fileList[0].uploadPath}/${board.fileList[0].uuid}_${board.fileList[0].fileName}">
 							</a>
 						</div>
@@ -127,7 +127,7 @@ li {
 						<div class="thumbnail-info">
 							<div class="inner">
 								<h2>
-									<a class="move" href='<c:out value="${board.board_num}" />'>
+									<a class="move" href='/board/get?board_category_num=7&board_num=<c:out value="${board.board_num}"/>'>
 										<span style="color: #555555;">
 											${board.subject}
 										</span>
@@ -142,7 +142,7 @@ li {
 								</p>
 	
 								<p class="post-readmore">
-									<a class="move" href='<c:out value="${board.board_num}" />'>
+									<a class="move" href='/board/get?board_category_num=7&board_num=<c:out value="${board.board_num}"/>'>
 										Read more
 									</a>
 								</p>
@@ -162,10 +162,10 @@ li {
 	<input type='hidden' name='user_id' value="">
 </form> --%>
 
-<form id='actionForm' action="/board/get" method='post'>
+<%-- <form id='actionForm' action="/board/get" method='post'>
 	<input type='hidden' name='board_category_num' value='${board_category_num}'>
 	<input type="hidden" name="board_num" value="">
-</form>
+</form> --%>
 
 
 
@@ -214,14 +214,14 @@ $("#moveWriteBtn").on("click", function(e){
 
 
 
-$(".move").on("click", function(e){
+/* $(".move").on("click", function(e){
 	e.preventDefault();
 	console.log($(this).attr("href"));
 	$("input[name='board_num']").val($(this).attr('href'));
 	console.log(actionForm);
 	actionForm.submit();
 });
-
+ */
 
 
 </script>

@@ -10,9 +10,7 @@ MemberDTO memberDTO = (MemberDTO)session.getAttribute("memberDTO");
 <!-- 첫번째 div  -->
   <div id="first" class="nav_div">
     <span>SS 22 NEW ARRIVAL</span>
-    <%-- <c:if test="${memberDTO.rank_num==3}"> --%>
     <a href="/admin/index">관리자페이지</a>
-    <%-- </c:if> --%>
   </div>
 
   <div id="second_large" class="nav_div">
@@ -22,18 +20,30 @@ MemberDTO memberDTO = (MemberDTO)session.getAttribute("memberDTO");
 	  </div>
 	  
 	  <div id="secondmenu">
+	    <!-- 
 	    <span><a href="/product/list?product_category_num=1000">MEN</a>
 	    </span>
 	    <span><a href="/product/list?product_category_num=2000">WOMEN</a>
 	    </span>    
-	    <!-- <span><a href="/product/list?product_category_num=5000">LIFE STYLE</a>
-	    </span>    -->
-	    <!-- <span><a href="/product/list?product_category_num=?">SALE</a>
-	    </span> -->
+	    <span><a href="/product/list?product_category_num=5000">LIFE STYLE</a>
+	    </span>
+	    <span><a href="/product/list?product_category_num=?">SALE</a>
+	    </span>
 	    <span><a href="/product/brands">BRANDS</a>
 	    </span>
 	    <span><a href="/board/list?board_category_num=7">POST</a>
 	    </span>
+	    -->
+	    
+	    
+	    <span><a href="/product/list?category=men">MEN</a>
+	    </span>
+	    <span><a href="/product/list?category=women">WOMEN</a>
+	    </span>    
+	    <span><a href="/product/brands">BRANDS</a>
+	    </span>
+	    <span><a href="/board/list?board_category_num=7">POST</a>
+	    
 	  </div>
 		
 	  <button type="button" id="autoLogin"></button>

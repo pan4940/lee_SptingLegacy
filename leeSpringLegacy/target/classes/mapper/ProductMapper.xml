@@ -33,6 +33,19 @@
 		]]>
     </select>
     
+    <select id="getProductCategoryLevel1" resultType="ProductCategoryDTO">
+    	<![CDATA[
+    	select * from product_category where product_category_num_ref is null and product_category_num < 10000
+    	]]>
+    </select>
+    
+    <select id="getProductCategoryByProductCategoryREF" resultType="ProductCategoryDTO">
+    	<![CDATA[
+    	select * from product_category where product_category_num_ref = #{product_category_num_ref} and product_category_num < 10000
+    	]]>
+    </select>
+    
+    
     
 	<select id="getBrandsCategoryList" resultType="ProductCategoryDTO">
 		<![CDATA[

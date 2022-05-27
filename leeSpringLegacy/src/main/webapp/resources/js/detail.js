@@ -177,12 +177,4 @@ $('.nav-tabs a').click(function() {
 	$(this).tab('show');
 })
 
-$("#moveWriteForm").on("click", function(e) {
-	e.preventDefault();
-	$('#actionForm').attr("action", "/board/writeForm");
-	$('#actionForm').submit();
-});
-$("#moveListForm").on("click", function(e) {
-	$('#actionForm').submit();
-});
 

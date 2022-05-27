@@ -96,6 +96,13 @@ public interface ProductMapper {
 
 	public List<ProductCategoryDTO> getNavBrandProductCategoryDTO();
 
+	public List<ProductCategoryDTO> getNavProductCategoryList();
+
+
+	public List<ProductCategoryDTO> getProductCategoryLevel1();
+
+	public List<ProductCategoryDTO> getProductCategoryByProductCategoryREF(int product_category_num_ref);
+
 
 
 

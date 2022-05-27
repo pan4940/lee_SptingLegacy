@@ -367,4 +367,25 @@ public class ProductServiceImpl implements ProductService {
 		return map;
 	}
 	
+	
+	@Override
+	public List<ProductCategoryDTO> getNavProductCategoryList() {
+		
+		//1차 카테고리 가져옴
+		List<ProductCategoryDTO> list1 = productMapper.getProductCategoryLevel1();
+		//1차 카테고리에 2차 카테고리 넣음
+		for (ProductCategoryDTO productCategoryDTO1 : list1) {
+			List<ProductCategoryDTO> list2 = productMapper.getProductCategoryByProductCategoryREF(productCategoryDTO1.getProduct_category_num());
+			
+			for (ProductCategoryDTO productCategoryDTO2 : list2) {
+				List<ProductCategoryDTO> list3 = productMapper.getProductCategoryByProductCategoryREF(productCategoryDTO2.getProduct_category_num());
+				productCategoryDTO2.setProductCategoryList(list3);
+			}
+			productCategoryDTO1.setProductCategoryList(list2);
+		}
+		
+		System.out.println(list1);
+		return list1;
+	}
+	
 }

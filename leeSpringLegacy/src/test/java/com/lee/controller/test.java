@@ -2,10 +2,17 @@ package com.lee.controller;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import file.mapper.FileMapper;
+import product.bean.ProductCategoryDTO;
+import product.mapper.ProductMapper;
 
 public class test {
+	
 	
 	@Test
 	public void test() {
@@ -22,4 +29,6 @@ public class test {
 		}
 		//String random = (String)(Math.random() * 10000);
 	}
+	
+	
 }

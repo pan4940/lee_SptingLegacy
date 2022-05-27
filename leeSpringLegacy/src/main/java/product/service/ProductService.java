@@ -72,5 +72,7 @@ public interface ProductService {
 
 	//public List<ProductCategoryDTO> getNavBrandProductCategoryDTO();
 	public Map<String, Object> getNavBrandProductCategoryDTO();
+
+	public List<ProductCategoryDTO> getNavProductCategoryList();
 	
 }

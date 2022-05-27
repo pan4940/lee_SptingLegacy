@@ -8,6 +8,7 @@ var lifeStyleCategory = ['CROWCANYON', 'HELINOX', 'MAGAZINE B', 'NAG CHAMPA', 'N
 function listPaging(pg2) {
 	location.href = "/list?category=" + window.location.search.split("?category=")[1].replace(/%20/gi, ' ').split("&")[0] + "&pg=" + pg2;
 }
+
 $(function() {
 	if (window.location.search.split("?category=")[1].replace(/%20/gi, ' ').indexOf('women') !== -1) {
 		womenCategory.map(

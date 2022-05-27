@@ -120,6 +120,18 @@ public class ProductController {
 		//return "/product/list-brand";
 	}
 	
+	// 상품 분류로 상품목록 페이지 이동
+	@GetMapping("/list")
+	public String moveList(Model model) {
+		//List<ProductDTO> productDTOs = productService.getProductsByBrandCategory(product_category_num);
+		//model.addAttribute("category", category);
+		model.addAttribute("display", "/WEB-INF/views/product/list.jsp");
+		return "index";
+		
+		//return "/product/list-brand";
+	}
+	
+	
 	@PostMapping("/getProductsByBrandCategory")
 	@ResponseBody
 	public List<ProductDTO> getProductsByBrandCategory(@RequestParam int product_category_num, Model model) {
@@ -184,6 +196,7 @@ public class ProductController {
 	@GetMapping("/detail")
 	public String get(@RequestParam Map<String, String> map, Model model) {
 		
+		System.out.println(map);
 		int product_num = Integer.parseInt(map.get("product_num")) ;
 		
 		model.addAttribute("map", map);
@@ -353,5 +366,11 @@ public class ProductController {
 	}
 	
 	
+	
+	@PostMapping("/getNavProductCategoryList")
+	@ResponseBody
+	public List<ProductCategoryDTO> getNavProductCategoryList() {
+		return productService.getNavProductCategoryList();
+	}
 	
 }

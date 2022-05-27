@@ -15,6 +15,7 @@ public class ProductCategoryDTO {
 	private String product_category_descrip;
 	private int level;
 	
+	private List<ProductCategoryDTO> productCategoryList;
 	private List<FileDTO> fileList;
 	
 }

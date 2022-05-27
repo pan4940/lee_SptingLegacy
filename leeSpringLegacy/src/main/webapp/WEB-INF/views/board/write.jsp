@@ -159,14 +159,14 @@ MemberDTO memberDTO = (MemberDTO)session.getAttribute("memberDTO");
             <h3 class="POST_board_title">POST</h3>
          </c:if>
          
+         <!-- 포스트 작성시 -->
          <c:choose>
             <c:when test="${map.board_category_num eq '7'}">
                <form id="boardWriteForm" action="/board/write" method="post">
                   <input type="hidden" name="member_id" value="<%= memberDTO.getMember_id() %>">
 	              <input type="hidden" name="member_name" value="<%= memberDTO.getMember_name() %>">
-                  <input type="hidden" name="rank_num" value="${map.rank_num}">
+                  <input type="hidden" name="rank_num" value="<%= memberDTO.getRank_num() %>">
                   <input type="hidden" name="board_category_num" value="${map.board_category_num}"> 
-                  <input type="hidden" name="product_num" value="${map.product_num}">
                   <div>
                      <ul class="form-submit-board">
                      	
@@ -214,14 +214,14 @@ MemberDTO memberDTO = (MemberDTO)session.getAttribute("memberDTO");
                </form>
             </c:when>
 			
+			
 			<c:when test="${map.board_category_num eq '4'}">
-               <input type="text" value="${map }">
+               <input type="text" value="${map}">
                <form id="boardWriteForm" action="/board/write" method="post">
 		
                   <input type="hidden" name="board_category_num" value="4"> 
                   <input type="hidden" name="pageNum" value="${map.pageNum}"> 
                   <input type="hidden" name="amount" value="${map.amount}">
-                  <input type="hidden" name="product_num" value="${map.product_num}">
                   <div>
                      <ul class="form-submit-board">
                         <li>
@@ -231,12 +231,6 @@ MemberDTO memberDTO = (MemberDTO)session.getAttribute("memberDTO");
                         </li>
 	                    <input type="hidden" name="member_id" value="<%= memberDTO.getMember_id() %>">
 	                    <input type="hidden" name="member_name" value="<%= memberDTO.getMember_name() %>">
-	                    <!-- 
-                        <li> 
-                        	 
-                        	<span class="label-box"></span>
-                        </li> -->
-                        
                         
                         <li>
                         	<label>Content</label>
@@ -262,21 +256,6 @@ MemberDTO memberDTO = (MemberDTO)session.getAttribute("memberDTO");
                               <a onClick="location.href='/board/list?board_category_num=4&pageNum=1&amount=10'">이전화면으로</a>
                            </span>     
                         </c:if>
-                        <c:if test="${map.board_category_num eq '5'}">
-                           <span class="">
-                              <a onClick="location.href='/board/list?board_category_num=5&pageNum=1&amount=10'">이전화면으로</a>
-                           </span>    
-                        </c:if>
-                        <c:if test="${map.board_category_num eq '6'}">
-                           <span class="">
-                              <a onClick="location.href='/board/list?board_category_num=6&pageNum=1&amount=10'">이전화면으로</a>
-                           </span>    
-                        </c:if>
-                        <c:if test="${map.board_category_num eq '7'}">
-                           <span class="">
-                              <a onClick="location.href='/board/list?board_category_num=7'">이전화면으로</a>
-                           </span>    
-                        </c:if>
                            
                         <span>
                            <button type="submit" formmethod="post">글쓰기</button>
@@ -285,10 +264,11 @@ MemberDTO memberDTO = (MemberDTO)session.getAttribute("memberDTO");
                   </div>
                </form>
             </c:when>
-			
+
 
 
             <c:otherwise>
+               <!-- QNA 작성 -->
                <form id="boardWriteForm" action="/board/write" method="post">
 
                   <input type="hidden" name="board_category_num" value="${map.board_category_num}"> 
@@ -335,11 +315,7 @@ MemberDTO memberDTO = (MemberDTO)session.getAttribute("memberDTO");
                         </li>
                      </ul>
                      <div class="buttonbox">
-                        <c:if test="${map.board_category_num eq '4'}">
-                           <span class="">
-                              <a class="backBtn" onClick="location.href='/board/list?board_category_num=4&pageNum=1&amount=10'">BACK TO LIST</a>
-                           </span>     
-                        </c:if>
+                       
                         <c:if test="${map.board_category_num eq '5'}">
                            <span class="">
                               <a class="backBtn" onClick="location.href='/board/list?board_category_num=5&pageNum=1&amount=10'">BACK TO LIST</a>
@@ -350,11 +326,6 @@ MemberDTO memberDTO = (MemberDTO)session.getAttribute("memberDTO");
                               <a class="backBtn" onClick="location.href='/board/list?board_category_num=6&pageNum=1&amount=10'">BACK TO LIST</a>
                            </span>    
                         </c:if>
-                        <c:if test="${map.board_category_num eq '7'}">
-                           <span class="">
-                              <a class="backBtn" onClick="location.href='/board/list?board_category_num=7'">BACK TO LIST</a>
-                           </span>    
-                        </c:if>
                            
                         <span>
                            <button class="BorardwriteBtn" type="submit" formmethod="post">WRITE</button>
@@ -363,7 +334,6 @@ MemberDTO memberDTO = (MemberDTO)session.getAttribute("memberDTO");
                   </div>
                </form>
             </c:otherwise>
-
          </c:choose>
 
 
