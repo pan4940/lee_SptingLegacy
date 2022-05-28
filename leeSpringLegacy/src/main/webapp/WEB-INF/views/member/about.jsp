@@ -10,7 +10,7 @@
 			운영방식입니다.</h5>
 	</div>
 	<div class="col-12 col-lg-6">
-		<img alt="이미지" align="right" src="../storage/footer/thex5.jpeg"
+		<img alt="이미지" align="right" src="/resources/image/theCabout.jpeg"
 			id="imgs">
 	</div>
 </div>

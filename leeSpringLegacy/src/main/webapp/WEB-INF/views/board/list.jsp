@@ -168,8 +168,7 @@ ul {
 
 						<c:forEach var="num" begin="${pageDTO.startPage}" end="${pageDTO.endPage}">
 							<li class="paginate_button"> 
-								<a href="${num}">${num}</a>							
-							 <%-- ${pageDTO.criteria.pageNum == num ? "active":""} "> --%>
+								<a href="/board/list?board_category_num=${board_category_num}&pageNum=${num}&amount=24">${num}</a>
 							</li>
 						</c:forEach>
 

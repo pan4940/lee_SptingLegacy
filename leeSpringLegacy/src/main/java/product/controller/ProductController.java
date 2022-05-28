@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import board.bean.BoardDTO;
+import board.bean.Criteria;
+import board.bean.PageDTO;
 import file.bean.FileDTO;
 import lombok.extern.log4j.Log4j2;
 import oracle.jdbc.proxy.annotation.Post;
@@ -111,10 +113,28 @@ public class ProductController {
 	
 	// 브랜드명으로 상품목록 페이지 이동
 	@GetMapping("/list-brand")
-	public String moveListBrand(@RequestParam int product_category_num, Model model) {
-		//List<ProductDTO> productDTOs = productService.getProductsByBrandCategory(product_category_num);
+	//public String moveListBrand(@RequestParam int product_category_num, Model model) {
+	public String moveListBrand(@RequestParam Map<String, String> map, Model model) {
+		
+		System.out.println("/list-brand : " + map);
+		
+		
+		String pageNum = map.get("pageNum");
+		String amount = map.get("amount");
+		Criteria criteria;
+		if (pageNum == null && amount == null) {
+			criteria = new Criteria(1, 24);
+		} else {
+			criteria = new Criteria(Integer.parseInt(pageNum), Integer.parseInt(amount));
+		}
+		
+				
+		model.addAttribute("display", "/WEB-INF/views/product/list.jsp");
+		int product_category_num = Integer.parseInt(map.get("product_category_num")); 
 		model.addAttribute("product_category_num", product_category_num);
-		model.addAttribute("display", "/WEB-INF/views/product/list-brand.jsp");
+		
+		int total = productService.getTotalCount(product_category_num);
+		model.addAttribute("pageDTO", new PageDTO(criteria, total));
 		return "index";
 		
 		//return "/product/list-brand";
@@ -122,10 +142,27 @@ public class ProductController {
 	
 	// 상품 분류로 상품목록 페이지 이동
 	@GetMapping("/list")
-	public String moveList(Model model) {
-		//List<ProductDTO> productDTOs = productService.getProductsByBrandCategory(product_category_num);
-		//model.addAttribute("category", category);
+	//public String moveList(@RequestParam int product_category_num, Model model) {
+	public String moveList(@RequestParam Map<String, String> map, Model model) {	
+		System.out.println("/list : " + map);
+		
+		
+		String pageNum = map.get("pageNum");
+		String amount = map.get("amount");
+		Criteria criteria;
+		if (pageNum == null && amount == null) {
+			criteria = new Criteria(1, 24);
+		} else {
+			criteria = new Criteria(Integer.parseInt(pageNum), Integer.parseInt(amount));
+		}
+		
+				
 		model.addAttribute("display", "/WEB-INF/views/product/list.jsp");
+		int product_category_num = Integer.parseInt(map.get("product_category_num")); 
+		model.addAttribute("product_category_num", product_category_num);
+		
+		int total = productService.getTotalCount(product_category_num);
+		model.addAttribute("pageDTO", new PageDTO(criteria, total));
 		return "index";
 		
 		//return "/product/list-brand";
@@ -367,10 +404,21 @@ public class ProductController {
 	
 	
 	
-	@PostMapping("/getNavProductCategoryList")
+	@PostMapping("/getProductCategoryByProductCategoryREF")
 	@ResponseBody
-	public List<ProductCategoryDTO> getNavProductCategoryList() {
-		return productService.getNavProductCategoryList();
+	public ProductCategoryDTO getProductCategoryByProductCategoryREF(@RequestParam int product_category_num) {
+		System.out.println("getProductCategoryByProductCategoryREF : " + product_category_num);
+		return productService.getProductCategoryByProductCategoryREF(product_category_num);
 	}
 	
+	
+	
+	@PostMapping("/getProductListByProductCategory")
+	@ResponseBody
+	public List<ProductDTO> getProductListByProductCategory(@RequestParam int product_category_num) {
+		System.out.println("getProductListByProductCategory : " + product_category_num);
+		List<ProductDTO> list = productService.getProductListByProductCategory(product_category_num);
+		System.out.println(list);
+		return list;
+	}
 }

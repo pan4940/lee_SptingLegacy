@@ -70,9 +70,13 @@ public interface ProductService {
 
 	public List<ProductCategoryDTO> getNavWomenProductCategoryDTO();
 
-	//public List<ProductCategoryDTO> getNavBrandProductCategoryDTO();
 	public Map<String, Object> getNavBrandProductCategoryDTO();
 
-	public List<ProductCategoryDTO> getNavProductCategoryList();
+	public ProductCategoryDTO getProductCategoryByProductCategoryREF(int product_category_num);
+
+	public List<ProductDTO> getProductListByProductCategory(int product_category_num);
+
+	public int getTotalCount(int product_category_num);
+
 	
 }

@@ -1,28 +1,58 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>    
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>    
+<link rel="stylesheet" href="/resources/css/list.css" />
+<input id="product_category_num" type="hidden" value="${product_category_num}">
+<input id="pageNum" type="hidden" value="${pageDTO.criteria.pageNum}">
+<input id="amount" type="hidden" value="${pageDTO.criteria.amount}">
+<style>
 
-<!-- <input id="categoryInput" type="hidden" value=${param.category}>
-<input id="pgInput" type="hidden" value=${param.pg}> -->
+.categoryListDiv ul {
+    margin: 0 0 20px;
+    padding-left: 0px;
+}
+</style>
+
 <div class="col-12" style="display: grid;
 grid-template-columns: 200px;
 padding: 20px;
 grid-template-rows: 50px auto 50px;"
 >
 
-	<input id="brand_num" type="hidden" value="${product_category_num}">
-    <div id="categoryNameDiv">
-	    <div></div>
-	    <div></div>
+	
+    <div class="categoryNameDiv">
+	    <h2>
+	    	<span></span>
+	    </h2>
     </div>
-    <div id="categoryListDiv">
-    	<ul id="categoryName">
+    <div class="categoryListDiv">
+    	<ul>
     	</ul>
     </div>
     
-    <div id="productListDiv"></div>
-    <div id="pagingDiv"></div>
+    <div class="productListDiv"></div>
+    
+    <div class="pagingDiv">
+    	<ul class="pagination" style="justify-content: center">
+			<c:if test="${pageDTO.prev}">
+				<li class="paginate_button previous"><a
+					href="${pageDTO.startPage -1}">Previous</a></li>
+			</c:if>
+
+			<c:forEach var="num" begin="${pageDTO.startPage}" end="${pageDTO.endPage}">
+				<li class="paginate_button"> 
+					<a href="/product/list?product_category_num=${product_category_num}&pageNum=${num}&amount=24">${num}</a>							
+				</li>
+			</c:forEach>
+
+			<c:if test="${pageDTO.next}">
+				<li class="paginate_button next"><a
+					href="${pageDTO.endPage +1 }">Next</a></li>
+			</c:if>
+		</ul>
+    </div>
 </div>
 
 <script type="text/javascript">
@@ -32,7 +62,7 @@ $(document).ready(function(){
         url: '/product/getProductsByBrandCategory',
         type: 'POST',
         dataType: 'json',
-        data: 'product_category_num=' + $("#brand_num").val(),
+        data: 'product_category_num=' + $("#product_category_num").val(),
         success: function(result) {
         	let str = "";
         	$.each(result, function(index, items) {
@@ -67,7 +97,8 @@ $(document).ready(function(){
                 str += "</div>";
 			});
         	
-        	$("#productListDiv").append(str);
+        	$(".productListDiv").append(str);
+        	
         },
     });
     
@@ -84,7 +115,8 @@ $(document).ready(function(){
                 str += "<a href='/product/list-brand?product_category_num=" + obj.product_category_num + "'</a>"  + obj.product_category_name +  "</li>";
             });
             
-            $("#categoryName").append(str);
+            $(".categoryListDiv ul").append(str);
+            $(".categoryNameDiv h2").text(result.product_category_name);
         },
     });
     

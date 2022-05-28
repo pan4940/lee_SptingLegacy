@@ -33,15 +33,10 @@
 		]]>
     </select>
     
-    <select id="getProductCategoryLevel1" resultType="ProductCategoryDTO">
-    	<![CDATA[
-    	select * from product_category where product_category_num_ref is null and product_category_num < 10000
-    	]]>
-    </select>
     
     <select id="getProductCategoryByProductCategoryREF" resultType="ProductCategoryDTO">
     	<![CDATA[
-    	select * from product_category where product_category_num_ref = #{product_category_num_ref} and product_category_num < 10000
+    	select * from product_category where product_category_num_ref = #{product_category_num} and product_category_num < 10000 order by product_category_num
     	]]>
     </select>
     
@@ -218,6 +213,14 @@
 		select * from product where product_num = #{product_num}
 	</select>
 	
+	<select id="getProductListByProductCategory" parameterType="int" resultType="ProductDTO">
+		select p1.* from PRODUCT p1 left join PRODUCT_CATEGORY_LINK p2 on p1.product_num = p2.product_num where p2.product_category_num = #{product_category_num}
+	</select>
+	
+	
+	<select id="getTotalCount" parameterType="int" resultType="int">
+		select count(*) from PRODUCT p1 left join PRODUCT_CATEGORY_LINK p2 on p1.product_num = p2.product_num where p2.product_category_num = #{product_category_num}
+	</select>
 	
 	<select id="getProductsByBrandCategory" parameterType="int" resultType="ProductDTO">
 		select * from product where BRANDCATEGORY = #{brandCategory}

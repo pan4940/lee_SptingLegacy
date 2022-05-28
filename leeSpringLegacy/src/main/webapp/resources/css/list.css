@@ -1,21 +1,21 @@
-#categoryListDiv{
-            grid-column: 1;
-            grid-row: span 3;
-            border-right: 2px solid black;
+.categoryListDiv{
+	grid-column: 1;
+	grid-row: span 3;
+	border-right: 2px solid black;
 }
-#categoryNameDiv{
+.categoryNameDiv{
     grid-column: 2;
     grid-row: 1;
     height: 30px;
 }
-#productListDiv{
+.productListDiv{
     grid-column: 2;
     grid-row:2;
     border-bottom: 2px solid black;
     display:flex;
     flex-wrap: wrap;
 }
-#pagingDiv{
+.pagingDiv{
 	padding:17px;
 	text-align:center;
     grid-column: 2;
@@ -23,14 +23,14 @@
     height: 57px;
     align-content: center;
 }
-#pagingDiv span{
+.pagingDiv span{
 	padding: 5px;
 	cursor: pointer;
 }
-#pagingDiv span:hover{
+.pagingDiv span:hover{
 	color:gray;
 }
-#currentPaging{
+.currentPaging{
 	color:lightgray;
 }
 

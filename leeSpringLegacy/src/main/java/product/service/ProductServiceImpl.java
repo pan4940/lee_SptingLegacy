@@ -369,23 +369,44 @@ public class ProductServiceImpl implements ProductService {
 	
 	
 	@Override
-	public List<ProductCategoryDTO> getNavProductCategoryList() {
+	public ProductCategoryDTO getProductCategoryByProductCategoryREF(int product_category_num) {
 		
-		//1차 카테고리 가져옴
-		List<ProductCategoryDTO> list1 = productMapper.getProductCategoryLevel1();
-		//1차 카테고리에 2차 카테고리 넣음
-		for (ProductCategoryDTO productCategoryDTO1 : list1) {
-			List<ProductCategoryDTO> list2 = productMapper.getProductCategoryByProductCategoryREF(productCategoryDTO1.getProduct_category_num());
+		if (1000 <= product_category_num && product_category_num < 2000) {
+			System.out.println("남성품목");
+			ProductCategoryDTO firstCategory = productMapper.getProductCategoryDTO(1000);
+			firstCategory.setProductCategoryList(productMapper.getProductCategoryByProductCategoryREF(firstCategory.getProduct_category_num()));
 			
-			for (ProductCategoryDTO productCategoryDTO2 : list2) {
-				List<ProductCategoryDTO> list3 = productMapper.getProductCategoryByProductCategoryREF(productCategoryDTO2.getProduct_category_num());
-				productCategoryDTO2.setProductCategoryList(list3);
+			for (ProductCategoryDTO productCategoryDTO : firstCategory.getProductCategoryList()) {
+				productCategoryDTO.setProductCategoryList(productMapper.getProductCategoryByProductCategoryREF(productCategoryDTO.getProduct_category_num()));
 			}
-			productCategoryDTO1.setProductCategoryList(list2);
+			
+			return firstCategory;
+		} else {
+			System.out.println("여성품목");
+			ProductCategoryDTO firstCategory = productMapper.getProductCategoryDTO(2000);
+			firstCategory.setProductCategoryList(productMapper.getProductCategoryByProductCategoryREF(firstCategory.getProduct_category_num()));
+			
+			for (ProductCategoryDTO productCategoryDTO : firstCategory.getProductCategoryList()) {
+				productCategoryDTO.setProductCategoryList(productMapper.getProductCategoryByProductCategoryREF(productCategoryDTO.getProduct_category_num()));
+			}
+			return firstCategory;
+		}
+	}
+	
+	
+	@Override
+	public List<ProductDTO> getProductListByProductCategory(int product_category_num) {
+		List<ProductDTO> list = productMapper.getProductListByProductCategory(product_category_num);
+		for (ProductDTO productDTO : list) {
+			productDTO.setFileList(fileMapper.findByProductNum(productDTO.getProduct_num()));
 		}
 		
-		System.out.println(list1);
-		return list1;
+		return list;
+	}
+	
+	@Override
+	public int getTotalCount(int product_category_num) {
+		return productMapper.getTotalCount(product_category_num);
 	}
 	
 }

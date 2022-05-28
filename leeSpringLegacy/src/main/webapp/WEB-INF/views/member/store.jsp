@@ -6,7 +6,7 @@
 	</div>
 	<br>
 	<div id="myImg2">
-		<img alt="이미지" src="../storage/footer/thex1.jpeg" id="imgs">
+		<img alt="이미지" src="/resources/image/theC1.jpeg" id="imgs">
 	</div>
 	<div id="button">
 		<a id="prv">&#10094;</a> || <a id="next">&#10095;</a>
@@ -15,18 +15,18 @@
 	<div id="ac">
 		<div>
 			<p>
-				<b>THEXSHOP 전주점</b> <br> 전라북도 전주시 완산구 전주객사4길 53 <br>
-				070-7715-3177 <br> 11:30 ~ 21:30
+				<b>THECSHOP ○○점</b> <br> ○○○○ ○○시 ○○구 ○○○○길 53 <br>
+				000-0000-0000 <br> 11:30 ~ 21:30
 			</p>
 		</div>
 		<div id="abc">
 			<p>
-				<b>THEXSHOP 대구점</b> <br> 대구광역시 중구 중앙대로 377 <br>
-				070-7720-3177 <br> 11:30 ~ 21:30
+				<b>THECSHOP ○○점</b> <br> ○○○○ ○○시 ○○구 ○○○○길 53 <br>
+				000-0000-0000 <br> 11:30 ~ 21:30
 			</p>
 			<p>
-				<b>THEXSHOP 전주점</b> <br> 전라북도 전주시 완산구 전주객사4길 53 <br> 
-				070-7721-3177 <br> 11:30 ~ 21:30
+				<b>THECSHOP ○○점</b> <br> ○○○○ ○○시 ○○구 ○○○○길 53 <br>
+				000-0000-0000 <br> 11:30 ~ 21:30
 			</p>
 		</div>
 	</div>
@@ -37,9 +37,9 @@
 
 <script type="text/javascript">
 	window.onload = function() {
-		let myphotos = [ "../storage/footer/thex1.jpeg",
-				"../storage/footer/thex2.jpeg", "../storage/footer/thex3.jpeg",
-				"../storage/footer/thex4.jpeg" ]
+		let myphotos = [ "/resources/image/theC1.jpeg",
+				"/resources/image/theC2.jpeg", "/resources/image/theC3.jpeg",
+				"/resources/image/theC4.jpeg", "/resources/image/theC5.jpeg" ]
 		let index = 0;
 		console.log("index : " + index);
 		document.getElementById("prv").onclick = function() {

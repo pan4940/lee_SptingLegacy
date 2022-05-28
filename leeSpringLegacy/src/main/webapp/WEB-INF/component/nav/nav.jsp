@@ -21,7 +21,7 @@ MemberDTO memberDTO = (MemberDTO)session.getAttribute("memberDTO");
 	  
 	  <div id="secondmenu">
 	    <!-- 
-	    <span><a href="/product/list?product_category_num=1000">MEN</a>
+	    <span><a href="/product/list?product_category_num=1100">MEN</a>
 	    </span>
 	    <span><a href="/product/list?product_category_num=2000">WOMEN</a>
 	    </span>    
@@ -36,9 +36,9 @@ MemberDTO memberDTO = (MemberDTO)session.getAttribute("memberDTO");
 	    -->
 	    
 	    
-	    <span><a href="/product/list?category=men">MEN</a>
+	    <span><a href="/product/list?product_category_num=1100">MEN</a>
 	    </span>
-	    <span><a href="/product/list?category=women">WOMEN</a>
+	    <span><a href="/product/list?product_category_num=2000">WOMEN</a>
 	    </span>    
 	    <span><a href="/product/brands">BRANDS</a>
 	    </span>

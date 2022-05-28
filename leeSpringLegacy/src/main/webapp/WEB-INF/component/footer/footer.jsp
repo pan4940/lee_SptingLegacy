@@ -17,8 +17,8 @@
 
 
 <li class="grid_item2">
-    <a href='/about'>ABOUT</a><br>
-    <a href='/store'>STORES</a>
+    <a href='/member/about'>ABOUT</a><br>
+    <a href='/member/store'>STORES</a>
 </li>
 
 <li class="grid_item3">

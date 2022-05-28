@@ -315,4 +315,17 @@ public class MemberController {
 		return "index";
 	}
 	
+	@GetMapping("/about")
+	public String about(Model model) {
+		model.addAttribute("display", "/WEB-INF/views/member/about.jsp");
+		return "index";
+	}
+	
+	@GetMapping("/store")
+	public String store(Model model) {
+		model.addAttribute("display", "/WEB-INF/views/member/store.jsp");
+		return "index";
+	}
+	
+	
 }

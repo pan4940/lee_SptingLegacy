@@ -99,12 +99,14 @@ public interface ProductMapper {
 	public List<ProductCategoryDTO> getNavProductCategoryList();
 
 
-	public List<ProductCategoryDTO> getProductCategoryLevel1();
-
-	public List<ProductCategoryDTO> getProductCategoryByProductCategoryREF(int product_category_num_ref);
+	public List<ProductCategoryDTO> getProductCategoryByProductCategoryREF(int product_category_num);
 
 
+	public ProductCategoryDTO getOneProductCategory(int product_category_num);
 
+	public List<ProductDTO> getProductListByProductCategory(int product_category_num);
+
+	public int getTotalCount(int product_category_num);
 
 
 }
