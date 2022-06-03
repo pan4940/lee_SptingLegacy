@@ -1,5 +1,6 @@
 package member.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -43,6 +44,9 @@ public interface MemberService {
 
 	public void memberGradeUpdate(Map<String, String> map);
 
+	public MemberDTO kakaologin(String kakaoId);
+
+	public void socialJoin(MemberDTO memberDTO);
 
 
 }

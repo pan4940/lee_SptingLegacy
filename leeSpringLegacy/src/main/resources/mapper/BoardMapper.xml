@@ -51,22 +51,27 @@
     </select>
 
 	<insert id="write" parameterType="BoardDTO">
+		<selectKey keyProperty="board_num" order="BEFORE" resultType="int">
+			select seq_board.nextval from dual
+		</selectKey>
+		
 		insert into board (
 	        board_num,
 	        member_id,
+	        member_name,
 	        subject,
 	        content, 
 	        group_num,
 	        board_category_num,
 	        pwd
-	    
 	    ) values (
-	        seq_board.nextval,
-	        #{member_id},
+	        #{board_num},
+	        #{member_id}, 
+	        #{member_name}, 
 	        #{subject},
 	        #{content},
-	        seq_board.currval,
-	        #{board_category_num}
+	        #{board_num},
+	        #{board_category_num},
 	        #{pwd}
 	    )
 	</insert>

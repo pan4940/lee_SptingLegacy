@@ -28,32 +28,16 @@
 			</ul>
 		</li>
 	</ul>
-	<br> <input id="loginBtn" type="button" name="btn"
-		style="font-size: 9pt" value="Login"
-		; onclick="location.href = 'loginForm' " /> <input id="findPwdBtn"
-		type="button" name="'btn" style="font-size: 9pt" value="find Password"
-		onclick="location.href = 'findPwdForm' " />
+	<br> 
+		<input id="loginBtn" type="button" name="btn" 
+			style="font-size: 9pt" value="Login" 
+		; onclick="location.href = 'loginForm' " /> 
+		
+		<input id="findPwdBtn" type="button" name="'btn" 
+		style="font-size: 9pt" value="find Password" onclick="location.href = 'findPwdForm' " />
 </div>
 
 
-<script>
-  /* function maskingId(findid) {
-	  return findid.map(item=>{
-		  console.log(item)
-		  if (item == undefined || item === '') {
-			  return '';
-		  }
-		  var pattern = /.{3}$/; // 정규식
-		  return item.replace(pattern, "***");
-	  })
-	}
-  	console.log(${memRank},${memSys})
-    const id=maskingId(${memId})
-    		console.log(id);
-    		id.map((item,index)=>{
-    	    $('#findid').append($('<li/>',{text:item}))
-    		$('#idOption').append($('<li/>',{text:'('+${memRank}[index]+','+${memSys}[index]+'가입)'}))}) */
-  </script>
 
 
 

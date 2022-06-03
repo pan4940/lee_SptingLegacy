@@ -171,9 +171,9 @@ fieldset #replyer:focus{
 			</form>
 			
 		<div class="button-box ">
-			<button id='replyBtn'>REPLY</button>
-			<button id='editBtn'>EDIT</button>
-			<button id='deleteBtn'>DELETE</button>
+			<button id='boardReplyBtn'>REPLY</button>
+			<button id='boardEditBtn'>EDIT</button>
+			<button id='boardDeleteBtn'>DELETE</button>
 			<button id='listBtn'>BACK TO LIST</button>
 		</div>
 		<div class="clearfix"></div>
@@ -219,7 +219,7 @@ fieldset #replyer:focus{
 		
 		
 		<form id="replyUpdateForm" action="#" method="post" style="display: none;">
-			<input id="reply_num" name="reply_num" type="text" value="">
+			<input id="reply_num" name="reply_num" type="hidden" value="">
 			<div class="board-commentform">
 				<fieldset>
 					<legend>Edit A Comment</legend>
@@ -234,7 +234,7 @@ fieldset #replyer:focus{
 						
 					</p>
 					<div class="view">
-						<textarea id="updateContent"style="background-color:blue;"name="content" rows="10" cols="50"></textarea>
+						<textarea id="updateContent" name="content" rows="10" cols="50"></textarea>
 						<br>
 						<span class="submit">
 							<a id="replyUpdateBtn" href="">수정</a>
@@ -249,7 +249,7 @@ fieldset #replyer:focus{
 		<% 
 		MemberDTO memberDTO = (MemberDTO)session.getAttribute("memberDTO");
 		%>
-	<c:if test="<%= memberDTO != null %>">
+		<c:if test="<%= memberDTO != null %>">
 			<input id="rank_num" type="hidden" name='rank_num' value="<%= memberDTO.getRank_num()%>">
 			<input id="loginMember_id" type="hidden" name='member_id' value="<%= memberDTO.getMember_id()%>">
 		</c:if>
@@ -273,28 +273,20 @@ $(document).ready(function(){
 	console.log(loginMember_id);	
 	console.log(loginMember_id == undefined);	
 	
+	showList();
+	
 	if(loginMember_id == undefined){
-		$("#replyBtn").hide();
-		$("#editBtn").hide();
-		$("#deleteBtn").hide();
+		$("#boardReplyBtn").hide();
+		$("#boardEditBtn").hide();
+		$("#boardDeleteBtn").hide();
 		$(".reply").hide();
 	} else if (rank_num == 3 || member_id === loginMember_id){
-		$("#replyBtn").show();
-		$("#editBtn").show();
-		$("#deleteBtn").show();
+		$("#boardReplyBtn").show();
+		$("#boardEditBtn").show();
+		$("#boardDeleteBtn").show();
 	}
 	
-	/*
-	if(rank_num == 3 || user_id === loginUser_id){
-		$("#replyBtn").show();
-		$("#editBtn").show();
-		$("#deleteBtn").show();
-	} else {
-		$("#replyBtn").hide();
-		$("#editBtn").hide();
-		$("#deleteBtn").hide();
-	}
-	*/
+	
 	
 });
 
@@ -334,16 +326,56 @@ function showList(){
 		dataType: 'json',
 		success: function(result){
 			//console.log(result);
+			let showListloginMember_id = $("#member_id").val();
+			let showListRank_num = $("#rank_num").val()
+			let showListMember_id = $("#loginMember_id").val();
+			
 			let str = "";
 			$("#json").text(result.length);
-			$.each(result, function(index, items){
+			
+			
+			if(showListloginMember_id == undefined){
+
+				$.each(result, function(index, items){
+					str += "<li class='row"+items.reply_num+"'>";
+						str += "<div class='commentTop'>"
+							str += "<strong class='name'>" + items.replyer + "</strong>";
+							str += "<span class='date'>" + items.replyDate + "</span>";
+						str += "</div>"; 	
+						str += "<span class='comment-list-button'>";
+						str += "</span>";
+						str += "<div class='comment'>";
+							str += "<span class='comment_contents'>" + items.content + "</span>";
+						str += "</div>"
+					str += 	"</li>";
+					
+				});
+			} else if (showListRank_num == 3 || showListloginMember_id === showListMember_id){
+				
+				$.each(result, function(index, items){
+					str += "<li class='row"+items.reply_num+"'>";
+						str += "<div class='commentTop'>"
+							str += "<strong class='name'>" + items.replyer + "</strong>";
+							str += "<span class='date'>" + items.replyDate + "</span>";
+						str += "</div>"; 	
+						str += "<span class='comment-list-button'>";
+							str += "<a id='replyEditForm' class='button-text-small' onclick='javascript:viewReplyUpdateForm(" + "\""+items.board_num + "\""+ ", " + "\""+ items.reply_num + "\""+ ")'>EDIT</a>";
+							str += "<a id='replyDelete' class='button-text-small' onclick='javascript:deleteReply("+ "\"" +items.reply_num + "\""+")'>DELETE</a>";
+						str += "</span>";
+						str += "<div class='comment'>";
+							str += "<span class='comment_contents'>" + items.content + "</span>";
+						str += "</div>"
+					str += 	"</li>";
+				});
+			}
+			/* $.each(result, function(index, items){
 				str += "<li class='row"+items.reply_num+"'>";
 					str += "<div class='commentTop'>"
 						str += "<strong class='name'>" + items.replyer + "</strong>";
 						str += "<span class='date'>" + items.replyDate + "</span>";
 					str += "</div>"; 	
 					str += "<span class='comment-list-button'>";
-						str += "<a id='editForm' class='button-text-small' onclick='javascript:viewReplyUpdateForm(" + "\""+items.board_num + "\""+ ", " + "\""+ items.reply_num + "\""+ ")'>EDIT</a>";
+						str += "<a id='replyEditForm' class='button-text-small' onclick='javascript:viewReplyUpdateForm(" + "\""+items.board_num + "\""+ ", " + "\""+ items.reply_num + "\""+ ")'>EDIT</a>";
 						str += "<a id='replyDelete' class='button-text-small' onclick='javascript:deleteReply("+ "\"" +items.reply_num + "\""+")'>DELETE</a>";
 					str += "</span>";
 					str += "<div class='comment'>";
@@ -351,9 +383,10 @@ function showList(){
 					str += "</div>"
 				str += 	"</li>";
 		
-			}); //end each
+			}); //end each */
 			
 			$(".boardComment").html(str);
+			
 		},
 		
 	});
@@ -370,7 +403,7 @@ $("#cancelBtn").on("click", function(e){
 let boardForm = $("#boardForm");
 let replyForm = $("#replyForm");
 //덧글 등록
-$("#replyBtn").on("click", function(e){
+$("#boardReplyBtn").on("click", function(e){
 	e.preventDefault();
 	boardForm.attr("action", "/board/replyWriteForm");
 	boardForm.submit();
@@ -378,14 +411,14 @@ $("#replyBtn").on("click", function(e){
 
 
 //글 수정
-$("#editBtn").on("click", function(e){
+$("#boardEditBtn").on("click", function(e){
 	e.preventDefault();
 	boardForm.attr("action", "/board/modifyForm");
 	boardForm.submit();
 });
 
 //글 삭제
-$("#deleteBtn").on("click", function(e){
+$("#boardDeleteBtn").on("click", function(e){
 	e.preventDefault();
 	
 	if($("#reply").val() > 0) {
@@ -461,12 +494,10 @@ $("#replyDelete").click(function(e){
 	
 });
 
-$(function(){
+/* $(function(){
 	showList();
-	
-	
 });	
-	
+	 */
 
 	
 </script>

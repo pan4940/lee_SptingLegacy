@@ -37,5 +37,7 @@ public interface MemberMapper {
 
 	public void memberGradeUpdate(Map<String, String> map);
 
+	public MemberDTO kakaologin(String kakaoId);
+
 
 }

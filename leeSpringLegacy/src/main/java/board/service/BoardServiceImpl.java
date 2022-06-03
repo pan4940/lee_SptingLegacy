@@ -44,11 +44,12 @@ public class BoardServiceImpl implements BoardService {
 	
 	
 	@Override
+	@Transactional(rollbackFor = Exception.class)
 	public void write(BoardDTO boardDTO) {
 		if (boardDTO.getFileList() == null || boardDTO.getFileList().size() <= 0) {
 			return;
 		}
-		boardMapper.writeSelectKey(boardDTO);
+		boardMapper.write(boardDTO);
 		System.out.println("게시글 등록은 완료");
 		boardDTO.getFileList().forEach(t -> {
 			t.setLinked_num(boardDTO.getBoard_num());

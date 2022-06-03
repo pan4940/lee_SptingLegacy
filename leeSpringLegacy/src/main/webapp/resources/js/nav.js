@@ -37,7 +37,6 @@ $("#second_large span").mouseover(function(event) {
 			url: '/product/getNavMenProductCategoryDTO',
 			dataType: 'json',
 			success: function(data) {
-				console.log(data);
 				$.each(data, function(index,item){
 					let fileCallPath = encodeURIComponent(item.fileList[0].uploadPath + "/" + item.fileList[0].uuid + "_" +  item.fileList[0].fileName);
 					$("<div/>", { "id": "menuimage" + index, class: "col-3" })
@@ -187,7 +186,6 @@ $("#second_large span").mouseover(function(event) {
 			url: '/product/getNavBrandProductCategoryDTO',
 			dataType: 'json',
 			success: function(data) {
-				console.log(data.brandCategory);
 				
 				$.each(data.brandCategory, function(index,item){
 					$("#navBrands ul").
@@ -220,7 +218,6 @@ $("#second_large span").mouseover(function(event) {
 			url: '/board/getNavPostBoardDTO',
 			dataType: 'json',
 			success: function(data) {
-				console.log(data);
 				$.each(data, function(index,item){
 					
 					let fileCallPath = encodeURIComponent(item.fileList[0].uploadPath + "/" + item.fileList[0].uuid + "_" +  item.fileList[0].fileName);
@@ -303,9 +300,11 @@ $("#account_drop").mouseleave(function() {
 	$("#account_drop").css("display", "none");
 });
 
-//카카오로그아웃  
+//로그아웃  
 $('.logoutBtn').click(function() {
 	kakaoLogout();
+    naverLogin.logout();
+	
 	$.ajax({
 		type: 'post',
 		url: '/member/logout',

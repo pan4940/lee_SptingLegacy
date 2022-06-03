@@ -10,6 +10,8 @@
 <meta charset="UTF-8">
 <title>THE C SHOP 더 C 샵</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+
 
 <%-- Latest compiled and minified CSS --%>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -69,16 +71,20 @@
 	<script type="text/javascript" src="/resources/js/nav.js"></script>
 	<script type="text/javascript" src="/resources/js/footer.js"></script>
 	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+	<script src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.2.js" charset="utf-8"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
     <script type="text/javascript" src="/resources/js/join.js"></script>
     <script type="text/javascript" src="/resources/js/modify.js"></script>
+    <script type="text/javascript" src="/resources/js/kakao.js"></script>
+    <script type="text/javascript" src="/resources/js/naver.js"></script>
+    <script type="text/javascript" src="/resources/js/google.js"></script>
     <script type="text/javascript" src="/resources/js/findPwd.js"></script>
     <script type="text/javascript" src="/resources/js/findId.js"></script>
     <script type="text/javascript" src="/resources/js/findPwdResult.js"></script>
     
     
     
-   <script type="text/javascript" src="/resources/js/kakao.js"></script>
+   <!-- <script type="text/javascript" src="/resources/js/kakao.js"></script> -->
    
    
    

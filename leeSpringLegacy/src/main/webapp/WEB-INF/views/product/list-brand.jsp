@@ -58,6 +58,8 @@ grid-template-rows: 50px auto 50px;"
 <script type="text/javascript">
 
 $(document).ready(function(){
+	
+	//list 좌측 카테고리 리스트 가져오기
     $.ajax({
         url: '/product/getProductsByBrandCategory',
         type: 'POST',
@@ -108,7 +110,7 @@ $(document).ready(function(){
         dataType: 'json',
         success: function(result) {
             let str = "";
-            
+            console.log(result);
             $(result).each(function(i, obj) {
             	
                 str += "<li>";

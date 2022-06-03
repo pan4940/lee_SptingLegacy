@@ -30,8 +30,8 @@ import board.bean.Criteria;
 import board.bean.PageDTO;
 import board.service.BoardService;
 import file.bean.FileDTO;
+import lombok.extern.log4j.Log4j;
 import member.bean.MemberDTO;
-import product.bean.ProductCategoryDTO;
 
 
 
@@ -42,7 +42,6 @@ public class BoardController {
 	@Autowired
 	private BoardService boardService; 
 	
-		
 	//리스트 조회 및 출력
 	@GetMapping("/list")
 	public String list(@RequestParam Map<String, String> map, Model model) {
@@ -100,9 +99,9 @@ public class BoardController {
 						@ModelAttribute BoardDTO boardDTO, 
 						RedirectAttributes redirectAttributes) {
 		
-		System.out.println("map : " + map);
+		System.out.println("/write map : " + map);
 		
-		//boardDTO.setPwd("11");
+		boardDTO.setPwd("11");
 		System.out.println("boardDTO : " + boardDTO);
 		
 		int board_category_num = Integer.parseInt(map.get("board_category_num")); 

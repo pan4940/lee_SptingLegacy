@@ -39,13 +39,7 @@
 	    
 	</div>
 	<div class="col-12 col-sm-5" id="post_content">
-	    <!-- <a href="#">
-	        <span>
-	            BROWNYARD 2022<br> Spring - Summer
-	        </span>
-	    </a>
-	    <p>BROWNYARD 2022 Spring - Summer</p>
-	    <a href="#">Read more</a> -->
+	    
 	</div>
 </section>
 <section><!-- 5 -->
@@ -58,16 +52,7 @@
 <span>RECOMMEND</span>
 </section>
 <section id="ourproductSample"><!-- 7 -->
-<!-- 
-<div class="col-6 col-sm-3"><img src="" alt="" ></div>
-<div class="col-6 col-sm-3"><img src="" alt="" ></div>
-<div class="col-6 col-sm-3"><img src="" alt="" ></div>
-<div class="col-6 col-sm-3"><img src="" alt="" ></div>
-<div class="col-6 col-sm-3"><img src="" alt="" ></div>
-<div class="col-6 col-sm-3"><img src="" alt="" ></div>
-<div class="col-6 col-sm-3"><img src="" alt="" ></div>
-<div class="col-6 col-sm-3"><img src="" alt="" ></div> 
--->
+
 </section>
 <section><!-- 8 -->
 <p>NEW ARRIVALS - MATIN KIM:FW21</p>

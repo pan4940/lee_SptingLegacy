@@ -3,9 +3,9 @@ $(function() {
 	console.log(member_id);
 	
 	if(member_id == ''){
-		$("#moveWriteForm").hide();
+		$("#moveReviewWriteForm").hide();
 	} else {
-		$("#moveWriteForm").show();
+		$("#moveReviewWriteForm").show();
 	}
 	
 	$.ajax({

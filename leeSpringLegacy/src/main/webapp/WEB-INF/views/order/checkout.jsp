@@ -11,9 +11,9 @@
 	<h3>
 		<center>YOUR CART</center>
 	</h3>
-	<input type="text" id="memberDTO" value="${memberDTO}">
-	<input type="text" id="memberDTOtel1" value="${memberDTO.tel1}">
-	<input type="text" id="memberDTOphone1" value="${memberDTO.phone1}">
+	<input type="hidden" id="memberDTO" value="${memberDTO}">
+	<input type="hidden" id="memberDTOtel1" value="${memberDTO.tel1}">
+	<input type="hidden" id="memberDTOphone1" value="${memberDTO.phone1}">
 	<div id="cartList">
 	
 	</div>
@@ -281,8 +281,8 @@ $(function(){
    		
    		
   		//OrderDTO 와 DetailOrderDTO등록
-   		/* let IMP = window.IMP; // 생략 가능
-   	    IMP.init(""); //
+   		let IMP = window.IMP; // 생략 가능
+   	    IMP.init("imp68632155"); //
 		console.log(order_id);
 		IMP.request_pay({
 			pg: 'html5_inicis',
@@ -299,20 +299,19 @@ $(function(){
 		}, function (rsp){
 			console.log(rsp);
 			
-			if (rsp.success){ */
+			if (rsp.success){ 
          		var msg='결제 완료';
 	         	$.ajax({
 	        		type:'post',
 	        		url:'/order/registerOrderDTO',
 	        		data: $('#shippinginformationForm').serialize(),
-	        		//success: function() {	
 	        		success: function() {
 	        			
 	        			Swal.fire({
 	 					icon: 'success',
 	 					title: ' 주문이 완료되었습니다!'
 	 				}).then(function() {
-	 					//location.href = '/order/orderHistory';
+	 					location.href = '/order/orderHistory';
 	 				});
 	        			
 	        			console.log("성공");
@@ -321,7 +320,7 @@ $(function(){
 	    	            console.log(err);
 	    	        },
         		}); //end ajax 
-			/* } else {
+			} else {
 				var msg='결제 실패';
 				msg += '\n애러내용: '+rsp.error_msg;
 				Swal.fire({
@@ -329,7 +328,7 @@ $(function(){
 					title: msg,
             	});
          	}
-		}); //end pay */
+		}); //end pay
   		
 	}); //end $("#checkoutBtn").click 
 }); // $(function(){

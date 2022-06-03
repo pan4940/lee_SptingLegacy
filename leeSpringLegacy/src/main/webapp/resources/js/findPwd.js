@@ -81,8 +81,6 @@ $('#findPwdBtn').click(function(){
 				error:function(err){
 					alert(err);
 				}
-			
-			
 			});
 		}
 	

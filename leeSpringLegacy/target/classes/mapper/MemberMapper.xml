@@ -12,6 +12,10 @@
 		select * from member where member_id = #{member_id} and member_pwd = #{member_pwd}
 	</select>	
 	
+	<select id="kakaologin" parameterType="MemberDTO" resultType="MemberDTO">
+		select * from member where member_id = #{member_id} and member_pwd = #{member_pwd}
+	</select>	
+	
 	<select id="findMemberByID" parameterType="String" resultType="MemberDTO">
 		select * from member where member_id = #{member_id}
 	</select>
@@ -24,6 +28,8 @@
 		select * from member where member_name = #{member_name} and phone1 = #{phone1} and phone2 = #{phone2} and phone3 = #{phone3}
 	</select>
 	
+	
+	
 	<select id="findPwdByEmail" parameterType="java.util.Map" resultType="MemberDTO">
 		select * from member where member_name = #{member_name} and member_id = #{member_id} and email = #{email}
 	</select>
@@ -34,11 +40,11 @@
 	
 	<insert id="join" parameterType="MemberDTO">
 		insert into member(
-			member_id, rank_num, member_pwd, member_name, zipcode,
+			member_id, member_pwd, member_name, zipcode,
 			addr1, addr2, tel1, tel2, tel3,
 			phone1, phone2, phone3, email, email_check
 		) values (
-			#{member_id}, #{rank_num}, #{member_pwd}, #{member_name}, #{zipcode},
+			#{member_id}, #{member_pwd}, #{member_name}, #{zipcode},
 			#{addr1}, #{addr2}, #{tel1}, #{tel2}, #{tel3},
 			#{phone1}, #{phone2}, #{phone3}, #{email}, #{email_check}
 		)
@@ -50,8 +56,7 @@
 			member_name = #{member_name}, 
 			zipcode = #{zipcode},  
 			addr1 = #{addr1},
-			addr2 = #{addr2},
-			addr3 = #{addr3}
+			addr2 = #{addr2}
 		where member_id = #{member_id}	
 	</update>
 	

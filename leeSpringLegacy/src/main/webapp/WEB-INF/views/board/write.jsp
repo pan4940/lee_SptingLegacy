@@ -104,24 +104,24 @@ display: inline-block;
 }
 
 .backBtn:hover{
-color:gray;
-text-decoration: none;
+	color:gray;
+	text-decoration: none;
 }
 
-.BorardwriteBtn{
+.BoardWriteBtn{
 
-   background-color: black;
-    color: white;
-    padding: 10px;
-    width: 117px;
+	background-color: black;
+	color: white;
+	padding: 10px;
+	width: 117px;
 
 }
 
 .buttonbox{
- display: flex;
- justify-content: space-between;
-margin-left: 36px;
-margin-top:30px
+	display: flex;
+	justify-content: space-between;
+	margin-left: 36px;
+	margin-top:30px
 
 }
 .uploadDiv{
@@ -206,7 +206,7 @@ MemberDTO memberDTO = (MemberDTO)session.getAttribute("memberDTO");
                         </span>    
                            
                         <span>
-                           <button class="BorardwriteBtn" type="submit" formmethod="post">WRITE</button>
+                           <button class="BoardWriteBtn" type="submit" formmethod="post">WRITE</button>
                         </span>
                      </div>
                      
@@ -216,7 +216,7 @@ MemberDTO memberDTO = (MemberDTO)session.getAttribute("memberDTO");
 			
 			
 			<c:when test="${map.board_category_num eq '4'}">
-               <input type="text" value="${map}">
+               
                <form id="boardWriteForm" action="/board/write" method="post">
 		
                   <input type="hidden" name="board_category_num" value="4"> 
@@ -328,7 +328,7 @@ MemberDTO memberDTO = (MemberDTO)session.getAttribute("memberDTO");
                         </c:if>
                            
                         <span>
-                           <button class="BorardwriteBtn" type="submit" formmethod="post">WRITE</button>
+                           <button class="BoardWriteBtn" type="submit" formmethod="post">WRITE</button>
                         </span>
                      </div>
                   </div>

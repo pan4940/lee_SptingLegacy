@@ -336,7 +336,7 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public List<ProductCategoryDTO> getNavWomenProductCategoryDTO() {
 		List<ProductCategoryDTO> list = new ArrayList<>();
-		int[] arr = {10163, 10164};
+		int[] arr = {10162, 10164};
 		
 		for (int product_category_num : arr) {
 			ProductCategoryDTO productCategoryDTO = productMapper.getProductCategoryDTO(product_category_num);

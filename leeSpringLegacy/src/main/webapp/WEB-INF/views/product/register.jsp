@@ -119,11 +119,6 @@ textarea#productDes { width:400px; height:180px; }
 		<div id="container_box">
 			<h2>상품 등록</h2>
 			
-			<div class="catecheck">
-				<label for="catecheck">카테고리 리스트</label>
-				<input type="text" id="catecheck" name="catecheck" value=""/>
-			</div>
-			
 			
 			<form id="productWriteForm" method="post" autocomplete="off" action="/product/register">
 			

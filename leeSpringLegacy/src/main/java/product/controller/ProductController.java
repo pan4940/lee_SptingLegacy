@@ -16,12 +16,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import board.bean.BoardDTO;
 import board.bean.Criteria;
 import board.bean.PageDTO;
 import file.bean.FileDTO;
 import lombok.extern.log4j.Log4j2;
-import oracle.jdbc.proxy.annotation.Post;
 import product.bean.DetailProductDTO;
 import product.bean.ProductCategoryDTO;
 import product.bean.ProductDTO;
@@ -113,7 +111,6 @@ public class ProductController {
 	
 	// 브랜드명으로 상품목록 페이지 이동
 	@GetMapping("/list-brand")
-	//public String moveListBrand(@RequestParam int product_category_num, Model model) {
 	public String moveListBrand(@RequestParam Map<String, String> map, Model model) {
 		
 		System.out.println("/list-brand : " + map);
@@ -129,7 +126,7 @@ public class ProductController {
 		}
 		
 				
-		model.addAttribute("display", "/WEB-INF/views/product/list.jsp");
+		model.addAttribute("display", "/WEB-INF/views/product/list-brand.jsp");
 		int product_category_num = Integer.parseInt(map.get("product_category_num")); 
 		model.addAttribute("product_category_num", product_category_num);
 		

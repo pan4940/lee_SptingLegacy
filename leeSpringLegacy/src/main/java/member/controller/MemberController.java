@@ -2,6 +2,7 @@ package member.controller;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
@@ -27,11 +28,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import lombok.extern.log4j.Log4j2;
 import member.bean.MemberDTO;
 import member.bean.MemberRankDTO;
 import member.service.MemberService;
 
 @Controller
+@Log4j2
 @RequestMapping(value = "/member", method = {RequestMethod.GET, RequestMethod.POST})
 public class MemberController {
 	
@@ -43,6 +46,20 @@ public class MemberController {
 	public String loginForm(Model model) {
 		model.addAttribute("display", "/WEB-INF/views/member/login.jsp");
 		return "index";
+	}
+	
+	
+	@RequestMapping("/socialLoginOk")
+	@ResponseBody
+	public String kakaologin(HttpSession httpSession, @RequestParam("member_id") String kakaoId) throws Exception{
+		System.out.println(kakaoId);
+		MemberDTO memberDTO = memberService.kakaologin(kakaoId);
+		if (memberDTO != null) {
+			httpSession.setAttribute("memberDTO", memberDTO);
+			return "ok";
+		} else {
+			return "fail";
+		}
 	}
 	
 	
@@ -76,6 +93,8 @@ public class MemberController {
 		model.addAttribute("display", "/WEB-INF/views/member/join.jsp");
 		return "index";
 	}
+	
+	
 	@PostMapping("/join")
 	public void join(@ModelAttribute MemberDTO memberDTO, Model model) {
 		System.out.println("joinMemberDTO : "  + memberDTO);
@@ -83,6 +102,19 @@ public class MemberController {
 		memberService.join(memberDTO);
 		model.addAttribute("display", "/WEB-INF/views/member/join.jsp");
 	}
+	
+	
+	//소셜 로그인후 정보로 회원가입
+	@PostMapping("/socialJoin")
+	@ResponseBody
+	public void socialJoin(@ModelAttribute MemberDTO memberDTO, Model model) {
+		memberService.socialJoin(memberDTO);
+		System.out.println(memberDTO);
+		log.info(memberDTO);
+	}
+	
+	
+	
 	
 	
 	//회원가입시 아이디 중복체크
@@ -98,6 +130,7 @@ public class MemberController {
 			return "non_exist";
 		}
 	}
+	
 	
 	
 	//회원정보 페이지
@@ -116,6 +149,7 @@ public class MemberController {
 	}
 	
 	@PostMapping("/modifyOk")
+	@ResponseBody
 	public void modifyOK(@ModelAttribute MemberDTO memberDTO) {
 		System.out.println("modify memberDTO : " + memberDTO);
 		memberService.modifyOK(memberDTO);
@@ -205,12 +239,13 @@ public class MemberController {
 			httpSession.setAttribute("memId", memberDTO.getMember_id());
 			httpSession.setAttribute("memName", memberDTO.getMember_name());
 			httpSession.setAttribute("memOption", "Email");
-			httpSession.setAttribute("memKeyword", memberDTO.getPhone1() + memberDTO.getPhone2() + memberDTO.getPhone3());
+			httpSession.setAttribute("memKeyword", memberDTO.getEmail());
 			return "emailok";
 		} else {
 			return "emailfail";
 		}
 	}
+	
 	//e메일로 임시비밀번호 전송
 	@PostMapping("/tempPwdByEmail")
 	@ResponseBody

@@ -1,5 +1,13 @@
 package member.service;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -17,6 +25,10 @@ import javax.servlet.http.HttpSession;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 import member.bean.MemberDTO;
 import member.bean.MemberRankDTO;
@@ -43,6 +55,24 @@ public class MemberServiceImpl implements MemberService {
 	
 	@Override
 	public void join(MemberDTO memberDTO) {
+		memberMapper.join(memberDTO);
+	}
+	
+	@Override
+	public void socialJoin(MemberDTO memberDTO) {
+		System.out.println("input joinMemberDTO : "  + memberDTO);
+		memberDTO.setZipcode(0);
+		memberDTO.setAddr1("");
+		memberDTO.setAddr2("");
+		memberDTO.setTel1("");
+		memberDTO.setTel2("");
+		memberDTO.setTel3("");
+		memberDTO.setPhone1("");
+		memberDTO.setPhone2("");
+		memberDTO.setPhone3("");
+		memberDTO.setEmail_check("1");
+		memberDTO.setMileage(2000);
+		System.out.println("output joinMemberDTO : "  + memberDTO);
 		memberMapper.join(memberDTO);
 	}
 	
@@ -195,4 +225,11 @@ public class MemberServiceImpl implements MemberService {
 	public void memberGradeUpdate(Map<String, String> map) {
 		memberMapper.memberGradeUpdate(map);
 	}
+	
+	@Override
+	public MemberDTO kakaologin(String kakaoId) {
+		return memberMapper.kakaologin(kakaoId);
+	}
+	
+	
 }

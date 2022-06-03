@@ -3,7 +3,7 @@
 <link rel="stylesheet" href="/resources/css/list.css" />
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>    
-<input id="product_category_num" type="text" value=${product_category_num}>
+<input id="product_category_num" type="hidden" value=${product_category_num}>
 <input id="pageNum" type="hidden" value="${pageDTO.criteria.pageNum}">
 <input id="amount" type="hidden" value="${pageDTO.criteria.amount}">
 

@@ -6,12 +6,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<!-- <meta charset="UTF-8" />
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<link rel="stylesheet" href="/component/nav.css" />
-<link rel="stylesheet" href="/index.css" />
-<link rel="stylesheet" href="help.css" /> -->
+
 <script src="https://kit.fontawesome.com/cd631a71a1.js" crossorigin="anonymous"></script>
 <title>Insert title here</title>
 </head>
@@ -59,9 +54,7 @@ MemberDTO memberDTO = (MemberDTO)session.getAttribute("memberDTO");
 	border-right: 0 !important;
 	
 }
-//.post-thumbnail li:first-child {
-//	display: block;
-//}
+
 
 .post-thumbnail li:first-child .thumbnail-image img {
 	width: 100%;
@@ -157,20 +150,12 @@ li {
 </div> <!-- end content -->
 
 
-<%-- <form id='moveWriteForm' action="/board/writeForm" method='post'>
-	<input type='hidden' name='board_category_num' value='${board_category_num}'>
-	<input type='hidden' name='user_id' value="">
-</form> --%>
 
-<%-- <form id='actionForm' action="/board/get" method='post'>
-	<input type='hidden' name='board_category_num' value='${board_category_num}'>
-	<input type="hidden" name="board_num" value="">
-</form> --%>
 
 
 
 <c:if test="<%= memberDTO != null %>">
-	<form id='moveWriteForm' action="/board/writeForm" method='post'>
+	<form id='moveWriteForm' action="/board/write" method='get'>
 		<input id="rank_num" type="hidden" name='rank_num' value="<%= memberDTO.getRank_num()%>">
 		<input id="member_id" type="hidden" name='member_id' value="<%= memberDTO.getMember_id()%>">
 		<input type='hidden' name='board_category_num' value='${board_category_num}'>

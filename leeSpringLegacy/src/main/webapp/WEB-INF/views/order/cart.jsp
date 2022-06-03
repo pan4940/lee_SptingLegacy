@@ -7,23 +7,7 @@
 		<h3>SHOPPING CART</h3>
 	</div>
 	<div id="mid" class="col-12 col-sm-6">
-		<!-- 
-    <div class="product">
-      <div class="detail">
-        <div class="img"></div>
-        <div class="detailDiv">
-          <a href="#"> 더뮤지엄비지터 </a>
-          <span> OS </span>
-          <span> 158,000원 </span>
-          <div class="number">
-            <a href="#">Down</a>
-            <span>1</span>
-            <a href="#">Up</a>
-          </div>
-        </div>
-      </div>
-      <span class="remove">remove</span> 
-      -->
+	
 	</div>
 	<div id="side" class="col-12 col-sm-6">
 		<div id="total">
@@ -43,7 +27,7 @@
 	</div>
 	<div id="noCart" style="display: none">
 		<p>
-			장바구니가 비어 있습니다.. <a href="/list?category=men">Go Shopping</a>
+			장바구니가 비어 있습니다.. <a href="/product/list?product_category_num=1100">Go Shopping</a>
 		</p>
 	</div>
 </div>

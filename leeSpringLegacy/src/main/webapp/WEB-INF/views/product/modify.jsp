@@ -164,7 +164,7 @@ textarea#gdsDes { width:400px; height:180px; }
 			
 			<form id="productModifyForm" method="post" action="/product/modify" autocomplete="off">
 			
-			<input type="text" id="product_num" name="product_num" value="" />
+			<input type="hidden" id="product_num" name="product_num" value="" />
 			
 			<div class="inputArea">
 				<div id="category1">	

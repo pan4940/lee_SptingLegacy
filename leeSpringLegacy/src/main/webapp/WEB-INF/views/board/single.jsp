@@ -5,12 +5,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<!-- <meta charset="UTF-8" />
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<link rel="stylesheet" href="/component/nav.css" />
-<link rel="stylesheet" href="/index.css" />
-<link rel="stylesheet" href="help.css" /> -->
+
 <script src="https://kit.fontawesome.com/cd631a71a1.js"
 	crossorigin="anonymous"></script>
 <title>Insert title here</title>
@@ -55,9 +50,6 @@ MemberDTO memberDTO = (MemberDTO)session.getAttribute("memberDTO");
 %>
 
 <body>
-
-
-	<%-- <jsp:include page="/component/nav.jsp" /> --%>
 	
 	<c:if test="<%= memberDTO != null %>">
 		
@@ -66,8 +58,7 @@ MemberDTO memberDTO = (MemberDTO)session.getAttribute("memberDTO");
 	</c:if>
 	<div class="xans-element- xans-product xans-product-detail collection-single-wrap ">
 		<div class="single-top">
-			<input type="text" value="${map}">
-			<%-- <input type="hidden" value="${boardDTO}"> --%>
+			<input type="hidden" value="${map}">
 			<p></p>
 			<h1 style="margin:100px 20px">${boardDTO.subject}</h1>
 		</div>

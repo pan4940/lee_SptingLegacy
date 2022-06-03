@@ -31,7 +31,7 @@
       <a id="CONFIRM" href="#">CONFIRM</a>
     </div>
     
-    <form id='actionForm' action="/board/get" method='post'>
+    <form id='actionForm' action="/board/get" method="get">
 		<input type='hidden' name='board_category_num' value='${map.board_category_num}'>
 		<input id="board_num" type='hidden' name='board_num' value="${map.board_num}">
 		<input type='hidden' name='pageNum' value='${map.pageNum}'>
