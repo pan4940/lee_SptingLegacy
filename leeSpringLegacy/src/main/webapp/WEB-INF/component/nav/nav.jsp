@@ -2,6 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 
 <% 
 MemberDTO memberDTO = (MemberDTO)session.getAttribute("memberDTO");
@@ -10,9 +11,10 @@ MemberDTO memberDTO = (MemberDTO)session.getAttribute("memberDTO");
 <!-- 첫번째 div  -->
   <div id="first" class="nav_div">
     <span>SS 22 NEW ARRIVAL</span>
-    <c:if test="${not empty sessionScope.memberDTO && memberDTO.getRank_num() == 3}" >
+    <%-- <c:if test="${not empty sessionScope.memberDTO && memberDTO.getRank_num() == 3}" >
 	    	<a href="/admin/index">관리자페이지</a>
-	</c:if>
+	</c:if> --%>
+	
   </div>
 
   <div id="second_large" class="nav_div">
@@ -37,12 +39,12 @@ MemberDTO memberDTO = (MemberDTO)session.getAttribute("memberDTO");
 	  <div>
 	    <a href="/board/list?board_category_num=5&pageNum=1&amount=10">HELP</a>
 	    <button class="search"style="border: 0; background-color: white;"><i class="fa-solid fa-magnifying-glass"></i></button>
-	    <c:if test="${empty sessionScope.memberDTO}">
-	    	<a href="/member/loginForm">LOGIN</a>
-	    </c:if>
-	    <c:if test="${not empty sessionScope.memberDTO }">
+	    <sec:authorize access="isAnonymous()">
+	    	<a href="/member/login">LOGIN</a>
+	    </sec:authorize>
+	    <sec:authorize access="isAuthenticated()">
 			<a class="account" id="account">ACCOUNT</a>
-		</c:if>
+		</sec:authorize>
 		<div id="account_drop" >
 			<ul>
 				<li><a href="/member/account">ACCOUNT DETAIL</a></li>
@@ -95,7 +97,7 @@ MemberDTO memberDTO = (MemberDTO)session.getAttribute("memberDTO");
 	<hr>
 	
 	<div id="small_menu">
-	<c:if test="${empty sessionScope.memberDTO}">
+	<sec:authorize access="isAnonymous()">
 		<div>
 			<a href="/member/loginForm">LOGIN</a>
 		</div>
@@ -106,8 +108,8 @@ MemberDTO memberDTO = (MemberDTO)session.getAttribute("memberDTO");
 		<div><a href="#">ORDERS</a>
 		</div> 
 		-->
-	</c:if>
-	<c:if test="${not empty sessionScope.memberDTO }">
+	</sec:authorize>
+	<sec:authorize access="isAuthenticated()">
 		<div><a href="/member/account">ACCOUNT DETAIL</a>
 		</div>
 		<div><a href="/order/orderHistory">ORDER HISTORY</a>
@@ -115,8 +117,12 @@ MemberDTO memberDTO = (MemberDTO)session.getAttribute("memberDTO");
 		<div><a href="/addresses">ADDRESSES</a>
 		</div>	
 		<div><a class="logoutBtn">LOGOUT</a>
+			<form id="logoutForm" action="/member/logout" method="post">
+				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+			</form>
+		
 		</div>
-	</c:if>
+	</sec:authorize>
 	</div>
 </div>
 <div id="fourth" class="sticky" >

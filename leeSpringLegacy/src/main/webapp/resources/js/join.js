@@ -218,7 +218,10 @@ $('#writeForm #member_id').focusout(function() {
          $.ajax({
             type: 'post',
             url: '/member/checkId',
-            data: 'member_id=' + sId,
+            data: {
+				'member_id' : sId,
+				'_csrf' : $("#csrf").val(),
+			},
             dataType: 'text',
             success: function(data) {
                data = data.trim();
@@ -232,11 +235,11 @@ $('#writeForm #member_id').focusout(function() {
                } else if (data == 'non_exist') {
 
                   $('#idDiv').text(sId + '는사용가능한 아이디입니다.');
-                        $('#idDiv').css('font-size', '9pt');
+                  $('#idDiv').css('font-size', '9pt');
                   $('#idDiv').css('font-weight', 'bold');
                   $('#idDiv').css('color', 'red');
                   $('#check').val(sId); //중복체크 수행
-
+				  $("#addressDTOMemberID").val($("#member_id").val());
                }
                
             },

@@ -7,12 +7,14 @@
     
       <label for="id" style="color: gray">아이디</label><br />
       <input type="text" id="member_id" name="member_id" style="width: 100%; border: 0px; border-bottom: 1px solid gray" />
+      <input type="hidden" id="csrf" name="${_csrf.parameterName}" value="${_csrf.token}" />
+	  <input type="hidden" id="addressDTOMemberID" name="addressDTOList[0].member_id" value="">	      
       <input type="hidden" name="check" id="check" value="">
       <div id="idDiv"></div>
       <p></P>
 
       <label for="pwd" style="color: gray">비밀번호</label><br />
-
+	  
       <input
         type="password" id="member_pwd" name="member_pwd"
         style="width: 100%; border: 0px; border-bottom: 1px solid gray"
@@ -34,7 +36,7 @@
       <p></p>
 
       <label for="name" style="color: gray">이름</label><br />
-
+	
       <input
         type="text" id="name" name="member_name"
         style="width: 100%; border: 0px; border-bottom: 1px solid gray"
@@ -45,9 +47,10 @@
       <label for="post" style="color: gray">우편번호</label><br />
 
       <input
-        type="text" id="zipcode" name="zipcode" readonly
+        type="text" id="zipcode" name="addressDTOList[0].zipcode" readonly
         style="width: 25%; border: 0px; border-bottom: 1px solid gray"
       />
+      <input type="hidden" name="addressDTOList[0].order" value="1"> 
       <input
         id="postbtn"
         type="button"
@@ -63,18 +66,18 @@
       <label for="address" style="color: gray">주소</label><br />
 
       <input
-        type="text" id="addr1" name="addr1" readonly
+        type="text" id="addr1" name="addressDTOList[0].addr1" readonly
         style="width: 100%; border: 0px; border-bottom: 1px solid gray"
       />
       <p></p>
       <input
-        type="text" id="addr2" name="addr2"
+        type="text" id="addr2" name="addressDTOList[0].addr2"
         style="width: 100%; border: 0px; border-bottom: 1px solid gray"
       />
       <p></p>
       <label for="phone" style="color: gray">전화</label>
       <p></p>
-      <select id="tel1" name="tel1" style="height: 30px">
+      <select id="tel1" name="addressDTOList[0].tel1" style="height: 30px">
         <option value="02" selected>02</option>
         <option value="031">031</option>
         <option value="032">032</option>
@@ -110,19 +113,19 @@
       </select>
       -
       <input
-        type="text" name="tel2" maxlength="4"
+        type="text" name="addressDTOList[0].tel2" maxlength="4"
         style="width: 15%; border: 0px; border-bottom: 1px solid gray"
       />
       -
       <input
-        type="text" name="tel3" maxlength="4"
+        type="text" name="addressDTOList[0].tel3" maxlength="4"
         style="width: 15%; border: 0px; border-bottom: 1px solid gray"
       />
 
       <p></p>
       <label for="phone2" style="color: gray">휴대전화</label>
       <p></p>
-      <select id="tel2" name="phone1"  style="height: 30px; width: 55px">
+      <select id="tel2" name="addressDTOList[0].phone1"  style="height: 30px; width: 55px">
         <option value="010">010</option>
         <option value="011">011</option>
         <option value="016">016</option>
@@ -132,12 +135,12 @@
       </select>
       -
       <input
-        type="text" id="phone" name="phone2" maxlength="4"
+        type="text" id="phone" name="addressDTOList[0].phone2" maxlength="4"
         style="width: 15%; border: 0px; border-bottom: 1px solid gray"
       />
       -
       <input
-        type="text" id="phone1" name="phone3" maxlength="4"
+        type="text" id="phone1" name="addressDTOList[0].phone3" maxlength="4"
         style="width: 15%; border: 0px; border-bottom: 1px solid gray"
       />
       <p></p>

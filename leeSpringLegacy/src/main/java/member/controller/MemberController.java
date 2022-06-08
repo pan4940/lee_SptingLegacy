@@ -1,23 +1,11 @@
 package member.controller;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Properties;
-
-import javax.mail.Authenticator;
-import javax.mail.MessagingException;
-import javax.mail.Session;
-import javax.mail.internet.AddressException;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.config.PropertyPlaceholderConfigurer;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,7 +18,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import lombok.extern.log4j.Log4j2;
 import member.bean.MemberDTO;
-import member.bean.MemberRankDTO;
 import member.service.MemberService;
 
 @Controller
@@ -41,9 +28,23 @@ public class MemberController {
 	@Autowired
 	private MemberService memberService; 
 	
+	@Autowired
+	private PasswordEncoder passwordEncoder;
+	
 	//로그인
-	@GetMapping("/loginForm")
-	public String loginForm(Model model) {
+	@GetMapping("/login")
+	public String loginForm(String error, String logout, Model model) {
+		log.info("error : " + error);
+		log.info("logout : " + logout);
+		
+		if (error != null) {
+			model.addAttribute("error", "로그인 에러. 아이디와 비밀번호를 확인해주세요.");
+		}
+		
+		if (logout != null) {
+			model.addAttribute("logout", "logout!!");
+		}
+		
 		model.addAttribute("display", "/WEB-INF/views/member/login.jsp");
 		return "index";
 	}
@@ -51,9 +52,9 @@ public class MemberController {
 	
 	@RequestMapping("/socialLoginOk")
 	@ResponseBody
-	public String kakaologin(HttpSession httpSession, @RequestParam("member_id") String kakaoId) throws Exception{
-		System.out.println(kakaoId);
-		MemberDTO memberDTO = memberService.kakaologin(kakaoId);
+	public String socialLogin(HttpSession httpSession, @RequestParam("member_id") String socialId) throws Exception{
+		System.out.println(socialId);
+		MemberDTO memberDTO = memberService.socialLogin(socialId);
 		if (memberDTO != null) {
 			httpSession.setAttribute("memberDTO", memberDTO);
 			return "ok";
@@ -64,24 +65,21 @@ public class MemberController {
 	
 	
 	@PostMapping("/loginOK")
-	@ResponseBody
-	public String loginOK(HttpSession httpSession, @RequestParam Map<String, String> map) {
+	public void loginOK(HttpSession httpSession, @RequestParam Map<String, String> map) {
 		
 		System.out.println("login map : " + map);
 		MemberDTO memberDTO = memberService.loginOK(map);
-		if (memberDTO != null) {
-			httpSession.setAttribute("memberDTO", memberDTO);
-			return "ok";
-		} else {
-			return "fail";
-		}
+		/*
+		 * if (memberDTO != null) { System.out.println(memberDTO);
+		 * httpSession.setAttribute("memberDTO", memberDTO); return "ok"; } else {
+		 * return "fail"; }
+		 */
 	}
 	
 	//로그아웃
 	@PostMapping("/logout")
-	@ResponseBody
 	public void logout(HttpSession httpSession) {
-		httpSession.invalidate();
+		log.info("custom logout");
 	}
 	
 	
@@ -96,11 +94,21 @@ public class MemberController {
 	
 	
 	@PostMapping("/join")
-	public void join(@ModelAttribute MemberDTO memberDTO, Model model) {
-		System.out.println("joinMemberDTO : "  + memberDTO);
-		memberDTO.setRank_num(1);
+	public void join(@ModelAttribute MemberDTO memberDTO, @RequestParam String _csrf, Model model) {
+		System.out.println("before joinMemberDTO : "  + memberDTO);
+		System.out.println(_csrf);
+		memberDTO.setMember_pwd(passwordEncoder.encode(memberDTO.getMember_pwd()));
+		System.out.println("after joinMemberDTO : "  + memberDTO);
 		memberService.join(memberDTO);
 		model.addAttribute("display", "/WEB-INF/views/member/join.jsp");
+	}
+	
+	
+	//회원가입
+	@GetMapping("/admin")
+	public String admin(Model model) {
+		model.addAttribute("display", "/WEB-INF/views/member/admin.jsp");
+		return "index";
 	}
 	
 	
@@ -120,7 +128,9 @@ public class MemberController {
 	//회원가입시 아이디 중복체크
 	@PostMapping("/checkId")
 	@ResponseBody
-	public String checkId(String member_id) {
+	public String checkId(@RequestParam Map<String, String> map) {
+		System.out.println("map : " + map);
+		String member_id = map.get("member_id");
 		System.out.println("check member_id : " + member_id);
 		MemberDTO memberDTO = memberService.getMemberDtoByMemberId(member_id);
 		
@@ -183,7 +193,7 @@ public class MemberController {
 			
 			httpSession.setAttribute("memSys", memberDTO.getJoinDate());
 			
-			httpSession.setAttribute("memRank", memberDTO.getRank_num());
+			//httpSession.setAttribute("memRank", memberDTO.getRank_num());
 			return "emailok";
 		} else {
 			return "emailfail";
@@ -201,9 +211,9 @@ public class MemberController {
 			httpSession.setAttribute("memId", memberDTO.getMember_id());
 			httpSession.setAttribute("memName", memberDTO.getMember_name());
 			httpSession.setAttribute("memOption", "휴대폰번호");
-			httpSession.setAttribute("memKeyword", memberDTO.getPhone1() + memberDTO.getPhone2() + memberDTO.getPhone3());
+			httpSession.setAttribute("memKeyword", memberDTO.getAddressDTOList().get(0).getTotalPhone());
 			httpSession.setAttribute("memSys", memberDTO.getJoinDate());
-			httpSession.setAttribute("memRank", memberDTO.getRank_num());
+			//httpSession.setAttribute("memRank", memberDTO.getRank_num());
 			
 			return "phoneok";
 		} else {
@@ -273,8 +283,8 @@ public class MemberController {
 		if (memberDTO != null) {
 			httpSession.setAttribute("memId", memberDTO.getMember_id());
 			httpSession.setAttribute("memName", memberDTO.getMember_name());
-			httpSession.setAttribute("memOption", "Email");
-			httpSession.setAttribute("memKeyword", memberDTO.getPhone1() + memberDTO.getPhone2() + memberDTO.getPhone3());
+			httpSession.setAttribute("memOption", "Phone");
+			httpSession.setAttribute("memKeyword", memberDTO.getAddressDTOList().get(0).getTotalPhone());
 			return "phoneok";
 		} else {
 			return "phonefail";
@@ -285,7 +295,6 @@ public class MemberController {
 	@ResponseBody
 	public void tempPwdByPhone(HttpSession httpSession, @RequestParam String member_id) {
 		System.out.println("tempPwdByPhone : " + member_id);
-		
 		memberService.tempPwdByPhone(httpSession, member_id);
 		
 	}
@@ -317,12 +326,13 @@ public class MemberController {
 	
 	
 	//맴버 등급 정보 가져오기
+	/*
 	@PostMapping("/getRankNum")
 	@ResponseBody
-	public List<MemberRankDTO> getRankNum() {
+	public List<MemberAuthDTO> getRankNum() {
 		return memberService.getRankNum();
 	}
-	
+	*/
 	//관리자모드에서 사용. 멤버 등급 조정
 	
 	@PostMapping("/memberGradeUpdate")
@@ -362,5 +372,9 @@ public class MemberController {
 		return "index";
 	}
 	
+	@GetMapping("/test")
+	public void testRead() {
+		memberService.testRead();
+	}
 	
 }

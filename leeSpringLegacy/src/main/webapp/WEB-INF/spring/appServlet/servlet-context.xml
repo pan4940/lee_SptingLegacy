@@ -16,22 +16,6 @@
 
 	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
 	<resources mapping="/resources/**" location="/resources/" />
-
-	
-	<mybatis-spring:scan base-package="admin.mapper" />
-	<mybatis-spring:scan base-package="board.mapper" />
-	<mybatis-spring:scan base-package="file.mapper" />
-	<mybatis-spring:scan base-package="member.mapper" />
-	<mybatis-spring:scan base-package="product.mapper" />
-	<mybatis-spring:scan base-package="order.mapper" />
-
-	<context:component-scan base-package="admin.*"/>
-	<context:component-scan base-package="board.*"/>
-	<context:component-scan base-package="file.*"/>
-	<context:component-scan base-package="member.*"/>
-	<context:component-scan base-package="product.*"/>
-	<context:component-scan base-package="order.*"/>
-	<context:component-scan base-package="security.*"/>
 	
 	<!-- 파일업로드 관련 -->
 	<beans:bean id="multipartResolver"
@@ -45,7 +29,12 @@
 	</beans:bean>
 	
 	<context:component-scan base-package="com.lee.controller" />
-	
-	
+	<context:component-scan base-package="admin.*"/>
+	<context:component-scan base-package="board.*"/>
+	<context:component-scan base-package="file.*"/>
+	<context:component-scan base-package="member.*"/>
+	<context:component-scan base-package="product.*"/>
+	<context:component-scan base-package="order.*"/>
+	<!-- <context:component-scan base-package="security.*"/> -->
 	
 </beans:beans>

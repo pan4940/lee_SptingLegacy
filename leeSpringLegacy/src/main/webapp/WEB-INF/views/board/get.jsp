@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<%@page import="member.bean.MemberDTO"%>
+
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <head>
 <!-- <meta charset="UTF-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -124,7 +125,7 @@ fieldset #replyer:focus{
 
 <div id="help_main">
 	<div id="QNA">
-	<c:if test="${map.board_category_num eq '1'}">
+		<c:if test="${map.board_category_num eq '1'}">
             <h3 class="board_title">공지</h3>
          </c:if>
          <c:if test="${map.board_category_num eq '2'}">
@@ -246,13 +247,11 @@ fieldset #replyer:focus{
 			
 		</form>
 		
-		<% 
-		MemberDTO memberDTO = (MemberDTO)session.getAttribute("memberDTO");
-		%>
-		<c:if test="<%= memberDTO != null %>">
-			<input id="rank_num" type="hidden" name='rank_num' value="<%= memberDTO.getRank_num()%>">
-			<input id="loginMember_id" type="hidden" name='member_id' value="<%= memberDTO.getMember_id()%>">
-		</c:if>
+		
+		<sec:authorize access="isAuthenticated()">
+			<input id="memberAuthList" type="hidden" name='memberAuthList' value="<sec:authentication property="principal.memberDTO.memberAuthList"/>">
+			<input id="loginMember_id" type="hidden" name='member_id' value="<sec:authentication property="principal.memberDTO.member_id"/>">
+		</sec:authorize>
 	</div>
 </div> <!-- end #help_main -->
 	
@@ -266,10 +265,10 @@ fieldset #replyer:focus{
 
 $(document).ready(function(){
 	let member_id = $("#member_id").val();
-	let rank_num = $("#rank_num").val()
+	let authList = $("#memberAuthList").val()
 	let loginMember_id = $("#loginMember_id").val();
 	console.log(member_id);
-	console.log(rank_num);	
+	console.log(authList);	
 	console.log(loginMember_id);	
 	console.log(loginMember_id == undefined);	
 	

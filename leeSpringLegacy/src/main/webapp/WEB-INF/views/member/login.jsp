@@ -1,27 +1,34 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>    
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 <!-- <script src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js"></script> -->
 <script type="text/javascript" src="/resources/js/login.js"></script>
     
     <div id="loginDiv">
+      <form id="loginForm" action="/member/loginOK" method="post">
       <div id="login">
-        <input id="member_id" style="width: 100%; border: 0px; border-bottom: 2px solid black"
+        <input id="member_id" name="member_id" style="width: 100%; border: 0px; border-bottom: 2px solid black"
           type="text"placeholder="ID" />
         
         <br />
         <input
-          id="member_pwd"  type="password"
+          id="member_pwd" type="password" name="member_pwd"
           style="width: 100%; border: 0px; border-bottom: 2px solid black"
           placeholder="Password"
         />
-        <br />
-        <input id="loginBtn" type="button" value="Login" />
         
         <br />
+        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+	    
+	    <h2><c:out value="${error}"/></h2>
+	    <h2><c:out value="${logout}"/></h2>
+	    
+	    <input id="loginBtn" type="button" value="Login" />
+        <br />
       </div>
-
+	  </form>
       <div id="login2">
         <span>
         	Forgotten 
@@ -41,26 +48,9 @@
         
   		<div id="button_area"> 
   			<div id="naverIdLogin"></div>
-  			<!-- <div id="g_id_onload"
-			     data-client_id="145826599820-dm771pd54v5deur8gcka37n9jepmo95t.apps.googleusercontent.com"
-			     data-login_uri="http://localhost:8080/member/google"
-			     data-auto_prompt="false">
-			</div>
-			<div class="g_id_signin"
-			     data-type="standard"
-			     data-size="large"
-			     data-theme="outline"
-			     data-text="sign_in_with"
-			     data-shape="rectangular"
-			     data-logo_alignment="left">
-			</div> -->
-  			
   			
   			<div id="googleBtn">
 			</div>
-
-
-
 
 			<span>
 				<img id="kakaoLogin" alt="" src="/resources/image/kakao_login_medium_narrow.png">

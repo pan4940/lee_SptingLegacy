@@ -11,7 +11,7 @@ $(function() {
 
 
 $("#second_large span").mouseover(function(event) {
-	$("#third_large").css("display", "flex");
+	$("#third_largen").css("display", "flex");
 	$("#third_large").empty();
 	if (event.currentTarget.innerText == "MEN") {
 		$("<div/>", { class: 'col-3' })
@@ -89,94 +89,7 @@ $("#second_large span").mouseover(function(event) {
 				console.log(err)
 			}
 		}); //end ajax
-	
-	/*} else if (event.currentTarget.innerText == "LIFE STYLE") {
-		$("<div/>", { class: 'col-3' })
-			.append(
-				$("<ul/>")
-					.append(
-						$("<li/>").append($("<a/>", { text: "CRAFT PRACTISE", href: "/list?category=" }))
-					)
-					.append(
-						$("<li/>").append($("<a/>", { text: "CROWCANYON", href: "/list?category=" }))
-					)
-					.append($("<li/>").append($("<a/>", { text: "HELINOX", href: "/list?category=" })))
-					.append(
-						$("<li/>").append($("<a/>", { text: "MAGAZINE B", href: "/list?category=" }))
-					)
-					.append(
-						$("<li/>").append($("<a/>", { text: "NAG CHAMPA", href: "/list?category=" }))
-					)
-					.append(
-						$("<li/>").append(
-							$("<a/>", { text: "NTFU COLLECTABLES", href: "/list?category=" })
-						)
-					)
-					.append(
-						$("<li/>").append($("<a/>", { text: "SALT RAIN", href: "/list?category=" }))
-					)
-					.append(
-						$("<li/>").append($("<a/>", { text: "XENIA TALER", href: "/list?category=" }))
-					)
-			)
-			.appendTo($("#third_large"));
-
-		$("<div/>", { class: 'col-3' })
-			.appendTo($("#third_large"));
-		$("<div/>", { "id": "menuimage5", class: "col-3" })
-			.append($("<a/>").append($("<p/>")).append($("<img/>",{style:'margin-left:10px;height:80%'})))
-			.appendTo($("#third_large"));
-		$("<div/>", { "id": "menuimage6", class: "col-3" })
-			.append($("<a/>").append($("<p/>")).append($("<img/>",{style:'margin-left:10px;height:80%'})))
-			.appendTo($("#third_large"));
-	} else if (event.currentTarget.innerText == "SALE") {
-		$("<div/>", { class: 'col-3' })
-			.append(
-				$("<ul/>")
-					.append(
-						$("<li/>").append(
-							$("<a/>", { text: "ALL SALE", href: "/list?category=" }).append(
-								$("<span/>", {
-									text: "UP TO 70%",
-									style: "color:red;font-size:12px;margin-left:5px",
-								})
-							)
-						)
-					)
-					.append($("<li/>").append($("<p/>")))
-					.append(
-						$("<li/>").append($("<a/>", { text: "BROWNYARD", href: "/list?category=" }))
-					)
-					.append(
-						$("<li/>").append($("<a/>", { text: "CARHARTT WIP", href: "/list?category=" }))
-					)
-					.append($("<li/>").append($("<a/>", { text: "DEUS", href: "/list?category=" })))
-					.append($("<li/>").append($("<a/>", { text: "GRAMICCI", href: "/list?category=" })))
-					.append($("<li/>").append($("<a/>", { text: "LMC", href: "/list?category=" })))
-					.append($("<li/>").append($("<a/>", { text: "MISCHIEF", href: "/list?category=" })))
-					.append($("<li/>").append($("<a/>", { text: "OBEY", href: "/list?category=" })))
-					.append($("<li/>").append($("<a/>", { text: "POLAR", href: "/list?category=" })))
-					.append(
-						$("<li/>").append($("<a/>", { text: "THISISNEVERTHAT", href: "/list?category=" }))
-					)
-					.append(
-						$("<li/>").append($("<a/>", { text: "UNAFFECTED", href: "/list?category=" }))
-					)
-					.append(
-						$("<li/>").append($("<a/>", { text: "WHIDTHINGS", href: "/list?category=" }))
-					)
-			)
-			.appendTo($("#third_large"));
-
-		$("<div/>", { class: 'col-3' })
-			.appendTo($("#third_large"));
-		$("<div/>", { "id": "menuimage7", class: "col-3" })
-			.append($("<a/>").append($("<p/>")).append($("<img/>",{style:'margin-left:10px;height:80%'})))
-			.appendTo($("#third_large"));
-		$("<div/>", { "id": "menuimage8", class: "col-3" })
-			.append($("<a/>").append($("<p/>")).append($("<img/>",{style:'margin-left:10px;height:80%'})))
-			.appendTo($("#third_large"));*/
-	
+			
 	
 	} else if (event.currentTarget.innerText == "BRANDS") {
 		$("<div/>", { class: 'col-3', id:'navBrands'}).append($("<ul/>")).appendTo($("#third_large"));
@@ -244,20 +157,6 @@ $("#second_large span").mouseover(function(event) {
 		event.currentTarget.setAttribute("style", "color:black");
 	});
 	
-	/*$.ajax({
-		type: 'post',
-		url: '/getNavImg',
-		success: function(data) {
-			$.each(data,function(index,item){
-				if($('#'+item.menu).length!=0){
-					$('#'+item.menu+' img').attr('src','/storage/menu/'+item.stored_thumbnail);
-				}
-			})
-		},
-		error: function(err) {
-			console.log(err)
-		}
-	});*/
 });
 
 $("nav").mouseleave(function() {
@@ -305,7 +204,9 @@ $('.logoutBtn').click(function() {
 	kakaoLogout();
     naverLogin.logout();
 	
-	$.ajax({
+	$("#logoutForm").submit();
+	
+	/*$.ajax({
 		type: 'post',
 		url: '/member/logout',
 		success: function() {
@@ -323,7 +224,7 @@ $('.logoutBtn').click(function() {
 		error: function(err) {
 			alert(err);
 		}
-	});
+	});*/
 });
 
 $('input[id="keyword"]').keydown(function(event) {

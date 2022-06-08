@@ -317,9 +317,10 @@ public class BoardController {
 		int board_num = Integer.parseInt(map.get("board_num"));
 		BoardDTO boardDTO = boardService.get(board_num);
 		System.out.println("boardDTO : " + boardDTO);
-		System.out.println("rank_num : " + memberDTO.getRank_num());
+		//System.out.println("rank_num : " + memberDTO.getRank_num());
 		System.out.println("member_id : " + memberDTO.getMember_id());
-		if (memberDTO.getRank_num() == 3 || boardDTO.getMember_id().equals(member_id)) {
+		if (board_num == 1) {
+			//memberDTO.getRank_num() == 3 || boardDTO.getMember_id().equals(member_id)
 			System.out.println("관리자 혹은 글작성자");
 			model.addAttribute("map", map);
 			get(map, model);

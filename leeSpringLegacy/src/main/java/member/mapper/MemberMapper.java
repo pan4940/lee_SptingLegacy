@@ -3,12 +3,11 @@ package member.mapper;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.ibatis.annotations.Mapper;
 
+import member.bean.MemberAddressDTO;
+import member.bean.MemberAuthDTO;
 import member.bean.MemberDTO;
-import member.bean.MemberRankDTO;
 
-@Mapper
 public interface MemberMapper {
 
 	public MemberDTO getMemberDtoByMemberId(String member_id);
@@ -33,11 +32,16 @@ public interface MemberMapper {
 
 	public List<MemberDTO> getMember(Map<String, String> map);
 
-	public List<MemberRankDTO> getRankNum();
-
 	public void memberGradeUpdate(Map<String, String> map);
 
-	public MemberDTO kakaologin(String kakaoId);
+	public MemberDTO socialLogin(String kakaoId);
 
+	public void authRegister(MemberAuthDTO memberAuthDTO);
+
+	public void insertAddress(MemberAddressDTO memberAddressDTO);
+
+	public MemberDTO testRead(String member_id);
+
+	
 
 }

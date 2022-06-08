@@ -8,6 +8,7 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -25,13 +26,15 @@ import javax.servlet.http.HttpSession;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
+import member.bean.MemberAddressDTO;
+import member.bean.MemberAuthDTO;
 import member.bean.MemberDTO;
-import member.bean.MemberRankDTO;
 import member.controller.MyAuthentication;
 import member.mapper.MemberMapper;
 import net.nurigo.java_sdk.api.Message;
@@ -54,22 +57,25 @@ public class MemberServiceImpl implements MemberService {
 	}
 	
 	@Override
+	@Transactional(rollbackFor = {Exception.class})
 	public void join(MemberDTO memberDTO) {
 		memberMapper.join(memberDTO);
+		//주소 등록
+		List<MemberAddressDTO> addressDTOs = memberDTO.getAddressDTOList();
+		memberMapper.insertAddress(addressDTOs.get(0));
+		
+		//auth 관련 등록
+		List<MemberAuthDTO> list = new ArrayList<>();
+		list.add(0, new MemberAuthDTO(memberDTO.getMember_id(), "ROLE_MEMBER"));
+		for (MemberAuthDTO memberAuthDTO : list) {
+			memberMapper.authRegister(memberAuthDTO);
+		}
 	}
 	
 	@Override
 	public void socialJoin(MemberDTO memberDTO) {
 		System.out.println("input joinMemberDTO : "  + memberDTO);
-		memberDTO.setZipcode(0);
-		memberDTO.setAddr1("");
-		memberDTO.setAddr2("");
-		memberDTO.setTel1("");
-		memberDTO.setTel2("");
-		memberDTO.setTel3("");
-		memberDTO.setPhone1("");
-		memberDTO.setPhone2("");
-		memberDTO.setPhone3("");
+		
 		memberDTO.setEmail_check("1");
 		memberDTO.setMileage(2000);
 		System.out.println("output joinMemberDTO : "  + memberDTO);
@@ -122,7 +128,6 @@ public class MemberServiceImpl implements MemberService {
 		}
 		// 비밀번호 변경
 		memberDTO.setMember_pwd(pw);
-		memberDTO.setRank_num(4);
 		//비밀번호 + 회원 등급 변경 
 		updatePwdAndRank(memberDTO);
 		// 비밀번호 변경 메일 발송
@@ -182,7 +187,7 @@ public class MemberServiceImpl implements MemberService {
         for (int i = 0; i < 12; i++) {
 			numStr += (char) ((Math.random() * 26) + 97);
 		}
-        System.out.println("수신자 번호 : " + memberDTO.getPhone1() + memberDTO.getPhone2() + memberDTO.getPhone3());
+        System.out.println("수신자 번호 : " + memberDTO.getAddressDTOList().get(0).getTotalPhone());
         System.out.println("인증번호 : " + numStr);
         String api_key = "NCSONFLLAZ74EJQU";
     	String api_secret = "59MPAP18UQNTCN8KLHYVTSJKSZLXI8XI";
@@ -191,14 +196,13 @@ public class MemberServiceImpl implements MemberService {
     	// 4 params(to, from, type, text) are mandatory. must be filled
     	HashMap<String, String> params = new HashMap<String, String>();
     	System.out.println("findMemberByID memberDTO : " + memberDTO);
-    	params.put("to", memberDTO.getPhone1() + memberDTO.getPhone2() + memberDTO.getPhone3()); // 수신전화번호
+    	params.put("to", memberDTO.getAddressDTOList().get(0).getTotalPhone()); // 수신전화번호
     	params.put("from", "01091073930"); // 발신전화번호. 테스트시에는 발신,수신 둘다 본인 번호로 하면 됨
     	params.put("type", "SMS");
     	params.put("text", "the C shop : 임시 비밀번호는" + "[" + numStr + "]" + "입니다.");
     	params.put("app_version", "test app 1.2"); // application name and version
 
 		memberDTO.setMember_pwd(numStr);
-		memberDTO.setRank_num(4);
 		updatePwdAndRank(memberDTO);
     	try {
     		JSONObject obj = (JSONObject) coolsms.send(params);
@@ -214,12 +218,6 @@ public class MemberServiceImpl implements MemberService {
 		return memberMapper.getMember(map);
 	}
 	
-	@Override
-	public List<MemberRankDTO> getRankNum() {
-		return memberMapper.getRankNum();
-	}
-	
-	
 	
 	@Override
 	public void memberGradeUpdate(Map<String, String> map) {
@@ -227,9 +225,13 @@ public class MemberServiceImpl implements MemberService {
 	}
 	
 	@Override
-	public MemberDTO kakaologin(String kakaoId) {
-		return memberMapper.kakaologin(kakaoId);
+	public MemberDTO socialLogin(String socialId) {
+		return memberMapper.socialLogin(socialId);
 	}
 	
-	
+	@Override
+	public void testRead() {
+		MemberDTO memberDTO = memberMapper.testRead("dldltjdgus");
+		System.out.println(memberDTO);
+	}
 }

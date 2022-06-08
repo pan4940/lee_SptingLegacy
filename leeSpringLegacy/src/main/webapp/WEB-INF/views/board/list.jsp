@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<%@page import="member.bean.MemberDTO"%>
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <head>
 <meta charset="UTF-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -14,9 +14,6 @@
 <title>list</title>
 </head>
 
-<% 
-MemberDTO memberDTO = (MemberDTO)session.getAttribute("memberDTO");
-%>
 
 <body>
 <style>
@@ -154,9 +151,9 @@ ul {
 				</div>
 				
 					
-				<c:if test="<%= memberDTO != null %>">
+				<sec:authorize access="isAuthenticated()">
 					<a id="moveWriteForm" href='/board/write?board_category_num=<c:out value="${board_category_num}"/>&pageNum=<c:out value="${pageDTO.criteria.pageNum}"/>&amount=<c:out value="${pageDTO.criteria.amount}"/>'>Write</a>
-				</c:if>	
+				</sec:authorize>	
 					
 				
 				<div class='pull-right'>
@@ -187,10 +184,10 @@ ul {
 					<input type='hidden' name='pageNum' value='${pageDTO.criteria.pageNum}'>
 					<input type='hidden' name='amount' value='${pageDTO.criteria.amount}'>
 					
-					<c:if test="<%= memberDTO != null %>">
-						<input id="rank_num" type="hidden" name='rank_num' value="<%= memberDTO.getRank_num()%>">
-						<input id="member_id" type="hidden" name='member_id' value="<%= memberDTO.getMember_id()%>">
-					</c:if>
+					<sec:authorize access="isAuthenticated()">
+						<input id="memberAuthList" type="hidden" name='memberAuthList' value="<sec:authentication property="principal.memberDTO.memberAuthList"/>">
+						<input id="loginMember_id" type="hidden" name='member_id' value="<sec:authentication property="principal.memberDTO.member_id"/>">
+					</sec:authorize>
 				</form>
 			</div>
 

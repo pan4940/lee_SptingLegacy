@@ -3,8 +3,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
+
 <mapper namespace="board.mapper.BoardMapper">
-	 
+	
+		 
     <select id="getBoardList" parameterType="int" resultType="BoardDTO">
 		select * from board where board_category_num = #{board_category_num}
     </select>

@@ -16,7 +16,6 @@
 	
 	
 	<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
-		
 		<property name="driverClassName"
 			value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy"></property>
 		<property name="jdbcUrl"
@@ -24,6 +23,7 @@
 		<property name="username" value="thec"></property>
 		<property name="password" value="thec"></property>
 	</bean>	
+	
 	
 	<!-- HikariCP configuration -->
 	<bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource"
@@ -37,7 +37,13 @@
 		<property name="configLocation" value="classpath:mybatis-config.xml"></property>
 	</bean>
 	
-	
+	<mybatis-spring:scan base-package="admin.mapper" />
+	<mybatis-spring:scan base-package="board.mapper" />
+	<mybatis-spring:scan base-package="file.mapper" />
+	<mybatis-spring:scan base-package="member.mapper" />
+	<mybatis-spring:scan base-package="product.mapper" />
+	<mybatis-spring:scan base-package="order.mapper" />
+
 	
 	<aop:aspectj-autoproxy></aop:aspectj-autoproxy>
 	<tx:annotation-driven/>

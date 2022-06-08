@@ -28,6 +28,5 @@ public class BoardDTO {
 	private int reply;
 	private String pwd;
 	private String product_num;
-	
 	private List<FileDTO> fileList;
 }

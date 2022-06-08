@@ -7,7 +7,6 @@ import java.util.Map;
 import javax.servlet.http.HttpSession;
 
 import member.bean.MemberDTO;
-import member.bean.MemberRankDTO;
 
 public interface MemberService {
 	
@@ -40,13 +39,13 @@ public interface MemberService {
 
 	public List<MemberDTO> getMember(Map<String, String> map);
 
-	public List<MemberRankDTO> getRankNum();
-
 	public void memberGradeUpdate(Map<String, String> map);
 
-	public MemberDTO kakaologin(String kakaoId);
+	public MemberDTO socialLogin(String kakaoId);
 
 	public void socialJoin(MemberDTO memberDTO);
+
+	public void testRead();
 
 
 }

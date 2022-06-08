@@ -4,16 +4,77 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="member.mapper.MemberMapper">
-	<select id="getMemberDtoByMemberId" parameterType="String" resultType="MemberDTO">
+	
+	<resultMap type="member.bean.MemberDTO" id="memberMap">
+		<id property="member_id" column="member_id"/>
+		<result property="member_pwd" column="member_pwd"/>
+		<result property="member_name" column="member_name"/>
+		<result property="email" column="email"/>
+		<result property="email_check" column="email_check"/>
+		<result property="joinDate" column="joinDate"/>
+		<result property="updateDate" column="updateDate"/>
+		<result property="mileage" column="mileage"/>
+		<collection property="addressDTOList" resultMap="addressMap"/>
+		<collection property="memberAuthList" resultMap="memberAuthMap"/>
+	</resultMap>
+	
+	<resultMap type="member.bean.MemberAddressDTO" id="addressMap">
+		<result property="member_id" column="member_id"/>
+		<result property="zipcode" column="zipcode"/>
+		<result property="addr1" column="addr1"/>
+		<result property="addr2" column="addr2"/>
+		<result property="tel1" column="tel1"/>
+		<result property="tel2" column="tel2"/>
+		<result property="tel3" column="tel3"/>
+		<result property="phone1" column="phone1"/>
+		<result property="phone2" column="phone2"/>
+		<result property="phone3" column="phone3"/>
+		<result property="order" column="order"/>
+	</resultMap>
+	
+	<resultMap type="member.bean.MemberAuthDTO" id="memberAuthMap">
+		<result property="member_id" column="member_id"/>
+		<result property="authority" column="auth"/>
+	</resultMap>
+	
+	
+	
+	<select id="testRead" resultMap="memberMap">
+		select 
+    		m.*, ma.addr1, ma.addr2, ma.zipcode, ma.tel1, ma.tel2, ma.tel3, ma.phone1, ma.phone2, ma.phone3, A.auth 
+    	from 
+    		MEMBER m LEFT OUTER JOIN MEMBER_AUTH a 
+       			ON m.member_id = a.member_id  
+        			 LEFT OUTER JOIN MEMBER_ADDRESS ma
+         		ON m.member_id = ma.member_id
+       where m.member_id = #{username}
+	</select>
+	
+	<!-- <select id="getMemberDtoByMemberId" parameterType="String" resultType="MemberDTO">
 		select * from member where member_id = #{member_id}
 	</select>	
 	
 	<select id="loginOK" parameterType="java.util.Map" resultType="MemberDTO">
 		select * from member where member_id = #{member_id} and member_pwd = #{member_pwd}
+	</select> -->
+	
+	<select id="getMemberDtoByMemberId" parameterType="String" resultType="MemberDTO">
+		select * from member where member_id = #{member_id}
 	</select>	
 	
-	<select id="kakaologin" parameterType="MemberDTO" resultType="MemberDTO">
-		select * from member where member_id = #{member_id} and member_pwd = #{member_pwd}
+	<select id="loginOK" parameterType="java.util.Map" resultMap="memberMap">
+		select 
+    		m.*, ma.addr1, ma.addr2, ma.zipcode, ma.tel1, ma.tel2, ma.tel3, ma.phone1, ma.phone2, ma.phone3, A.auth 
+    	from 
+    		MEMBER m LEFT OUTER JOIN MEMBER_AUTH a 
+       			ON m.member_id = a.member_id  
+        			 LEFT OUTER JOIN MEMBER_ADDRESS ma
+         		ON m.member_id = ma.member_id
+		where m.member_id = #{username}
+	</select>	
+	
+	<select id="socialLogin" parameterType="MemberDTO" resultType="MemberDTO">
+		select * from member where member_id = #{member_id}
 	</select>	
 	
 	<select id="findMemberByID" parameterType="String" resultType="MemberDTO">
@@ -29,7 +90,6 @@
 	</select>
 	
 	
-	
 	<select id="findPwdByEmail" parameterType="java.util.Map" resultType="MemberDTO">
 		select * from member where member_name = #{member_name} and member_id = #{member_id} and email = #{email}
 	</select>
@@ -39,16 +99,45 @@
 	</select>
 	
 	<insert id="join" parameterType="MemberDTO">
+		
 		insert into member(
-			member_id, member_pwd, member_name, zipcode,
-			addr1, addr2, tel1, tel2, tel3,
-			phone1, phone2, phone3, email, email_check
+			member_id, member_pwd, member_name, email, email_check
 		) values (
-			#{member_id}, #{member_pwd}, #{member_name}, #{zipcode},
-			#{addr1}, #{addr2}, #{tel1}, #{tel2}, #{tel3},
-			#{phone1}, #{phone2}, #{phone3}, #{email}, #{email_check}
+			#{member_id}, #{member_pwd}, #{member_name}, #{email}, #{email_check}
 		)
 	</insert>
+	
+	<insert id="authRegister" parameterType="MemberAuthDTO">
+		insert into MEMBER_AUTH(MEMBER_ID, AUTH) values (#{member_id}, #{authority})
+	</insert>
+	
+	<insert id="insertAddress" parameterType="MemberAddressDTO">
+		insert into MEMBER_ADDRESS(
+			MEMBER_ID, 
+			ZIPCODE, 
+			ADDR1, 
+			ADDR2, 
+			TEL1, 
+			TEL2, 
+			TEL3, 
+			PHONE1, 
+			PHONE2, 
+			PHONE3
+		) values (
+			#{member_id}, 
+			#{zipcode},
+			#{addr1},
+			#{addr2},
+			#{tel1},
+			#{tel2},
+			#{tel3},
+			#{phone1},
+			#{phone2},
+			#{phone3}
+		)
+	</insert>
+		
+	
 	
 	<update id="modifyOK" parameterType="MemberDTO">
 		update member set 
@@ -77,11 +166,6 @@
 		<if test="member_id != '' and member_name == ''">
 			select * from member where member_id LIKE '%'||#{member_id}||'%'	
 		</if>
-	</select>
-	
-	
-	<select id="getRankNum" resultType="MemberRankDTO">
-		select * from MEMBER_RANK
 	</select>
 	
 	
