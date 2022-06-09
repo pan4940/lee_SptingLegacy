@@ -65,10 +65,9 @@ public class MemberController {
 	
 	
 	@PostMapping("/loginOK")
-	public void loginOK(HttpSession httpSession, @RequestParam Map<String, String> map) {
+	public void loginOK(@RequestParam Map<String, String> map) {
 		
 		System.out.println("login map : " + map);
-		MemberDTO memberDTO = memberService.loginOK(map);
 		/*
 		 * if (memberDTO != null) { System.out.println(memberDTO);
 		 * httpSession.setAttribute("memberDTO", memberDTO); return "ok"; } else {

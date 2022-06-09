@@ -14,7 +14,7 @@ public interface BoardService {
 
 	public List<BoardDTO> getListWithPaging(Map<String, String> map);
 
-	public void write(BoardDTO boardDTO);
+	public void writePOST(BoardDTO boardDTO);
 
 	public BoardDTO get(int board_num);
 

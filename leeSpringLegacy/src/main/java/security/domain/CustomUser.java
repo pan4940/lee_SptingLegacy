@@ -8,13 +8,15 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import member.bean.MemberDTO;
 
 @Getter
 public class CustomUser extends User{
 	
 	private MemberDTO memberDTO;
-
+	
+	
 	public CustomUser(String username, String password, Collection<? extends GrantedAuthority> authorities) {
 		super(username, password, authorities);
 	}

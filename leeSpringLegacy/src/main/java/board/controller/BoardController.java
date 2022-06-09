@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.security.Principal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,18 +12,17 @@ import java.util.Map;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import board.bean.BoardDTO;
@@ -32,6 +32,7 @@ import board.service.BoardService;
 import file.bean.FileDTO;
 import lombok.extern.log4j.Log4j;
 import member.bean.MemberDTO;
+import security.domain.CustomUser;
 
 
 
@@ -101,7 +102,7 @@ public class BoardController {
 		
 		System.out.println("/write map : " + map);
 		
-		boardDTO.setPwd("11");
+		//boardDTO.setPwd("11");
 		System.out.println("boardDTO : " + boardDTO);
 		
 		int board_category_num = Integer.parseInt(map.get("board_category_num")); 
@@ -110,7 +111,7 @@ public class BoardController {
 			List<FileDTO> list = boardDTO.getFileList();
 			System.out.println("fileDTO list : " + list);
 			
-			boardService.write(boardDTO);
+			boardService.writePOST(boardDTO);
 			redirectAttributes.addAttribute("board_category_num", map.get("board_category_num"));
 			return "redirect:/board/list";
 		}
@@ -118,7 +119,6 @@ public class BoardController {
 		boardService.writeSelectKey(boardDTO);
 		redirectAttributes.addAttribute("board_category_num", map.get("board_category_num"));
 		redirectAttributes.addAttribute("pageNum", "1");
-		redirectAttributes.addAttribute("amount", map.get("amount"));
 		redirectAttributes.addAttribute("amount", map.get("amount"));
 		
 		redirectAttributes.addAttribute("display", "/WEB-INF/views/board/list.jsp");
@@ -304,22 +304,22 @@ public class BoardController {
 	
 	
 	@GetMapping("/secret")
-	public String secret(HttpSession httpSession, @RequestParam Map<String, String> map, Model model) {
+	public String secret(@AuthenticationPrincipal CustomUser customUser, @RequestParam Map<String, String> map, Model model) {
+		
 		System.out.println("secret: " + map);
+		System.out.println("principal: " + customUser);
 		
-		MemberDTO notLogin = new MemberDTO();
-		MemberDTO memberDTO = (MemberDTO) httpSession.getAttribute("memberDTO") != null? 
-								(MemberDTO) httpSession.getAttribute("memberDTO"):notLogin;
-		System.out.println("login member : " + memberDTO);
+		System.out.println("login member : " + map);
 		
-		String member_id = memberDTO.getMember_id() != null? memberDTO.getMember_id() : "";
+		String member_id = map.get("member_id") != null? map.get("member_id") : "";
 		
 		int board_num = Integer.parseInt(map.get("board_num"));
 		BoardDTO boardDTO = boardService.get(board_num);
 		System.out.println("boardDTO : " + boardDTO);
-		//System.out.println("rank_num : " + memberDTO.getRank_num());
-		System.out.println("member_id : " + memberDTO.getMember_id());
-		if (board_num == 1) {
+		
+		System.out.println("member_id : " + member_id);
+		
+		if (customUser.getUsername() == boardDTO.getMember_id()) {
 			//memberDTO.getRank_num() == 3 || boardDTO.getMember_id().equals(member_id)
 			System.out.println("관리자 혹은 글작성자");
 			model.addAttribute("map", map);

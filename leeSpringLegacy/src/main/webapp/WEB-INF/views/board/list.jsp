@@ -150,7 +150,6 @@ ul {
 					</c:forEach>
 				</div>
 				
-					
 				<sec:authorize access="isAuthenticated()">
 					<a id="moveWriteForm" href='/board/write?board_category_num=<c:out value="${board_category_num}"/>&pageNum=<c:out value="${pageDTO.criteria.pageNum}"/>&amount=<c:out value="${pageDTO.criteria.amount}"/>'>Write</a>
 				</sec:authorize>	
@@ -199,24 +198,8 @@ ul {
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 <script type="text/javascript">
 $(document).ready(function(){
-	//로그인 안할 시에는 undifined...
-	let member_id = $("#member_id").val();
-	let rank_num = $("#rank_num").val();
-	
-	console.log(member_id);
-	console.log(rank_num);	
-		
 	
 	let actionForm = $("#actionForm");
-	
-	if(member_id != null || rank_num == 3){
-		console.log("로그인함");
-		console.log(rank_num);	
-		console.log(member_id);
-	} else {
-		
-	} 
-	
 	
 	
 	$(".paginate_button a").on("click", function(e){
@@ -225,12 +208,6 @@ $(document).ready(function(){
 		actionForm.find("input[name='pageNum']").val($(this).attr("href"));
 		actionForm.submit();
 	});
-	
-	
-	
-	
-		
-	
 	
 });
 </script>

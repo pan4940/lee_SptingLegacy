@@ -1,7 +1,9 @@
 <%@page import="member.bean.MemberDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>    
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
+    
 <!DOCTYPE html>
 <html>
 <head>
@@ -45,17 +47,13 @@ div {
    
 </style>
 
-<% 
-MemberDTO memberDTO = (MemberDTO)session.getAttribute("memberDTO");
-%>
 
 <body>
 	
-	<c:if test="<%= memberDTO != null %>">
-		
-		<input id="rank_num" type="hidden" name='rank_num' value="<%= memberDTO.getRank_num()%>">
-		<input id="member_id" type="hidden" name='member_id' value="<%= memberDTO.getMember_id()%>">
-	</c:if>
+	<sec:authorize access="isAuthenticated()">
+		<input id="memberAuthList" type="hidden" name='memberAuthList' value="<sec:authentication property="principal.memberDTO.memberAuthList"/>">
+		<input id="loginMember_id" type="hidden" name='member_id' value="<sec:authentication property="principal.memberDTO.member_id"/>">
+	</sec:authorize>
 	<div class="xans-element- xans-product xans-product-detail collection-single-wrap ">
 		<div class="single-top">
 			<input type="hidden" value="${map}">
@@ -97,13 +95,13 @@ MemberDTO memberDTO = (MemberDTO)session.getAttribute("memberDTO");
 	</div>
 	
 	
-	<c:if test="<%= memberDTO != null %>">
+	<sec:authorize access="isAuthenticated()">
 		<form id="postForm" action="" >
 			<input type="hidden" name="board_category_num" value="${boardDTO.board_category_num}">
 			<input type="hidden" name="board_num" value="${boardDTO.board_num}">
 			<input type="hidden" name="member_id" value="${boardDTO.member_id}">	
 		</form>
-	</c:if>
+	</sec:authorize>
 	<button id="modifyBtn">수정</button>
 	<button id="deleteBtn">삭제</button>
 	
@@ -112,11 +110,11 @@ MemberDTO memberDTO = (MemberDTO)session.getAttribute("memberDTO");
 <script type="text/javascript">
 
 $(document).ready(function(){
-	let member_id = $("#member_id").val();
-	let rank_num = $("#rank_num").val();
+	let member_id = $("#loginMember_id").val();
+	let rank = $("#memberAuthList").val();
 	
 	console.log(member_id);
-	console.log(rank_num);	
+	console.log(rank);	
 	
 	if(rank_num == 3){
 		$("#modifyBtn").show();

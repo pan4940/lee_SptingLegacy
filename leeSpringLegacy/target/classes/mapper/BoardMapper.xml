@@ -100,7 +100,7 @@
 	        #{member_name},
 	        #{subject},
 	        #{content},
-	        seq_board.currval,
+	        #{board_num},
 	        #{board_category_num},
 	        #{pwd},
 	        #{product_num}

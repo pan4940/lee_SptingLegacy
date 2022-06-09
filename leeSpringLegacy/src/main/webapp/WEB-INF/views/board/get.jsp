@@ -172,14 +172,18 @@ fieldset #replyer:focus{
 			</form>
 			
 		<div class="button-box ">
-			<button id='boardReplyBtn'>REPLY</button>
-			<button id='boardEditBtn'>EDIT</button>
-			<button id='boardDeleteBtn'>DELETE</button>
+			<c:if test="<sec:authentication property='principal.memberDTO.member_id'/> == ${boardDTO.member_id}">
+			
+				<button id='boardReplyBtn'>REPLY</button>
+				<button id='boardEditBtn'>EDIT</button>
+				<button id='boardDeleteBtn'>DELETE</button>
+			</c:if>
 			<button id='listBtn'>BACK TO LIST</button>
 		</div>
 		<div class="clearfix"></div>
 		
 		<!-- 리플부분 -->
+		<sec:authorize access="isAuthenticated()">
 		<div class="reply">
 			<form id="replyForm" action="" method="post">
 				<input id="board_num" name="board_num" type="hidden" value="${map.board_num}">
@@ -208,7 +212,7 @@ fieldset #replyer:focus{
 				</div>
 			</form>
 		</div>
-		
+		</sec:authorize>
 		
 		<div id="replyList">
 			<ul class="boardComment">
@@ -249,7 +253,6 @@ fieldset #replyer:focus{
 		
 		
 		<sec:authorize access="isAuthenticated()">
-			<input id="memberAuthList" type="hidden" name='memberAuthList' value="<sec:authentication property="principal.memberDTO.memberAuthList"/>">
 			<input id="loginMember_id" type="hidden" name='member_id' value="<sec:authentication property="principal.memberDTO.member_id"/>">
 		</sec:authorize>
 	</div>
@@ -265,7 +268,6 @@ fieldset #replyer:focus{
 
 $(document).ready(function(){
 	let member_id = $("#member_id").val();
-	let authList = $("#memberAuthList").val()
 	let loginMember_id = $("#loginMember_id").val();
 	console.log(member_id);
 	console.log(authList);	
@@ -274,16 +276,11 @@ $(document).ready(function(){
 	
 	showList();
 	
-	if(loginMember_id == undefined){
-		$("#boardReplyBtn").hide();
-		$("#boardEditBtn").hide();
-		$("#boardDeleteBtn").hide();
-		$(".reply").hide();
-	} else if (rank_num == 3 || member_id === loginMember_id){
+	if(member_id === loginMember_id){
 		$("#boardReplyBtn").show();
 		$("#boardEditBtn").show();
 		$("#boardDeleteBtn").show();
-	}
+	} 
 	
 	
 	
@@ -367,22 +364,7 @@ function showList(){
 					str += 	"</li>";
 				});
 			}
-			/* $.each(result, function(index, items){
-				str += "<li class='row"+items.reply_num+"'>";
-					str += "<div class='commentTop'>"
-						str += "<strong class='name'>" + items.replyer + "</strong>";
-						str += "<span class='date'>" + items.replyDate + "</span>";
-					str += "</div>"; 	
-					str += "<span class='comment-list-button'>";
-						str += "<a id='replyEditForm' class='button-text-small' onclick='javascript:viewReplyUpdateForm(" + "\""+items.board_num + "\""+ ", " + "\""+ items.reply_num + "\""+ ")'>EDIT</a>";
-						str += "<a id='replyDelete' class='button-text-small' onclick='javascript:deleteReply("+ "\"" +items.reply_num + "\""+")'>DELETE</a>";
-					str += "</span>";
-					str += "<div class='comment'>";
-						str += "<span class='comment_contents'>" + items.content + "</span>";
-					str += "</div>"
-				str += 	"</li>";
-		
-			}); //end each */
+			
 			
 			$(".boardComment").html(str);
 			

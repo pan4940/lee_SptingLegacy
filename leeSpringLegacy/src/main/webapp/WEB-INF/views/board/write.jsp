@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<%@page import="member.bean.MemberDTO"%>
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <head>
 <meta charset="UTF-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -130,11 +130,7 @@ margin-left:38px;
 
 </style>
 
-<% 
-MemberDTO memberDTO = (MemberDTO)session.getAttribute("memberDTO");
-%>
-   <%-- <jsp:include page="/component/nav.jsp" /> --%>
-   <div id="empty"></div>
+ <div id="empty"></div>
    <div id="help_main">
       <div id="QNA">
          <c:if test="${map.board_category_num eq '1'}">
@@ -163,9 +159,8 @@ MemberDTO memberDTO = (MemberDTO)session.getAttribute("memberDTO");
          <c:choose>
             <c:when test="${map.board_category_num eq '7'}">
                <form id="boardWriteForm" action="/board/write" method="post">
-                  <input type="hidden" name="member_id" value="<%= memberDTO.getMember_id() %>">
-	              <input type="hidden" name="member_name" value="<%= memberDTO.getMember_name() %>">
-                  <input type="hidden" name="rank_num" value="<%= memberDTO.getRank_num() %>">
+                  <input type="hidden" name="member_id" value="<sec:authentication property="principal.memberDTO.member_id"/>">
+	              <input type="hidden" name="member_name" value="<sec:authentication property="principal.memberDTO.member_name"/>">
                   <input type="hidden" name="board_category_num" value="${map.board_category_num}"> 
                   <div>
                      <ul class="form-submit-board">
@@ -202,7 +197,7 @@ MemberDTO memberDTO = (MemberDTO)session.getAttribute("memberDTO");
                      
                      <div class="buttonbox">
                         <span class="">
-                           <a class="backBtn" onClick="location.href='/board/list?board_category_num=7'">BACK TO LIST</a>
+                           <a class="backBtn" onClick="location.href='/board/list?board_category_num=${map.board_category_num}'">BACK TO LIST</a>
                         </span>    
                            
                         <span>
@@ -219,9 +214,10 @@ MemberDTO memberDTO = (MemberDTO)session.getAttribute("memberDTO");
                
                <form id="boardWriteForm" action="/board/write" method="post">
 		
-                  <input type="hidden" name="board_category_num" value="4"> 
+                  <input type="hidden" name="board_category_num" value="${map.board_category_num}"> 
                   <input type="hidden" name="pageNum" value="${map.pageNum}"> 
                   <input type="hidden" name="amount" value="${map.amount}">
+                  <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
                   <div>
                      <ul class="form-submit-board">
                         <li>
@@ -229,8 +225,8 @@ MemberDTO memberDTO = (MemberDTO)session.getAttribute("memberDTO");
                               <input type="text" id="subject" name="subject" value="">
                            <span class="label-box"></span>
                         </li>
-	                    <input type="hidden" name="member_id" value="<%= memberDTO.getMember_id() %>">
-	                    <input type="hidden" name="member_name" value="<%= memberDTO.getMember_name() %>">
+	                    <input type="hidden" name="member_id" value="<sec:authentication property="principal.memberDTO.member_id"/>">
+	                    <input type="hidden" name="member_name" value="<sec:authentication property="principal.memberDTO.member_name"/>">
                         
                         <li>
                         	<label>Content</label>
@@ -240,7 +236,7 @@ MemberDTO memberDTO = (MemberDTO)session.getAttribute("memberDTO");
                             </div>
                             <div>
                            		<label>Password</label><br>
-                           		<input type="text" name="pwd" style="width: 15%; border: 0px; border-bottom: 1px solid gray">
+                           		<input type="password" name="pwd" style="width: 15%; border: 0px; border-bottom: 1px solid gray" value="<sec:authentication property="principal.memberDTO.member_pwd"/>">
                             </div>
                            
                             <div>
@@ -270,10 +266,12 @@ MemberDTO memberDTO = (MemberDTO)session.getAttribute("memberDTO");
             <c:otherwise>
                <!-- QNA 작성 -->
                <form id="boardWriteForm" action="/board/write" method="post">
-
+					
                   <input type="hidden" name="board_category_num" value="${map.board_category_num}"> 
                   <input type="hidden" name="pageNum" value="${map.pageNum}"> 
                   <input type="hidden" name="amount" value="${map.amount}">
+                  <input type="hidden" name="product_num" value="0">
+                  <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
                   
                   <div>
                      <ul class="form-submit-board">
@@ -288,12 +286,8 @@ MemberDTO memberDTO = (MemberDTO)session.getAttribute("memberDTO");
 	                        </select> 
 	                        <span class="label-box"></span>
 	                    </li>
-	                    <input type="hidden" name="user_id" value="<%= memberDTO.getMember_id() %>">
-	                    <!-- 
-                        <li> 
-                        	<input type="hidden" id="user_name" name="user_name" value=""> 
-                        	<span class="label-box"></span>
-                        </li> -->
+	                    <input type="hidden" name="member_id" value="<sec:authentication property="principal.memberDTO.member_id"/>">
+	                    <input type="hidden" name="member_name" value="<sec:authentication property="principal.memberDTO.member_name"/>">
                         
                         
                         <li>
@@ -304,7 +298,7 @@ MemberDTO memberDTO = (MemberDTO)session.getAttribute("memberDTO");
                             </div>
                             <div>
                            		<label>Password</label><br>
-                           		<input type="text" name="pwd" style="width: 15%; border: 0px; border-bottom: 1px solid gray">
+                           		<input type="password" name="pwd" style="width: 15%; border: 0px; border-bottom: 1px solid gray" value="<sec:authentication property="principal.memberDTO.member_pwd"/>">
                             </div>
                            
                             <div>
@@ -318,17 +312,17 @@ MemberDTO memberDTO = (MemberDTO)session.getAttribute("memberDTO");
                        
                         <c:if test="${map.board_category_num eq '5'}">
                            <span class="">
-                              <a class="backBtn" onClick="location.href='/board/list?board_category_num=5&pageNum=1&amount=10'">BACK TO LIST</a>
+                              <a class="backBtn" onClick="location.href='/board/list?board_category_num=${map.board_category_num}&pageNum=1&amount=10'">BACK TO LIST</a>
                            </span>    
                         </c:if>
                         <c:if test="${map.board_category_num eq '6'}">
                            <span class="">
-                              <a class="backBtn" onClick="location.href='/board/list?board_category_num=6&pageNum=1&amount=10'">BACK TO LIST</a>
+                              <a class="backBtn" onClick="location.href='/board/list?board_category_num=${map.board_category_num}&pageNum=1&amount=10'">BACK TO LIST</a>
                            </span>    
                         </c:if>
                            
                         <span>
-                           <button class="BoardWriteBtn" type="submit" formmethod="post">WRITE</button>
+                           <button class="BoardWriteBtn" type="submit" formmethod="post">글쓰기</button>
                         </span>
                      </div>
                   </div>
@@ -345,7 +339,6 @@ MemberDTO memberDTO = (MemberDTO)session.getAttribute("memberDTO");
 
 <script type="text/javascript">
 $(function(){
-   console.log('aaaaa')
    $('#summernote').summernote({
       placeholder: '내용을 입력해주세요.',
        tabsize: 1,

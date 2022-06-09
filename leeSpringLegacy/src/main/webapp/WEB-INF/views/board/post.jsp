@@ -1,8 +1,8 @@
-<%@page import="member.bean.MemberDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>    
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,9 +11,7 @@
 <title>Insert title here</title>
 </head>
 
-<% 
-MemberDTO memberDTO = (MemberDTO)session.getAttribute("memberDTO");
-%>
+
 <body>
 
 <style>
@@ -96,7 +94,6 @@ li {
 
 </style>
 
-<%-- <jsp:include page="/component/nav.jsp" /> --%>
 	
 <div id="empty"></div>
 
@@ -154,16 +151,17 @@ li {
 
 
 
-<c:if test="<%= memberDTO != null %>">
+<sec:authorize access="isAuthenticated()">
 	<form id='moveWriteForm' action="/board/write" method='get'>
-		<input id="rank_num" type="hidden" name='rank_num' value="<%= memberDTO.getRank_num()%>">
-		<input id="member_id" type="hidden" name='member_id' value="<%= memberDTO.getMember_id()%>">
+		<input id="authAdmin" type="hidden" value="<sec:authentication property="principal.memberDTO.memberAuthList"/>">
+		<input id="loginMember_id" type="hidden" name='member_id' value="<sec:authentication property="principal.memberDTO.member_id"/>">
 		<input type='hidden' name='board_category_num' value='${board_category_num}'>
 	</form>
-</c:if>
+</sec:authorize>
 
-<button type="button" style="background-color: white; border:2px solid black; margin:30px; 20px;" id="moveWriteBtn" href="#">글 작성</a>
-
+<sec:authorize access="hasRole('ROLE_ADMIN')">
+	<button type="button" style="background-color: white; border:2px solid black; margin:30px; 20px;" id="moveWriteBtn" href="#">글 작성</a></button>
+</sec:authorize>	
 
 
 
@@ -173,22 +171,6 @@ li {
 let moveWriteForm = $("#moveWriteForm");
 let actionForm = $("#actionForm");
 
-$(document).ready(function(){
-	let member_id = $("#member_id").val();
-	let rank_num = $("#rank_num").val();
-	
-	console.log(member_id);
-	console.log(rank_num);	
-	
-	if(rank_num == 3){
-		$("#moveWriteBtn").show();
-	} else {
-		$("#moveWriteBtn").hide();
-	}
-	
-	
-	
-});
 
 
 $("#moveWriteBtn").on("click", function(e){
@@ -198,21 +180,7 @@ $("#moveWriteBtn").on("click", function(e){
 });
 
 
-
-/* $(".move").on("click", function(e){
-	e.preventDefault();
-	console.log($(this).attr("href"));
-	$("input[name='board_num']").val($(this).attr('href'));
-	console.log(actionForm);
-	actionForm.submit();
-});
- */
-
-
 </script>
-
-
-
 
 </body>
 </html>

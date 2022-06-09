@@ -391,8 +391,6 @@ $(".uploadResult").on("click", "button", function(e){
 		targetLi.remove();
 	}
 	
-	
-	
 });
 </script>
 

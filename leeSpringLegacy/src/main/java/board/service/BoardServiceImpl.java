@@ -1,6 +1,5 @@
 package board.service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -12,7 +11,6 @@ import board.bean.BoardDTO;
 import board.mapper.BoardMapper;
 import file.bean.FileDTO;
 import file.mapper.FileMapper;
-import product.bean.ProductCategoryDTO;
 
 @Service
 public class BoardServiceImpl implements BoardService {
@@ -45,12 +43,11 @@ public class BoardServiceImpl implements BoardService {
 	
 	@Override
 	@Transactional(rollbackFor = Exception.class)
-	public void write(BoardDTO boardDTO) {
+	public void writePOST(BoardDTO boardDTO) {
 		if (boardDTO.getFileList() == null || boardDTO.getFileList().size() <= 0) {
 			return;
 		}
 		boardMapper.write(boardDTO);
-		System.out.println("게시글 등록은 완료");
 		boardDTO.getFileList().forEach(t -> {
 			t.setLinked_num(boardDTO.getBoard_num());
 			System.out.println("fileDTO : " + t);
@@ -96,7 +93,6 @@ public class BoardServiceImpl implements BoardService {
 	@Transactional(rollbackFor = Exception.class)
 	@Override
 	public void delete(int board_num) {
-		System.out.println("서비스");
 		fileMapper.boardFileDeleteAll(board_num);
 		boardMapper.delete(board_num);
 	}
