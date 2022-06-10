@@ -170,14 +170,13 @@ fieldset #replyer:focus{
 					<div class="clearfix"></div>
 				</div>
 			</form>
-			
+		
+		<input type="hidden" id="memberAuthList" value="<sec:authentication property="principal.memberDTO.memberAuthList"/>">	
 		<div class="button-box ">
-			<c:if test="<sec:authentication property='principal.memberDTO.member_id'/> == ${boardDTO.member_id}">
 			
-				<button id='boardReplyBtn'>REPLY</button>
-				<button id='boardEditBtn'>EDIT</button>
-				<button id='boardDeleteBtn'>DELETE</button>
-			</c:if>
+			<button id='boardReplyBtn'>REPLY</button>
+			<button id='boardEditBtn'>EDIT</button>
+			<button id='boardDeleteBtn'>DELETE</button>
 			<button id='listBtn'>BACK TO LIST</button>
 		</div>
 		<div class="clearfix"></div>
@@ -254,6 +253,7 @@ fieldset #replyer:focus{
 		
 		<sec:authorize access="isAuthenticated()">
 			<input id="loginMember_id" type="hidden" name='member_id' value="<sec:authentication property="principal.memberDTO.member_id"/>">
+			
 		</sec:authorize>
 	</div>
 </div> <!-- end #help_main -->
@@ -269,18 +269,23 @@ fieldset #replyer:focus{
 $(document).ready(function(){
 	let member_id = $("#member_id").val();
 	let loginMember_id = $("#loginMember_id").val();
+	let auth = $("#memberAuthList").val();	
 	console.log(member_id);
-	console.log(authList);	
 	console.log(loginMember_id);	
-	console.log(loginMember_id == undefined);	
+	console.log(auth);
+	console.log(auth.includes('ROLE_ADMIN'));
 	
 	showList();
 	
-	if(member_id === loginMember_id){
+	if(member_id === loginMember_id || auth.includes('ROLE_ADMIN')){
 		$("#boardReplyBtn").show();
 		$("#boardEditBtn").show();
 		$("#boardDeleteBtn").show();
-	} 
+	} else {
+		$("#boardReplyBtn").hide();
+		$("#boardEditBtn").hide();
+		$("#boardDeleteBtn").hide();
+	}
 	
 	
 	

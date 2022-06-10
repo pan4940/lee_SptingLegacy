@@ -13,7 +13,9 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -31,6 +33,7 @@ import board.bean.PageDTO;
 import board.service.BoardService;
 import file.bean.FileDTO;
 import lombok.extern.log4j.Log4j;
+import member.bean.MemberAuthDTO;
 import member.bean.MemberDTO;
 import security.domain.CustomUser;
 
@@ -64,7 +67,6 @@ public class BoardController {
 			return "index";
 		
 		} else {
-			System.out.println("nav.jsp : " + map);
 			String pageNum = map.get("pageNum");
 			String amount = map.get("amount");
 			
@@ -304,28 +306,33 @@ public class BoardController {
 	
 	
 	@GetMapping("/secret")
-	public String secret(@AuthenticationPrincipal CustomUser customUser, @RequestParam Map<String, String> map, Model model) {
+	public String secret(Authentication authentication ,@RequestParam Map<String, String> map, Model model) {
 		
 		System.out.println("secret: " + map);
-		System.out.println("principal: " + customUser);
-		
-		System.out.println("login member : " + map);
-		
-		String member_id = map.get("member_id") != null? map.get("member_id") : "";
+		CustomUser customUser = (CustomUser) authentication.getPrincipal();
+		System.out.println("principal : " + customUser);
+		System.out.println(customUser.getUsername());
 		
 		int board_num = Integer.parseInt(map.get("board_num"));
 		BoardDTO boardDTO = boardService.get(board_num);
 		System.out.println("boardDTO : " + boardDTO);
 		
-		System.out.println("member_id : " + member_id);
 		
-		if (customUser.getUsername() == boardDTO.getMember_id()) {
+		System.out.println(customUser.getAuthorities());
+		
+		System.out.println("member? : " + customUser.getAuthorities().toString().contains("ROLE_MEMBER"));
+		System.out.println("admin?? : " + customUser.getAuthorities().toString().contains("ROLE_ADMIN"));
+		System.out.println("글작성자? : " + customUser.getUsername().equals(boardDTO.getMember_id()));
+		
+		
+		if (customUser.getUsername().equals(boardDTO.getMember_id()) || customUser.getAuthorities().toString().contains("ROLE_ADMIN")) {
 			//memberDTO.getRank_num() == 3 || boardDTO.getMember_id().equals(member_id)
 			System.out.println("관리자 혹은 글작성자");
 			model.addAttribute("map", map);
 			get(map, model);
 			return "index";	
 		} else {
+			System.out.println("관리자가 아님. 글작성자도 아님");
 			map.put("pwd", boardDTO.getPwd());
 			model.addAttribute("map", map);
 			model.addAttribute("display", "/WEB-INF/views/board/secret.jsp");

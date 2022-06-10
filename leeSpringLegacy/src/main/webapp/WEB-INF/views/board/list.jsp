@@ -130,7 +130,7 @@ ul {
 										<a class="move" 
 											href='/board/secret?
 												board_category_num=<c:out value="${board.board_category_num}" />&
-												board_num=<c:out value="${board.board_num}" />&
+												board_num=<c:out value="${board.board_num}"/>&
 												pageNum=<c:out value="${pageDTO.criteria.pageNum}" />&
 												amount=<c:out value="${pageDTO.criteria.amount}" />'
 												>
@@ -183,10 +183,10 @@ ul {
 					<input type='hidden' name='pageNum' value='${pageDTO.criteria.pageNum}'>
 					<input type='hidden' name='amount' value='${pageDTO.criteria.amount}'>
 					
-					<sec:authorize access="isAuthenticated()">
+					<%-- <sec:authorize access="isAuthenticated()">
 						<input id="memberAuthList" type="hidden" name='memberAuthList' value="<sec:authentication property="principal.memberDTO.memberAuthList"/>">
 						<input id="loginMember_id" type="hidden" name='member_id' value="<sec:authentication property="principal.memberDTO.member_id"/>">
-					</sec:authorize>
+					</sec:authorize> --%>
 				</form>
 			</div>
 

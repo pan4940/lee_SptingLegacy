@@ -28,11 +28,10 @@ public class CustomUserDetailsService implements UserDetailsService {
 		System.out.println("queried by member mapper : " + memberDTO);
 		
 		if (memberDTO == null) {
-			
+			return null;	
 		}
 		
 		return new CustomUser(memberDTO);
-		//return memberDTO == null? null : new CustomUser(memberDTO);
 	}
 
 }
