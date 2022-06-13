@@ -1,19 +1,10 @@
 package board.controller;
 
 import java.util.List;
-import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import board.bean.ReplyDTO;
@@ -37,53 +28,35 @@ public class ReplyController {
 	@PostMapping("/write")
 	@ResponseBody
 	public void write(ReplyDTO replyDTO) {
-		System.out.println("/write : " + replyDTO);
-		
-		int insertCount = replyService.write(replyDTO);
-		System.out.println("Reply INSERT COUNT: " + insertCount);
+		replyService.write(replyDTO);
 	}
 	
 	
 	@PostMapping("/list")
 	@ResponseBody
 	public List<ReplyDTO> getList(int board_num) {
-		System.out.println("/board_num : " + board_num);
 		List<ReplyDTO> list = replyService.getList(board_num);
 		return list;
 	}
 	
-	/*
-	@PostMapping(value = "/list", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
-	public ResponseEntity<List<ReplyDTO>> getList(int board_num) {
-		System.out.println("/board_num : " + board_num);
-		List<ReplyDTO> list = replyService.getList(board_num);
-		return new ResponseEntity<List<ReplyDTO>>(list, HttpStatus.OK);
-	}
-	*/
 	
 	@PostMapping("/get")
 	@ResponseBody
 	public ReplyDTO get(int reply_num) {
-		System.out.println("reply_num : " + reply_num);
-		ReplyDTO replyDTO = replyService.get(reply_num);
-		return replyDTO;
+		return replyService.get(reply_num);
 	}
 	
 	@PostMapping("/update")
 	@ResponseBody
 	public void update(ReplyDTO replyDTO) {
-		System.out.println("/update : " + replyDTO);
-		int updateCount = replyService.update(replyDTO);
-		System.out.println("Reply update COUNT: " + updateCount);
+		replyService.update(replyDTO);
 	}
 	
 	
 	@PostMapping("/delete")
 	@ResponseBody
 	public void delete(int reply_num) {
-		System.out.println("delete ReplyNum : " + reply_num);
-		int deleteCount = replyService.delete(reply_num);
-		System.out.println("Reply delete COUNT: " + deleteCount);
+		replyService.delete(reply_num);
 	}
 	
 	

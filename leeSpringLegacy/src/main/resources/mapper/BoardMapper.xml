@@ -128,6 +128,7 @@
 			insert into board (
 				board_num,
 		        member_id,
+		        member_name,
 		        subject,
 		        content, 
 		        group_num,
@@ -139,6 +140,7 @@
 			) values(
 				seq_board.nextval,
 				#{member_id},
+				#{member_name},
 				#{subject},
 				#{content},
 				#{group_num},

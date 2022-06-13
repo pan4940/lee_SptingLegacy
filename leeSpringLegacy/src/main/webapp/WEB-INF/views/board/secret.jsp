@@ -18,7 +18,6 @@
       <p style="font-size: 11pt">
         이글은 비밀글입니다.비밀번호를 입력해 주세요<br />
       </p>
-
       <label>Password</label><br />
       <input
       	id="inputPwd"
@@ -36,6 +35,7 @@
 		<input id="board_num" type='hidden' name='board_num' value="${map.board_num}">
 		<input type='hidden' name='pageNum' value='${map.pageNum}'>
 		<input type='hidden' name='amount' value='${map.amount}'>
+		<input type="hidden" name='pwd' value=''>
 	</form>
   </body>
   
@@ -56,6 +56,7 @@
   $("#backToList").on("click", function(e){
 	  e.preventDefault();
 	  actionForm.attr("action", "/board/list");
+	  actionForm.attr("pwd", $("#pwd").val());
 	  actionForm.submit();
   });
   

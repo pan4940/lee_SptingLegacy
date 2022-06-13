@@ -5,12 +5,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <head>
-<!-- <meta charset="UTF-8" />
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<link rel="stylesheet" href="/component/nav.css" />
-<link rel="stylesheet" href="/index.css" />
-<link rel="stylesheet" href="help.css" /> -->
+
 <script src="https://kit.fontawesome.com/cd631a71a1.js"
 	crossorigin="anonymous"></script>
 <title>환영합니다</title>
@@ -146,15 +141,15 @@ fieldset #replyer:focus{
          <c:if test="${map.board_category_num eq '7'}">
             <h3 class="POST_board_title">POST</h3>
          </c:if>
-		
+		<input type="hidden" id="member_id" name="member_id" value='${boardDTO.member_id}'> 
 		<div class="clearfix"></div>
-			<form id="boardForm" action="" method="post">
+			<form id="boardForm" action="" method="get">
 				<input type='hidden' name='board_category_num' value='${map.board_category_num}'>
 				<input type='hidden' id="board_num" name='board_num' value='${map.board_num}'>
 				<input type='hidden' name='pageNum' value='${map.pageNum}'>
 				<input type='hidden' name='amount' value='${map.amount}'>
-				<input type="hidden" id="reply" value='${boardDTO.reply}'>
-				<input type="hidden" id="member_id" name="member_id" value='${boardDTO.member_id}'>
+				<input type='hidden' id="reply" name='reply' value='${boardDTO.reply}'>
+				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 				<div>
 					<h4 id="h4subject">
 						${boardDTO.subject}
@@ -186,7 +181,7 @@ fieldset #replyer:focus{
 		<div class="reply">
 			<form id="replyForm" action="" method="post">
 				<input id="board_num" name="board_num" type="hidden" value="${map.board_num}">
-				
+				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 				<div>
 					<div>
 						<fieldset>
@@ -195,14 +190,13 @@ fieldset #replyer:focus{
 								<strong style="margin:20px">Write a Comment</strong>
 								<span style="display:block">
 									이름 : 
-									<input id="replyer" name="replyer" type="text"  >
+									<input id="replyer" name="replyer" type="text" value="${boardDTO.member_name}" >
 								</span>
 								
 								
 							</p>
 							<div class="view">
-								<textarea id="newContent"name="content" rows="10" cols="80" style = "background-color:transparent">
-								</textarea>
+								<textarea id="newContent"name="content" rows="10" cols="80" style = "background-color:transparent"></textarea>
 								<br>
 								<a class="confirm" href="#">Confirm</a>
 							</div>
@@ -224,18 +218,15 @@ fieldset #replyer:focus{
 		
 		<form id="replyUpdateForm" action="#" method="post" style="display: none;">
 			<input id="reply_num" name="reply_num" type="hidden" value="">
+			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 			<div class="board-commentform">
 				<fieldset>
 					<legend>Edit A Comment</legend>
 					<p>
-						<strong>Edit A Comment</strong>
 						<span>
-							"이름 : "
-							<input id="updateReplyer" name="replyer" type="text">
+							이름 : 
+							<input id="updateReplyer" name="replyer" type="text" value="${boardDTO.member_name}" readonly="readonly">
 						</span>
-						
-						
-						
 					</p>
 					<div class="view">
 						<textarea id="updateContent" name="content" rows="10" cols="50"></textarea>
@@ -257,14 +248,9 @@ fieldset #replyer:focus{
 		</sec:authorize>
 	</div>
 </div> <!-- end #help_main -->
-	
-	
-		
 
-<!-- <script src="/WEB-INF/component/nav/nav.js"></script> -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 <script type="text/javascript">
-
 
 $(document).ready(function(){
 	let member_id = $("#member_id").val();
@@ -304,6 +290,7 @@ let viewReplyUpdateForm = function(board_num, reply_num){
 }	
 
 
+//리플삭제
 let deleteReply = function(reply_num){
 	console.log("delete click");
 	console.log("reply_num : " + reply_num);
@@ -311,6 +298,9 @@ let deleteReply = function(reply_num){
 		type: 'post',
 		url: '/reply/delete',
 		data: {"reply_num": reply_num},
+		beforeSend : function(xhr){   
+            xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
+        },
 		success: function(){
 			alert(reply_num + "번 댓글이 삭제되었습니다.");
 			showList();
@@ -323,8 +313,10 @@ function showList(){
 		type: 'post',
 		url: '/reply/list',
 		data: {board_num: $("#board_num").val()},
-		//contentType: 'application/json; charset=UTF-8',
-		dataType: 'json',
+		beforeSend : function(xhr){   
+            xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
+        },
+        dataType: 'json',
 		success: function(result){
 			//console.log(result);
 			let showListloginMember_id = $("#member_id").val();
@@ -360,8 +352,8 @@ function showList(){
 							str += "<span class='date'>" + items.replyDate + "</span>";
 						str += "</div>"; 	
 						str += "<span class='comment-list-button'>";
-							str += "<a id='replyEditForm' class='button-text-small' onclick='javascript:viewReplyUpdateForm(" + "\""+items.board_num + "\""+ ", " + "\""+ items.reply_num + "\""+ ")'>EDIT</a>";
-							str += "<a id='replyDelete' class='button-text-small' onclick='javascript:deleteReply("+ "\"" +items.reply_num + "\""+")'>DELETE</a>";
+							str += "<a id='replyEditBtn' class='button-text-small' onclick='javascript:viewReplyUpdateForm(" + "\""+items.board_num + "\""+ ", " + "\""+ items.reply_num + "\""+ ")'>EDIT</a>";
+							str += "<a id='replyDeleteBtn' class='button-text-small' onclick='javascript:deleteReply("+ "\"" +items.reply_num + "\""+")'>DELETE</a>";
 						str += "</span>";
 						str += "<div class='comment'>";
 							str += "<span class='comment_contents'>" + items.content + "</span>";
@@ -391,7 +383,7 @@ let replyForm = $("#replyForm");
 //덧글 등록
 $("#boardReplyBtn").on("click", function(e){
 	e.preventDefault();
-	boardForm.attr("action", "/board/replyWriteForm");
+	boardForm.attr("action", "/board/replyWrite");
 	boardForm.submit();
 });
 
@@ -399,7 +391,7 @@ $("#boardReplyBtn").on("click", function(e){
 //글 수정
 $("#boardEditBtn").on("click", function(e){
 	e.preventDefault();
-	boardForm.attr("action", "/board/modifyForm");
+	boardForm.attr("action", "/board/modify");
 	boardForm.submit();
 });
 
@@ -412,6 +404,7 @@ $("#boardDeleteBtn").on("click", function(e){
 	} else {
 		if(confirm("게시물을 삭제하시겠습니까?")){
 			boardForm.attr("action", "/board/delete");
+			boardForm.attr("method", "post");
 			boardForm.submit();
 			alert("게시물이 삭제되었습니다.");
 		}
@@ -427,6 +420,7 @@ $("#listBtn").on("click", function(e){
 	boardForm.attr("action", "/board/list");
 	boardForm.submit();
 });	
+
 
 
 //리플작성
@@ -464,26 +458,6 @@ $("#replyUpdateBtn").on("click", function(e){
 	
 });
 
-//리플 삭제
-$("#replyDelete").click(function(e){
-	e.preventDefault();
-	console.log("replyDelete_click");
-	$.ajax({
-		type: 'post',
-		url: '/reply/delete',
-		data: replyUpdateForm.serialize(),
-		success: function(){
-			alert("댓글이 삭제되었습니다.");
-			showList();
-		},
-	});
-	
-});
-
-/* $(function(){
-	showList();
-});	
-	 */
 
 	
 </script>

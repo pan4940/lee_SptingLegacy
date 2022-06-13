@@ -50,7 +50,6 @@ public class BoardServiceImpl implements BoardService {
 		boardMapper.write(boardDTO);
 		boardDTO.getFileList().forEach(t -> {
 			t.setLinked_num(boardDTO.getBoard_num());
-			System.out.println("fileDTO : " + t);
 			fileMapper.boardFileInsert(t);
 		});
 	}
@@ -65,7 +64,6 @@ public class BoardServiceImpl implements BoardService {
 			
 			boardDTO.getFileList().forEach(t -> {
 				t.setLinked_num(boardDTO.getBoard_num());
-				System.out.println("fileDTO : " + t);
 				fileMapper.boardFileInsert(t);
 			});
 		}
@@ -80,7 +78,6 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public void boardReplyWrite(BoardDTO boardDTO) {
 		//원글
-		System.out.println(boardDTO);
 		boardMapper.boardReplyWrite(boardDTO);
 	}
 	

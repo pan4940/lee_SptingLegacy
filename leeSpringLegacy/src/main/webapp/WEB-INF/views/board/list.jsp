@@ -68,7 +68,9 @@ ul {
 		<input type="hidden" value="${pageDTO}">
 		<input type="hidden" value="${board_category_num}">
 		<input id="pageNum" type="hidden" value="${pageDTO.criteria.pageNum}">
-		
+		<sec:authorize access="isAuthenticated()">
+			<input id="loginMember_id" type="hidden" name='member_id' value="<sec:authentication property="principal.memberDTO.member_id"/>">
+		</sec:authorize>
  		<div id="QNA" class="col-12 col-lg-8" style="margin:auto;">
 			<c:if test="${board_category_num eq '1'}">
 				<h3 class="QNA_board_title">공지</h3>
@@ -128,11 +130,7 @@ ul {
 										</c:if>
 										
 										<a class="move" 
-											href='/board/secret?
-												board_category_num=<c:out value="${board.board_category_num}" />&
-												board_num=<c:out value="${board.board_num}"/>&
-												pageNum=<c:out value="${pageDTO.criteria.pageNum}" />&
-												amount=<c:out value="${pageDTO.criteria.amount}" />'
+											href='/board/secret?board_category_num=<c:out value="${board.board_category_num}" />&board_num=<c:out value="${board.board_num}"/>&pageNum=<c:out value="${pageDTO.criteria.pageNum}" />&amount=<c:out value="${pageDTO.criteria.amount}" />'
 												>
 											<c:out value="${board.subject}" />
 										</a> 
@@ -200,13 +198,25 @@ ul {
 $(document).ready(function(){
 	
 	let actionForm = $("#actionForm");
-	
+	let loginMember_id = $("#loginMember_id").val();
+	console.log(loginMember_id);
 	
 	$(".paginate_button a").on("click", function(e){
 		e.preventDefault();
 		console.log('click');
 		actionForm.find("input[name='pageNum']").val($(this).attr("href"));
 		actionForm.submit();
+	});
+	
+	$(".move").on("click", function(e){
+		e.preventDefault();
+		
+		if (loginMember_id === undefined) {
+			alert("로그인이 필요합니다. 로그인 해주세요.");
+			location.href = '/member/login';
+		} else {
+			$(this).unbind('click').click()
+		}
 	});
 	
 });

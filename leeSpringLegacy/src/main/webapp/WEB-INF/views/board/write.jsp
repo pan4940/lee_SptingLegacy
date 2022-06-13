@@ -2,21 +2,19 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
+
 <head>
 <meta charset="UTF-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<link rel="stylesheet" href="/resources/css/nav.css" />
-<link rel="stylesheet" href="/resources/css/nav.css" />
-<link rel="stylesheet" href="/resources/js/nav.js" />
+
 <link href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
-<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
 <script src="https://kit.fontawesome.com/cd631a71a1.js"
    crossorigin="anonymous"></script>
-<title>Login</title>
+<title>theC</title>
 </head>
 <body>
 <style>
@@ -124,8 +122,9 @@ display: inline-block;
 	margin-top:30px
 
 }
+
 .uploadDiv{
-margin-left:38px;
+	margin-left:38px;
 }
 
 </style>
@@ -161,7 +160,9 @@ margin-left:38px;
                <form id="boardWriteForm" action="/board/write" method="post">
                   <input type="hidden" name="member_id" value="<sec:authentication property="principal.memberDTO.member_id"/>">
 	              <input type="hidden" name="member_name" value="<sec:authentication property="principal.memberDTO.member_name"/>">
-                  <input type="hidden" name="board_category_num" value="${map.board_category_num}"> 
+                  <input type="hidden" name="board_category_num" value="${map.board_category_num}">
+                  <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+                  <input type="hidden" name="pwd" style="width: 15%; border: 0px; border-bottom: 1px solid gray" value="<sec:authentication property="principal.memberDTO.member_pwd"/>">
                   <div>
                      <ul class="form-submit-board">
                      	
@@ -217,7 +218,7 @@ margin-left:38px;
                   <input type="hidden" name="board_category_num" value="${map.board_category_num}"> 
                   <input type="hidden" name="pageNum" value="${map.pageNum}"> 
                   <input type="hidden" name="amount" value="${map.amount}">
-                  <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+                  
                   <div>
                      <ul class="form-submit-board">
                         <li>
@@ -247,11 +248,9 @@ margin-left:38px;
                         </li>
                      </ul>
                      <div id="botton box">
-                        <c:if test="${map.board_category_num eq '4'}">
-                           <span class="">
-                              <a onClick="location.href='/board/list?board_category_num=4&pageNum=1&amount=10'">이전화면으로</a>
-                           </span>     
-                        </c:if>
+                        <span class="">
+                           <a onClick="location.href='/board/list?board_category_num=map.board_category_num}&pageNum=1&amount=10'">이전화면으로</a>
+                        </span>     
                            
                         <span>
                            <button type="submit" formmethod="post">글쓰기</button>
@@ -309,17 +308,9 @@ margin-left:38px;
                         </li>
                      </ul>
                      <div class="buttonbox">
-                       
-                        <c:if test="${map.board_category_num eq '5'}">
-                           <span class="">
-                              <a class="backBtn" onClick="location.href='/board/list?board_category_num=${map.board_category_num}&pageNum=1&amount=10'">BACK TO LIST</a>
-                           </span>    
-                        </c:if>
-                        <c:if test="${map.board_category_num eq '6'}">
-                           <span class="">
-                              <a class="backBtn" onClick="location.href='/board/list?board_category_num=${map.board_category_num}&pageNum=1&amount=10'">BACK TO LIST</a>
-                           </span>    
-                        </c:if>
+                        <span class="">
+                           <a class="backBtn" onClick="location.href='/board/list?board_category_num=${map.board_category_num}&pageNum=1&amount=10'">BACK TO LIST</a>
+                        </span>    
                            
                         <span>
                            <button class="BoardWriteBtn" type="submit" formmethod="post">글쓰기</button>
@@ -420,6 +411,9 @@ $("input[type='file']").change(function(e){
       processData: false, // data 파라미터로 전달된 데이터를 Query String으로 변환하지 않음. 파일전송시에는 이렇게 해야함
       contentType: false, // //contentType의 default는 application/x-www-form-urlencoded; charset=UTF-8, 파일전송시에는 false로 해줘야 함
       data: formData,
+      beforeSend : function(xhr){   
+          xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
+      },
       type: 'post',
       dataType: 'json',
       

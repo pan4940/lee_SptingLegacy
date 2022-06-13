@@ -44,7 +44,7 @@ public class FileUploadController {
 	
 	@GetMapping("/uploadAjax")
 	public void uploadAjax() {
-		System.out.println("uploadAjax");
+		
 	}
 	
 	@PostMapping("/brandfileUploadAjax")
@@ -77,10 +77,6 @@ public class FileUploadController {
 	
 	
 	public List<FileDTO> fileUploadAjax(String uploadFolder, MultipartFile[] uploadFile, Model model)  {
-		for (MultipartFile multipartFile : uploadFile) {
-			System.out.println("uploadFile : " + multipartFile.getOriginalFilename());
-		}
-		
 		List<FileDTO> list = new ArrayList<>();
 		
 		

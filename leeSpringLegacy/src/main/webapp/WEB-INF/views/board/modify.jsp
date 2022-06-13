@@ -1,19 +1,32 @@
 <!DOCTYPE html>
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
+
+
+
 <head>
-<!-- <meta charset="UTF-8" />
+<meta charset="UTF-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<link rel="stylesheet" href="/component/nav.css" />
-<link rel="stylesheet" href="/index.css" />
-<link rel="stylesheet" href="help.css" />
- -->
- <script src="https://kit.fontawesome.com/cd631a71a1.js" crossorigin="anonymous"></script>
+
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+<script src="https://kit.fontawesome.com/cd631a71a1.js" crossorigin="anonymous"></script>
 <title>modify</title>
 </head>
+
 <body>
 <style>
+
+#QNA{
+   width:60%;
+   margin:auto;
+}
+
 ul {
 	margin: 0px;
 	font-size: 0.8rem;
@@ -71,48 +84,51 @@ ul {
 }
 
 .prvBtn{
-
-
-width:80px;
-border:2px solid black;
-display:inline-block;
-padding:3px;
-
-
-
+	width:80px;
+	border:2px solid black;
+	display:inline-block;
+	padding:3px;
 }
 
 .modBtn{
-background-color: white;
-border:2px solid black;
-
+	background-color: white;
+	border:2px solid black;
 }
 
 #updateFile{
-background-color: white;
+	background-color: white;
+}
 
+#subject{
+   width:100%;
+   height:30px;
+}
+
+.form-submit-board label{
+   color:gray;
+   margin-bottom:5px;
 }
 </style>
 
 	<div id="empty"></div>
 	<div id="help_main">
 		<div id="QNA">
-			<c:if test="${board_category_num eq '1'}">
+			<c:if test="${map.board_category_num eq '1'}">
 				<h3 class="QNA_board_title">공지</h3>
 			</c:if>
-			<c:if test="${board_category_num eq '2'}">
+			<c:if test="${map.board_category_num eq '2'}">
 				<h3 class="QNA_board_title">2</h3>
 			</c:if>
-			<c:if test="${board_category_num eq '3'}">
+			<c:if test="${map.board_category_num eq '3'}">
 				<h3 class="QNA_board_title">3</h3>
 			</c:if>
-			<c:if test="${board_category_num eq '4'}">
+			<c:if test="${map.board_category_num eq '4'}">
 				<h3 class="QNA_board_title">리뷰</h3>
 			</c:if>
-			<c:if test="${board_category_num eq '5'}">
+			<c:if test="${map.board_category_num eq '5'}">
 				<h3 class="QNA_board_title">상품 Q&A</h3>
 			</c:if>
-			<c:if test="${board_category_num eq '6'}">
+			<c:if test="${map.board_category_num eq '6'}">
 				<h3 class="QNA_board_title">Q&A</h3>
 			</c:if>
 
@@ -120,9 +136,10 @@ background-color: white;
 				<c:when test="${map.board_category_num eq '7'}">
 					
 					<form id="boardModifyForm" action="/board/modify" method="post">
-						<input type="text" id="board_num" name="board_num" value="${boardDTO.board_num}">
-						<input type="text" name="board_category_num" value="${boardDTO.board_category_num}"> 
+						<input type="hidden" id="board_num" name="board_num" value="${boardDTO.board_num}">
+						<input type="hidden" name="board_category_num" value="${boardDTO.board_category_num}"> 
 						<input type="hidden" name="member_name" value="${boardDTO.member_name}">
+						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 						<div>
 							<ul class="form-submit-board">
 								<li>
@@ -139,10 +156,7 @@ background-color: white;
 								<li>
 									<label>Content</label>
 									<div id="content">
-										<textarea id="content" name="content" rows="40" cols="150">
-										${boardDTO.content}
-										</textarea>
-										
+										<textarea id="summernote"  style="width:100%;" name="content" rows="40" >${boardDTO.content}</textarea>
 									</div>
 								</li>
 							</ul>
@@ -180,10 +194,11 @@ background-color: white;
 				<c:otherwise>
 					<form id="boardModifyForm" action="/board/modify" method="post">
 						
-						<input type="text" name="board_category_num" value="${map.board_category_num}"> 
-						<input type="text" id="board_num" name="board_num" value="${map.board_num}" >
-						<input type="text" name="pageNum" value="${map.pageNum}">
-						<input type="text" name="amount" value="${map.amount}">
+						<input type="hidden" name="board_category_num" value="${map.board_category_num}"> 
+						<input type="hidden" id="board_num" name="board_num" value="${map.board_num}" >
+						<input type="hidden" name="pageNum" value="${map.pageNum}">
+						<input type="hidden" name="amount" value="${map.amount}">
+						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 						<div>
 							<ul class="form-submit-board">
 								<li>
@@ -199,16 +214,14 @@ background-color: white;
 								</li>
 								<li>
 									<label>member_name</label>
-									<input type="text" id="name" name="name" value="${boardDTO.member_name}">
+									<input type="hidden" id="member_name" name="member_name" value="${boardDTO.member_name}">
+									<input type="hidden" name="member_id" value="<sec:authentication property="principal.memberDTO.member_id"/>">
 									<span class="label-box"></span>
 								</li>
 								<li>
 									<label>Content</label>
 									<div id="content">
-										<textarea id="content" name="content" rows="40" cols="150">${boardDTO.content}</textarea>
-										<div class="toolbar">
-											<span class="fr-counter">문자(조회수넣을까?) : </span>
-										</div>
+										<textarea id="summernote" name="content" style="width:100%;">${boardDTO.content}</textarea>
 									</div>
 								</li>
 							</ul>
@@ -228,11 +241,32 @@ background-color: white;
 
 	</div> <!-- end #help_main -->
 	
-	<!-- <script src="/WEB-INF/component/nav/nav.js"></script> -->
 	
 </body>
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+
+<script type="text/javascript">
+$(function(){
+   $('#summernote').summernote({
+      placeholder: '내용을 입력해주세요.',
+       tabsize: 1,
+       height: 300,
+       toolbar: [
+           ['fontname', ['fontname']],
+          ['fontsize', ['fontsize']],
+          ['style', ['bold', 'italic', 'underline','strikethrough', 'clear']],
+          ['color', ['forecolor','color']],
+          ['para', ['ul', 'ol', 'paragraph']],
+          ['height', ['height']]
+        ],
+           fontNames: ['맑은 고딕','궁서','굴림체','굴림','돋음체','바탕체'],
+            fontSizes: ['8','9','10','11','12','14','16','18','20','22','24','28','30','36','50','72']
+   });   
+})
+
+</script>
+
 <script type="text/javascript">
 $(document).ready(function(){
 	let board_num = $("#board_num").val();
@@ -250,10 +284,6 @@ $(document).ready(function(){
 		});
 	})();
 });
-
-
-
-
 
 
 //수정하기 버튼 클릭시 이벤트

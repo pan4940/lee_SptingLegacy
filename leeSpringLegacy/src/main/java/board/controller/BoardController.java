@@ -4,18 +4,12 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.security.Principal;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -32,9 +26,6 @@ import board.bean.Criteria;
 import board.bean.PageDTO;
 import board.service.BoardService;
 import file.bean.FileDTO;
-import lombok.extern.log4j.Log4j;
-import member.bean.MemberAuthDTO;
-import member.bean.MemberDTO;
 import security.domain.CustomUser;
 
 
@@ -49,17 +40,14 @@ public class BoardController {
 	//리스트 조회 및 출력
 	@GetMapping("/list")
 	public String list(@RequestParam Map<String, String> map, Model model) {
-		System.out.println("list map : " + map);
 		String board_category_num = map.get("board_category_num");
 		if (Integer.parseInt(board_category_num) == 7) {
-			System.out.println("board_category_num = 7 : " + map);
 			
 			List<BoardDTO> list = boardService.getPostList(Integer.parseInt(board_category_num));
 			model.addAttribute("board_category_num", board_category_num);
 			
 			for (BoardDTO boardDTO : list) {
 				boardDTO.setFileList(boardService.getFileList(boardDTO.getBoard_num()));
-				System.out.println("boardDTO : " + boardDTO);
 			}
 			
 			model.addAttribute("list", list);
@@ -90,7 +78,6 @@ public class BoardController {
 	//원글작성
 	@GetMapping("/write")
 	public String writeForm(@RequestParam Map<String, String> map, Model model) {
-		System.out.println("writeForm map : " + map);
 		model.addAttribute("map", map);
 		model.addAttribute("display", "/WEB-INF/views/board/write.jsp");
 		return "index";
@@ -102,17 +89,11 @@ public class BoardController {
 						@ModelAttribute BoardDTO boardDTO, 
 						RedirectAttributes redirectAttributes) {
 		
-		System.out.println("/write map : " + map);
-		
-		//boardDTO.setPwd("11");
-		System.out.println("boardDTO : " + boardDTO);
-		
 		int board_category_num = Integer.parseInt(map.get("board_category_num")); 
 		
 		if (board_category_num == 7) {
+			System.out.println(boardDTO);
 			List<FileDTO> list = boardDTO.getFileList();
-			System.out.println("fileDTO list : " + list);
-			
 			boardService.writePOST(boardDTO);
 			redirectAttributes.addAttribute("board_category_num", map.get("board_category_num"));
 			return "redirect:/board/list";
@@ -133,7 +114,6 @@ public class BoardController {
 	@GetMapping("/get")
 	public String get(@RequestParam Map<String, String> map, Model model) {
 		
-		System.out.println("get map : " + map);
 		int board_category_num = Integer.parseInt(map.get("board_category_num"));
 		int board_num = Integer.parseInt(map.get("board_num")) ;
 		
@@ -141,7 +121,6 @@ public class BoardController {
 			BoardDTO boardDTO = boardService.get(board_num);
 			List<FileDTO> list = boardService.getFileList(board_num);
 			boardDTO.setFileList(list);
-			System.out.println("get boardDTO : " + boardDTO);
 			
 			model.addAttribute("map", map);
 			model.addAttribute("boardDTO", boardDTO);
@@ -149,7 +128,6 @@ public class BoardController {
 			model.addAttribute("display", "/WEB-INF/views/board/single.jsp");
 			return "index";
 		}
-		
 		
 		BoardDTO boardDTO = boardService.get(board_num);
 		model.addAttribute("map", map);
@@ -165,15 +143,16 @@ public class BoardController {
 	
 	
 	//글 수정 페이지로 이동
-	@PostMapping("/modifyForm")
+	@GetMapping("/modify")
 	public String modifyForm(@RequestParam Map<String, String> map, Model model) {
 		int board_category_num = Integer.parseInt(map.get("board_category_num"));
+		
 		BoardDTO boardDTO = boardService.get(Integer.parseInt(map.get("board_num")));
+		
 		if (board_category_num == 7) {
 			boardDTO.setFileList(boardService.getFileList(boardDTO.getBoard_num()));
 		}
-		System.out.println("boardDTOpost : " + boardDTO);
-		System.out.println("modifyForm map : " + map); 
+		
 		model.addAttribute("map", map);
 		model.addAttribute("boardDTO", boardDTO);
 		
@@ -188,7 +167,6 @@ public class BoardController {
 	public String modify(@RequestParam Map<String, String> map, 
 			@ModelAttribute BoardDTO boardDTO, 
 			RedirectAttributes redirectAttributes) {
-		System.out.println("modify boardDTO : " + boardDTO);
 		boardService.modify(boardDTO);
 		redirectAttributes.addAttribute("board_category_num", map.get("board_category_num"));
 		redirectAttributes.addAttribute("pageNum", map.get("pageNum"));
@@ -200,7 +178,7 @@ public class BoardController {
 	}
 	
 	//답글 작성 페이지로 이동
-	@PostMapping("/replyWriteForm")
+	@GetMapping("/replyWrite")
 	public String replyWriteForm(@RequestParam Map<String, String> map, Model model) {
 		BoardDTO boardDTO = boardService.get(Integer.parseInt(map.get("board_num")));
 		model.addAttribute("map", map);
@@ -216,15 +194,7 @@ public class BoardController {
 								  RedirectAttributes redirectAttributes) {
 		
 		boardDTO.setParant_num(boardDTO.getBoard_num());
-		System.out.println(boardDTO);
-		boardDTO.setPwd("11");
-		System.out.println("boardDTO : " + boardDTO);
 		boardService.boardReplyWrite(boardDTO);
-		
-		//댓글 작성후 1페이지 이동
-		//redirectAttributes.addAttribute("board_category_num", map.get("board_category_num"));
-		//redirectAttributes.addAttribute("pageNum", 1);
-		//redirectAttributes.addAttribute("amount", 10);
 		
 		//댓글 작성후 원글이 있는 페이지로 이동
 		redirectAttributes.addAttribute("board_category_num", map.get("board_category_num"));
@@ -241,13 +211,10 @@ public class BoardController {
 	public String delete(@RequestParam Map<String, String> map, 
 			//@ModelAttribute BoardDTO boardDTO, 
 			RedirectAttributes redirectAttributes) {
-		System.out.println(map);
-		System.out.println("DeleteboardNum : " + map.get("board_num"));
 		int board_num = Integer.parseInt(map.get("board_num")) ;
 		List<FileDTO> fileList = boardService.getFileList(board_num);
-		System.out.println(fileList);
+		
 		if (fileList != null) {
-			System.out.println("fileList not null : " + fileList);
 			deleteFiles(fileList);
 		}
 		
@@ -266,23 +233,19 @@ public class BoardController {
 	@PostMapping("/getFileList")
 	@ResponseBody
 	public List<FileDTO> getFileList(int board_num) {
-		System.out.println("getFileList...........");
 		return boardService.getFileList(board_num);
 	}
 	
-	//게시물 삭제시 첨부파일 삭제
 	
+	//게시물 삭제시 첨부파일 삭제
 	public void deleteFiles(List<FileDTO> fileList) {
 		if (fileList == null || fileList.size() == 0) {
 			return;
 		}
 		
-		System.out.println("delete files.....");
-		System.out.println("contoroller fileList : " + fileList);
 		fileList.forEach(t -> {
 			try {
 				Path file = Paths.get("C:\\thec\\" + t.getUploadPath() + "\\" + t.getUuid() + "_" + t.getFileName());
-				System.out.println(file);
 				Files.deleteIfExists(file);
 			} catch (IOException e) {
 				System.out.println("delete file error " + e.getMessage());
@@ -308,36 +271,38 @@ public class BoardController {
 	@GetMapping("/secret")
 	public String secret(Authentication authentication ,@RequestParam Map<String, String> map, Model model) {
 		
-		System.out.println("secret: " + map);
-		CustomUser customUser = (CustomUser) authentication.getPrincipal();
-		System.out.println("principal : " + customUser);
-		System.out.println(customUser.getUsername());
+		try {
+			CustomUser customUser = (CustomUser) authentication.getPrincipal();
+			
+			int board_num = Integer.parseInt(map.get("board_num"));
+			BoardDTO boardDTO = boardService.get(board_num);
+			
+			if (customUser.getUsername().equals(boardDTO.getMember_id()) || customUser.getAuthorities().toString().contains("ROLE_ADMIN")) {
+				//memberDTO.getRank_num() == 3 || boardDTO.getMember_id().equals(member_id)
+				
+				model.addAttribute("map", map);
+				get(map, model);
+			}
 		
-		int board_num = Integer.parseInt(map.get("board_num"));
-		BoardDTO boardDTO = boardService.get(board_num);
-		System.out.println("boardDTO : " + boardDTO);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			
+			int board_num = Integer.parseInt(map.get("board_num"));
+			BoardDTO boardDTO = boardService.get(board_num);
+			
+			if (map.get("pwd") != null && map.get("pwd").equals(boardDTO.getPwd())) {
+				model.addAttribute("display", "/WEB-INF/views/board/secret.jsp");
+				model.addAttribute("map", map);
+			} else {
+				map.remove("pwd");
+				model.addAttribute("map", map);
+				get(map, model);
+			} 
+			
+			
+		}
 		
-		
-		System.out.println(customUser.getAuthorities());
-		
-		System.out.println("member? : " + customUser.getAuthorities().toString().contains("ROLE_MEMBER"));
-		System.out.println("admin?? : " + customUser.getAuthorities().toString().contains("ROLE_ADMIN"));
-		System.out.println("글작성자? : " + customUser.getUsername().equals(boardDTO.getMember_id()));
-		
-		
-		if (customUser.getUsername().equals(boardDTO.getMember_id()) || customUser.getAuthorities().toString().contains("ROLE_ADMIN")) {
-			//memberDTO.getRank_num() == 3 || boardDTO.getMember_id().equals(member_id)
-			System.out.println("관리자 혹은 글작성자");
-			model.addAttribute("map", map);
-			get(map, model);
-			return "index";	
-		} else {
-			System.out.println("관리자가 아님. 글작성자도 아님");
-			map.put("pwd", boardDTO.getPwd());
-			model.addAttribute("map", map);
-			model.addAttribute("display", "/WEB-INF/views/board/secret.jsp");
-			return "/index";	
-		}	
+		return "/index";
 	}
 	
 	@PostMapping("/getNavPostBoardDTO")
