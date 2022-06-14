@@ -380,6 +380,10 @@
 		delete PRODUCT_CATEGORY_LINK where product_num = #{product_num}
 	</delete>
 	
+	<delete id="deleteBrandCategory" parameterType="int">
+		delete PRODUCT_CATEGORY where product_category_num = #{product_category_num}
+	</delete>
+	
 	<delete id="deleteProduct" parameterType="int">
 		delete product where product_num = #{product_num}
 	</delete>

@@ -56,6 +56,7 @@ $('#findIdBtn').click(function(){
 			//이름과 이메일로 찾을 때
 			$.ajax({
 				type:'post',
+				headers: {"X-CSRF-TOKEN": $("input[name='_csrf']").val()},
 				url:'/member/findIdEmail',
 				data:{
 					'email':$('#email').val(),
@@ -98,6 +99,7 @@ $('#findIdBtn').click(function(){
 			//이름과 핸드폰 번호로 찾을 때
 			$.ajax({
 				type:'post',
+				headers: {"X-CSRF-TOKEN": $("input[name='_csrf']").val()},
 				url:'/member/findIdPhone',
 				data:{
 					'phone1':$('#phone1').val(),

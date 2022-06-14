@@ -78,5 +78,7 @@ public interface ProductService {
 
 	public int getTotalCount(int product_category_num);
 
+	public void deleteBrandCategory(int product_category_num);
+
 	
 }

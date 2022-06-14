@@ -10,6 +10,7 @@
 	
 	</div>
 	<div id="side" class="col-12 col-sm-6">
+		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 		<div id="total">
 			<label id="totallabel" style="color: black">TOTAL AMOUNT</label> <br />
 			<span id="totalvalue" style="color: black; font-size: 25pt">value</span>

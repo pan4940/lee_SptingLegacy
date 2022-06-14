@@ -4,7 +4,9 @@
 <link rel="stylesheet" href="/resources/css/brands.css" />
 <script type="text/javascript" src="/resources/js/brands.js"></script>
 <div id="breadDiv">
+<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 	<div class="bread_container">
+		
 		<div id="breadImg">
 			<img id="img1" src='' style="height: 100%; border: none;"></img>
 		</div>
@@ -140,6 +142,7 @@
 $(document).ready(function(){
 	$.ajax({
 		type: 'post',
+		headers: {"X-CSRF-TOKEN": $("input[name='_csrf']").val()},
 		url: '/product/getBrandsCategoryList',
 		dataType: 'json',
 		success: function(result){

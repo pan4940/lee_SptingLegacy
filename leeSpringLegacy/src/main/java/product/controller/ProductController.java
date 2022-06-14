@@ -75,6 +75,16 @@ public class ProductController {
 	}
 	
 	
+	//브랜드 카테고리 제거
+	@PostMapping("/deleteBrandCategory")
+	public String deleteBrandCategory(@ModelAttribute ProductCategoryDTO productCategoryDTO) {
+		productCategoryDTO.setProduct_category_num_ref(10000);
+		System.out.println(productCategoryDTO);
+		productService.deleteBrandCategory(productCategoryDTO.getProduct_category_num());
+		return "/product/category";
+	}
+	
+	
 	//브랜드 카테고리 수정
 	@PostMapping("/modifyBrandCategory")
 	public String modifyBrandCategory(@ModelAttribute ProductCategoryDTO productCategoryDTO) {

@@ -9,57 +9,58 @@ MemberDTO memberDTO = (MemberDTO)session.getAttribute("memberDTO");
 %>
 
 <!-- 첫번째 div  -->
-  <div id="first" class="nav_div">
-    <span>SS 22 NEW ARRIVAL</span>
-    <%-- <c:if test="${not empty sessionScope.memberDTO && memberDTO.getRank_num() == 3}" >
-	    	<a href="/admin/index">관리자페이지</a>
-	</c:if> --%>
+<div id="first" class="nav_div">
 	
-  </div>
+		<span>SS 22 NEW ARRIVAL</span> 
+		<sec:authorize access="hasRole('ROLE_ADMIN')">
+			<a href="/admin/index">관리자페이지</a>
+		</sec:authorize>
+</div>
 
-  <div id="second_large" class="nav_div">
+<div id="second_large" class="nav_div">
+	<div>
+		<a href="/">THE C SHOP</a>
+	</div>
 
-	  <div>
-	    <a href="/" >THE C SHOP</a>
-	  </div>
-	  
-	  <div id="secondmenu">
-	    	    
-	    <span><a href="/product/list?product_category_num=1100">MEN</a>
-	    </span>
-	    <span><a href="/product/list?product_category_num=2000">WOMEN</a>
-	    </span>    
-	    <span><a href="/product/brands">BRANDS</a>
-	    </span>
-	    <span><a href="/board/list?board_category_num=7">POST</a>
-	    
-	  </div>
-		
-	  <!-- <button type="button" id="autoLogin"></button> -->
-	  <div>
-	    <a href="/board/list?board_category_num=5&pageNum=1&amount=10">HELP</a>
-	    <button class="search"style="border: 0; background-color: white;"><i class="fa-solid fa-magnifying-glass"></i></button>
-	    <sec:authorize access="isAnonymous()">
-	    	<a href="/member/login">LOGIN</a>
-	    </sec:authorize>
-	    <sec:authorize access="isAuthenticated()">
+	<div id="secondmenu">
+
+		<span><a href="/product/list?product_category_num=1100">MEN</a>
+		</span> <span><a href="/product/list?product_category_num=2000">WOMEN</a>
+		</span> <span><a href="/product/brands">BRANDS</a> </span> <span><a
+			href="/board/list?board_category_num=7">POST</a>
+	</div>
+
+	<!-- <button type="button" id="autoLogin"></button> -->
+	<div>
+		<a href="/board/list?board_category_num=5&pageNum=1&amount=10">HELP</a>
+		<button class="search" style="border: 0; background-color: white;">
+			<i class="fa-solid fa-magnifying-glass"></i>
+		</button>
+		<sec:authorize access="isAnonymous()">
+			<a href="/member/login">LOGIN</a>
+		</sec:authorize>
+		<sec:authorize access="isAuthenticated()">
 			<a class="account" id="account">ACCOUNT</a>
 		</sec:authorize>
-		<div id="account_drop" >
+		<div id="account_drop">
 			<ul>
 				<li><a href="/member/account">ACCOUNT DETAIL</a></li>
 				<li><a href="/order/orderHistory">ORDER HISTORY</a></li>
 				<!-- <li><a href="/member/addresses">ADDRESSES</a></li> -->
-				<li><a href="/board/list?board_category_num=5&pageNum=1&amount=10">HELP</a></li>
+				<li><a
+					href="/board/list?board_category_num=5&pageNum=1&amount=10">HELP</a></li>
 				<li><a class="logoutBtn">LOGOUT</a></li>
 			</ul>
 		</div>
-	    <button class="cart"style="border: 0; background-color: white;"><img src="https://img.icons8.com/material/24/000000/favorite-cart.png"/></button>
-	    <!-- <button id="cart"style="border: 0; background-color: white;"><img src="https://img.icons8.com/material/24/000000/clear-shopping-cart--v1.png"/></button>-->
-	  </div>
-    </div>
-  
-  <div id="third_large">
+		<button class="cart" style="border: 0; background-color: white;">
+			<img
+				src="https://img.icons8.com/material/24/000000/favorite-cart.png" />
+		</button>
+		<!-- <button id="cart"style="border: 0; background-color: white;"><img src="https://img.icons8.com/material/24/000000/clear-shopping-cart--v1.png"/></button>-->
+	</div>
+</div>
+
+<div id="third_large">
   
   </div>
   

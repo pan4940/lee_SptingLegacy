@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <form id='actionForm' action="" method='post'>
 	<input type='hidden' name='board_category_num' value='7'>
 	<input type="hidden" name="board_num" value="">
@@ -8,6 +8,7 @@
 <div class="col-12 col-sm-4" id="recommendBrand0"><a><img src="" alt="" ></a></div>
 <div class="col-12 col-sm-4" id="recommendBrand1"><a><img src="" alt="" ></a></div>
 <div class="col-12 col-sm-4" id="recommendBrand2"><a><img src="" alt="" ></a></div>
+<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 </section>
 <section><!-- 2 -->
 <marquee scrollamount="15px">

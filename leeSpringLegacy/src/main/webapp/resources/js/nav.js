@@ -34,6 +34,7 @@ $("#second_large span").mouseover(function(event) {
 		//반복문. 2개의 남성브랜드 정보 가져와서 2번 반복하게 할 것. 
 		$.ajax({
 			type: 'post',
+			headers: {"X-CSRF-TOKEN": $("input[name='_csrf']").val()},
 			url: '/product/getNavMenProductCategoryDTO',
 			dataType: 'json',
 			success: function(data) {
@@ -73,6 +74,7 @@ $("#second_large span").mouseover(function(event) {
 		//반복문. 2개의 여성브랜드 정보 가져와서 2번 반복하게 할 것. 
 		$.ajax({
 			type: 'post',
+			headers: {"X-CSRF-TOKEN": $("input[name='_csrf']").val()},
 			url: '/product/getNavWomenProductCategoryDTO',
 			dataType: 'json',
 			success: function(data) {
@@ -96,6 +98,7 @@ $("#second_large span").mouseover(function(event) {
 			
 		$.ajax({
 			type: 'post',
+			headers: {"X-CSRF-TOKEN": $("input[name='_csrf']").val()},
 			url: '/product/getNavBrandProductCategoryDTO',
 			dataType: 'json',
 			success: function(data) {
@@ -128,6 +131,7 @@ $("#second_large span").mouseover(function(event) {
 		//반복문. 4개의 포스트 정보 가져와서 2번 반복하게 할 것. 
 		$.ajax({
 			type: 'post',
+			headers: {"X-CSRF-TOKEN": $("input[name='_csrf']").val()},
 			url: '/board/getNavPostBoardDTO',
 			dataType: 'json',
 			success: function(data) {

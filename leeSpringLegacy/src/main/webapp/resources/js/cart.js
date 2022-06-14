@@ -2,6 +2,7 @@ $(function(){
 	
 	$.ajax({
 		type:'post',
+		headers: {"X-CSRF-TOKEN": $("input[name='_csrf']").val()},
 		url:'/order/getCartList',
 		dataType: 'json',
 		success:function(data){
@@ -68,6 +69,7 @@ $(function(){
                     console.log(result.isConfirmed); 
 					$.ajax({
                         type: 'post',
+						headers: {"X-CSRF-TOKEN": $("input[name='_csrf']").val()},
                         url: '/order/deleteDetailProductFromCart',
                         data: {
                            'detail_product_id': event.target.getAttribute("value")

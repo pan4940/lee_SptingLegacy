@@ -104,6 +104,7 @@ textarea#gdsDes { width:400px; height:180px; }
 </head>
 <body>
 <div id="root">
+	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 	<header id="header">
 		<div id="header_box">
 			<%@ include file="../admin/include/header.jsp" %>
@@ -148,6 +149,7 @@ textarea#gdsDes { width:400px; height:180px; }
 			</form>
 			
 			<div class="searchResult">
+
 				<input id="searchProduct" type="text" value="">
 				<table id="tr" border="1">
 					
@@ -155,15 +157,10 @@ textarea#gdsDes { width:400px; height:180px; }
 				</table>
 			</div>
 			
-			<form id="deleteProductList" action="/product/delete" method="post">
-			
-			</form>
-			
 			
 			<h2>상품 수정</h2>
 			
 			<form id="productModifyForm" method="post" action="/product/modify" autocomplete="off">
-			
 			<input type="hidden" id="product_num" name="product_num" value="" />
 			
 			<div class="inputArea">
@@ -267,6 +264,7 @@ $(document).ready(function(){
 	
 	$.ajax({
 		type: 'post',
+		headers: {"X-CSRF-TOKEN": $("input[name='_csrf']").val()},
 		url: '/product/getProductCategoryList',
 		dataType: 'json',
 		success: function(result){
@@ -277,6 +275,7 @@ $(document).ready(function(){
 
 	$.ajax({
 		type: 'post',
+		headers: {"X-CSRF-TOKEN": $("input[name='_csrf']").val()},
 		url: '/product/getBrandsCategoryList',
 		dataType: 'json',
 		success: function(result){
@@ -518,6 +517,7 @@ let productList;
 $("#search_Btn").on("click", function(){
 	$.ajax({
 		type: 'post',
+		headers: {"X-CSRF-TOKEN": $("input[name='_csrf']").val()},
 		data: $("#searchForm").serialize(),
 		url: '/product/getProductByCategory',
 		dataType: 'json',
@@ -566,6 +566,7 @@ $(document).on("click", "a.move", function(e){
 	uploadResult.children().remove();
 	$.ajax({
 		type: 'post',
+		headers: {"X-CSRF-TOKEN": $("input[name='_csrf']").val()},
 		data: 'product_num=' + $(this).attr("href"),
 		url: '/product/getProductByProductNum',
 		dataType: 'json',
@@ -606,8 +607,23 @@ $("#update_Btn").on("click", function(e){
    });
    
    
-   $("#productModifyForm").append(str).submit();
-   //$("#productModifyForm").append(str);
+   //$("#productModifyForm").append(str).submit();
+   $("#productModifyForm").append(str); 
+   
+   $.ajax({
+		url : '/product/modify',
+		type: 'post',
+		headers: {"X-CSRF-TOKEN": $("input[name='_csrf']").val()},
+		data: $("#productModifyForm").serialize(),
+		//contentType: "application/json; charset=UTF-8;",
+		success: function(){
+			console.log("성공");
+			alert("상품을 수정했습니다.");
+			location.href="/product/modifyForm";
+		},
+		
+	});
+   
 });
 
 
@@ -641,6 +657,7 @@ $("#delete_Btn").on("click", function(e) {
 	$.ajax({
 		url : '/product/delete',
 		type: 'post',
+		headers: {"X-CSRF-TOKEN": $("input[name='_csrf']").val()},
 		data: deleteProductList.serialize(),
 		//contentType: "application/json; charset=UTF-8;",
 		success: function(){
@@ -694,6 +711,7 @@ $("input[type='file']").change(function(e){
    
    $.ajax({
       url: '/file/productfileUploadAjax',
+      headers: {"X-CSRF-TOKEN": $("input[name='_csrf']").val()},
       processData: false, // data 파라미터로 전달된 데이터를 Query String으로 변환하지 않음. 파일전송시에는 이렇게 해야함
       contentType: false, // //contentType의 default는 application/x-www-form-urlencoded; charset=UTF-8, 파일전송시에는 false로 해줘야 함
       data: formData,

@@ -8,6 +8,7 @@
 </style>
 
 <div id="findIdResultDiv" class="col-12 col-lg-6">
+	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 	<h3>
 		<center>FIND ID</center>
 	</h3>
@@ -29,12 +30,10 @@
 		</li>
 	</ul>
 	<br> 
-		<input id="loginBtn" type="button" name="btn" 
-			style="font-size: 9pt" value="Login" 
-		; onclick="location.href = 'loginForm' " /> 
+		<input id="loginBtn" type="button" name="btn" style="font-size: 9pt" value="Login" onclick="location.href = 'loginForm'" /> 
 		
 		<input id="findPwdBtn" type="button" name="'btn" 
-		style="font-size: 9pt" value="find Password" onclick="location.href = 'findPwdForm' " />
+			style="font-size: 9pt" value="find Password" onclick="location.href = 'findPwdForm' " />
 </div>
 
 

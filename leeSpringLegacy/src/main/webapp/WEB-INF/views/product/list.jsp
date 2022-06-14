@@ -6,7 +6,7 @@
 <input id="product_category_num" type="hidden" value=${product_category_num}>
 <input id="pageNum" type="hidden" value="${pageDTO.criteria.pageNum}">
 <input id="amount" type="hidden" value="${pageDTO.criteria.amount}">
-
+<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 <style>
 
 .categoryListDiv ul {
@@ -79,6 +79,7 @@ $(function() {
 	$.ajax({
 	type:'post',
 		url:'/product/getProductCategoryByProductCategoryREF',
+		headers: {"X-CSRF-TOKEN": $("input[name='_csrf']").val()},
 		data: 'product_category_num=' + $("#product_category_num").val(),
 		dataType:'json',
 		success:function(data){
@@ -120,10 +121,10 @@ $(function() {
 	$.ajax({
 		type:'post',
 			url:'/product/getProductListByProductCategory',
+			headers: {"X-CSRF-TOKEN": $("input[name='_csrf']").val()},
 			data: 'product_category_num=' + $("#product_category_num").val(),
 			dataType:'json',
 			success:function(result){
-				console.log("2");
 				console.log(result);
 				let str = "";
 	        	$.each(result, function(index, items) {

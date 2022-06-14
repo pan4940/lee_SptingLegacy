@@ -103,6 +103,7 @@ textarea#gdsDes { width:400px; height:180px; }
 </head>
 <body>
 <div id="root">
+	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 	<header id="header">
 		<div id="header_box">
 			<%@ include file="../admin/include/header.jsp" %>
@@ -213,6 +214,7 @@ $(document).ready(function(){
 	
 	$.ajax({
 		type: 'post',
+		headers: {"X-CSRF-TOKEN": $("input[name='_csrf']").val()},
 		url: '/product/getProductCategoryList',
 		dataType: 'json',
 		success: function(result){
@@ -223,6 +225,7 @@ $(document).ready(function(){
 
 	$.ajax({
 		type: 'post',
+		headers: {"X-CSRF-TOKEN": $("input[name='_csrf']").val()},
 		url: '/product/getBrandsCategoryList',
 		dataType: 'json',
 		success: function(result){
@@ -272,17 +275,6 @@ function createBrandCategory(jsonData){
 	}
 	
 };
-
-
-
-
-
-
-
-
-
-
-
 
 
 function createCate(ProductsCategoryList){
@@ -465,6 +457,7 @@ let productList;
 $("#search_Btn").on("click", function(){
 	$.ajax({
 		type: 'post',
+		headers: {"X-CSRF-TOKEN": $("input[name='_csrf']").val()},
 		data: $("#searchForm").serialize(),
 		url: '/product/getProductByCategory',
 		dataType: 'json',
@@ -511,6 +504,7 @@ $(document).on("click", "a.searchProductMove", function(e){
 	
 	$.ajax({
 		type: 'post',
+		headers: {"X-CSRF-TOKEN": $("input[name='_csrf']").val()},
 		data: 'product_num=' + $(this).attr("href"),
 		url: '/product/getProductByProductNum',
 		dataType: 'json',
@@ -576,6 +570,7 @@ $(document).on("click", "a.searchProductSizemove", function(e){
 	console.log($(this).attr("href"))
 	$.ajax({
 		type: 'post',
+		headers: {"X-CSRF-TOKEN": $("input[name='_csrf']").val()},
 		data: 'product_size_id=' + $(".searchProductSizemove").attr("href"),
 		url: '/product/getDetailProductListByProductSizeId',
 		dataType: 'json',
@@ -629,6 +624,7 @@ $(document).on("click", "#deleteDetailProduct_Btn", function(e){
 	
 	$.ajax({
 		type: 'post',
+		headers: {"X-CSRF-TOKEN": $("input[name='_csrf']").val()},
 		data: 'detail_product_id=' + $(this).val(),
 		url: '/product/deleteDetailProductByDetailProductID',
 		success: function(){
@@ -651,6 +647,7 @@ $(document).on("click", "#addDetailProduct", function(e){
 	
 	$.ajax({
 		type: 'post',
+		headers: {"X-CSRF-TOKEN": $("input[name='_csrf']").val()},
 		data: {
 			'product_num' : $("#product_num").val(),
 			'product_size_id' : $(this).val(), 
@@ -680,6 +677,7 @@ $("#update_Btn").on("click", function(e){
    
 	$.ajax({
 		type: 'post',
+		headers: {"X-CSRF-TOKEN": $("input[name='_csrf']").val()},
 		data: $("#productSize").serialize(),
 		url: '/product/modifyProductSize',
 		success: function(){
@@ -698,6 +696,7 @@ $("#update_Btn").on("click", function(e){
 $("#register_Btn").on("click", function(){
 	$.ajax({
 		type: 'post',
+		headers: {"X-CSRF-TOKEN": $("input[name='_csrf']").val()},
 		data: $("#productSize").serialize(),
 		url: '/product/registerProductSize',
 		success: function(){

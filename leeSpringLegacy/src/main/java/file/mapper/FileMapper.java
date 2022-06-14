@@ -31,6 +31,5 @@ public interface FileMapper {
 
 	public void brandFileDeleteAll(int product_category_num);
 
-
 	
 }

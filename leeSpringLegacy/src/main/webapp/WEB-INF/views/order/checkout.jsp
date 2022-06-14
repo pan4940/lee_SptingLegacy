@@ -11,6 +11,7 @@
 	<h3>
 		<center>YOUR CART</center>
 	</h3>
+	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 	<input type="hidden" id="memberDTO" value="${memberDTO}">
 	<input type="hidden" id="memberDTOtel1" value="${memberDTO.tel1}">
 	<input type="hidden" id="memberDTOphone1" value="${memberDTO.phone1}">

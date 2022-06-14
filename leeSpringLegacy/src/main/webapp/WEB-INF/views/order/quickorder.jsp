@@ -7,7 +7,7 @@
 	<h3>
 		<center>QUICK ORDER</center>
 	</h3>
-	
+	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 	<input type="hidden" id="memberDTOtel1" value="${memberDTO.tel1}">
 	<input type="hidden" id="memberDTOphone1" value="${memberDTO.phone1}">
 	<div id="quickorderList"></div>
@@ -298,6 +298,7 @@ $(function(){
          		var msg='결제 완료';
 	         	$.ajax({
 	        		type:'post',
+	        		headers: {"X-CSRF-TOKEN": $("input[name='_csrf']").val()},
 	        		url:'/order/registerOrderDTO',
 	        		data: $('#shippinginformationForm').serialize(),
 	        		//success: function() {	

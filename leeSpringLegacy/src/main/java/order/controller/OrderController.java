@@ -1,7 +1,6 @@
 package order.controller;
 
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -12,13 +11,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import lombok.extern.log4j.Log4j2;
 import member.bean.MemberDTO;
-import order.bean.CartDTO;
 import order.bean.OrderDTO;
 import order.service.OrderService;
 import product.bean.ProductDTO;
@@ -112,7 +108,6 @@ public class OrderController {
 	@ResponseBody
 	public ProductDTO addQuickOrder(@RequestParam int product_size_id, HttpSession httpSession) {
 		MemberDTO memberDTO = (MemberDTO) httpSession.getAttribute("memberDTO");
-		String member_id = memberDTO.getMember_id();
 		ProductDTO productDTO = orderService.getQuickorder(product_size_id);
 		return productDTO;
 	}

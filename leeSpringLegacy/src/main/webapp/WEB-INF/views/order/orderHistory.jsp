@@ -1,20 +1,24 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <link rel="stylesheet" href="/resources/css/orderHistory.css" />
-    <div id="orderHistoryDiv">
-      <h3><center>ORDER HISTORY</center></h3>
-      <button id="totalOrderBtn">Total Order(0)</button>
-      <!-- <button>Canceled & Returns (0)</button> -->
-      <div id="orderlist">No order.</div>
-      <div id="paging">
-        <!-- Div-->
-      </div>
-    </div>
-    
+<div id="orderHistoryDiv">
+	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+	<h3>
+		<center>ORDER HISTORY</center>
+	</h3>
+	<button id="totalOrderBtn">Total Order(0)</button>
+	<!-- <button>Canceled & Returns (0)</button> -->
+	<div id="orderlist">No order.</div>
+	<div id="paging">
+		<!-- Div-->
+	</div>
+</div>
+
 <script type="text/javascript">
 $(function(){
 	$.ajax({
 		url:'/order/getOrderHistory',
+		headers: {"X-CSRF-TOKEN": $("input[name='_csrf']").val()},
 		type:'post',
 		dataType: 'json',
 		success:function(data){

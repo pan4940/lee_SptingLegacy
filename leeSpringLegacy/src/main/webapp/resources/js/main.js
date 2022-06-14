@@ -3,9 +3,7 @@ $(function() {
 	$.ajax({
 		type: 'post',
 		url: '/product/recommendBrand',
-		beforeSend : function(xhr){   
-            xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
-        },
+		headers: {"X-CSRF-TOKEN": $("input[name='_csrf']").val()},
 		dataType: 'json',
 		success: function(data) {
 			
@@ -23,12 +21,9 @@ $(function() {
 	$.ajax({
 		type: 'post',
 		url: '/board/getNewPost',
-		beforeSend : function(xhr){   
-            xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
-        },
+		headers: {"X-CSRF-TOKEN": $("input[name='_csrf']").val()},
 		dataType: 'json',
 		success: function(boardDTO) {
-			console.log(boardDTO)
 			$('<a/>', { href: boardDTO.board_num, class: 'move' }).append(
 				$('<img/>', { src: '/file/display?fileName=/' + boardDTO.fileList[0].uploadPath + '/' + boardDTO.fileList[0].uuid + '_' + boardDTO.fileList[0].fileName })
 			).appendTo($('#post_image'));
@@ -57,9 +52,7 @@ $(function() {
 	$.ajax({
 		type: 'post',
 		url: '/product/getRecommendShoesBrand',
-		beforeSend : function(xhr){   
-            xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
-        },
+		headers: {"X-CSRF-TOKEN": $("input[name='_csrf']").val()},
 		dataType: 'json',
 		success: function(data) {
 			console.log(data)

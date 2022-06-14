@@ -121,7 +121,7 @@ textarea#productDes { width:400px; height:180px; }
 			
 			
 			<form id="productWriteForm" method="post" autocomplete="off" action="/product/register">
-			
+			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 			<div class="inputArea">
 				<div id="category1">	
 					<label>1차 분류</label>
@@ -440,22 +440,22 @@ $("button[type='submit']").on("click", function(e){
        console.log(str);
    });
    
-   //$("#productWriteForm").append(str);
-   //$("#productWriteForm").append(str).submit();
    $("#productWriteForm").append(str);
-	   $.ajax({
-			type:'post',
-			url:'/product/register',
-			data: $('#productWriteForm').serialize(),
-			//success: function() {	
-			success: function() {
-				alert("상품 등록");
-				location.href = "/product/register";
-		    },
-	       error: function(err) {
-	           console.log(err);
-	       },
-		}); //end ajax 
+   
+   $.ajax({
+		type:'post',
+		url:'/product/register',
+		headers: {"X-CSRF-TOKEN": $("input[name='_csrf']").val()},
+		data: $('#productWriteForm').serialize(),
+		//success: function() {	
+		success: function() {
+			alert("상품 등록");
+			location.href = "/product/register";
+	    },
+       error: function(err) {
+           console.log(err);
+       },
+	}); //end ajax 
    
 });
 
@@ -501,6 +501,7 @@ $("input[type='file']").change(function(e){
    console.log(formData);
    $.ajax({
       url: '/file/productfileUploadAjax',
+      headers: {"X-CSRF-TOKEN": $("input[name='_csrf']").val()},
       processData: false, // data 파라미터로 전달된 데이터를 Query String으로 변환하지 않음. 파일전송시에는 이렇게 해야함
       contentType: false, // //contentType의 default는 application/x-www-form-urlencoded; charset=UTF-8, 파일전송시에는 false로 해줘야 함
       data: formData,
@@ -578,6 +579,7 @@ $(".uploadResult").on("click", "button", function(e){
    
    $.ajax({
       url: '/file/deleteFile',
+      headers: {"X-CSRF-TOKEN": $("input[name='_csrf']").val()},
       data: {fileName: targetFile},
       dataType: 'text',
       type: 'POST',

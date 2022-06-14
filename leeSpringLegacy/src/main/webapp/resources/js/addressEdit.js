@@ -1,7 +1,8 @@
 $(function(){
 	$.ajax({
-		url:'getEdit',
+		url:'/member/getEdit',
 		type:'post',
+		headers: {"X-CSRF-TOKEN": $("input[name='_csrf']").val()},
 		data:{
 			'addr_number':$('#addr_number').val()
 		},
@@ -27,72 +28,59 @@ $(function(){
 	})
 })
 
-$('#saveBtn').click(function(){
-	
 
-	
+$('#saveBtn').click(function(){
 	if($('#zipcode').val()==''){
 		Swal.fire({
 			  icon: 'warning',
 			  title: '우편번호를 입력해주세요!',
-			})
-	
+		});
 		
-	}else if ($('#addr1').val() == '') {
+	} else if ($('#addr1').val() == '') {
 		Swal.fire({
-			  icon: 'warning',
-			  title: '주소를 입력해주세요!',
-			})
-	
+			icon: 'warning',
+			title: '주소를 입력해주세요!',
+		});
 		
-	}else if ($('#addr2').val() == '') {
+	} else if ($('#addr2').val() == '') {
 		Swal.fire({
-			  icon: 'warning',
-			  title: '주소를 입력해주세요!',
-			})
+			icon: 'warning',
+			title: '주소를 입력해주세요!',
+		});
 			
-	}else if ($('#phone2').val() == '') {
+	} else if ($('#phone2').val() == '') {
 		Swal.fire({
-			  icon: 'warning',
-			  title: '핸드폰 번호를  입력해주세요!',
-			})
+			icon: 'warning',
+			title: '핸드폰 번호를  입력해주세요!',
+		});
 			
-	}else if ($('#phone3').val() == '') {
+	} else if ($('#phone3').val() == '') {
 		Swal.fire({
-			  icon: 'warning',
-			  title: '핸드폰 번호를  입력해주세요!',
-			})
+			icon: 'warning',
+			title: '핸드폰 번호를  입력해주세요!',
+		});
 	
-	}else{
-	
-
-	
-	$.ajax({
-		type:'post',
-		url:'addEdit',
-		
-		data:$("#addressEditForm").serialize(),
+	} else{
+		$.ajax({
+			type:'post',
+			url:'/member/addressEdit',
+			headers: {"X-CSRF-TOKEN": $("input[name='_csrf']").val()},
+			data:$("#addressEditForm").serialize(),
 			success: function(){
 				Swal.fire({
-					  icon: 'success',
-					  title: ' 완료 (๑>ᴗ<๑)',
+					icon: 'success',
+					title: ' 완료 ',
 					closeOnClickOutside : false
-						}).then(function(){
-							location.href='addresses';       
-						});
-					  
-	   
+				}).then(function(){
+					location.href='addresses';       
+				});
 			},
+				
+			error:function(err){
+				console.log(err);
+			}
 			
-			
-		
-		error:function(err){
-			console.log(err);
-		}
-		
-		
-		
-	});
+		}); //end ajax
 	}
 });
 

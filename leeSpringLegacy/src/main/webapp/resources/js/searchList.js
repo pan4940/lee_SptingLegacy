@@ -5,6 +5,7 @@ $(function() {
 	$.ajax({
 		type: 'post',
 		url: '/product/getProductsByProductName',
+		headers: {"X-CSRF-TOKEN": $("input[name='_csrf']").val()},
 		dataType: 'json',
 		data: {
 			'product_name': $('#product_name').val()

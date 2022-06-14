@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <html>
 <head>
-	<title>kubg Admin</title>
+	<title>Admin</title>
 	
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
@@ -104,6 +104,7 @@ textarea#gdsDes { width:400px; height:180px; }
 </head>
 <body>
 <div id="root">
+
 	<header id="header">
 		<div id="header_box">
 			<%@ include file="../admin/include/header.jsp" %>
@@ -113,6 +114,7 @@ textarea#gdsDes { width:400px; height:180px; }
 	<nav id="nav">
 		<div id="nav_box">
 			<%@ include file="../admin/include/nav.jsp" %>
+
 		</div>
 	</nav>
 	
@@ -141,6 +143,7 @@ textarea#gdsDes { width:400px; height:180px; }
 			<h2>카테고리 관리</h2>
 			
 			<form id="brandCategoryForm" action="/product/createBrandCategory" method="post">
+				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 				<input type="hidden" id="product_category_num" name="product_category_num" value="0">
  				<div class="inputArea">
 					<label for="brandName">브랜드명</label>
@@ -166,16 +169,13 @@ textarea#gdsDes { width:400px; height:180px; }
 					<div class="bigPicture">
 					</div>
 				</div>
-				
-				
-					
-				
 			
 			</form>
 			
 			<div class="inputArea">
 					<button type="button" id="register_Btn" class="btn btn-primary">등록</button>			
-					<button type="button" id="modify_Btn" class="btn btn-danger">수정</button>
+					<button type="button" id="modify_Btn" class="btn btn-info">수정</button>
+					<button type="button" id="delete_Btn" class="btn btn-danger">삭제</button>
 			</div>
 		</div>
 	</section>
@@ -198,6 +198,7 @@ $(document).ready(function(){
 	$.ajax({
 		type: 'post',
 		url: '/product/getBrandsCategoryList',
+		headers: {"X-CSRF-TOKEN": $("input[name='_csrf']").val()},
 		dataType: 'json',
 		success: function(result){
 			//console.log(result);
@@ -211,6 +212,7 @@ $(document).ready(function(){
 $("#select_Btn").on("click", function(){
 	$.ajax({
 		type: 'post',
+		headers: {"X-CSRF-TOKEN": $("input[name='_csrf']").val()},
 		data: $("#searchForm").serialize(),
 		url: '/product/getProductCategoryDTO',
 		dataType: 'json',
@@ -270,6 +272,24 @@ $("#modify_Btn").on("click", function(e){
    //$("#brandCategoryForm");
 });
 
+//삭제 버튼 클릭시 이벤트
+$("#delete_Btn").on("click", function(e){
+   e.preventDefault();
+   console.log("product_category delete......");
+   let str = ""
+   $(".uploadResult ul li").each(function(i, obj) {
+      let jobj = $(obj);
+
+       str += "<input type='hidden' name='fileList["+i+"].fileName' value='"+jobj.data("filename")+"'>";
+       str += "<input type='hidden' name='fileList["+i+"].uuid' value='"+jobj.data("uuid")+"'>";
+       str += "<input type='hidden' name='fileList["+i+"].uploadPath' value='"+jobj.data("path")+"'>";
+       
+       console.log(str);
+   });
+   
+   $("#brandCategoryForm").attr("action", "/product/deleteBrandCategory").append(str).submit();
+});
+
 
 //let regex = new RegExp("(.*?)\.(exe|sh|zip|alz)$");
 let regex = new RegExp("(.*?)\.(png|bmp|jpeg|jpg)$");
@@ -318,6 +338,7 @@ $("input[type='file']").change(function(e){
 	console.log(formData);
 	$.ajax({
 		url : '/file/brandfileUploadAjax',
+		headers: {"X-CSRF-TOKEN": $("input[name='_csrf']").val()},
 		processData : false, // data 파라미터로 전달된 데이터를 Query String으로 변환하지 않음. 파일전송시에는 이렇게 해야함
 		contentType : false, // //contentType의 default는 application/x-www-form-urlencoded; charset=UTF-8, 파일전송시에는 false로 해줘야 함
 		data : formData,

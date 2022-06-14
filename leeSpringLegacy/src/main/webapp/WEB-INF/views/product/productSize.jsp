@@ -103,6 +103,7 @@ textarea#gdsDes { width:400px; height:180px; }
 </head>
 <body>
 <div id="root">
+	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 	<header id="header">
 		<div id="header_box">
 			<%@ include file="../admin/include/header.jsp" %>
@@ -153,10 +154,6 @@ textarea#gdsDes { width:400px; height:180px; }
 				</table>
 			</div>
 			
-			<form id="deleteProductList" action="/product/delete" method="post">
-			
-			</form>
-			
 			
 			<!-- 사이즈 등록 수정 -->
 			<div>
@@ -170,6 +167,7 @@ textarea#gdsDes { width:400px; height:180px; }
 				</div>
 			
 				<form id="productSize" action="/product/registerProductSize" method="post">
+					
 					<div class="tab-pane container" id="size">
 						<input type="hidden" id="product_num" name="product_num" value="">
 						<input type="hidden" id="product_size_id" name="product_size_id" value="0">
@@ -280,6 +278,7 @@ $(document).ready(function(){
 	
 	$.ajax({
 		type: 'post',
+		
 		url: '/product/getProductCategoryList',
 		dataType: 'json',
 		success: function(result){
@@ -532,6 +531,7 @@ let productList;
 $("#search_Btn").on("click", function(){
 	$.ajax({
 		type: 'post',
+		headers: {"X-CSRF-TOKEN": $("input[name='_csrf']").val()},
 		data: $("#searchForm").serialize(),
 		url: '/product/getProductByCategory',
 		dataType: 'json',
@@ -579,6 +579,7 @@ $(document).on("click", "a.searchProductMove", function(e){
 	
 	$.ajax({
 		type: 'post',
+		headers: {"X-CSRF-TOKEN": $("input[name='_csrf']").val()},
 		data: 'product_num=' + $(this).attr("href"),
 		url: '/product/getProductByProductNum',
 		dataType: 'json',
@@ -634,6 +635,7 @@ $(document).on("click", "a.searchProductSizemove", function(e){
 	
 	$.ajax({
 		type: 'post',
+		headers: {"X-CSRF-TOKEN": $("input[name='_csrf']").val()},
 		data: 'product_size_id=' + $(".searchProductSizemove").attr("href"),
 		url: '/product/getProductSizeByProductSizeId',
 		dataType: 'json',
@@ -675,6 +677,7 @@ $(document).on("click", "#delete_Btn", function(e){
 	console.log($(this).val());
 	$.ajax({
 		type: 'post',
+		headers: {"X-CSRF-TOKEN": $("input[name='_csrf']").val()},
 		data: 'product_size_id=' +  $(this).val(),
 		url: '/product/deleteProductSize',
 		success: function(){

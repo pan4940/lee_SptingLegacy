@@ -2,7 +2,6 @@ package product.service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -10,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import board.bean.BoardDTO;
 import file.bean.FileDTO;
 import file.mapper.FileMapper;
 import product.bean.DetailProductDTO;
@@ -31,16 +29,12 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public void createBrandCategorySelectKey(ProductCategoryDTO productCategoryDTO) {
 		
-		System.out.println("before productCategoryDTO : " + productCategoryDTO);
 		productMapper.createBrandCategorySelectKey(productCategoryDTO);
 		
 		productCategoryDTO.getFileList().forEach(t -> {
 			t.setLinked_num(productCategoryDTO.getProduct_category_num());
-			System.out.println("productCategoryDTO : " + t);
 			fileMapper.brandFileInsert(t);
 		});
-		
-		System.out.println("after productCategoryDTO : " + productCategoryDTO);
 		
 	}
 	
@@ -407,6 +401,13 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public int getTotalCount(int product_category_num) {
 		return productMapper.getTotalCount(product_category_num);
+	}
+	
+	
+	@Override
+	public void deleteBrandCategory(int product_category_num) {
+		fileMapper.brandFileDeleteAll(product_category_num);
+		productMapper.deleteBrandCategory(product_category_num);
 	}
 	
 }
