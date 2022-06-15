@@ -37,7 +37,7 @@ public interface MemberService {
 
 	public void tempPwdByPhone(HttpSession httpSession, String member_id);
 
-	public List<MemberDTO> getMember(Map<String, String> map);
+	public List<MemberDTO> getMemberListByMemberIdAndMemberName(Map<String, String> map);
 
 	public void memberGradeUpdate(Map<String, String> map);
 
@@ -45,7 +45,9 @@ public interface MemberService {
 
 	public void socialJoin(MemberDTO memberDTO);
 
-	public void testRead();
+	public MemberDTO getMemberByMemberIdAndMemberName(Map<String, String> map);
+
+	public void memberAuthUpdate(Map<String, String> map);
 
 
 }

@@ -50,7 +50,7 @@ public class MemberController {
 	}
 	
 	
-	@RequestMapping("/socialLoginOk")
+	@PostMapping("/socialLoginOk")
 	@ResponseBody
 	public String socialLogin(HttpSession httpSession, @RequestParam("member_id") String socialId) throws Exception{
 		System.out.println(socialId);
@@ -315,12 +315,21 @@ public class MemberController {
 	}
 	
 	
-	//관리자 모드에서 사용. id와 이름으로 회원정보 찾기
-	@PostMapping("/getMember")
+	//관리자 모드에서 사용. id와 이름으로 회원list 찾기. like 검색
+	@PostMapping("/getMemberListByMemberIdAndMemberName")
 	@ResponseBody
-	public List<MemberDTO> getMember(@RequestParam Map<String, String> map) {
+	public List<MemberDTO> getMemberListByMemberIdAndMemberName(@RequestParam Map<String, String> map) {
 		System.out.println(map);
-		return memberService.getMember(map);
+		return memberService.getMemberListByMemberIdAndMemberName(map);
+	}
+	
+	
+	//관리자 모드에서 사용. id와 이름으로 memberDTO찾기. 
+	@PostMapping("/getMemberByMemberIdAndMemberName")
+	@ResponseBody
+	public MemberDTO getMemberByMemberIdAndMemberName(@RequestParam Map<String, String> map) {
+		System.out.println(map);
+		return memberService.getMemberByMemberIdAndMemberName(map);
 	}
 	
 	
@@ -371,9 +380,13 @@ public class MemberController {
 		return "index";
 	}
 	
-	@GetMapping("/test")
-	public void testRead() {
-		memberService.testRead();
+	
+	
+	@PostMapping("/memberAuthUpdate")
+	@ResponseBody
+	public void memberAuthUpdate(@RequestParam Map<String, String> map) {
+		
+		memberService.memberAuthUpdate(map);
 	}
 	
 }

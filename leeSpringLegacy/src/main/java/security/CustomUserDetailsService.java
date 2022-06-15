@@ -23,7 +23,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 		log.info("load user by username : " + username);
 		System.out.println("load user by username : " + username);
 		
-		MemberDTO memberDTO = memberMapper.testRead(username);
+		MemberDTO memberDTO = memberMapper.getMemberDtoByMemberId(username);
 		log.info("queried by member mapper : " + memberDTO);
 		System.out.println("queried by member mapper : " + memberDTO);
 		

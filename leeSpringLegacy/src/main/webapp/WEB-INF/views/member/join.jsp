@@ -4,7 +4,7 @@
 <div id="joinDiv">
   <form id="writeForm" name="writeForm">
     <div id="write">
-    
+    	
       <label for="id" style="color: gray">아이디</label><br />
       <input type="text" id="member_id" name="member_id" style="width: 100%; border: 0px; border-bottom: 1px solid gray" />
       <input type="hidden" id="csrf" name="${_csrf.parameterName}" value="${_csrf.token}" />
@@ -52,12 +52,10 @@
       />
       <input type="hidden" name="addressDTOList[0].order" value="1"> 
       <input
-        id="postbtn"
-        type="button"
+        id="postbtn" type="button"
         style="  border: 0px; background-color: white; font-weight: bold; font-size: 9pt; "
         value="우편번호검색"
         onclick="checkPost()"
-   
       />
       <p></p>
 

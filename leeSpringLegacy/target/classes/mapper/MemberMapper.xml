@@ -38,8 +38,7 @@
 	</resultMap>
 	
 	
-	
-	<select id="testRead" resultMap="memberMap">
+	<select id="getMemberByMemberIdAndMemberName" parameterType="java.util.Map" resultMap="memberMap">
 		select 
     		m.*, ma.addr1, ma.addr2, ma.zipcode, ma.tel1, ma.tel2, ma.tel3, ma.phone1, ma.phone2, ma.phone3, A.auth 
     	from 
@@ -47,19 +46,21 @@
        			ON m.member_id = a.member_id  
         			 LEFT OUTER JOIN MEMBER_ADDRESS ma
          		ON m.member_id = ma.member_id
-       where m.member_id = #{username}
+        where 
+        	m.member_id = #{member_id} and m.member_name = #{member_name}
 	</select>
 	
-	<!-- <select id="getMemberDtoByMemberId" parameterType="String" resultType="MemberDTO">
-		select * from member where member_id = #{member_id}
-	</select>	
 	
-	<select id="loginOK" parameterType="java.util.Map" resultType="MemberDTO">
-		select * from member where member_id = #{member_id} and member_pwd = #{member_pwd}
-	</select> -->
-	
-	<select id="getMemberDtoByMemberId" parameterType="String" resultType="MemberDTO">
-		select * from member where member_id = #{member_id}
+	<select id="getMemberDtoByMemberId" parameterType="String" resultMap="memberMap">
+		select 
+    		m.*, ma.addr1, ma.addr2, ma.zipcode, ma.tel1, ma.tel2, ma.tel3, ma.phone1, ma.phone2, ma.phone3, A.auth 
+    	from 
+    		MEMBER m LEFT OUTER JOIN MEMBER_AUTH a 
+       			ON m.member_id = a.member_id  
+        			 LEFT OUTER JOIN MEMBER_ADDRESS ma
+         		ON m.member_id = ma.member_id
+        where 
+        	m.member_id = #{username}
 	</select>	
 	
 	<select id="loginOK" parameterType="java.util.Map" resultMap="memberMap">
@@ -156,18 +157,82 @@
 		where member_id = #{member_id}		
 	</update>
 	
-	<select id="getMember" parameterType="java.util.Map" resultType="MemberDTO">
+	<select id="getMemberListByMemberIdAndMemberName" parameterType="java.util.Map" resultMap="memberMap">
 		<if test="member_id != '' and member_name != ''">
-			select * from member where member_id LIKE '%'||#{member_id}||'%' and member_name LIKE '%'||#{member_name}||'%'		
+			select 
+	    		m.*, ma.addr1, ma.addr2, ma.zipcode, ma.tel1, ma.tel2, ma.tel3, ma.phone1, ma.phone2, ma.phone3, A.auth 
+	    	from 
+	    		MEMBER m LEFT OUTER JOIN MEMBER_AUTH a 
+	       			ON m.member_id = a.member_id  
+	        			 LEFT OUTER JOIN MEMBER_ADDRESS ma
+	         		ON m.member_id = ma.member_id
+	        where 
+	        	m.member_id LIKE '%'||#{member_id}||'%' and m.member_name LIKE '%'||#{member_name}||'%'		
 		</if>
 		<if test="member_id == '' and member_name != ''">
-			select * from member where member_name LIKE '%'||#{member_name}||'%'
+			select 
+	    		m.*, ma.addr1, ma.addr2, ma.zipcode, ma.tel1, ma.tel2, ma.tel3, ma.phone1, ma.phone2, ma.phone3, A.auth 
+	    	from 
+	    		MEMBER m LEFT OUTER JOIN MEMBER_AUTH a 
+	       			ON m.member_id = a.member_id  
+	        			 LEFT OUTER JOIN MEMBER_ADDRESS ma
+	         		ON m.member_id = ma.member_id
+	        where 
+				m.member_name LIKE '%'||#{member_name}||'%'
 		</if>
 		<if test="member_id != '' and member_name == ''">
-			select * from member where member_id LIKE '%'||#{member_id}||'%'	
+			select 
+	    		m.*, ma.addr1, ma.addr2, ma.zipcode, ma.tel1, ma.tel2, ma.tel3, ma.phone1, ma.phone2, ma.phone3, A.auth 
+	    	from 
+	    		MEMBER m LEFT OUTER JOIN MEMBER_AUTH a 
+	       			ON m.member_id = a.member_id  
+	        			 LEFT OUTER JOIN MEMBER_ADDRESS ma
+	         		ON m.member_id = ma.member_id
+	        where 
+	        	m.member_id LIKE '%'||#{member_id}||'%'	
 		</if>
+		<!-- member_id LIKE '%'||#{member_id}||'%' and member_name LIKE '%'||#{member_name}||'%' -->
 	</select>
 	
+	
+	<insert id="memberAuthUpdate" parameterType="java.util.Map">
+		<if test="authority == 'ROLE_MEMBER'">
+			begin
+				delete from MEMBER_AUTH where member_id = #{member_id};
+				
+				insert into MEMBER_AUTH (
+					member_id,
+					auth
+				) values (
+					#{member_id},
+					#{authority}
+				);
+			end;
+		</if>
+		
+		<if test="authority == 'ROLE_ADMIN'">
+			begin
+				delete from MEMBER_AUTH where member_id = #{member_id};
+				
+				insert into MEMBER_AUTH (
+					member_id,
+					auth
+				) values (
+					#{member_id},
+					#{authority}
+				);
+				
+				insert into MEMBER_AUTH (
+					member_id,
+					auth
+				) values (
+					#{member_id},
+					'ROLE_MEMBER'
+				);
+				
+			end;
+		</if>
+	</insert>
 	
 	<select id="memberGradeUpdate" parameterType="java.util.Map">
 		update member set

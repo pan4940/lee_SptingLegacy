@@ -26,6 +26,7 @@ function checkSocial(id, name){
 	$.ajax({
 		type: 'post',
 		url: '/member/socialLoginOk',
+		headers: {"X-CSRF-TOKEN": $("input[name='_csrf']").val()},
 		data: 'member_id=' + id,
 		dataType: 'text',
 		success: function(data) {

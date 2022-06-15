@@ -214,8 +214,10 @@ public class MemberServiceImpl implements MemberService {
 	}
 	
 	@Override
-	public List<MemberDTO> getMember(Map<String, String> map) {
-		return memberMapper.getMember(map);
+	public List<MemberDTO> getMemberListByMemberIdAndMemberName(Map<String, String> map) {
+		List<MemberDTO> list = memberMapper.getMemberListByMemberIdAndMemberName(map);
+		System.out.println(list);
+		return list;
 	}
 	
 	
@@ -229,9 +231,14 @@ public class MemberServiceImpl implements MemberService {
 		return memberMapper.socialLogin(socialId);
 	}
 	
+	
 	@Override
-	public void testRead() {
-		MemberDTO memberDTO = memberMapper.testRead("dldltjdgus");
-		System.out.println(memberDTO);
+	public MemberDTO getMemberByMemberIdAndMemberName(Map<String, String> map) {
+		return memberMapper.getMemberByMemberIdAndMemberName(map);
+	}
+	
+	@Override
+	public void memberAuthUpdate(Map<String, String> map) {
+		memberMapper.memberAuthUpdate(map);
 	}
 }

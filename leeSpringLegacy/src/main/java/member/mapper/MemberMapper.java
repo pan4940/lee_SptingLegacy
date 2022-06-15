@@ -30,7 +30,7 @@ public interface MemberMapper {
 
 	public void updatePwdAndRank(MemberDTO memberDTO);
 
-	public List<MemberDTO> getMember(Map<String, String> map);
+	public List<MemberDTO> getMemberListByMemberIdAndMemberName(Map<String, String> map);
 
 	public void memberGradeUpdate(Map<String, String> map);
 
@@ -40,7 +40,9 @@ public interface MemberMapper {
 
 	public void insertAddress(MemberAddressDTO memberAddressDTO);
 
-	public MemberDTO testRead(String member_id);
+	public MemberDTO getMemberByMemberIdAndMemberName(Map<String, String> map);
+
+	public void memberAuthUpdate(Map<String, String> map);
 
 	
 

@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <html>
 <head>
-	<title>kubg Admin</title>
+	<title>Admin</title>
 	
 
 <link rel="stylesheet" href="/resources/bootstrap/bootstrap.min.css">
@@ -100,6 +100,7 @@ textarea#gdsDes { width:400px; height:180px; }
 </head>
 <body>
 <div id="root">
+	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 	<header id="header">
 		<div id="header_box">
 			<%@ include file="../admin/include/header.jsp" %>
@@ -130,10 +131,8 @@ textarea#gdsDes { width:400px; height:180px; }
 						<input type="text" id="searchMember_name" name="member_name" style="width:300px"/>
 					</div>		
 				
-				
-				
-				<button type="button" id="search_Btn" class="btn btn-primary">검색</button>
-			</div>
+					<button type="button" id="search_Btn" class="btn btn-primary">검색</button>
+				</div>
 			</form>
 			
 			<div class="searchResult">
@@ -150,7 +149,7 @@ textarea#gdsDes { width:400px; height:180px; }
 			
 			<h2>회원 등급 수정</h2>
 			
-			<form id="memberGradeUpdate" method="post" action="/product/memberGradeUpdate">
+			<form id="memberAuthUpdate" method="post" action="/member/memberGradeUpdate">
 				<div class="inputArea">
 					<div class="inputArea">
 						<label for="member_id">아이디</label>
@@ -162,10 +161,11 @@ textarea#gdsDes { width:400px; height:180px; }
 						<input type="text" id="member_name" name="member_name" value="" style="width:300px" readonly="readonly"/>
 					</div>
 					
-					<div id="rank_num">	
+					<div id="auth">	
 						<label>회원등급</label>
-						<select id="selectRank_num" class="rank_num" name="rank_num">
-							<option value=""></option>
+						<select id="authority" name="authority">
+							<option value="ROLE_MEMBER">일반 사용자</option>
+							<option value="ROLE_ADMIN">운영자</option>
 						</select>
 					</div>
 				</div>
@@ -198,54 +198,6 @@ $("#back_Btn").click(function(){
 });		
 
 
-//rank_num 목록 가져오기
-function getRankNum() {
-	
-	$.ajax({
-		type: 'post',
-		url: '/member/getRankNum',
-		dataType: 'json',
-		
-		success: function(rankList){
-			
-			let rankArr = new Array();
-			let rankObj = new Object();
-			
-			for(var i = 0; i < rankList.length; i++) {
-				
-				rankObj = new Object();  // 초기화
-				
-				// rank에 rank_num와 rank_name를 저장
-				rankObj.rank_num = rankList[i].rank_num; 
-				rankObj.rank_name = rankList[i].rank_name;
-				
-				// rank에 저장된 값을 rankArr 배열에 저장
-				rankArr.push(rankObj);
-			}
-
-			// 랭크 셀렉트 박스에 데이터 삽입
-			let rankSelect = $("#selectRank_num")
-			rankSelect.children().remove();
-
-			for(let i = 0; i < rankArr.length; i++) {
-
-				// rankArr에 저장된 값을 cate1Select에 추가
-				rankSelect.append("<option value='" + rankArr[i].rank_num + "'>"
-									+ rankArr[i].rank_name + "</option>");	
-			}
-			 
-		},
-		error: function(e) {
-			console.log(e);
-			
-		}
-	});
-	
-	
-}
-
-
-
 //검색버튼 클릭
 
 let productList;
@@ -254,7 +206,9 @@ $("#search_Btn").on("click", function(){
 	$.ajax({
 		type: 'post',
 		data: $("#searchForm").serialize(),
-		url: '/member/getMember',
+		headers: {"X-CSRF-TOKEN": $("input[name='_csrf']").val()},
+		url: '/member/getMemberListByMemberIdAndMemberName',
+		//url: '/member/test',
 		dataType: 'json',
 		success: function(MemberDTOList){
 			console.log(MemberDTOList);
@@ -273,9 +227,9 @@ $("#search_Btn").on("click", function(){
 								"<td><input type='checkbox' id='checkMember_id' name='checkMember_id' value='" + item.member_id + "'></td>" +
 								"<td><a class='move' href='" + item.member_id +"' value='" + item.member_name + "'>" + item.member_id + "</a></td>"+
 								"<td>" + item.member_name + "</td>"+
-								"<td>" + item.tel1 + "-" + item.tel2 + "-" + item.tel3 + "</td></tr>"
+								"<td>" + item.addressDTOList[0].tel1 + "-" + item.addressDTOList[0].tel2 + "-" + item.addressDTOList[0].tel3 + "</td></tr>"
 				);
-			}); 
+			});
 		},
 		error: function(e) {
 			console.log(e);
@@ -284,19 +238,19 @@ $("#search_Btn").on("click", function(){
 	});
 });
 
-
+//회원 등급 수정
 $("#update_Btn").on("click", function(){
 	$.ajax({
 		type: 'post',
-		data: $("#memberGradeUpdate").serialize(),
-		url: '/member/memberGradeUpdate',
+		data: $("#memberAuthUpdate").serialize(),
+		headers: {"X-CSRF-TOKEN": $("input[name='_csrf']").val()},
+		url: '/member/memberAuthUpdate',
 		success: function(){
 			alert("회원등급을 변경했습니다.");
 			window.location.href = "/member/management";
 		},
 		error: function(e) {
 			console.log(e);
-			
 		}
 	});	
 });
@@ -309,28 +263,28 @@ $(document).on("click", "a.move", function(e){
 	$("#member_name").val('');
 	$("#selectRank_num").val('');
 	
-	getRankNum();
 	$.ajax({
-		url: '/member/getMember',
+		url: '/member/getMemberByMemberIdAndMemberName',
+		headers: {"X-CSRF-TOKEN": $("input[name='_csrf']").val()},
 		type: 'post',
 		data: {
 			'member_id' : $(this).attr("href"),
 			'member_name' : $(this).attr("value"),
 		},
 		dataType: 'json',
-		success: function(result){
-			console.log(result);
+		success: function(memberDTO){
+			console.log(memberDTO);
 			
-			$("#member_id").val(result[0].member_id);
-			$("#member_name").val(result[0].member_name);
-			$("#selectRank_num").val(result[0].rank_num);
+			$("#member_id").val(memberDTO.member_id);
+			$("#member_name").val(memberDTO.member_name);
+			$("#authority").val(memberDTO.memberAuthList[0].authority).prop("selected", true);
 		},
 		
 		error: function(e) {
 			console.log(e);
 		}
 	});
-});
+}); 
 
 
 </script>

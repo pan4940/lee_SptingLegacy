@@ -59,6 +59,7 @@ $('#findPwdBtn').click(function(){
 			$.ajax({
 				type:'post',
 				url:'/member/findPwdByEmail',
+				headers: {"X-CSRF-TOKEN": $("input[name='_csrf']").val()},
 				data:{
 					'email':$('#email').val(),
 					'member_name':$('#member_name').val(),
@@ -108,6 +109,7 @@ $('#findPwdBtn').click(function(){
 			$.ajax({
 				type:'post',
 				url:'/member/findPwdByPhone',
+				headers: {"X-CSRF-TOKEN": $("input[name='_csrf']").val()},
 				data:{
 					'phone1':$('#phone1').val(),
 					'phone2':$('#phone2').val(),
