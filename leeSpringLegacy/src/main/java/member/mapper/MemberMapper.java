@@ -44,6 +44,10 @@ public interface MemberMapper {
 
 	public void memberAuthUpdate(Map<String, String> map);
 
+	public void deleteMember(String member_id);
+
+	public MemberAddressDTO getEditAddress(String address_id);
+
 	
 
 }

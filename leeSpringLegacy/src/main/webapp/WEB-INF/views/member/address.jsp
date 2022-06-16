@@ -1,7 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>    
 
-<link rel="stylesheet" href="../css/address.css" />
+<link rel="stylesheet" href="/resources/css/address.css" />
 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 <input id="member_id" type="hidden" value="${principal.memberDTO.member_id}">
 <form id="addressForm" name="addressForm">
@@ -12,17 +14,20 @@
 			</h3>
 		</div>
 		<div id="content">
-			<!-- <input id="checkbox" name="checkbox" type="checkbox" value="" />
-      <div id="address1">
-        <span>${memId}</span>
-          <span>${memName}</span>
-        <span>${memZipcode}</span>
-        <span>${memAddr1}</span>
-        <span>${memAddr2}</span>
-        <span>0${memPhone}</span>
-      </div>
-
-      <a href="/user/addressEdit">EDIT</a> -->
+			<sec:authentication property="principal.memberDTO" var="memberDTO"/>
+			<c:forEach items="${memberDTO.addressDTOList}" var="memberAddressDTO">
+				<div id="addcontent">
+					<input type="checkbox" name="deleteAddressList" class="checkbox" value="${memberAddressDTO.address_id}">
+					<div id="address1">
+						<%-- <span>${memberAddressDTO.orders}</span> --%>
+						<span>${memberAddressDTO.zipcode}</span>
+						<span>${memberAddressDTO.addr1}</span>
+						<span>${memberAddressDTO.addr2}</span>
+						<span>${memberAddressDTO.phone1} - ${memberAddressDTO.phone2} - ${memberAddressDTO.phone3}</span>
+					</div>
+					<a href="/member/addressEdit?address_id=${memberAddressDTO.address_id}">EDIT</a>
+				</div>
+			</c:forEach>
 		</div>
 
 		<div id="addBtn">
@@ -31,11 +36,11 @@
 				onclick="location.href='/addressNew'" />
 		</div>
 	</div>
-	
-<script type="text/javascript" src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
-<script type="text/javascript" src="../js/address.js"></script>
-	
 </form>
+
+	<script type="text/javascript" src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+	<script type="text/javascript" src="/resources/js/address.js"></script>
+
 

@@ -1,34 +1,4 @@
-$(function(){
-	$.ajax({
-		url:'/member/getAddresses',
-		headers: {"X-CSRF-TOKEN": $("input[name='_csrf']").val()},
-		data:{'member_id':$('#member_id').val()},
-		dataType:'json',
-		type:'post',
-		success:function(data){
-			//console.log(data)
-			if(data.length!=0){
-				$.each(data,function(index,item){
-					$('<div/>',{'id':'addcontent'}).append($('<input/>',{'type':'checkbox','name':'checkbox','class':'checkbox','value':item.addr_number}))
-					.append($('<div/>',{'id':'address1'}).append($('<span/>').text(item.addr_name==null?'미지정':item.addr_name))
-						.append($('<span/>').text(item.member_name))
-						.append($('<span/>').text(item.zipcode.toString().length==4?'0'+item.zipcode:item.zipcode))
-						.append($('<span/>').text(item.addr1))
-						.append($('<span/>').text(item.addr2))
-						.append($('<span/>').text("0"+item.phone)))
-					.append($('<a/>',{'href':'addressEdit?addnum='+item.addr_number,'text':'EDIT'}))
-					.appendTo($('#content'))
-				});
-			} else{
-				$('#DELETEbtn').hide();
-			}
-		},
-		error:function(err){
-			console.log(err);
-			alert(err);
-		}
-	});
-});
+
 $('#DELETEbtn').click(function(){
 
 

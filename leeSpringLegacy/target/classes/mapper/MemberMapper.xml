@@ -19,6 +19,7 @@
 	</resultMap>
 	
 	<resultMap type="member.bean.MemberAddressDTO" id="addressMap">
+		<id property="address_id" column="address_id"/>
 		<result property="member_id" column="member_id"/>
 		<result property="zipcode" column="zipcode"/>
 		<result property="addr1" column="addr1"/>
@@ -29,7 +30,7 @@
 		<result property="phone1" column="phone1"/>
 		<result property="phone2" column="phone2"/>
 		<result property="phone3" column="phone3"/>
-		<result property="order" column="order"/>
+		<result property="orders" column="orders"/>
 	</resultMap>
 	
 	<resultMap type="member.bean.MemberAuthDTO" id="memberAuthMap">
@@ -53,7 +54,7 @@
 	
 	<select id="getMemberDtoByMemberId" parameterType="String" resultMap="memberMap">
 		select 
-    		m.*, ma.addr1, ma.addr2, ma.zipcode, ma.tel1, ma.tel2, ma.tel3, ma.phone1, ma.phone2, ma.phone3, A.auth 
+    		m.*, ma.address_id, ma.addr1, ma.addr2, ma.zipcode, ma.tel1, ma.tel2, ma.tel3, ma.phone1, ma.phone2, ma.phone3, ma.orders, a.auth 
     	from 
     		MEMBER m LEFT OUTER JOIN MEMBER_AUTH a 
        			ON m.member_id = a.member_id  
@@ -65,13 +66,14 @@
 	
 	<select id="loginOK" parameterType="java.util.Map" resultMap="memberMap">
 		select 
-    		m.*, ma.addr1, ma.addr2, ma.zipcode, ma.tel1, ma.tel2, ma.tel3, ma.phone1, ma.phone2, ma.phone3, A.auth 
+    		m.*, ma.address_id, ma.addr1, ma.addr2, ma.zipcode, ma.tel1, ma.tel2, ma.tel3, ma.phone1, ma.phone2, ma.phone3, ma.orders, a.auth 
     	from 
     		MEMBER m LEFT OUTER JOIN MEMBER_AUTH a 
        			ON m.member_id = a.member_id  
         			 LEFT OUTER JOIN MEMBER_ADDRESS ma
          		ON m.member_id = ma.member_id
-		where m.member_id = #{username}
+		where 
+			m.member_id = #{username}
 	</select>	
 	
 	<select id="socialLogin" parameterType="MemberDTO" resultType="MemberDTO">
@@ -114,6 +116,7 @@
 	
 	<insert id="insertAddress" parameterType="MemberAddressDTO">
 		insert into MEMBER_ADDRESS(
+			ADDRESS_ID,
 			MEMBER_ID, 
 			ZIPCODE, 
 			ADDR1, 
@@ -123,8 +126,10 @@
 			TEL3, 
 			PHONE1, 
 			PHONE2, 
-			PHONE3
+			PHONE3,
+			ORDERS
 		) values (
+			SEQ_ADDRESS_ID.nextval,
 			#{member_id}, 
 			#{zipcode},
 			#{addr1},
@@ -134,11 +139,14 @@
 			#{tel3},
 			#{phone1},
 			#{phone2},
-			#{phone3}
+			#{phone3},
+			(select count(*) from member_address where member_id = #{member_id}) + 1
 		)
 	</insert>
 		
-	
+	<select id="getEditAddress" parameterType="String" resultType="MemberAddressDTO">
+		select * from MEMBER_ADDRESS where address_id = #{address_id}
+	</select>
 	
 	<update id="modifyOK" parameterType="MemberDTO">
 		update member set 
@@ -239,4 +247,13 @@
 			rank_num = #{rank_num}
 		where member_id = #{member_id}	
 	</select>
+	
+	<!-- 회원 탈퇴시 회원 정보 삭제 -->
+	<delete id="deleteMember" parameterType="String">
+		begin
+			delete from MEMBER_AUTH where member_id = #{member_id};
+			delete from MEMBER_ADDRESS where member_id = #{member_id};
+			delete from MEMBER where member_id = #{member_id};
+		end;	
+	</delete>
 </mapper>

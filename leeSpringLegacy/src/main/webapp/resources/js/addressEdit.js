@@ -1,25 +1,21 @@
 $(function(){
 	$.ajax({
-		url:'/member/getEdit',
+		url:'/member/getEditAddress',
 		type:'post',
 		headers: {"X-CSRF-TOKEN": $("input[name='_csrf']").val()},
 		data:{
-			'addr_number':$('#addr_number').val()
+			'address_id':$('#address_id').val()
 		},
-		datatype:'json',
+		dataType:'json',
 		success:function(data){
 			console.log(data)
-			console.log(data.zipcode.toString().length)
-			$('#addr_name').val(data.addr_name)
-			$('#user_name').val(data.user_name)
 			$('#zipcode').val(data.zipcode.toString().length==4?'0'+data.zipcode:data.zipcode)
 			$('#addr1').val(data.addr1)
 			$('#addr2').val(data.addr2)
 			
-			const phone='0'+data.phone;
-			$('#phone1').val(phone.substring(0,3))
-			$('#phone2').val(phone.substring(3,7))
-			$('#phone3').val(phone.substring(7))
+			$('#phone1').val(data.phone1)
+			$('#phone2').val(data.phone2)
+			$('#phone3').val(data.phone3)
 			
 		},
 		error:function(err){

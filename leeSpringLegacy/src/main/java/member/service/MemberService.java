@@ -6,6 +6,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
+import member.bean.MemberAddressDTO;
 import member.bean.MemberDTO;
 
 public interface MemberService {
@@ -48,6 +49,10 @@ public interface MemberService {
 	public MemberDTO getMemberByMemberIdAndMemberName(Map<String, String> map);
 
 	public void memberAuthUpdate(Map<String, String> map);
+
+	public void deleteMember(String member_id);
+
+	public MemberAddressDTO getEditAddress(String address_id);
 
 
 }

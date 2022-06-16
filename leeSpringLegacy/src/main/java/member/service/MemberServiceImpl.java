@@ -241,4 +241,14 @@ public class MemberServiceImpl implements MemberService {
 	public void memberAuthUpdate(Map<String, String> map) {
 		memberMapper.memberAuthUpdate(map);
 	}
+	
+	@Override
+	public void deleteMember(String member_id) {
+		memberMapper.deleteMember(member_id);
+	}
+	
+	@Override
+	public MemberAddressDTO getEditAddress(String address_id) {
+		return memberMapper.getEditAddress(address_id);
+	}
 }

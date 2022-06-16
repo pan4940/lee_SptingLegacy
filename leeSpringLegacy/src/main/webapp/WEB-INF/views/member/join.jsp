@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 
 <div id="joinDiv">
+<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
   <form id="writeForm" name="writeForm">
     <div id="write">
     	

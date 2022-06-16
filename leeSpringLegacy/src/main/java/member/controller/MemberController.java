@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import lombok.extern.log4j.Log4j2;
+import member.bean.MemberAddressDTO;
 import member.bean.MemberDTO;
 import member.service.MemberService;
 
@@ -68,11 +69,7 @@ public class MemberController {
 	public void loginOK(@RequestParam Map<String, String> map) {
 		
 		System.out.println("login map : " + map);
-		/*
-		 * if (memberDTO != null) { System.out.println(memberDTO);
-		 * httpSession.setAttribute("memberDTO", memberDTO); return "ok"; } else {
-		 * return "fail"; }
-		 */
+		
 	}
 	
 	//로그아웃
@@ -388,5 +385,35 @@ public class MemberController {
 		
 		memberService.memberAuthUpdate(map);
 	}
+	
+	@PostMapping("/deleteMember")
+	@ResponseBody
+	public void deleteMember(@RequestParam String member_id) {
+		
+		memberService.deleteMember(member_id);
+	}
+	
+	@GetMapping("/addresses")
+	public String addresses(Model model) {
+		model.addAttribute("display", "/WEB-INF/views/member/address.jsp");
+		return "index";
+	}
+	
+	@GetMapping("/addressEdit")
+	public String addressEdit(@RequestParam String address_id, Model model) {
+		System.out.println(address_id);
+		model.addAttribute("address_id", address_id);
+		model.addAttribute("display", "/WEB-INF/views/member/addressEdit.jsp");
+		return "index";
+	}
+	
+	
+	@PostMapping("/getEditAddress")
+	@ResponseBody
+	public MemberAddressDTO getEditAddress(@RequestParam String address_id) {
+		return memberService.getEditAddress(address_id);
+	}
+
+	
 	
 }

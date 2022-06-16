@@ -9,6 +9,7 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class MemberAddressDTO {
+	private String address_id;
 	private String member_id;
 	private int zipcode;
 	private String addr1;
@@ -19,8 +20,7 @@ public class MemberAddressDTO {
 	private String phone1;
 	private String phone2;
 	private String phone3;
-	private String order;
-	
+	private String orders;
 	
 	public MemberAddressDTO() {}
 	

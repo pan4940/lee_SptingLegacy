@@ -49,21 +49,11 @@ $('#accountbtn').click(function() {
       })
 
 
-      /*   alert("비밀번호 입력 조건을 다시 한번 확인해주세요"
-               "※비밀번호 입력 조건"
-               "-대소문자/숫자/특수문자 중 2가지 이상 조합, 8~16자"
-               "-입력 가능 특수문자"
-               "  ~`!@#$%^()_-={}[]|;:<>,.?/"   
-                " -공백 입력 불가능")*/
-
-
    } else if ($('#member_pwd').val() != $('#pwdck').val()) {
       $('#pwdckDiv').text('비밀번호가 일치하지 않습니다.')
       $('#pwdckDiv').css('font-size', '9pt');
       $('#pwdckDiv').css('font-weight', 'bold');
       $('#pwdckDiv').css('color', 'red');
-
-
 
    } else if ($('#email').val() == '') {
          Swal.fire({
@@ -102,9 +92,6 @@ $('#accountbtn').click(function() {
       })
       objmobile.focus();
       return false;
-
-
-
 
    } else if ($('#name').val() == '') {
          Swal.fire({
@@ -171,6 +158,7 @@ $('#accountbtn').click(function() {
       $.ajax({
          type: 'post',
          url: '/member/join',
+		 headers: {"X-CSRF-TOKEN": $("input[name='_csrf']").val()},
          data: $('#writeForm').serialize(),
          success: function() {
          Swal.fire({
@@ -218,6 +206,7 @@ $('#writeForm #member_id').focusout(function() {
          $.ajax({
             type: 'post',
             url: '/member/checkId',
+			headers: {"X-CSRF-TOKEN": $("input[name='_csrf']").val()},
             data: {
 				'member_id' : sId,
 				'_csrf' : $("#csrf").val(),

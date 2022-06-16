@@ -1,10 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 pageEncoding="UTF-8"%>
 <div id="modifyDiv" >
+	
     <form id="modifyForm" name="modifyForm">
       <div id="write">
       <p>Edit Account</p>
         <label for="id" style="color: gray">아이디</label><br />
+        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
         <input type="text" id="member_id" name="member_id" value="${memberDTO.member_id}"
           style="width: 100%; border: 0px; border-bottom: 1px solid gray" readonly/>
         <input type="hidden" name="check" id="check" value="" />
