@@ -54,5 +54,12 @@ public interface MemberService {
 
 	public MemberAddressDTO getEditAddress(String address_id);
 
+	public void defaultAddressModify(MemberAddressDTO memberAddressDTO);
+
+	public void addressModify(MemberAddressDTO memberAddressDTO);
+	
+	public void insertAddress(MemberAddressDTO memberAddressDTO);
+
+	public void insertDefaultAddress(MemberAddressDTO memberAddressDTO);
 
 }

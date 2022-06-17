@@ -20,6 +20,20 @@ public class MemberDTO {
 	private Date updateDate;
 	private int mileage;
 	
+	private String tel1;
+	private String tel2;
+	private String tel3;
+	private String phone1;
+	private String phone2;
+	private String phone3;
+	
+	public String getTotalTel() {
+		return tel1 + tel2 + tel3;
+	}
+	
+	public String getTotalPhone() {
+		return phone1 + phone2 + phone3;
+	}
 	
 	private List<MemberAddressDTO> addressDTOList;
 	private List<MemberAuthDTO> memberAuthList;

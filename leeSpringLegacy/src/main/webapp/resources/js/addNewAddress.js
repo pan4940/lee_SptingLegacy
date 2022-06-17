@@ -1,66 +1,45 @@
 
 $('#saveBtn').click(function() {
-
+	
 	if ($('#zipcode').val() == '') {
 		Swal.fire({
 			icon: 'warning',
-			title: '우편번호를 입력해주세요!',
-		})
-
+			title: '우편번호를 입력해주세요',
+		});
 
 	} else if ($('#addr1').val() == '') {
 		Swal.fire({
 			icon: 'warning',
-			title: '주소를 입력해주세요!',
-		})
-
+			title: '주소를 입력해주세요',
+		});
 
 	} else if ($('#addr2').val() == '') {
 		Swal.fire({
 			icon: 'warning',
-			title: '주소를 입력해주세요!',
-		})
-
-	} else if ($('#phone2').val() == '') {
-		Swal.fire({
-			icon: 'warning',
-			title: '핸드폰 번호를  입력해주세요!',
-		})
-
-	} else if ($('#phone3').val() == '') {
-		Swal.fire({
-			icon: 'warning',
-			title: '핸드폰 번호를  입력해주세요!',
-		})
+			title: '주소를 입력해주세요',
+		});
 
 	} else {
 
-
-
 		$.ajax({
 			type: 'post',
-			url: 'addNew',
-
+			url: '/member/addNewAddress',
+			headers: {"X-CSRF-TOKEN": $("input[name='_csrf']").val()},
 			data: $("#addressEditForm").serialize(),
 			success: function() {
 				Swal.fire({
 					icon: 'success',
-					title: ' 등록완료 (๑>ᴗ<๑)',
+					title: '등록완료',
 					closeOnClickOutside: false
 				}).then(function() {
-					location.href = 'addresses';
+					location.href = '/member/addresses';
 				});
 
 			},
 
-
-
 			error: function(err) {
 				console.log(err);
 			}
-
-
-
 		});
 	}
 });

@@ -62,7 +62,7 @@ public class MemberServiceImpl implements MemberService {
 		memberMapper.join(memberDTO);
 		//주소 등록
 		List<MemberAddressDTO> addressDTOs = memberDTO.getAddressDTOList();
-		memberMapper.insertAddress(addressDTOs.get(0));
+		insertAddress(addressDTOs.get(0));
 		
 		//auth 관련 등록
 		List<MemberAuthDTO> list = new ArrayList<>();
@@ -70,6 +70,16 @@ public class MemberServiceImpl implements MemberService {
 		for (MemberAuthDTO memberAuthDTO : list) {
 			memberMapper.authRegister(memberAuthDTO);
 		}
+	}
+	
+	@Override
+	public void insertAddress(MemberAddressDTO memberAddressDTO) {
+		memberMapper.insertAddress(memberAddressDTO);
+	}
+	
+	@Override
+	public void insertDefaultAddress(MemberAddressDTO memberAddressDTO) {
+		memberMapper.insertDefaultAddress(memberAddressDTO);
 	}
 	
 	@Override
@@ -187,7 +197,7 @@ public class MemberServiceImpl implements MemberService {
         for (int i = 0; i < 12; i++) {
 			numStr += (char) ((Math.random() * 26) + 97);
 		}
-        System.out.println("수신자 번호 : " + memberDTO.getAddressDTOList().get(0).getTotalPhone());
+        System.out.println("수신자 번호 : " + memberDTO.getTotalPhone());
         System.out.println("인증번호 : " + numStr);
         String api_key = "NCSONFLLAZ74EJQU";
     	String api_secret = "59MPAP18UQNTCN8KLHYVTSJKSZLXI8XI";
@@ -196,7 +206,7 @@ public class MemberServiceImpl implements MemberService {
     	// 4 params(to, from, type, text) are mandatory. must be filled
     	HashMap<String, String> params = new HashMap<String, String>();
     	System.out.println("findMemberByID memberDTO : " + memberDTO);
-    	params.put("to", memberDTO.getAddressDTOList().get(0).getTotalPhone()); // 수신전화번호
+    	params.put("to", memberDTO.getTotalPhone()); // 수신전화번호
     	params.put("from", "01091073930"); // 발신전화번호. 테스트시에는 발신,수신 둘다 본인 번호로 하면 됨
     	params.put("type", "SMS");
     	params.put("text", "the C shop : 임시 비밀번호는" + "[" + numStr + "]" + "입니다.");
@@ -250,5 +260,15 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public MemberAddressDTO getEditAddress(String address_id) {
 		return memberMapper.getEditAddress(address_id);
+	}
+	
+	@Override
+	public void defaultAddressModify(MemberAddressDTO memberAddressDTO) {
+		memberMapper.defaultAddressModify(memberAddressDTO);
+	}
+	
+	@Override
+	public void addressModify(MemberAddressDTO memberAddressDTO) {
+		memberMapper.addressModify(memberAddressDTO);
 	}
 }

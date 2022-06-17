@@ -76,7 +76,7 @@
       <p></p>
       <label for="phone" style="color: gray">전화</label>
       <p></p>
-      <select id="tel1" name="addressDTOList[0].tel1" style="height: 30px">
+      <select id="tel1" name="tel1" style="height: 30px">
         <option value="02" selected>02</option>
         <option value="031">031</option>
         <option value="032">032</option>
@@ -112,19 +112,19 @@
       </select>
       -
       <input
-        type="text" name="addressDTOList[0].tel2" maxlength="4"
+        type="text" name="tel2" maxlength="4"
         style="width: 15%; border: 0px; border-bottom: 1px solid gray"
       />
       -
       <input
-        type="text" name="addressDTOList[0].tel3" maxlength="4"
+        type="text" name="tel3" maxlength="4"
         style="width: 15%; border: 0px; border-bottom: 1px solid gray"
       />
 
       <p></p>
       <label for="phone2" style="color: gray">휴대전화</label>
       <p></p>
-      <select id="tel2" name="addressDTOList[0].phone1"  style="height: 30px; width: 55px">
+      <select id="tel2" name="phone1"  style="height: 30px; width: 55px">
         <option value="010">010</option>
         <option value="011">011</option>
         <option value="016">016</option>
@@ -134,12 +134,12 @@
       </select>
       -
       <input
-        type="text" id="phone" name="addressDTOList[0].phone2" maxlength="4"
+        type="text" id="phone" name="phone2" maxlength="4"
         style="width: 15%; border: 0px; border-bottom: 1px solid gray"
       />
       -
       <input
-        type="text" id="phone1" name="addressDTOList[0].phone3" maxlength="4"
+        type="text" id="phone1" name="phone3" maxlength="4"
         style="width: 15%; border: 0px; border-bottom: 1px solid gray"
       />
       <p></p>

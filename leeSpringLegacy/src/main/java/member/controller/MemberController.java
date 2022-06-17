@@ -23,7 +23,7 @@ import member.service.MemberService;
 
 @Controller
 @Log4j2
-@RequestMapping(value = "/member", method = {RequestMethod.GET, RequestMethod.POST})
+@RequestMapping("/member")
 public class MemberController {
 	
 	@Autowired
@@ -91,8 +91,6 @@ public class MemberController {
 	
 	@PostMapping("/join")
 	public void join(@ModelAttribute MemberDTO memberDTO, @RequestParam String _csrf, Model model) {
-		System.out.println("before joinMemberDTO : "  + memberDTO);
-		System.out.println(_csrf);
 		memberDTO.setMember_pwd(passwordEncoder.encode(memberDTO.getMember_pwd()));
 		System.out.println("after joinMemberDTO : "  + memberDTO);
 		memberService.join(memberDTO);
@@ -207,7 +205,7 @@ public class MemberController {
 			httpSession.setAttribute("memId", memberDTO.getMember_id());
 			httpSession.setAttribute("memName", memberDTO.getMember_name());
 			httpSession.setAttribute("memOption", "휴대폰번호");
-			httpSession.setAttribute("memKeyword", memberDTO.getAddressDTOList().get(0).getTotalPhone());
+			httpSession.setAttribute("memKeyword", memberDTO.getTotalPhone());
 			httpSession.setAttribute("memSys", memberDTO.getJoinDate());
 			//httpSession.setAttribute("memRank", memberDTO.getRank_num());
 			
@@ -280,7 +278,7 @@ public class MemberController {
 			httpSession.setAttribute("memId", memberDTO.getMember_id());
 			httpSession.setAttribute("memName", memberDTO.getMember_name());
 			httpSession.setAttribute("memOption", "Phone");
-			httpSession.setAttribute("memKeyword", memberDTO.getAddressDTOList().get(0).getTotalPhone());
+			httpSession.setAttribute("memKeyword", memberDTO.getTotalPhone());
 			return "phoneok";
 		} else {
 			return "phonefail";
@@ -399,6 +397,8 @@ public class MemberController {
 		return "index";
 	}
 	
+	
+	
 	@GetMapping("/addressEdit")
 	public String addressEdit(@RequestParam String address_id, Model model) {
 		System.out.println(address_id);
@@ -408,6 +408,18 @@ public class MemberController {
 	}
 	
 	
+	@PostMapping("/addressModify")
+	@ResponseBody
+	public void addressModify(@ModelAttribute MemberAddressDTO memberAddressDTO, @RequestParam(value = "defaultAddr", required = false) String defaultAddr) {
+		System.out.println(memberAddressDTO);
+		System.out.println(defaultAddr);
+		if (defaultAddr != null) {
+			memberService.defaultAddressModify(memberAddressDTO);
+		} else {
+			memberService.addressModify(memberAddressDTO);
+		}
+	}
+	
 	@PostMapping("/getEditAddress")
 	@ResponseBody
 	public MemberAddressDTO getEditAddress(@RequestParam String address_id) {
@@ -415,5 +427,23 @@ public class MemberController {
 	}
 
 	
+	@GetMapping("/addNewAddress")
+	public String addressNew(Model model) {
+		model.addAttribute("display", "/WEB-INF/views/member/addNewAddress.jsp");
+		return "index";
+	}
+	
+	@PostMapping("/addNewAddress")
+	@ResponseBody
+	public void addNewAddress(@ModelAttribute MemberAddressDTO memberAddressDTO, @RequestParam(value = "defaultAddr", required = false) String defaultAddr) {
+		System.out.println(memberAddressDTO);
+		System.out.println(defaultAddr);
+		
+		if (defaultAddr != null) {
+			memberService.insertDefaultAddress(memberAddressDTO);
+		} else {
+			memberService.insertAddress(memberAddressDTO);
+		}
+	}
 	
 }

@@ -11,6 +11,12 @@
 		<result property="member_name" column="member_name"/>
 		<result property="email" column="email"/>
 		<result property="email_check" column="email_check"/>
+		<result property="tel1" column="tel1"/>
+		<result property="tel2" column="tel2"/>
+		<result property="tel3" column="tel3"/>
+		<result property="phone1" column="phone1"/>
+		<result property="phone2" column="phone2"/>
+		<result property="phone3" column="phone3"/>
 		<result property="joinDate" column="joinDate"/>
 		<result property="updateDate" column="updateDate"/>
 		<result property="mileage" column="mileage"/>
@@ -24,12 +30,6 @@
 		<result property="zipcode" column="zipcode"/>
 		<result property="addr1" column="addr1"/>
 		<result property="addr2" column="addr2"/>
-		<result property="tel1" column="tel1"/>
-		<result property="tel2" column="tel2"/>
-		<result property="tel3" column="tel3"/>
-		<result property="phone1" column="phone1"/>
-		<result property="phone2" column="phone2"/>
-		<result property="phone3" column="phone3"/>
 		<result property="orders" column="orders"/>
 	</resultMap>
 	
@@ -41,7 +41,7 @@
 	
 	<select id="getMemberByMemberIdAndMemberName" parameterType="java.util.Map" resultMap="memberMap">
 		select 
-    		m.*, ma.addr1, ma.addr2, ma.zipcode, ma.tel1, ma.tel2, ma.tel3, ma.phone1, ma.phone2, ma.phone3, A.auth 
+    		m.*, ma.addr1, ma.addr2, ma.zipcode, A.auth 
     	from 
     		MEMBER m LEFT OUTER JOIN MEMBER_AUTH a 
        			ON m.member_id = a.member_id  
@@ -54,7 +54,7 @@
 	
 	<select id="getMemberDtoByMemberId" parameterType="String" resultMap="memberMap">
 		select 
-    		m.*, ma.address_id, ma.addr1, ma.addr2, ma.zipcode, ma.tel1, ma.tel2, ma.tel3, ma.phone1, ma.phone2, ma.phone3, ma.orders, a.auth 
+    		m.*, ma.address_id, ma.addr1, ma.addr2, ma.zipcode, ma.orders, a.auth 
     	from 
     		MEMBER m LEFT OUTER JOIN MEMBER_AUTH a 
        			ON m.member_id = a.member_id  
@@ -66,7 +66,7 @@
 	
 	<select id="loginOK" parameterType="java.util.Map" resultMap="memberMap">
 		select 
-    		m.*, ma.address_id, ma.addr1, ma.addr2, ma.zipcode, ma.tel1, ma.tel2, ma.tel3, ma.phone1, ma.phone2, ma.phone3, ma.orders, a.auth 
+    		m.*, ma.address_id, ma.addr1, ma.addr2, ma.zipcode, ma.orders, a.auth 
     	from 
     		MEMBER m LEFT OUTER JOIN MEMBER_AUTH a 
        			ON m.member_id = a.member_id  
@@ -104,9 +104,11 @@
 	<insert id="join" parameterType="MemberDTO">
 		
 		insert into member(
-			member_id, member_pwd, member_name, email, email_check
+			member_id, member_pwd, member_name, email, email_check,
+			tel1, tel2, tel3, phone1, phone2, phone3
 		) values (
-			#{member_id}, #{member_pwd}, #{member_name}, #{email}, #{email_check}
+			#{member_id}, #{member_pwd}, #{member_name}, #{email}, #{email_check},
+			#{tel1}, #{tel2}, #{tel3}, #{phone1}, #{phone2}, #{phone3}
 		)
 	</insert>
 	
@@ -121,12 +123,6 @@
 			ZIPCODE, 
 			ADDR1, 
 			ADDR2, 
-			TEL1, 
-			TEL2, 
-			TEL3, 
-			PHONE1, 
-			PHONE2, 
-			PHONE3,
 			ORDERS
 		) values (
 			SEQ_ADDRESS_ID.nextval,
@@ -134,14 +130,32 @@
 			#{zipcode},
 			#{addr1},
 			#{addr2},
-			#{tel1},
-			#{tel2},
-			#{tel3},
-			#{phone1},
-			#{phone2},
-			#{phone3},
 			(select count(*) from member_address where member_id = #{member_id}) + 1
 		)
+	</insert>
+	
+	<insert id="insertDefaultAddress" parameterType="MemberAddressDTO">
+		begin
+			update MEMBER_ADDRESS set 
+				orders = orders + 1
+			where member_id = #{member_id};
+			
+			insert into MEMBER_ADDRESS(
+				ADDRESS_ID,
+				MEMBER_ID, 
+				ZIPCODE, 
+				ADDR1, 
+				ADDR2, 
+				ORDERS
+			) values (
+				SEQ_ADDRESS_ID.nextval,
+				#{member_id}, 
+				#{zipcode},
+				#{addr1},
+				#{addr2},
+				1
+			);
+		end;	
 	</insert>
 		
 	<select id="getEditAddress" parameterType="String" resultType="MemberAddressDTO">
@@ -168,7 +182,7 @@
 	<select id="getMemberListByMemberIdAndMemberName" parameterType="java.util.Map" resultMap="memberMap">
 		<if test="member_id != '' and member_name != ''">
 			select 
-	    		m.*, ma.addr1, ma.addr2, ma.zipcode, ma.tel1, ma.tel2, ma.tel3, ma.phone1, ma.phone2, ma.phone3, A.auth 
+	    		m.*, ma.addr1, ma.addr2, ma.zipcode, A.auth 
 	    	from 
 	    		MEMBER m LEFT OUTER JOIN MEMBER_AUTH a 
 	       			ON m.member_id = a.member_id  
@@ -179,7 +193,7 @@
 		</if>
 		<if test="member_id == '' and member_name != ''">
 			select 
-	    		m.*, ma.addr1, ma.addr2, ma.zipcode, ma.tel1, ma.tel2, ma.tel3, ma.phone1, ma.phone2, ma.phone3, A.auth 
+	    		m.*, ma.addr1, ma.addr2, ma.zipcode, A.auth 
 	    	from 
 	    		MEMBER m LEFT OUTER JOIN MEMBER_AUTH a 
 	       			ON m.member_id = a.member_id  
@@ -190,7 +204,7 @@
 		</if>
 		<if test="member_id != '' and member_name == ''">
 			select 
-	    		m.*, ma.addr1, ma.addr2, ma.zipcode, ma.tel1, ma.tel2, ma.tel3, ma.phone1, ma.phone2, ma.phone3, A.auth 
+	    		m.*, ma.addr1, ma.addr2, ma.zipcode, A.auth 
 	    	from 
 	    		MEMBER m LEFT OUTER JOIN MEMBER_AUTH a 
 	       			ON m.member_id = a.member_id  
@@ -256,4 +270,32 @@
 			delete from MEMBER where member_id = #{member_id};
 		end;	
 	</delete>
+	
+	<update id="defaultAddressModify" parameterType="MemberAddressDTO">
+		<![CDATA[
+		begin
+			update MEMBER_ADDRESS set 
+				zipcode = #{zipcode}, 
+				addr1 = #{addr1}, 
+				addr2 = #{addr2},  
+				orders = 1
+			where member_id = #{member_id} and orders < #{orders};
+			
+			update MEMBER_ADDRESS set 
+				zipcode = #{zipcode}, 
+				addr1 = #{addr1}, 
+				addr2 = #{addr2},  
+				orders = 1
+			where address_id = #{address_id};
+		end;	
+		]]>
+	</update>
+	
+	<update id="addressModify" parameterType="MemberAddressDTO">
+		update MEMBER_ADDRESS set 
+			zipcode = #{zipcode}, 
+			addr1 = #{addr1}, 
+			addr2 = #{addr2} 
+		where address_id = #{address_id};
+	</update>
 </mapper>

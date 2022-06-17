@@ -15,6 +15,7 @@
 		</div>
 		<div id="content">
 			<sec:authentication property="principal.memberDTO" var="memberDTO"/>
+			<input type="text" value="${memberDTO.addressDTOList}">
 			<c:forEach items="${memberDTO.addressDTOList}" var="memberAddressDTO">
 				<div id="addcontent">
 					<input type="checkbox" name="deleteAddressList" class="checkbox" value="${memberAddressDTO.address_id}">
@@ -23,7 +24,7 @@
 						<span>${memberAddressDTO.zipcode}</span>
 						<span>${memberAddressDTO.addr1}</span>
 						<span>${memberAddressDTO.addr2}</span>
-						<span>${memberAddressDTO.phone1} - ${memberAddressDTO.phone2} - ${memberAddressDTO.phone3}</span>
+						<span>${memberDTO.phone1} - ${memberDTO.phone2} - ${memberDTO.phone3}</span>
 					</div>
 					<a href="/member/addressEdit?address_id=${memberAddressDTO.address_id}">EDIT</a>
 				</div>
@@ -31,9 +32,8 @@
 		</div>
 
 		<div id="addBtn">
-			<input type="button" id="DELETEbtn" value="DELETE" /> <input
-				type="button" id="ADDBtn" value="ADD NEW ADDRESS"
-				onclick="location.href='/addressNew'" />
+			<input type="button" id="DELETEbtn" value="DELETE" /> 
+			<input type="button" id="ADDBtn" value="ADD NEW ADDRESS" onclick="location.href='/member/addNewAddress'" />
 		</div>
 	</div>
 </form>

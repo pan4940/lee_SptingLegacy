@@ -9,76 +9,67 @@ $(function(){
 		dataType:'json',
 		success:function(data){
 			console.log(data)
-			$('#zipcode').val(data.zipcode.toString().length==4?'0'+data.zipcode:data.zipcode)
+			$('#address_id').val(data.address_id)
+			$('#orders').val(data.orders)
+			$('#zipcode').val(data.zipcode)
 			$('#addr1').val(data.addr1)
 			$('#addr2').val(data.addr2)
 			
 			$('#phone1').val(data.phone1)
 			$('#phone2').val(data.phone2)
 			$('#phone3').val(data.phone3)
-			
 		},
 		error:function(err){
 			console.log(err)
 		}
-	})
+	});
+	
+	$('#saveBtn').on("click", function(){
+		console.log("클릭");
+		if ($('#zipcode').val() == '') {
+			Swal.fire({
+				icon: 'warning',
+				title: '우편번호를 입력해주세요!',
+			});
+	
+		} else if ($('#addr1').val() == '') {
+			Swal.fire({
+				icon: 'warning',
+				title: '주소를 입력해주세요!',
+			});
+	
+		} else if ($('#addr2').val() == '') {
+			Swal.fire({
+				icon: 'warning',
+				title: '주소를 입력해주세요!',
+			});
+	
+		} else {
+			$.ajax({
+				type: 'post',
+				url: '/member/addressModify',
+				headers: { "X-CSRF-TOKEN": $("input[name='_csrf']").val() },
+				data: $("#addressEditForm").serialize(),
+				success: function() {
+					Swal.fire({
+						icon: 'success',
+						title: ' 완료 ',
+						closeOnClickOutside: false
+					}).then(function() {
+						location.href = 'addresses';
+					});
+				},
+	
+				error: function(err) {
+					console.log(err);
+				}
+	
+			}); //end ajax
+		}
+	});
 })
 
 
-$('#saveBtn').click(function(){
-	if($('#zipcode').val()==''){
-		Swal.fire({
-			  icon: 'warning',
-			  title: '우편번호를 입력해주세요!',
-		});
-		
-	} else if ($('#addr1').val() == '') {
-		Swal.fire({
-			icon: 'warning',
-			title: '주소를 입력해주세요!',
-		});
-		
-	} else if ($('#addr2').val() == '') {
-		Swal.fire({
-			icon: 'warning',
-			title: '주소를 입력해주세요!',
-		});
-			
-	} else if ($('#phone2').val() == '') {
-		Swal.fire({
-			icon: 'warning',
-			title: '핸드폰 번호를  입력해주세요!',
-		});
-			
-	} else if ($('#phone3').val() == '') {
-		Swal.fire({
-			icon: 'warning',
-			title: '핸드폰 번호를  입력해주세요!',
-		});
-	
-	} else{
-		$.ajax({
-			type:'post',
-			url:'/member/addressEdit',
-			headers: {"X-CSRF-TOKEN": $("input[name='_csrf']").val()},
-			data:$("#addressEditForm").serialize(),
-			success: function(){
-				Swal.fire({
-					icon: 'success',
-					title: ' 완료 ',
-					closeOnClickOutside : false
-				}).then(function(){
-					location.href='addresses';       
-				});
-			},
-				
-			error:function(err){
-				console.log(err);
-			}
-			
-		}); //end ajax
-	}
-});
 
 function checkPost() {
 	new daum.Postcode({

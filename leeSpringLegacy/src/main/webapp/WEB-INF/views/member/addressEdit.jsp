@@ -11,17 +11,6 @@
 			<center>EDIT ADDRESS</center>
 		</h3>
 		<input type="hidden" id="address_id" name="address_id" value=${address_id}> 
-
-		<%-- <label for="address" style="color: gray">배송지명</label><br /> 
-			<input type="text" name="member_name" value="${memberDTO.member_name}"
-				style="width: 100%; border: 0px; border-bottom: 1px solid gray">
-		<p></p>
-
-		<label for="name" style="color: gray">이름</label><br /> 
-			<input type="text" name="member_name" value=""
-			style="width: 100%; border: 0px; border-bottom: 1px solid gray" />
-
-		<p></p> --%>
 		
 		<div id="postDiv">
 			<div id="post1">
@@ -46,7 +35,7 @@
 			<input type="text" id="addr2" name="addr2" value=""
 				style="width: 100%; border: 0px; border-bottom: 1px solid gray" />
 		<p></p>
-		<label for="phone2" style="color: gray">휴대전화번호</label>
+		<!-- <label for="phone2" style="color: gray">휴대전화번호</label>
 		<p></p>
 		<select id="phone1" name="phone1" style="height: 30px; width: 55px">
 			<option value="010">010</option>
@@ -61,13 +50,12 @@
 			— 
 			<input type="text" id="phone3" name="phone3" value=""
 			style="width: 50px; border: 0px; border-bottom: 1px solid gray" />
-		<p></p>
-		<input type="checkbox" value=""> 기본배송지로 저장
-
+		<p></p> -->
+		<input type="checkbox" name="defaultAddr"> 기본배송지로 저장
 		<div id="btn">
-			<input type="button" id="cancelBtn" value="CANCEL"
-				onclick="location.href='addresses'"> <input type="button"
-				id="saveBtn" value="SAVE">
+			<input type="button" id="cancelBtn" value="CANCEL" onclick="location.href='addresses'"> 
+			<input type="button" id="saveBtn" value="SAVE">
 		</div>
+		<input type="hidden" id="orders" name="orders" value="">
 	</div>
 </form>
