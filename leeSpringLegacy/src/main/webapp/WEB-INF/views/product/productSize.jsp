@@ -278,7 +278,7 @@ $(document).ready(function(){
 	
 	$.ajax({
 		type: 'post',
-		
+		headers: {"X-CSRF-TOKEN": $("input[name='_csrf']").val()},
 		url: '/product/getProductCategoryList',
 		dataType: 'json',
 		success: function(result){
@@ -289,6 +289,7 @@ $(document).ready(function(){
 
 	$.ajax({
 		type: 'post',
+		headers: {"X-CSRF-TOKEN": $("input[name='_csrf']").val()},
 		url: '/product/getBrandsCategoryList',
 		dataType: 'json',
 		success: function(result){
@@ -701,6 +702,7 @@ $("#update_Btn").on("click", function(e){
    
 	$.ajax({
 		type: 'post',
+		headers: {"X-CSRF-TOKEN": $("input[name='_csrf']").val()},
 		data: $("#productSize").serialize(),
 		url: '/product/modifyProductSize',
 		success: function(){
@@ -719,6 +721,7 @@ $("#update_Btn").on("click", function(e){
 $("#register_Btn").on("click", function(){
 	$.ajax({
 		type: 'post',
+		headers: {"X-CSRF-TOKEN": $("input[name='_csrf']").val()},
 		data: $("#productSize").serialize(),
 		url: '/product/registerProductSize',
 		success: function(){

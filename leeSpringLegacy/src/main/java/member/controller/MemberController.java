@@ -5,6 +5,7 @@ import java.util.Map;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,8 +19,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import lombok.extern.log4j.Log4j2;
 import member.bean.MemberAddressDTO;
+import member.bean.MemberAuthDTO;
 import member.bean.MemberDTO;
 import member.service.MemberService;
+import security.domain.CustomUser;
 
 @Controller
 @Log4j2
@@ -67,9 +70,7 @@ public class MemberController {
 	
 	@PostMapping("/loginOK")
 	public void loginOK(@RequestParam Map<String, String> map) {
-		
 		System.out.println("login map : " + map);
-		
 	}
 	
 	//로그아웃
@@ -392,7 +393,9 @@ public class MemberController {
 	}
 	
 	@GetMapping("/addresses")
-	public String addresses(Model model) {
+	public String addresses(Authentication auth, Model model) {
+		CustomUser customUser= (CustomUser)auth.getPrincipal();
+		model.addAttribute("memberDTO", memberService.getMemberDtoByMemberId(customUser.getMemberDTO().getMember_id()));
 		model.addAttribute("display", "/WEB-INF/views/member/address.jsp");
 		return "index";
 	}
@@ -443,6 +446,27 @@ public class MemberController {
 			memberService.insertDefaultAddress(memberAddressDTO);
 		} else {
 			memberService.insertAddress(memberAddressDTO);
+		}
+	}
+	
+	
+	@PostMapping("/deleteAddress")
+	@ResponseBody
+	public void deleteAddress(Authentication auth ,@RequestParam String[] deleteAddress) {
+		for (String address_id : deleteAddress) {
+			System.out.println(address_id);
+			memberService.deleteAddressDTO(address_id);
+		}
+		
+		CustomUser customUser= (CustomUser)auth.getPrincipal();
+		
+		List<MemberAddressDTO> list = memberService.getAddressListByMemberID(customUser.getMemberDTO().getMember_id());
+	
+		
+		for (int i = 1; i <= list.size(); i++) {
+			MemberAddressDTO memberAddressDTO = list.get(i - 1);
+			memberAddressDTO.setOrders(i+"");
+			memberService.modifyOrdersOfAddress(memberAddressDTO);
 		}
 	}
 	

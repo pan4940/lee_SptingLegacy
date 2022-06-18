@@ -10,6 +10,7 @@ $(function() {
 	
 	$.ajax({
 		url: '/board/getProductReview',
+		headers: {"X-CSRF-TOKEN": $("input[name='_csrf']").val()},
 		data: {
 			'product_num': $('#product_num').val()
 		},
@@ -49,6 +50,7 @@ $(function() {
 
 	$.ajax({
 		url: '/product/getProductDTO',
+		headers: {"X-CSRF-TOKEN": $("input[name='_csrf']").val()},
 		type: 'post',
 		data: {
 			'product_num': $('#product_num').val()
@@ -143,6 +145,7 @@ $(function() {
 			
 			$.ajax({
 				url: '/order/addCart',
+				headers: {"X-CSRF-TOKEN": $("input[name='_csrf']").val()},
 				type: 'post',
 				data: {
 					'product_size_id': $('#sizesSelect').val()

@@ -221,6 +221,7 @@ $(document).ready(function(){
 	$.ajax({
 		type: 'post',
 		url: '/product/getProductCategoryList',
+		headers: {"X-CSRF-TOKEN": $("input[name='_csrf']").val()},
 		dataType: 'json',
 		success: function(result){
 			ProductsCategoryList = result;
@@ -231,6 +232,7 @@ $(document).ready(function(){
 	$.ajax({
 		type: 'post',
 		url: '/product/getBrandsCategoryList',
+		headers: {"X-CSRF-TOKEN": $("input[name='_csrf']").val()},
 		dataType: 'json',
 		success: function(result){
 			BrandsCategoryList = result;

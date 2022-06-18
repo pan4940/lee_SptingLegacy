@@ -39,6 +39,7 @@
 	</resultMap>
 	
 	
+	<!-- 관리자 모드에서 사용. id와 이름으로 memberDTO찾기 -->
 	<select id="getMemberByMemberIdAndMemberName" parameterType="java.util.Map" resultMap="memberMap">
 		select 
     		m.*, ma.addr1, ma.addr2, ma.zipcode, A.auth 
@@ -52,6 +53,7 @@
 	</select>
 	
 	
+	<!-- 로그인시 CustomUserDetailsService -->
 	<select id="getMemberDtoByMemberId" parameterType="String" resultMap="memberMap">
 		select 
     		m.*, ma.address_id, ma.addr1, ma.addr2, ma.zipcode, ma.orders, a.auth 
@@ -62,19 +64,22 @@
          		ON m.member_id = ma.member_id
         where 
         	m.member_id = #{username}
+        order 
+        	by ma.orders		
 	</select>	
 	
-	<select id="loginOK" parameterType="java.util.Map" resultMap="memberMap">
-		select 
-    		m.*, ma.address_id, ma.addr1, ma.addr2, ma.zipcode, ma.orders, a.auth 
-    	from 
-    		MEMBER m LEFT OUTER JOIN MEMBER_AUTH a 
-       			ON m.member_id = a.member_id  
-        			 LEFT OUTER JOIN MEMBER_ADDRESS ma
-         		ON m.member_id = ma.member_id
-		where 
-			m.member_id = #{username}
-	</select>	
+	
+	<update id="modifyOrdersOfAddress" parameterType="MemberAddressDTO">
+		update MEMBER_ADDRESS set orders = #{orders} where address_id = #{address_id}
+	</update>
+	
+	<delete id="deleteAddressDTO" parameterType="String">
+		delete from MEMBER_ADDRESS where address_id = #{address_id}
+	</delete>
+	
+	<select id="getAddressListByMemberID" parameterType="String" resultType="MemberAddressDTO">
+		select * from MEMBER_ADDRESS where member_id = #{member_id} order by orders
+	</select> 
 	
 	<select id="socialLogin" parameterType="MemberDTO" resultType="MemberDTO">
 		select * from member where member_id = #{member_id}
@@ -275,10 +280,7 @@
 		<![CDATA[
 		begin
 			update MEMBER_ADDRESS set 
-				zipcode = #{zipcode}, 
-				addr1 = #{addr1}, 
-				addr2 = #{addr2},  
-				orders = 1
+				orders = orders + 1
 			where member_id = #{member_id} and orders < #{orders};
 			
 			update MEMBER_ADDRESS set 

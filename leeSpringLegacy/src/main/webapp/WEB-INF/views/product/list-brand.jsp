@@ -7,6 +7,7 @@
 <input id="product_category_num" type="hidden" value="${product_category_num}">
 <input id="pageNum" type="hidden" value="${pageDTO.criteria.pageNum}">
 <input id="amount" type="hidden" value="${pageDTO.criteria.amount}">
+<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 <style>
 
 .categoryListDiv ul {
@@ -62,6 +63,7 @@ $(document).ready(function(){
 	//list 좌측 카테고리 리스트 가져오기
     $.ajax({
         url: '/product/getProductsByBrandCategory',
+        headers: {"X-CSRF-TOKEN": $("input[name='_csrf']").val()},
         type: 'POST',
         dataType: 'json',
         data: 'product_category_num=' + $("#product_category_num").val(),
@@ -106,6 +108,7 @@ $(document).ready(function(){
     
     $.ajax({
         url: '/product/getBrandsCategoryList',
+        headers: {"X-CSRF-TOKEN": $("input[name='_csrf']").val()},
         type: 'POST',
         dataType: 'json',
         success: function(result) {

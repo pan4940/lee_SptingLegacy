@@ -5,6 +5,7 @@
 	
 	
 <div id="detailDiv" style="display: flex; flex-wrap: wrap; justify-content: center;">
+	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 	<input type="hidden" id="member_id" value="${memberDTO.member_id}">
 	<input type="hidden" id="product_num" value="${map.product_num}">
 	<div id="productDetailImage" class="col-12 col-sm-7"
@@ -134,13 +135,6 @@ Exchange & Returns
 		</div>
 	</div>
 	
-	<%-- <form id='actionForm' action="/board/list" method='post'>
-		<input type='hidden' name='board_category_num' value='4'>
-		<input id="board_num" type='hidden' name='board_num' value="">
-		<input type='hidden' name='pageNum' value='1'>
-		<input type='hidden' name='amount' value='10'>
-		<input type='hidden' name='product_num' value='${map.product_num}'>
-	</form> --%>
 	
 	<div id="reviewBoardDiv" class="col-12 col-lg-9">
 		<div>Review

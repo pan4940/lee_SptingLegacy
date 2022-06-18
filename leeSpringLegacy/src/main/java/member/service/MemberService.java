@@ -11,11 +11,8 @@ import member.bean.MemberDTO;
 
 public interface MemberService {
 	
-	//회원가입시 아이디 중복체크
+	//회원가입시 아이디 중복체크. 로그인시 CustomUserDetailsService
 	public MemberDTO getMemberDtoByMemberId(String member_id);
-
-	//로그인
-	public MemberDTO loginOK(Map<String, String> map);
 	
 	//회원가입
 	public void join(MemberDTO memberDTO);
@@ -61,5 +58,11 @@ public interface MemberService {
 	public void insertAddress(MemberAddressDTO memberAddressDTO);
 
 	public void insertDefaultAddress(MemberAddressDTO memberAddressDTO);
+
+	public List<MemberAddressDTO> getAddressListByMemberID(String member_id);
+
+	public void modifyOrdersOfAddress(MemberAddressDTO memberAddressDTO);
+
+	public void deleteAddressDTO(String address_id);
 
 }

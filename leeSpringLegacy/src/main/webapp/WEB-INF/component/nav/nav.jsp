@@ -4,10 +4,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 
-<% 
-MemberDTO memberDTO = (MemberDTO)session.getAttribute("memberDTO");
-%>
-
 <!-- 첫번째 div  -->
 <div id="first" class="nav_div">
 	
@@ -114,7 +110,7 @@ MemberDTO memberDTO = (MemberDTO)session.getAttribute("memberDTO");
 		</div>
 		<div><a href="/order/orderHistory">ORDER HISTORY</a>
 		</div>
-		<div><a href="/addresses">ADDRESSES</a>
+		<div><a href="/member/addresses">ADDRESSES</a>
 		</div>	
 		<div><a class="logoutBtn">LOGOUT</a>
 			<form id="logoutForm" action="/member/logout" method="post">

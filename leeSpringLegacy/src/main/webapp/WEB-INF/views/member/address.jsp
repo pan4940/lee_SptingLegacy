@@ -5,7 +5,6 @@
 
 <link rel="stylesheet" href="/resources/css/address.css" />
 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-<input id="member_id" type="hidden" value="${principal.memberDTO.member_id}">
 <form id="addressForm" name="addressForm">
 	<div id="addressDiv">
 		<div id="addbook">
@@ -14,11 +13,9 @@
 			</h3>
 		</div>
 		<div id="content">
-			<sec:authentication property="principal.memberDTO" var="memberDTO"/>
-			<input type="text" value="${memberDTO.addressDTOList}">
 			<c:forEach items="${memberDTO.addressDTOList}" var="memberAddressDTO">
 				<div id="addcontent">
-					<input type="checkbox" name="deleteAddressList" class="checkbox" value="${memberAddressDTO.address_id}">
+					<input type="checkbox" id="deleteAddress" name="deleteAddress" class="checkbox" value="${memberAddressDTO.address_id}">
 					<div id="address1">
 						<%-- <span>${memberAddressDTO.orders}</span> --%>
 						<span>${memberAddressDTO.zipcode}</span>

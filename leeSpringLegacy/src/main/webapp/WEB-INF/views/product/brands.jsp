@@ -157,15 +157,15 @@ let regex = new RegExp("^[A-Z]");
 
 function listPart(result) {
 	$.each(result, function(index, item){
-		
+		console.log(item);
 		let first = item.product_category_name.charAt(0);
 
 		let str = "";
 		if (!regex.test(first)) {
 			str += "<li class='comma'>";
 			str += "<a href='/product/list-brand?product_category_num=" + item.product_category_num + "' data-value='" + item.fileList[0].uploadPath + "/" + item.fileList[0].uuid + "_" + item.fileList[0].fileName + "'>" + item.product_category_name + "</a></li>";
-				
 			$("#ETC").append(str);
+			
 		} else {
 			str += "<li class='comma'>";
 			str += "<a href='/product/list-brand?product_category_num=" + item.product_category_num + "' data-value='" + item.fileList[0].uploadPath + "/" + item.fileList[0].uuid + "_" + item.fileList[0].fileName + "'>" + item.product_category_name + "</a></li>";

@@ -12,8 +12,6 @@ public interface MemberMapper {
 
 	public MemberDTO getMemberDtoByMemberId(String member_id);
 
-	public MemberDTO loginOK(Map<String, String> map);
-
 	public void join(MemberDTO memberDTO);
 
 	public void modifyOK(MemberDTO memberDTO);
@@ -53,6 +51,12 @@ public interface MemberMapper {
 	public void addressModify(MemberAddressDTO memberAddressDTO);
 
 	public void insertDefaultAddress(MemberAddressDTO memberAddressDTO);
+
+	public List<MemberAddressDTO> getAddressListByMemberID(String member_id);
+
+	public void modifyOrdersOfAddress(MemberAddressDTO memberAddressDTO);
+
+	public void deleteAddressDTO(String address_id);
 
 	
 

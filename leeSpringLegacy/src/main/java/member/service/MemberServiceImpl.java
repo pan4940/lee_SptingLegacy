@@ -51,10 +51,7 @@ public class MemberServiceImpl implements MemberService {
 		return memberMapper.getMemberDtoByMemberId(member_id);
 	}
 	
-	@Override
-	public MemberDTO loginOK(Map<String, String> map) {
-		return memberMapper.loginOK(map);
-	}
+	
 	
 	@Override
 	@Transactional(rollbackFor = {Exception.class})
@@ -270,5 +267,20 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public void addressModify(MemberAddressDTO memberAddressDTO) {
 		memberMapper.addressModify(memberAddressDTO);
+	}
+	
+	@Override
+	public List<MemberAddressDTO> getAddressListByMemberID(String member_id) {
+		return memberMapper.getAddressListByMemberID(member_id);
+	}
+	
+	@Override
+	public void modifyOrdersOfAddress(MemberAddressDTO memberAddressDTO) {
+		memberMapper.modifyOrdersOfAddress(memberAddressDTO);
+	}
+	
+	@Override
+	public void deleteAddressDTO(String address_id) {
+		memberMapper.deleteAddressDTO(address_id);
 	}
 }

@@ -2,7 +2,7 @@
 $('#DELETEbtn').click(function(){
 
 
-	if(!$("input:checkbox[name=checkbox]").is(":checked")){
+	if(!$("input:checkbox[name=deleteAddress]").is(":checked")){
 		Swal.fire({
 			  icon: 'warning',
 			  title: '삭제할 주소를 선택해주세요!',
@@ -23,7 +23,7 @@ $('#DELETEbtn').click(function(){
 				$.ajax({
 					type: 'post',
 					headers: {"X-CSRF-TOKEN": $("input[name='_csrf']").val()},
-					url: 'delEdit',
+					url: '/member/deleteAddress',
 					data:$("#addressForm").serialize(),
 					success: function() {
 						Swal.fire({

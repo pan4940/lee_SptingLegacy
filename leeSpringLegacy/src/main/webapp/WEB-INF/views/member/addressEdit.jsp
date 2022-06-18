@@ -11,6 +11,7 @@
 			<center>EDIT ADDRESS</center>
 		</h3>
 		<input type="hidden" id="address_id" name="address_id" value=${address_id}> 
+		<input type="hidden" id="member_id" name="member_id" value=${memberDTO.member_id}>
 		
 		<div id="postDiv">
 			<div id="post1">
