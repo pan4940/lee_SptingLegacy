@@ -82,15 +82,6 @@
     <script type="text/javascript" src="/resources/js/findPwd.js"></script>
     <script type="text/javascript" src="/resources/js/findId.js"></script>
     <script type="text/javascript" src="/resources/js/findPwdResult.js"></script>
-    
-    
-    
-   <!-- <script type="text/javascript" src="/resources/js/kakao.js"></script> -->
-   
-   
-   
- 
-	
 	
 </body>
 </html>

@@ -2,8 +2,6 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
-	
-	
 <div id="detailDiv" style="display: flex; flex-wrap: wrap; justify-content: center;">
 	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 	<input type="hidden" id="member_id" value="${memberDTO.member_id}">
@@ -27,7 +25,8 @@
 			<div id="quickOrder" style="float: right; cursor: pointer">quick order</div>
 		</div>
 		<div id="detailContent">
-			<!-- Nav tabs -->
+			
+			<%-- Nav tabs --%>
 			<ul class="nav nav-tabs">
 				<li class="nav-item"><a class="nav-link active"
 					data-bs-target="#details" data-toggle="tab">DETAILS</a></li>
@@ -38,7 +37,7 @@
 				</li>
 			</ul>
 
-			<!-- Tab panes -->
+			<%-- Tab panes --%>
 			<div class="tab-content">
 				<div class="tab-pane active container" id="details"></div>
 				<div class="tab-pane container" id="size">
@@ -137,8 +136,7 @@ Exchange & Returns
 	
 	
 	<div id="reviewBoardDiv" class="col-12 col-lg-9">
-		<div>Review
-		<span>
+		<div>Review<span>
 		
 		<a id="moveReviewWriteForm" href='/board/write?board_category_num=4&pageNum=1&amount=10&product_num=${map.product_num}'>WRITE</a>
 		<a id="moveListForm" href='/board/list?board_category_num=4&pageNum=1&amount=10'>VIEW ALL</a>

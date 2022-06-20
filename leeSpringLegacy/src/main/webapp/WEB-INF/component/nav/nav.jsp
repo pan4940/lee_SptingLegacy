@@ -4,7 +4,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 
-<!-- 첫번째 div  -->
+<%-- 첫번째 div  --%>
 <div id="first" class="nav_div">
 	
 		<span>SS 22 NEW ARRIVAL</span> 
@@ -26,7 +26,7 @@
 			href="/board/list?board_category_num=7">POST</a>
 	</div>
 
-	<!-- <button type="button" id="autoLogin"></button> -->
+	<%-- <button type="button" id="autoLogin"></button> --%>
 	<div>
 		<a href="/board/list?board_category_num=5&pageNum=1&amount=10">HELP</a>
 		<button class="search" style="border: 0; background-color: white;">
@@ -51,7 +51,7 @@
 			<img
 				src="https://img.icons8.com/material/24/000000/favorite-cart.png" />
 		</button>
-		<!-- <button id="cart"style="border: 0; background-color: white;"><img src="https://img.icons8.com/material/24/000000/clear-shopping-cart--v1.png"/></button>-->
+		<%-- <button id="cart"style="border: 0; background-color: white;"><img src="https://img.icons8.com/material/24/000000/clear-shopping-cart--v1.png"/></button>--%>
 	</div>
 </div>
 
@@ -83,8 +83,8 @@
 		</div>    
 		<div><a href="/list?category=lifeStyle">LIFE STYLE</a>
 		</div>   
-		<!-- <div><a href="/list?category=sale">SALE</a>
-		</div> -->
+		<%-- <div><a href="/list?category=sale">SALE</a>
+		</div> --%>
 		<div><a href="/product/brands">BRANDS</a>
 		</div>
 		<div><a href="/board/list?board_category_num=7">POST</a>
@@ -100,10 +100,10 @@
 		<div>
 			<a href="/member/joinForm">CREATE ACCOUNT</a>
 		</div>
-		<!-- 
+		<%-- 
 		<div><a href="#">ORDERS</a>
 		</div> 
-		-->
+		--%>
 	</sec:authorize>
 	<sec:authorize access="isAuthenticated()">
 		<div><a href="/member/account">ACCOUNT DETAIL</a>

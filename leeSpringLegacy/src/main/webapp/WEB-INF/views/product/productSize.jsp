@@ -150,19 +150,18 @@ textarea#gdsDes { width:400px; height:180px; }
 			<div class="searchResult">
 				<table border="1">
 					
-					<!-- <tr id="tr"></tr> -->
 				</table>
 			</div>
 			
 			
-			<!-- 사이즈 등록 수정 -->
+			<%-- 사이즈 등록 수정 --%>
+			
 			<div>
 			<h2>사이즈 관리</h2>
 			
 				<div class="searchSizeResult">
 					<table border="1">
 						
-						<!-- <tr id="tr"></tr> -->
 					</table>
 				</div>
 			

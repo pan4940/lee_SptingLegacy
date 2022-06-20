@@ -69,8 +69,6 @@
 </div>
 
 
-<!-- <script type="text/javascript" src="/resources/js/list.js"></script>
- -->
 <script type="text/javascript">
 
 $(function() {
@@ -165,13 +163,7 @@ $(function() {
 			error:function(err){
 				alert(err);
 			}
-		}); //end ajax
-	
-	
-	
-	
-	
-	
+	}); //end ajax
 });
 
 

@@ -1,9 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <html>
 <head>
-	<title>Admin</title>
+<title>Admin</title>
 	
-
 <link rel="stylesheet" href="/resources/bootstrap/bootstrap.min.css">
 <link rel="stylesheet" href="/resources/bootstrap/bootstrap-theme.min.css">
 <script src="/resources/bootstrap/bootstrap.min.js"></script>
@@ -35,8 +34,8 @@
 	footer#footer ul li { display:inline-block; margin-right:10px; } 
 	
 .uploadResult {
-width: 100%;
-background-color: gray;
+	width: 100%;
+	background-color: gray;
 }
 
 .uploadResult ul {

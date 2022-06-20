@@ -239,7 +239,7 @@ ul {
 			</c:choose>
 		</div>
 
-	</div> <!-- end #help_main -->
+	</div> <%-- end #help_main --%>
 	
 	
 </body>

@@ -1,15 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<script type="text/javascript"
-	src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script> 	
+<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %> 	
 <link rel="stylesheet" href="/resources/css/orderdetail.css" />
 <div id="orderdetailDiv" class="col-12 col-lg-6">
 	<h3>
 		<center>QUICK ORDER</center>
 	</h3>
 	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-	<input type="hidden" id="memberDTOtel1" value="${memberDTO.tel1}">
-	<input type="hidden" id="memberDTOphone1" value="${memberDTO.phone1}">
+	<input type="hidden" id="memberDTOtel1" value="${principal.memberDTO.tel1}">
+	<input type="hidden" id="memberDTOphone1" value="${principal.memberDTO.phone1}">
 	<div id="quickorderList"></div>
 	
 	<div id="carttotal">
@@ -28,21 +28,21 @@
 		</h3>
 		<label style="color: gray">이름</label><br /> 
 			<input type="text"
-				id="member_name" name="member_name" value="${memberDTO.member_name }" readonly="readonly"
+				id="member_name" name="member_name" value="${principal.memberDTO.member_name}" readonly="readonly"
 				style="width: 25%; border: 0px; border-bottom: 1px solid gray" /> <br />
 		<label style="color: gray">우편번호</label><br /> 
 			<input type="text"
 				id="zipcode" name="zipcode" readonly="readonly"
-				value="${memberDTO.zipcode}"
+				value="${principal.memberDTO.addressDTOList[0].zipcode}"
 				style="width: 10%; border: 0px; border-bottom: 1px solid gray" />
 		
 		<br /> <label style="color: gray">주소</label><br /> 
 			<input
 				type="text" id="addr1" name="addr1" readonly="readonly"
-				value="${memberDTO.addr1}"
+				value="${principal.memberDTO.addressDTOList[0].addr1}"
 				style="width: 80%; border: 0px; border-bottom: 1px solid gray" /> 
 			<input
-				type="text" id="addr2" name="addr2" value="${memberDTO.addr2}"
+				type="text" id="addr2" name="addr2" value="${principal.memberDTO.addressDTOList[0].addr2}"
 				style="width: 80%; border: 0px; border-bottom: 1px solid gray" readonly="readonly"/> <br />
 		<label for="phone" style="color: gray">전화</label>
 		<p></p>
@@ -79,9 +79,9 @@
 			<option value="017">017</option>
 			<option value="018">018</option>
 			<option value="019">019</option>
-		</select> - <input type="text" name="tel2" value="${memberDTO.tel2}"
+		</select> - <input type="text" name="tel2" value="${principal.memberDTO.tel2}"
 			style="width: 50px; border: 0px; border-bottom: 1px solid gray" readonly="readonly"/> -
-		<input type="text" name="tel3" value="${memberDTO.tel3}"
+		<input type="text" name="tel3" value="${principal.memberDTO.tel3}"
 			style="width: 50px; border: 0px; border-bottom: 1px solid gray" readonly="readonly"/>
 
 		<p></p>
@@ -95,9 +95,9 @@
 			<option value="018">018</option>
 			<option value="019">019</option>
 		</select> - 
-		<input type="text" id="phone2" name="phone2" value="${memberDTO.phone2}"
+		<input type="text" id="phone2" name="phone2" value="${principal.memberDTO.phone2}"
 			style="width: 50px; border: 0px; border-bottom: 1px solid gray" readonly="readonly"/> -
-		<input type="text" id="phone3" name="phone3" value="${memberDTO.phone3}"
+		<input type="text" id="phone3" name="phone3" value="${principal.memberDTO.phone3}"
 			style="width: 50px; border: 0px; border-bottom: 1px solid gray" readonly="readonly"/>
 		<p></p>
 		<label for="email" style="color: gray">이메일</label>
@@ -114,22 +114,22 @@
 		</h3>
 		<label style="color: gray">이름</label><br /> 
 			<input type="text"
-			id="member_name" name="member_name" value="${memberDTO.member_name }"
+			id="member_name" name="member_name" value="${principal.memberDTO.member_name}"
 			style="width: 25%; border: 0px; border-bottom: 1px solid gray" /> <br />
-			<input type="hidden" value="${memberDTO.member_id}">
+			<input type="hidden" value="${principal.memberDTO.member_id}">
 		
 		<label style="color: gray">우편번호</label><br /> 
 		<input type="text"
 			id="zipcode" name="zipcode" readonly="readonly"
-			value="${memberDTO.zipcode }"
+			value="${principal.memberDTO.addressDTOList[0].zipcode }"
 			style="width: 10%; border: 0px; border-bottom: 1px solid gray" />
 		<button>SEARCH</button>
 		<br /> <label style="color: gray">주소</label><br /> 
 		<input
-			type="text" id="addr1" name="addr1" readonly="readonly" value="${memberDTO.addr1 }"
+			type="text" id="addr1" name="addr1" readonly="readonly" value="${principal.memberDTO.addressDTOList[0].addr1 }"
 			style="width: 80%; border: 0px; border-bottom: 1px solid gray" /> 
 		<input
-			type="text" id="addr2" name="addr2" value="${memberDTO.addr2}" readonly="readonly"
+			type="text" id="addr2" name="addr2" value="${principal.memberDTO.addressDTOList[0].addr2}" readonly="readonly"
 			style="width: 80%; border: 0px; border-bottom: 1px solid gray" /> <br />
 		
 		<label for="phone" style="color: gray">전화</label>
@@ -167,9 +167,9 @@
 			<option value="017">017</option>
 			<option value="018">018</option>
 			<option value="019">019</option>
-		</select> - <input type="text" id="tel2" name="tel2" value="${memberDTO.tel2 }"
+		</select> - <input type="text" id="tel2" name="tel2" value="${principal.memberDTO.tel2}"
 			style="width: 50px; border: 0px; border-bottom: 1px solid gray" /> -
-		<input type="text" id="tel3" name="tel3" value="${memberDTO.tel3 }"
+		<input type="text" id="tel3" name="tel3" value="${principal.memberDTO.tel3}"
 			style="width: 50px; border: 0px; border-bottom: 1px solid gray" />
 
 		<p></p>
@@ -182,9 +182,9 @@
 			<option value="017">017</option>
 			<option value="018">018</option>
 			<option value="019">019</option>
-		</select> - <input type="text" id="phone2" name="phone2" value="${memberDTO.phone2 }"
+		</select> - <input type="text" id="phone2" name="phone2" value="${principal.memberDTO.phone2}"
 			style="width: 50px; border: 0px; border-bottom: 1px solid gray" /> -
-		<input type="text" id="phone3" name="phone3" value="${memberDTO.phone3 }"
+		<input type="text" id="phone3" name="phone3" value="${principal.memberDTO.phone3}"
 			style="width: 50px; border: 0px; border-bottom: 1px solid gray" />
 
 		<p></p>
@@ -198,22 +198,18 @@
 		</h3>
 
 		<input id="mileageInput" name="mileageInput" type="number" value="0" min=0
-			max=${memberDTO.mileage }
+			max=${principal.memberDTO.mileage }
 			style="width: 12%; border: 0px; border-bottom: 1px solid gray" />
-		<span style="margin-left: 10px">total:${memberDTO.mileage }</span>
+		<span style="margin-left: 10px">total:${principal.memberDTO.mileage }</span>
 	</div>
 		<input id="totalPrice" name="totalPrice" type="hidden" value="">
 		<input id="status" name="status" type="hidden" value="">
 		<input id="deliveryCost" name="deliveryCost" type="hidden" value="">
-		<input id="member_id" name="member_id" type="hidden" value="${memberDTO.member_id }">
+		<input id="member_id" name="member_id" type="hidden" value="${principal.memberDTO.member_id}">
 		<input id="order_name" name="order_name" type="hidden" value="">
 		<input id="order_id" name="order_id" type="hidden"  value=""> 
 	
 	</form>
-
-
-
-
 
 	
 	<div id="payment">
@@ -233,7 +229,6 @@
 		<button id="checkoutBtn">Checkout Now</button>
 	</div>
 		
-   
   
 </div>
 

@@ -150,7 +150,6 @@ textarea#gdsDes { width:400px; height:180px; }
 			<div class="searchResult">
 				<table border="1">
 					
-					<!-- <tr id="tr"></tr> -->
 				</table>
 			</div>
 			
@@ -159,14 +158,13 @@ textarea#gdsDes { width:400px; height:180px; }
 			</form>
 			
 			
-			<!-- 사이즈 등록 수정 -->
+			<%-- 사이즈 등록 수정 --%>
 			<div>
 			<h2>사이즈 선택</h2>
 			
 				<div class="searchSizeResult">
 					<table border="1">
 						
-						<!-- <tr id="tr"></tr> -->
 					</table>
 				</div>
 				
@@ -174,7 +172,6 @@ textarea#gdsDes { width:400px; height:180px; }
 				<div class="deTailProductResult">
 					<table border="1">
 						
-						<!-- <tr id="tr"></tr> -->
 					</table>
 				</div>
 			
@@ -183,8 +180,8 @@ textarea#gdsDes { width:400px; height:180px; }
 			
 			
 			<div class="inputArea">
-				<!-- <button type="button" id="register_Btn" class="btn btn-primary">등록</button>
-				<button type="button" id="update_Btn" class="btn btn-primary">수정</button> -->
+				<button type="button" id="register_Btn" class="btn btn-primary">등록</button>
+				<button type="button" id="update_Btn" class="btn btn-primary">수정</button>
 				<button type="button" id="back_Btn" class="btn btn-warning">초기화</button>			
 
 			</div>

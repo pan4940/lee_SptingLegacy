@@ -153,7 +153,7 @@ textarea#gdsDes { width:400px; height:180px; }
 				<input id="searchProduct" type="text" value="">
 				<table id="tr" border="1">
 					
-					<!-- <tr id="tr"></tr> -->
+					 <tr id="tr"></tr> -->
 				</table>
 			</div>
 			
@@ -202,7 +202,7 @@ textarea#gdsDes { width:400px; height:180px; }
 				<input type="text" id="product_price" name="product_price" style="width:300px"/>
 			</div>
 			
-			<!-- <div class="inputArea">
+			 <div class="inputArea">
 				<label for="gdsStock">상품수량</label>
 				<input type="text" id="gdsStock" name="gdsStock" style="width:300px"/>
 			</div> -->
@@ -235,7 +235,6 @@ textarea#gdsDes { width:400px; height:180px; }
 			<div class="inputArea">
 				<button type="button" id="delete_Btn" class="btn btn-primary">삭제</button>
 				<button type="button" id="update_Btn" class="btn btn-primary">수정</button>
-				<button type="button" id="back_Btn" class="btn btn-warning">취소</button>			
 			</div>
 			
 			</form>
@@ -285,11 +284,7 @@ $(document).ready(function(){
 	});
 }());
 
-$("#back_Btn").click(function(){
-	//history.back();
-	console.log("back_Btn");
-	//location.href = "/admin/goods/view?n=" + ${goods.gdsNum};
-});		
+	
 
 //브랜드명 셀렉트 박스에 삽입할 데이터 준비
 function createBrandCategory(jsonData){

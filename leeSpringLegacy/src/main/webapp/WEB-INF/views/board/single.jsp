@@ -76,22 +76,6 @@ div {
 			</div>
 		</div>
 		
-		<!-- 뭔지 파악안됨. 메인이미지인듯? -->
-		
-		<!-- <div
-			class="xans-element- xans-product xans-product-addimage collection-single-images">
-			<div class="slide-img displaynone xans-record-" 
-				style="background-image: url(&quot;//thexshop.co.kr/web/product/small/202203/deaeb76c9efb25d8e32d8f2d22f1dd55.jpg&quot;);">
-				<img
-					src="//thexshop.co.kr/web/product/small/202203/deaeb76c9efb25d8e32d8f2d22f1dd55.jpg"
-					class="ThumbImage" alt=""
-					data-original="//thexshop.co.kr/web/product/small/202203/deaeb76c9efb25d8e32d8f2d22f1dd55.jpg">
-			</div>
-		</div>
-		<div class="clearfix"></div>
-		<div
-			class="xans-element- xans-product xans-product-additional row product-related ">
-		</div> -->
 	</div>
 	
 	

@@ -124,7 +124,6 @@ $(document).ready(function(){
             $(".categoryNameDiv h2").text(result.product_category_name);
         },
     });
-    
 
 });
 

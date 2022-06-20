@@ -154,7 +154,7 @@ display: inline-block;
             <h3 class="POST_board_title">POST</h3>
          </c:if>
          
-         <!-- 포스트 작성시 -->
+         <%-- 포스트 작성시 --%>
          <c:choose>
             <c:when test="${map.board_category_num eq '7'}">
                <form id="boardWriteForm" action="/board/write" method="post">
@@ -263,7 +263,7 @@ display: inline-block;
 
 
             <c:otherwise>
-               <!-- QNA 작성 -->
+               <%-- QNA 작성 --%>
                <form id="boardWriteForm" action="/board/write" method="post">
 					
                   <input type="hidden" name="board_category_num" value="${map.board_category_num}"> 
@@ -324,8 +324,7 @@ display: inline-block;
 
       </div>
 
-   </div> <!-- end #help_main -->
-   <%-- <jsp:include page="/component/footer.jsp" /> --%>
+   </div> <%-- end #help_main --%>
 
 
 <script type="text/javascript">

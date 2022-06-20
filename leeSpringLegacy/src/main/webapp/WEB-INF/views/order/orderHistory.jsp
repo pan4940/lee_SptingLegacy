@@ -10,7 +10,7 @@
 	<!-- <button>Canceled & Returns (0)</button> -->
 	<div id="orderlist">No order.</div>
 	<div id="paging">
-		<!-- Div-->
+	
 	</div>
 </div>
 

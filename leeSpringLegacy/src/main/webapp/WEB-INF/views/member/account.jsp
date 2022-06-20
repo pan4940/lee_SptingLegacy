@@ -18,11 +18,7 @@
         <div id="right" class="col-6 col-lg-4">
           <h4>summary</h4>
           <ul>
-            <!-- <li>
-              <label>order</label><br />
-              <span>원</span>/<span>숫자</span><br />
-            </li> -->
-
+            
             <li>
               <label>point</label><br />
               <span>${principal.memberDTO.mileage}원</span><br />

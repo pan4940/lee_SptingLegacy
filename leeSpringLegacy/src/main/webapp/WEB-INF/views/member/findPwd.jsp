@@ -6,7 +6,7 @@
 	<h3>
 		<center>FIND PASSWORD</center>
 	</h3>
-	<!--동일 name값 주어야 하나만 선택 가능-->
+	<%--동일 name값 주어야 하나만 선택 가능--%>
 	<input name="radio" type="radio" id="r1" value="1" checked />이메일 
 	<input name="radio" type="radio" id="r2" value="2" />휴대폰번호
 	<p></p>

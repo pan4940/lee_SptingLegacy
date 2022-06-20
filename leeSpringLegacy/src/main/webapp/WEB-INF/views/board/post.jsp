@@ -143,8 +143,8 @@ li {
 				</c:forEach>
 			</ul>
 		</div>
-	</div> <!-- end .post-wrap -->
-</div> <!-- end content -->
+	</div> <%-- end .post-wrap --%>
+</div> <%-- end content --%>
 
 
 

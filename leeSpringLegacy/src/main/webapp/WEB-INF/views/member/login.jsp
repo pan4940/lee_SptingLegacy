@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>    
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
-<!-- <script src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js"></script> -->
+<%-- <script src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js"></script> --%>
 <script type="text/javascript" src="/resources/js/login.js"></script>
     
     <div id="loginDiv">
@@ -41,7 +41,7 @@
 
       <div id="login3">
         <span>Login with </span>&nbsp;&nbsp;
-        <!-- 네이버 로그인 버튼 노출 영역 -->
+        <%-- 네이버 로그인 버튼 노출 영역 --%>
         <div id="message"></div>
         
         
@@ -62,8 +62,8 @@
     </div>
   
      
-<!-- 네이버 스크립트 -->
-<!-- <script src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.2.js" charset="utf-8"></script> -->
+<%-- 네이버 스크립트 --%>
+<%-- <script src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.2.js" charset="utf-8"></script> --%>
 
 
 	

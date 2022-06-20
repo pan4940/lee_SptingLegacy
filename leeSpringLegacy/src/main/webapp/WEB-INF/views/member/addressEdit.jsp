@@ -36,22 +36,7 @@
 			<input type="text" id="addr2" name="addr2" value=""
 				style="width: 100%; border: 0px; border-bottom: 1px solid gray" />
 		<p></p>
-		<!-- <label for="phone2" style="color: gray">휴대전화번호</label>
-		<p></p>
-		<select id="phone1" name="phone1" style="height: 30px; width: 55px">
-			<option value="010">010</option>
-			<option value="011">011</option>
-			<option value="016">016</option>
-			<option value="017">017</option>
-			<option value="018">018</option>
-			<option value="019">019</option>
-		</select> — 
-			<input type="text" id="phone2" name="phone2" value=""
-			style="width: 50px; border: 0px; border-bottom: 1px solid gray" />
-			— 
-			<input type="text" id="phone3" name="phone3" value=""
-			style="width: 50px; border: 0px; border-bottom: 1px solid gray" />
-		<p></p> -->
+		
 		<input type="checkbox" name="defaultAddr"> 기본배송지로 저장
 		<div id="btn">
 			<input type="button" id="cancelBtn" value="CANCEL" onclick="location.href='addresses'"> 

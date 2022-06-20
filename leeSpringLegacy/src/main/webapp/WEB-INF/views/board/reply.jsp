@@ -191,7 +191,7 @@ display: inline-block;
 	                            </div>
 								
 								<div class="toolbar">
-									<!-- <span class="fr-counter">문자(조회수넣을까?) : </span> -->
+									<%-- <span class="fr-counter">문자(조회수넣을까?) : </span> --%>
 								</div>
 							</div>
 						</li>
@@ -210,7 +210,7 @@ display: inline-block;
 
 		</div>
 
-	</div> <!-- end #help_main -->
+	</div> <%-- end #help_main --%>
 	<%-- <jsp:include page="/component/footer.jsp" /> --%>
 	<script src="/WEB-INF/component/nav/nav.js"></script>
 </body>

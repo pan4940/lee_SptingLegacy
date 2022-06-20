@@ -161,10 +161,6 @@ textarea#productDes { width:400px; height:180px; }
 				<input type="text" id="product_price" name="product_price" />
 			</div>
 			
-			<!-- <div class="inputArea">
-				<label for="gdsStock">상품수량</label>
-				<input type="text" id="gdsStock" name="gdsStock" />
-			</div> -->
 			
 			<div class="inputArea">
 				<label for="product_descrip">상품소개</label>
@@ -239,8 +235,7 @@ $(document).ready(function(){
 			createBrandCategory(BrandsCategoryList);
 		},
 	});
-	//jsonData = $("#list").val();
-	//console.log(jsonData[0]);
+	
 }());
 
 

@@ -7,9 +7,6 @@
 <meta charset="UTF-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<!-- <link rel="stylesheet" href="/component/nav.css" />
-<link rel="stylesheet" href="/index.css" />
-<link rel="stylesheet" href="help.css" /> -->
 <script src="https://kit.fontawesome.com/cd631a71a1.js" crossorigin="anonymous"></script>
 <title>list</title>
 </head>
@@ -173,7 +170,7 @@ ul {
 
 					</ul>
 				</div>
-				<!-- end Pagination -->
+				<%-- end Pagination --%>
 				
 				<form id='actionForm' action="/board/list" method='post'>
 					<input type='hidden' name='board_category_num' value='${board_category_num}'>
@@ -191,7 +188,7 @@ ul {
 
 		</div>
 		
-	</div> <!-- end #help_main -->
+	</div> <%-- end #help_main --%>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 <script type="text/javascript">

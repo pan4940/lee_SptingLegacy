@@ -176,7 +176,7 @@ fieldset #replyer:focus{
 		</div>
 		<div class="clearfix"></div>
 		
-		<!-- 리플부분 -->
+		<%-- 리플부분 --%>
 		<sec:authorize access="isAuthenticated()">
 		<div class="reply">
 			<form id="replyForm" action="" method="post">
@@ -247,7 +247,7 @@ fieldset #replyer:focus{
 			
 		</sec:authorize>
 	</div>
-</div> <!-- end #help_main -->
+</div> <%-- end #help_main --%>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 <script type="text/javascript">
@@ -285,7 +285,6 @@ let viewReplyUpdateForm = function(board_num, reply_num){
 	
 	$(".row" + reply_num).append(replyUpdateForm);
 	$("#reply_num").val(reply_num);
-	//$("#commentUpdateForm").show();
 	$("#replyUpdateForm").toggle();
 }	
 
