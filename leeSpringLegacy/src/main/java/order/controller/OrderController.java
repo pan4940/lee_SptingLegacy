@@ -30,8 +30,6 @@ public class OrderController {
 	@ResponseBody
 	public void addCart(HttpSession httpSession, String product_size_id) {
 		MemberDTO memberDTO = (MemberDTO) httpSession.getAttribute("memberDTO");
-		System.out.println("MemberDTO : " + memberDTO);
-		System.out.println("product_size_id : " + product_size_id);
 		String member_id = memberDTO.getMember_id();
 		
 		orderService.addCart(member_id, product_size_id);
@@ -60,7 +58,6 @@ public class OrderController {
 	@PostMapping("/deleteDetailProductFromCart")
 	@ResponseBody
 	public void deleteCart(@RequestParam int detail_product_id) {
-		System.out.println("detail_product_id : " + detail_product_id);
 		orderService.deleteDetailProductFromCart(detail_product_id);
 	}
 	
@@ -81,21 +78,15 @@ public class OrderController {
 	@ResponseBody
 	public List<OrderDTO> getOrderHistory(HttpSession httpSession) {
 		MemberDTO memberDTO = (MemberDTO) httpSession.getAttribute("memberDTO");
-		System.out.println(memberDTO);
 		String member_id = memberDTO.getMember_id();
-		System.out.println("member_id : " + member_id);
 		List<OrderDTO> orderDTOList = orderService.getOrderHistory(member_id);
-		System.out.println(orderDTOList);
 		return orderDTOList;
 	}
 	
 	@PostMapping("/registerOrderDTO")
 	@ResponseBody
 	public void registerOrderDTO(@ModelAttribute OrderDTO orderDTO) {
-		
-		System.out.println("컨트롤러 registerOrderDTO");
 		orderService.registerOrderDTO(orderDTO);
-		System.out.println(orderDTO);
 	}
 	
 	@GetMapping(value="/quickOrder")
@@ -107,7 +98,6 @@ public class OrderController {
 	@PostMapping(value = "/getQuickorder")
 	@ResponseBody
 	public ProductDTO addQuickOrder(@RequestParam int product_size_id, HttpSession httpSession) {
-		MemberDTO memberDTO = (MemberDTO) httpSession.getAttribute("memberDTO");
 		ProductDTO productDTO = orderService.getQuickorder(product_size_id);
 		return productDTO;
 	}

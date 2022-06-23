@@ -13,19 +13,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import lombok.extern.log4j.Log4j2;
 import member.bean.MemberAddressDTO;
-import member.bean.MemberAuthDTO;
 import member.bean.MemberDTO;
 import member.service.MemberService;
 import security.domain.CustomUser;
 
 @Controller
-@Log4j2
 @RequestMapping("/member")
 public class MemberController {
 	
@@ -38,8 +34,6 @@ public class MemberController {
 	//로그인
 	@GetMapping("/login")
 	public String loginForm(String error, String logout, Model model) {
-		log.info("error : " + error);
-		log.info("logout : " + logout);
 		
 		if (error != null) {
 			model.addAttribute("error", "로그인 에러. 아이디와 비밀번호를 확인해주세요.");
@@ -57,7 +51,6 @@ public class MemberController {
 	@PostMapping("/socialLoginOk")
 	@ResponseBody
 	public String socialLogin(HttpSession httpSession, @RequestParam("member_id") String socialId) throws Exception{
-		System.out.println(socialId);
 		MemberDTO memberDTO = memberService.socialLogin(socialId);
 		if (memberDTO != null) {
 			httpSession.setAttribute("memberDTO", memberDTO);
@@ -76,7 +69,7 @@ public class MemberController {
 	//로그아웃
 	@PostMapping("/logout")
 	public void logout(HttpSession httpSession) {
-		log.info("custom logout");
+		System.out.println("custom logout");
 	}
 	
 	
@@ -113,7 +106,6 @@ public class MemberController {
 	public void socialJoin(@ModelAttribute MemberDTO memberDTO, Model model) {
 		memberService.socialJoin(memberDTO);
 		System.out.println(memberDTO);
-		log.info(memberDTO);
 	}
 	
 	
@@ -124,7 +116,6 @@ public class MemberController {
 	@PostMapping("/checkId")
 	@ResponseBody
 	public String checkId(@RequestParam Map<String, String> map) {
-		System.out.println("map : " + map);
 		String member_id = map.get("member_id");
 		System.out.println("check member_id : " + member_id);
 		MemberDTO memberDTO = memberService.getMemberDtoByMemberId(member_id);
@@ -156,7 +147,6 @@ public class MemberController {
 	@PostMapping("/modifyOk")
 	@ResponseBody
 	public void modifyOK(@ModelAttribute MemberDTO memberDTO) {
-		System.out.println("modify memberDTO : " + memberDTO);
 		memberService.modifyOK(memberDTO);
 	}
 	
@@ -177,7 +167,6 @@ public class MemberController {
 	@PostMapping("/findIdEmail")
 	@ResponseBody
 	public String findIdEmail(HttpSession httpSession, @RequestParam Map<String, String> map) {
-		System.out.println("findIdEmail : " + map);
 		MemberDTO memberDTO = memberService.findIdEmail(map);
 		
 		if (memberDTO != null) {
@@ -199,7 +188,6 @@ public class MemberController {
 	@PostMapping("/findIdPhone")
 	@ResponseBody
 	public String findIdPhone(HttpSession httpSession, @RequestParam Map<String, String> map) {
-		System.out.println("findIdPhone : " + map);
 		MemberDTO memberDTO = memberService.findIdPhone(map);
 		
 		if (memberDTO != null) {
@@ -236,9 +224,7 @@ public class MemberController {
 	@PostMapping("/findPwdByEmail")
 	@ResponseBody
 	public String findPwdByEmail(HttpSession httpSession, @RequestParam Map<String, String> map) {
-		System.out.println("findPwdByEmail : " + map);
 		MemberDTO memberDTO = memberService.findPwdByEmail(map);
-		System.out.println("findPwdByEmail memberDTO : " + memberDTO);
 		
 		if (memberDTO != null) {
 			httpSession.setAttribute("memId", memberDTO.getMember_id());
@@ -255,11 +241,10 @@ public class MemberController {
 	@PostMapping("/tempPwdByEmail")
 	@ResponseBody
 	public void tempPwdByEmail(HttpSession httpSession, @RequestParam String member_id) {
-		System.out.println("tempPwdByEmail : " + member_id);
-		
 		memberService.tempPwdByEmail(httpSession, member_id);
-		
 	}
+	
+	
 	//임시비밀번호 전송후 페이지이동
 	@GetMapping("/tempAlert")
 	public String tempalert(Model model) {
@@ -272,7 +257,6 @@ public class MemberController {
 	@PostMapping("/findPwdByPhone")
 	@ResponseBody
 	public String findPwdByPhone(HttpSession httpSession, @RequestParam Map<String, String> map) {
-		System.out.println("findPwdByPhone : " + map);
 		MemberDTO memberDTO = memberService.findPwdByPhone(map);
 		
 		if (memberDTO != null) {
@@ -289,9 +273,7 @@ public class MemberController {
 	@PostMapping("/tempPwdByPhone")
 	@ResponseBody
 	public void tempPwdByPhone(HttpSession httpSession, @RequestParam String member_id) {
-		System.out.println("tempPwdByPhone : " + member_id);
 		memberService.tempPwdByPhone(httpSession, member_id);
-		
 	}
 	
 	
@@ -315,7 +297,6 @@ public class MemberController {
 	@PostMapping("/getMemberListByMemberIdAndMemberName")
 	@ResponseBody
 	public List<MemberDTO> getMemberListByMemberIdAndMemberName(@RequestParam Map<String, String> map) {
-		System.out.println(map);
 		return memberService.getMemberListByMemberIdAndMemberName(map);
 	}
 	
@@ -324,7 +305,6 @@ public class MemberController {
 	@PostMapping("/getMemberByMemberIdAndMemberName")
 	@ResponseBody
 	public MemberDTO getMemberByMemberIdAndMemberName(@RequestParam Map<String, String> map) {
-		System.out.println(map);
 		return memberService.getMemberByMemberIdAndMemberName(map);
 	}
 	
@@ -341,7 +321,6 @@ public class MemberController {
 	
 	@PostMapping("/memberGradeUpdate")
 	public void memberGradeUpdate(@RequestParam Map<String, String> map) {
-		System.out.println(map);
 		memberService.memberGradeUpdate(map);
 	}
 	
@@ -404,7 +383,6 @@ public class MemberController {
 	
 	@GetMapping("/addressEdit")
 	public String addressEdit(@RequestParam String address_id, Model model) {
-		System.out.println(address_id);
 		model.addAttribute("address_id", address_id);
 		model.addAttribute("display", "/WEB-INF/views/member/addressEdit.jsp");
 		return "index";
@@ -414,8 +392,6 @@ public class MemberController {
 	@PostMapping("/addressModify")
 	@ResponseBody
 	public void addressModify(@ModelAttribute MemberAddressDTO memberAddressDTO, @RequestParam(value = "defaultAddr", required = false) String defaultAddr) {
-		System.out.println(memberAddressDTO);
-		System.out.println(defaultAddr);
 		if (defaultAddr != null) {
 			memberService.defaultAddressModify(memberAddressDTO);
 		} else {
@@ -439,9 +415,7 @@ public class MemberController {
 	@PostMapping("/addNewAddress")
 	@ResponseBody
 	public void addNewAddress(@ModelAttribute MemberAddressDTO memberAddressDTO, @RequestParam(value = "defaultAddr", required = false) String defaultAddr) {
-		System.out.println(memberAddressDTO);
-		System.out.println(defaultAddr);
-		
+
 		if (defaultAddr != null) {
 			memberService.insertDefaultAddress(memberAddressDTO);
 		} else {
@@ -454,7 +428,6 @@ public class MemberController {
 	@ResponseBody
 	public void deleteAddress(Authentication auth ,@RequestParam String[] deleteAddress) {
 		for (String address_id : deleteAddress) {
-			System.out.println(address_id);
 			memberService.deleteAddressDTO(address_id);
 		}
 		

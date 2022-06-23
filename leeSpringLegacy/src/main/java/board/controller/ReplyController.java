@@ -14,12 +14,6 @@ import board.service.ReplyService;
 
 @RequestMapping("/reply")
 @Controller
-//@RestController
-/* 왜 그런지는 모르겠으나 RestController로 해야 get.jsp의 showList바로 동작함 
- 답 : write()에도 @ResponseBody붙이니 정상 작동
- write()시에도 ajax써서 그런것이 아닌가 생각함...
- 
- */
 public class ReplyController {
 	
 	@Autowired

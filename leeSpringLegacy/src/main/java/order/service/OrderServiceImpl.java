@@ -1,8 +1,6 @@
 package order.service;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -87,20 +85,15 @@ public class OrderServiceImpl implements OrderService {
 		orderMapper.deleteDetailProductFromCart(detail_product_id);
 	}
 	
-	@Transactional(rollbackFor = Exception.class)
+	@Transactional(rollbackFor = {Exception.class})
 	@Override
 	public void registerOrderDTO(OrderDTO orderDTO) {
 		//먼저 orderDTO등록. selectKey
 		//이후 orderDTO.getDetailOrderDTOList()로 리스트 받아와서 DetailOrderDTO 등록 반복문 필요
-		System.out.println("서비스 계층");
-		
-		System.out.println(orderDTO);
-		
 		orderMapper.registerOrderDTO(orderDTO);
 
 		for (DetailOrderDTO detailOrderDTO : orderDTO.getDetailOrderDTOList()) {
 			detailOrderDTO.setOrder_id(orderDTO.getOrder_id());
-			System.out.println(detailOrderDTO);
 			orderMapper.registerDetailOrderDTO(detailOrderDTO);
 		}
 		
@@ -117,8 +110,6 @@ public class OrderServiceImpl implements OrderService {
 			
 			MemberDTO memberDTO = memberMapper.getMemberDtoByMemberId(member_id);
 			orderDTO.setMemberDTO(memberDTO);
-			
-			System.out.println(orderDTO);
 		}
 		return orderDTOList;
 	}
@@ -130,14 +121,11 @@ public class OrderServiceImpl implements OrderService {
 		List<DetailProductDTO> detailProductDTOList = productMapper.getDetailProductListByProductSizeId(product_size_id);
 		productSizeDTO.setDetailProductDTOList(detailProductDTOList);
 		
-		
 		ProductDTO productDTO = productMapper.getProductDTO(productSizeDTO.getProduct_num());
 		productDTO.setProductSizeDTO(productSizeDTO);
 		
 		List<FileDTO> fileDTOList = fileMapper.findByProductNum(productDTO.getProduct_num());
 		productDTO.setFileList(fileDTOList);
-		
-		System.out.println(productDTO);
 		
 		return productDTO;
 	}

@@ -1,13 +1,5 @@
 package member.service;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -28,9 +20,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 
 import member.bean.MemberAddressDTO;
 import member.bean.MemberAuthDTO;
@@ -81,11 +70,8 @@ public class MemberServiceImpl implements MemberService {
 	
 	@Override
 	public void socialJoin(MemberDTO memberDTO) {
-		System.out.println("input joinMemberDTO : "  + memberDTO);
-		
 		memberDTO.setEmail_check("1");
 		memberDTO.setMileage(2000);
-		System.out.println("output joinMemberDTO : "  + memberDTO);
 		memberMapper.join(memberDTO);
 	}
 	
@@ -194,15 +180,13 @@ public class MemberServiceImpl implements MemberService {
         for (int i = 0; i < 12; i++) {
 			numStr += (char) ((Math.random() * 26) + 97);
 		}
-        System.out.println("수신자 번호 : " + memberDTO.getTotalPhone());
-        System.out.println("인증번호 : " + numStr);
+
         String api_key = "NCSONFLLAZ74EJQU";
     	String api_secret = "59MPAP18UQNTCN8KLHYVTSJKSZLXI8XI";
     	Message coolsms = new Message(api_key, api_secret);
 
     	// 4 params(to, from, type, text) are mandatory. must be filled
     	HashMap<String, String> params = new HashMap<String, String>();
-    	System.out.println("findMemberByID memberDTO : " + memberDTO);
     	params.put("to", memberDTO.getTotalPhone()); // 수신전화번호
     	params.put("from", "01091073930"); // 발신전화번호. 테스트시에는 발신,수신 둘다 본인 번호로 하면 됨
     	params.put("type", "SMS");
@@ -223,7 +207,6 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public List<MemberDTO> getMemberListByMemberIdAndMemberName(Map<String, String> map) {
 		List<MemberDTO> list = memberMapper.getMemberListByMemberIdAndMemberName(map);
-		System.out.println(list);
 		return list;
 	}
 	

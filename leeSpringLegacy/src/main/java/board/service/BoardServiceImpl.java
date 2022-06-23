@@ -42,7 +42,7 @@ public class BoardServiceImpl implements BoardService {
 	
 	
 	@Override
-	@Transactional(rollbackFor = Exception.class)
+	@Transactional(rollbackFor = {Exception.class})
 	public void writePOST(BoardDTO boardDTO) {
 		if (boardDTO.getFileList() == null || boardDTO.getFileList().size() <= 0) {
 			return;
@@ -55,7 +55,7 @@ public class BoardServiceImpl implements BoardService {
 	}
 	
 	@Override
-	@Transactional(rollbackFor = Exception.class)
+	@Transactional(rollbackFor = {Exception.class})
 	public void modify(BoardDTO boardDTO) {
 		fileMapper.boardFileDeleteAll(boardDTO.getBoard_num());
 		boardMapper.modify(boardDTO);
@@ -87,7 +87,7 @@ public class BoardServiceImpl implements BoardService {
 	}
 	
 	
-	@Transactional(rollbackFor = Exception.class)
+	@Transactional(rollbackFor = {Exception.class})
 	@Override
 	public void delete(int board_num) {
 		fileMapper.boardFileDeleteAll(board_num);

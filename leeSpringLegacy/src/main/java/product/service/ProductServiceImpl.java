@@ -53,7 +53,7 @@ public class ProductServiceImpl implements ProductService {
 	}
 	
 	
-	@Transactional(rollbackFor = Exception.class)
+	@Transactional(rollbackFor = {Exception.class})
 	@Override
 	public void productRegister(ProductDTO productDTO) {
 		if (productDTO.getFileList() == null || productDTO.getFileList().size() <= 0) {
@@ -63,21 +63,16 @@ public class ProductServiceImpl implements ProductService {
 		String brand_name = productMapper.findBrandNameByBrandCategory(brandCategory);
 		productDTO.setBrand_name(brand_name);
 		if (productDTO.getCateCode2() == productDTO.getCateCode3()) {
-			System.out.println("3번 카테고리 없음");
 			productDTO.setCateCode3(0);
 		}
-		System.out.println("before productDTO : " + productDTO);
 		productMapper.productRegisterSelectKey(productDTO);
 		productMapper.productRegisterCategory_link(productDTO);
 		
 		
 		productDTO.getFileList().forEach(t -> {
 			t.setLinked_num(productDTO.getProduct_num());
-			System.out.println("productDTO : " + t);
 			fileMapper.productFileInsert(t);
 		});
-		
-		System.out.println("after productDTO : " + productDTO);
 		
 	}
 	
@@ -114,7 +109,7 @@ public class ProductServiceImpl implements ProductService {
 	
 	
 	@Override
-	@Transactional(rollbackFor = Exception.class)
+	@Transactional(rollbackFor = {Exception.class})
 	public void modify(ProductDTO productDTO) {
 		
 		
@@ -126,7 +121,6 @@ public class ProductServiceImpl implements ProductService {
 		productDTO.setBrand_name(brand_name);
 		
 		if (productDTO.getCateCode2() == productDTO.getCateCode3()) {
-			System.out.println("3번 카테고리 없음");
 			productDTO.setCateCode3(0);
 		}
 
@@ -134,11 +128,9 @@ public class ProductServiceImpl implements ProductService {
 		
 		productDTO.getFileList().forEach(t -> {
 			t.setLinked_num(productDTO.getProduct_num());
-			System.out.println("productDTO : " + t);
 			fileMapper.productFileInsert(t);
 		});
 		
-		System.out.println(productDTO);
 		productMapper.modifyProduct(productDTO);
 	}
 	
@@ -156,7 +148,6 @@ public class ProductServiceImpl implements ProductService {
 		ProductCategoryDTO productCategoryDTO = productMapper.getProductCategoryDTO(product_category_num);
 		
 		List<FileDTO> brandFileDTOList = getBrandFileList(product_category_num);
-		System.out.println("brandFileDTOList : " + brandFileDTOList);
 		productCategoryDTO.setFileList(brandFileDTOList);
 		
 		return productCategoryDTO;
@@ -165,27 +156,23 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public List<FileDTO> getBrandFileList(int product_category_num) {
 		List<FileDTO> list = fileMapper.findByBrandNum(product_category_num);
-		System.out.println("list : " + fileMapper.findByBrandNum(product_category_num));
 		return list;
 	}
 	
-	@Transactional(rollbackFor = Exception.class)
+	@Transactional(rollbackFor = {Exception.class})
 	@Override
 	public void modifyBrandCategory(ProductCategoryDTO productCategoryDTO) {
 		if (productCategoryDTO.getFileList() == null || productCategoryDTO.getFileList().size() <= 0) {
 			return;
 		}
 		
-		System.out.println("modify productCategoryDTO : " + productCategoryDTO);
 		fileMapper.brandFileDeleteAll(productCategoryDTO.getProduct_category_num());
 		
 		productCategoryDTO.getFileList().forEach(t -> {
 			t.setLinked_num(productCategoryDTO.getProduct_category_num());
-			System.out.println("BrandFileDTO : " + t);
 			fileMapper.brandFileInsert(t);
 		});
 		
-		System.out.println(productCategoryDTO);
 		productMapper.modifyBrandCategory(productCategoryDTO);
 	}
 	
@@ -207,19 +194,14 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public void registerProductSize(ProductSizeDTO productSizeDTO) {
 		ProductDTO productDTO = productMapper.getProductByProductNum(productSizeDTO.getProduct_num() + "");
-		System.out.println("registerProductSize productDTO: " + productDTO);
 		
 		if (productDTO.getCateCode2() == 1100 || productDTO.getCateCode2() == 2100) {
-			System.out.println("상의 상품");
 			productMapper.registerTopProductSize(productSizeDTO);
 		} else if (productDTO.getCateCode2() == 1200 || productDTO.getCateCode2() == 2100) {
-			System.out.println("하의 상품");
 			productMapper.registerBottomProductSize(productSizeDTO);
 		} else if (productDTO.getCateCode2() == 1400 || productDTO.getCateCode2() == 2400) {
-			System.out.println("모자 상품");
 			productMapper.registerCapProductSize(productSizeDTO);
 		} else {
-			System.out.println("원사이즈 상품");
 			productMapper.registerOneSizeProductSize(productSizeDTO);
 		}
 	}
@@ -228,19 +210,14 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public void modifyProductSize(ProductSizeDTO productSizeDTO) {
 		ProductDTO productDTO = productMapper.getProductByProductNum(productSizeDTO.getProduct_num() + "");
-		System.out.println("Modify ProductSize productDTO: " + productDTO);
 		
 		if (productDTO.getCateCode2() == 1100 || productDTO.getCateCode2() == 2100) {
-			System.out.println("상의 상품");
 			productMapper.modifyTopProductSize(productSizeDTO);
 		} else if (productDTO.getCateCode2() == 1200 || productDTO.getCateCode2() == 2100) {
-			System.out.println("하의 상품");
 			productMapper.modifyBottomProductSize(productSizeDTO);
 		} else if (productDTO.getCateCode2() == 1400 || productDTO.getCateCode2() == 2400) {
-			System.out.println("모자 상품");
 			productMapper.modifyCapProductSize(productSizeDTO);
 		} else {
-			System.out.println("원사이즈 상품");
 			productMapper.modifyOneSizeProductSize(productSizeDTO);
 		}
 	}
@@ -254,8 +231,6 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public ProductSizeDTO getProductSizeByProductSizeId(int product_size_id) {
 		ProductSizeDTO productSizeDTO = productMapper.getProductSizeByProductSizeId(product_size_id);
-		System.out.println("product_size_id : " + product_size_id);
-		
 		return productSizeDTO;
 	}
 	
@@ -366,7 +341,6 @@ public class ProductServiceImpl implements ProductService {
 	public ProductCategoryDTO getProductCategoryByProductCategoryREF(int product_category_num) {
 		
 		if (1000 <= product_category_num && product_category_num < 2000) {
-			System.out.println("남성품목");
 			ProductCategoryDTO firstCategory = productMapper.getProductCategoryDTO(1000);
 			firstCategory.setProductCategoryList(productMapper.getProductCategoryByProductCategoryREF(firstCategory.getProduct_category_num()));
 			
@@ -376,7 +350,6 @@ public class ProductServiceImpl implements ProductService {
 			
 			return firstCategory;
 		} else {
-			System.out.println("여성품목");
 			ProductCategoryDTO firstCategory = productMapper.getProductCategoryDTO(2000);
 			firstCategory.setProductCategoryList(productMapper.getProductCategoryByProductCategoryREF(firstCategory.getProduct_category_num()));
 			

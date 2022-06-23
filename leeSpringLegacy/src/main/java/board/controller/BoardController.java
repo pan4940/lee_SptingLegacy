@@ -92,7 +92,6 @@ public class BoardController {
 		int board_category_num = Integer.parseInt(map.get("board_category_num")); 
 		
 		if (board_category_num == 7) {
-			System.out.println(boardDTO);
 			List<FileDTO> list = boardDTO.getFileList();
 			boardService.writePOST(boardDTO);
 			redirectAttributes.addAttribute("board_category_num", map.get("board_category_num"));
@@ -206,7 +205,7 @@ public class BoardController {
 		//return "index";
 	}
 	
-	@Transactional(rollbackFor = Exception.class)
+	@Transactional(rollbackFor = {Exception.class})
 	@PostMapping("/delete")
 	public String delete(@RequestParam Map<String, String> map, 
 			//@ModelAttribute BoardDTO boardDTO, 
@@ -285,6 +284,7 @@ public class BoardController {
 			}
 		
 		} catch (Exception e) {
+			
 			System.out.println(e.getMessage());
 			
 			int board_num = Integer.parseInt(map.get("board_num"));
@@ -298,8 +298,6 @@ public class BoardController {
 				model.addAttribute("map", map);
 				get(map, model);
 			} 
-			
-			
 		}
 		
 		return "/index";

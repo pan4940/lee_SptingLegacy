@@ -27,7 +27,6 @@ import product.service.ProductService;
 
 @Controller
 @RequestMapping(value = "/product", method = {RequestMethod.GET, RequestMethod.POST})
-@Log4j2
 public class ProductController {
 	
 	@Autowired
@@ -79,7 +78,6 @@ public class ProductController {
 	@PostMapping("/deleteBrandCategory")
 	public String deleteBrandCategory(@ModelAttribute ProductCategoryDTO productCategoryDTO) {
 		productCategoryDTO.setProduct_category_num_ref(10000);
-		System.out.println(productCategoryDTO);
 		productService.deleteBrandCategory(productCategoryDTO.getProduct_category_num());
 		return "/product/category";
 	}
@@ -122,9 +120,6 @@ public class ProductController {
 	@GetMapping("/list-brand")
 	public String moveListBrand(@RequestParam Map<String, String> map, Model model) {
 		
-		System.out.println("/list-brand : " + map);
-		
-		
 		String pageNum = map.get("pageNum");
 		String amount = map.get("amount");
 		Criteria criteria;
@@ -150,8 +145,6 @@ public class ProductController {
 	@GetMapping("/list")
 	//public String moveList(@RequestParam int product_category_num, Model model) {
 	public String moveList(@RequestParam Map<String, String> map, Model model) {	
-		System.out.println("/list : " + map);
-		
 		
 		String pageNum = map.get("pageNum");
 		String amount = map.get("amount");
@@ -238,10 +231,6 @@ public class ProductController {
 	//category_num, product_num, pageNum, amount넘겨받음. 
 	@GetMapping("/detail")
 	public String get(@RequestParam Map<String, String> map, Model model) {
-		
-		System.out.println(map);
-		int product_num = Integer.parseInt(map.get("product_num")) ;
-		
 		model.addAttribute("map", map);
 		model.addAttribute("display", "/WEB-INF/views/product/detail.jsp");
 		return "index";
@@ -270,7 +259,7 @@ public class ProductController {
 	}
 	
 	
-	@Transactional(rollbackFor = Exception.class)
+	@Transactional(rollbackFor = {Exception.class})
 	@PostMapping("/delete")
 	@ResponseBody
 	public void delete(@RequestParam String[] checkProduct_num) {
@@ -294,7 +283,6 @@ public class ProductController {
 	@PostMapping("/registerProductSize")
 	@ResponseBody
 	public void registerProductSize(@ModelAttribute ProductSizeDTO productSizeDTO) {
-		System.out.println(productSizeDTO);
 		productService.registerProductSize(productSizeDTO);
 	}
 	
@@ -341,9 +329,6 @@ public class ProductController {
 			@RequestParam String product_size_id,
 			@RequestParam String addProductsAmount
 			) {
-		System.out.println(product_num);
-		System.out.println(product_size_id);
-		System.out.println(addProductsAmount);
 		DetailProductDTO detailProductDTO = new DetailProductDTO();
 		detailProductDTO.setProduct_num(Integer.parseInt(product_num));
 		detailProductDTO.setProduct_size_id(Integer.parseInt(product_size_id));
@@ -413,7 +398,6 @@ public class ProductController {
 	@PostMapping("/getProductCategoryByProductCategoryREF")
 	@ResponseBody
 	public ProductCategoryDTO getProductCategoryByProductCategoryREF(@RequestParam int product_category_num) {
-		System.out.println("getProductCategoryByProductCategoryREF : " + product_category_num);
 		return productService.getProductCategoryByProductCategoryREF(product_category_num);
 	}
 	
@@ -422,9 +406,7 @@ public class ProductController {
 	@PostMapping("/getProductListByProductCategory")
 	@ResponseBody
 	public List<ProductDTO> getProductListByProductCategory(@RequestParam int product_category_num) {
-		System.out.println("getProductListByProductCategory : " + product_category_num);
 		List<ProductDTO> list = productService.getProductListByProductCategory(product_category_num);
-		System.out.println(list);
 		return list;
 	}
 }
