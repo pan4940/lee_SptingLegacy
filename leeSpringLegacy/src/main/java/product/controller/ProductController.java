@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import board.bean.Criteria;
 import board.bean.PageDTO;
 import file.bean.FileDTO;
-import lombok.extern.log4j.Log4j2;
 import product.bean.DetailProductDTO;
 import product.bean.ProductCategoryDTO;
 import product.bean.ProductDTO;
