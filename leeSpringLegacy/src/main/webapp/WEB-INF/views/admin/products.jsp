@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>    
 <!DOCTYPE html>
 <html>
   <head>
@@ -24,6 +25,7 @@
   </head>
 
   <body id="reportsPage">
+  	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
     <nav class="navbar navbar-expand-xl">
       <div class="container h-100">
         <a class="navbar-brand" href="/admin/index">
@@ -270,19 +272,18 @@
         </div>
         <div class="col-sm-12 col-md-12 col-lg-4 col-xl-4 tm-block-col">
           <div class="tm-bg-primary-dark tm-block tm-block-product-categories">
-            <h2 class="tm-block-title">Brand Categories</h2>
+            <h2 class="tm-block-title">브랜드 카테고리</h2>
             <div class="tm-product-table-container">
               <table class="table tm-table-small tm-product-table">
-                <tbody>
-                  
-                  <tr>
+                <tbody id="brandList">
+                  <!-- <tr>
                     <td class="tm-product-name">Product Category 1</td>
                     <td class="text-center">
                       <a href="#" class="tm-product-delete-link">
                         <i class="far fa-trash-alt tm-product-delete-icon"></i>
                       </a>
                     </td>
-                  </tr>
+                  </tr> -->
                   
                 </tbody>
               </table>
@@ -317,6 +318,46 @@
           window.location.href = "/admin/editProduct";
         });
       });
+    </script>
+    
+    <script type="text/javascript">
+
+    let BrandsCategoryList;
+
+    $(document).ready(function(){
+
+    	$.ajax({
+    		type: 'post',
+    		url: '/product/getBrandsCategoryList',
+    		headers: {"X-CSRF-TOKEN": $("input[name='_csrf']").val()},
+    		dataType: 'json',
+    		success: function(result){
+    			console.log(result);
+    			BrandsCategoryList = result;
+    			createBrandCategory(BrandsCategoryList);
+    		},
+    	});
+    }());
+
+    function createBrandCategory(jsonData){
+    	let str = "";
+    	for(let i = 0; i < jsonData.length; i++) {
+    		str += "<tr>";
+    		str += "<td class='tm-product-name'>" + "<a href='/admin/modifyBrandCategory?product_category_num=" + jsonData[i].product_category_num + "'>" + jsonData[i].product_category_name + "</a>" + "</td>";
+    		str += "<td class='text-center'>";
+    		str += "<a href='" + jsonData[i].product_category_num + "' class='tm-product-delete-link'>";
+    		str += "<i class='far fa-trash-alt tm-product-delete-icon'></i>";
+    		str += "</a>";
+    		str += "</td>";
+    		str += "</tr>";
+    	}
+    	$("#brandList").append(str);
+    	
+    };
+    
+    
+    
+    
     </script>
   </body>
 </html>

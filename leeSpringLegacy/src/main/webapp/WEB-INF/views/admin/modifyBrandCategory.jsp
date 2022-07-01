@@ -6,7 +6,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>브랜드 카테고리 추가</title>
+    <title>카테고리 수정</title>
     <link
       rel="stylesheet"
       href="https://fonts.googleapis.com/css?family=Roboto:400,700"
@@ -117,14 +117,14 @@
           <div class="tm-bg-primary-dark tm-block tm-block-h-auto">
             <div class="row">
               <div class="col-12">
-                <h2 class="tm-block-title d-inline-block">브랜드 카테고리 추가</h2>
+                <h2 class="tm-block-title d-inline-block">카테고리 추가</h2>
               </div>
             </div>
             <div class="row tm-edit-product-row">
               <div class="col-xl-6 col-lg-6 col-md-12">
                 <form action="" class="tm-edit-product-form">
                   
-                  <!-- <div class="form-group mb-3">
+                  <div class="form-group mb-3">
                     <label for="category">카테고리1</label>
                     <select class="custom-select tm-select-accounts" id="category1">
                       <option selected>Select category</option>
@@ -152,7 +152,7 @@
                       <option value="2">Most Popular</option>
                       <option value="3">Trending</option>
                     </select>
-                  </div> -->
+                  </div>
                   
                   <!-- <div class="form-group mb-3">
                     <label for="category">브랜드 카테고리</label>
@@ -243,7 +243,7 @@
                   <input
                     type="button"
                     class="btn btn-primary btn-block mx-auto"
-                    value="이미지 업로드"
+                    value="UPLOAD PRODUCT IMAGE"
                     onclick="document.getElementById('fileInput').click();"
                   />
                 </div>
@@ -251,7 +251,7 @@
                 
               </div>
               <div class="col-12">
-                <button type="submit" class="btn btn-primary btn-block text-uppercase">브랜드 카테고리 추가</button>
+                <button type="submit" class="btn btn-primary btn-block text-uppercase">Add Product Now</button>
               </div>
             </form>
             </div>
