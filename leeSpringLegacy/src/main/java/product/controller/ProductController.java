@@ -57,19 +57,9 @@ public class ProductController {
 	
 	//카테고리 목록 반환
 	@PostMapping("/getBrandsCategoryList")
-	@ResponseBody
 	public List<ProductCategoryDTO> getBrandsCategoryList() {
 		List<ProductCategoryDTO> list = productService.getBrandsCategoryList();
 		return list;
-	}
-	
-	//브랜드 카테고리 생성
-	@PostMapping("/createBrandCategory")
-	public String createbrandCategory(@ModelAttribute ProductCategoryDTO productCategoryDTO) {
-		productCategoryDTO.setProduct_category_num_ref(10000);
-		
-		productService.createBrandCategorySelectKey(productCategoryDTO);
-		return "/product/category";
 	}
 	
 	
@@ -80,19 +70,6 @@ public class ProductController {
 		productService.deleteBrandCategory(productCategoryDTO.getProduct_category_num());
 		return "/product/category";
 	}
-	
-	
-	//브랜드 카테고리 수정
-	@PostMapping("/modifyBrandCategory")
-	public String modifyBrandCategory(@ModelAttribute ProductCategoryDTO productCategoryDTO) {
-		productCategoryDTO.setProduct_category_num_ref(10000);
-		
-		productService.modifyBrandCategory(productCategoryDTO);
-		return "/product/category";
-	}
-	
-	
-	
 	
 	
 	/* 상품관련항목 */
@@ -188,27 +165,6 @@ public class ProductController {
 	}
 	
 	
-	//카테고리 코드로 상품검색
-	@PostMapping("/getProductByCategory")
-	@ResponseBody
-	public List<ProductDTO> getProductByCategory(@RequestParam Map<String, String> map) {
-		
-		if (map.get("cateCode1").equals(map.get("cateCode2"))) {
-			map.replace("cateCode2", map.get("cateCode2"), "");
-		} else if (map.get("cateCode2").equals(map.get("cateCode3"))) {
-			map.replace("cateCode3", map.get("cateCode3"), "");
-		}
-		List<ProductDTO> list;
-		
-		list = productService.getProductByCategory(map);
-		for (ProductDTO productDTO : list) {
-			List<FileDTO> productFileList = productService.getProductFileList(productDTO.getProduct_num());
-			productDTO.setFileList(productFileList);
-		}
-		
-		return list;
-	}
-	
 	
 	@PostMapping("/getProductByProductNum")
 	@ResponseBody
@@ -257,15 +213,6 @@ public class ProductController {
 		productService.modify(productDTO);
 	}
 	
-	
-	@Transactional(rollbackFor = {Exception.class})
-	@PostMapping("/delete")
-	@ResponseBody
-	public void delete(@RequestParam String[] checkProduct_num) {
-		for (int i = 0; i < checkProduct_num.length; i++) {
-			productService.delete(Integer.parseInt(checkProduct_num[i]));
-		}
-	}
 	
 	
 	@GetMapping("/brands")

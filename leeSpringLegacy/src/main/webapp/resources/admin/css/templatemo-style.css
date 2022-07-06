@@ -447,6 +447,10 @@ input[type="checkbox"]:focus {
   font-size: 0.95rem;
   font-weight: 600;
 }
+.tm-brand-name {
+  font-size: 0.95rem;
+  font-weight: 600;
+}
 .tm-product-delete-icon {
   font-size: 1.1rem;
   color: #fff;

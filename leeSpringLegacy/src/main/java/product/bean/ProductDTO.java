@@ -3,6 +3,8 @@ package product.bean;
 import java.util.Date;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import file.bean.FileDTO;
 import lombok.Data;
 
@@ -18,7 +20,8 @@ public class ProductDTO {
 	private int brandCategory;
 	private int product_price;
 	private String product_descrip;
-	private Date legDate;
+	@JsonFormat(pattern = "yyyy/MM/dd")
+	private Date regDate;
 	private Date updateDate;
 	
 	private ProductSizeDTO productSizeDTO;
