@@ -45,8 +45,9 @@ public class AdminController {
 	}
 	
 	@GetMapping("/addProduct")
-	public String addProducts() {
+	public String addProducts(Model model) {
 		log.info("admin page........");
+		model.addAttribute("list", productService.getBrandsCategoryList());
 		return "/admin/addProduct";
 	}
 	
@@ -96,14 +97,14 @@ public class AdminController {
 	@ResponseBody
 	public List<ProductDTO> getProductByCategory(@RequestParam Map<String, String> map) {
 		System.out.println("getProductByCategory: " + map);
+		/*
 		if (map.get("cateCode1").equals(map.get("cateCode2"))) {
 			map.replace("cateCode2", map.get("cateCode2"), "");
 		} else if (map.get("cateCode2").equals(map.get("cateCode3"))) {
 			map.replace("cateCode3", map.get("cateCode3"), "");
 		}
-		List<ProductDTO> list;
-		
-		list = productService.getProductByCategory(map);
+		*/
+		List<ProductDTO> list = productService.getProductByCategory(map);
 		for (ProductDTO productDTO : list) {
 			List<FileDTO> productFileList = productService.getProductFileList(productDTO.getProduct_num());
 			productDTO.setFileList(productFileList);

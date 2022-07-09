@@ -23,66 +23,8 @@
 
 <body id="reportsPage">
 	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-	<nav class="navbar navbar-expand-xl">
-		<div class="container h-100">
-			<a class="navbar-brand" href="/admin/index">
-				<h1 class="tm-site-title mb-0">상품 관리</h1>
-			</a>
-			<button class="navbar-toggler ml-auto mr-0" type="button"
-				data-toggle="collapse" data-target="#navbarSupportedContent"
-				aria-controls="navbarSupportedContent" aria-expanded="false"
-				aria-label="Toggle navigation">
-				<i class="fas fa-bars tm-nav-icon"></i>
-			</button>
-
-			<div class="collapse navbar-collapse" id="navbarSupportedContent">
-				<ul class="navbar-nav mx-auto h-100">
-					<li class="nav-item"><a class="nav-link" href="/admin/index">
-							<i class="fas fa-tachometer-alt"></i> Dashboard <span
-							class="sr-only">(current)</span>
-					</a></li>
-					<li class="nav-item dropdown"><a
-						class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
-						role="button" data-toggle="dropdown" aria-haspopup="true"
-						aria-expanded="false"> <i class="far fa-file-alt"></i> <span>
-								Reports <i class="fas fa-angle-down"></i>
-						</span>
-					</a>
-						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-							<a class="dropdown-item" href="#">Daily Report</a> <a
-								class="dropdown-item" href="#">Weekly Report</a> <a
-								class="dropdown-item" href="#">Yearly Report</a>
-						</div></li>
-					<li class="nav-item">
-						<a class="nav-link active" href="/admin/products"> 
-							<i class="fas fa-shopping-cart"></i>상품
-						</a>
-					</li>
-
-					<li class="nav-item"><a class="nav-link"
-						href="/admin/accounts"> <i class="far fa-user"></i> 계정
-					</a></li>
-					<li class="nav-item dropdown"><a
-						class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
-						role="button" data-toggle="dropdown" aria-haspopup="true"
-						aria-expanded="false"> <i class="fas fa-cog"></i> <span>
-								설정 <i class="fas fa-angle-down"></i>
-						</span>
-					</a>
-						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-							<a class="dropdown-item" href="#">Profile</a> <a
-								class="dropdown-item" href="#">Billing</a> <a
-								class="dropdown-item" href="#">Customize</a>
-						</div></li>
-				</ul>
-				<ul class="navbar-nav">
-					<li class="nav-item"><a class="nav-link d-block"
-						href="/admin/login"> Admin, <b>Logout</b>
-					</a></li>
-				</ul>
-			</div>
-		</div>
-	</nav>
+	<jsp:include page="/WEB-INF/views/admin/nav.jsp"/>
+	
 	<div class="container mt-5">
 		<div class="row tm-content-row">
 			<div class="col-sm-12 col-md-12 col-lg-8 col-xl-8 tm-block-col">
@@ -214,7 +156,7 @@ $(function() {
 		dataType: 'json',
 		success: function(result){
 			ProductsCategoryList = result;
-			createCate(ProductsCategoryList);
+			getBrandCategory(ProductsCategoryList);
 		},
 	});
 	
@@ -374,7 +316,7 @@ function change2(){
 	});
 }
 
-function createCate(ProductsCategoryList){
+function getBrandCategory(ProductsCategoryList){
 	for(var i = 0; i < ProductsCategoryList.length; i++) {
 		
 		if(ProductsCategoryList[i].level == "1") {  // 레벨이 1인 데이터가 있다면 
