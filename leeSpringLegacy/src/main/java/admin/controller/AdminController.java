@@ -52,9 +52,9 @@ public class AdminController {
 	}
 	
 	@GetMapping("/editProduct")
-	public String editProducts(@RequestParam int product_category_num, Model model) {
+	public String editProducts(@RequestParam String product_num, Model model) {
 		log.info("admin page........");
-		model.addAttribute("ProductCategoryDTO", productService.getProductCategoryDTO(product_category_num));
+		model.addAttribute("ProductCategoryDTO", productService.getProductByProductNum(product_num));
 		return "/admin/editProduct";
 	}
 	
@@ -62,6 +62,12 @@ public class AdminController {
 	public String addCategory() {
 		log.info("admin page........");
 		return "/admin/addCategory";
+	}
+	
+	@GetMapping("/productSize")
+	public String productSize() {
+		log.info("admin page........");
+		return "/admin/productSize";
 	}
 	
 	
@@ -97,13 +103,13 @@ public class AdminController {
 	@ResponseBody
 	public List<ProductDTO> getProductByCategory(@RequestParam Map<String, String> map) {
 		System.out.println("getProductByCategory: " + map);
-		/*
+		
 		if (map.get("cateCode1").equals(map.get("cateCode2"))) {
 			map.replace("cateCode2", map.get("cateCode2"), "");
 		} else if (map.get("cateCode2").equals(map.get("cateCode3"))) {
 			map.replace("cateCode3", map.get("cateCode3"), "");
 		}
-		*/
+		System.out.println("after getProductByCategory: " + map);
 		List<ProductDTO> list = productService.getProductByCategory(map);
 		for (ProductDTO productDTO : list) {
 			List<FileDTO> productFileList = productService.getProductFileList(productDTO.getProduct_num());

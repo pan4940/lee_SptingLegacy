@@ -46,8 +46,8 @@
 						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
 							<a class="dropdown-item" href="/admin/products">상품 메인</a> 
 							<a class="dropdown-item" href="/admin/addProduct">상품 등록</a> 
-							<a class="dropdown-item" href="#">사이즈 등록</a> 
-							<a class="dropdown-item" href="#">수량 관리</a>
+							<a class="dropdown-item" href="/admin/productSize">사이즈 등록</a> 
+							<a class="dropdown-item" href="/admin/amount">수량 관리</a>
 						</div>
 					</li>
 					<!-- <li class="nav-item">

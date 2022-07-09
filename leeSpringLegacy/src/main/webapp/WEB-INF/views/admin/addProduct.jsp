@@ -79,7 +79,7 @@
 											</c:forEach>
 										</select>
 									</div>
-									<div class="row">
+									<!-- <div class="row">
 										<div class="form-group mb-3 col-xs-12 col-sm-6">
 											<label for="expire_date">Expire Date</label> <input
 												id="expire_date" name="expire_date" type="text"
@@ -89,7 +89,7 @@
 											<label for="stock">Units In Stock </label> <input id="stock"
 												name="stock" type="text" class="form-control validate" />
 										</div>
-									</div>
+									</div> -->
 							</div>
 							<div class="col-xl-6 col-lg-6 col-md-12 mx-auto mb-4">
 								<div class="tm-product-img-dummy mx-auto">
@@ -102,6 +102,13 @@
 										value="UPLOAD PRODUCT IMAGE"
 										onclick="document.getElementById('fileInput').click();" />
 								</div>
+							</div>
+							
+							<div class="col-12">
+								<div class="form-group mb-3">
+									<label for="name">사이즈 정보</label> 
+								</div>
+							
 							</div>
 							<div class="col-12">
 								<button type="submit"
