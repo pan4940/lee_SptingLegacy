@@ -43,12 +43,12 @@ public class OrderServiceImpl implements OrderService {
 		for (CartDTO cartDTO : cartDTOList) {
 			DetailProductDTO detailProductDTO = productMapper.getDetailProductByDetailProductId(cartDTO.getDetail_product_id()); 
 			ProductSizeDTO productSizeDTO = productMapper.getProductSizeByProductSizeId(detailProductDTO.getProduct_size_id());
-			productSizeDTO.setDetailProductDTO(detailProductDTO);
+			//productSizeDTO.setDetailProductDTO(detailProductDTO);
 			ProductDTO productDTO = productMapper.getProductByProductNum(productSizeDTO.getProduct_num() + "");
 			List<FileDTO> fileDTOList = fileMapper.findByProductNum(productDTO.getProduct_num());
 			
 			productDTO.setFileList(fileDTOList);
-			productDTO.setProductSizeDTO(productSizeDTO);
+			//productDTO.setProductSizeDTO(productSizeDTO);
 			productDTOList.add(productDTO);
 		}
 		
@@ -122,7 +122,7 @@ public class OrderServiceImpl implements OrderService {
 		productSizeDTO.setDetailProductDTOList(detailProductDTOList);
 		
 		ProductDTO productDTO = productMapper.getProductDTO(productSizeDTO.getProduct_num());
-		productDTO.setProductSizeDTO(productSizeDTO);
+		//productDTO.setProductSizeDTO(productSizeDTO);
 		
 		List<FileDTO> fileDTOList = fileMapper.findByProductNum(productDTO.getProduct_num());
 		productDTO.setFileList(fileDTOList);

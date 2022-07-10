@@ -17,5 +17,4 @@ public class ProductCategoryDTO {
 	
 	private List<ProductCategoryDTO> productCategoryList;
 	private List<FileDTO> fileList;
-	
 }

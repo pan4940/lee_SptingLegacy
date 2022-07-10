@@ -193,7 +193,7 @@ $("#search_Btn").on("click", function(e){
 				$("#searchResult").append(
 					"<tr>" + 
 					"<th scope='row'><input type='checkbox' id='checkProduct_num' name='product_num' value='" + item.product_num + "'/></th>" + 
-					"<td class='tm-product-name'><a class='move' href='/admin/editProduct?product_num=" + item.product_num +"'>" + item.product_name + "</a></td>"+
+					"<td class='tm-product-name'><a class='move' href='" + item.product_num +"'>" + item.product_name + "</a></td>"+
 					"<td>" + item.brand_name + "</td>"+
 					"<td>" + item.brandCategory + "</td>"+
 					"<td>" + item.regDate + "</td>"+
