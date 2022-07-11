@@ -135,4 +135,12 @@ public class AdminController {
 		return "/admin/accounts";
 	}	
 	
+	@Transactional(rollbackFor = {Exception.class})
+	@PostMapping("/productRegister")
+	@ResponseBody
+	public void delete(@ModelAttribute ProductDTO productDTO) {
+		System.out.println(productDTO);
+	}
+	
+	
 }

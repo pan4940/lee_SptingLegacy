@@ -406,7 +406,7 @@ $(document).on("change", "select.category2", function(){
 
 </script>
 <script>
-var regExp = /[^0-9]/gi;
+
 
 $("#product_price").keyup(function(){ numCheck($(this)); });
 $("#product_price").keyup(function(){ numCheck($(this)); });
@@ -459,7 +459,7 @@ $("button[type='submit']").on("click", function(e){
 
 //let regex = new RegExp("(.*?)\.(exe|sh|zip|alz)$");
 let regex = new RegExp("(.*?)\.(png|bmp|jpeg|jpg)$");
-let maxSize = 1024 * 1024 * 5; //5MB
+let maxSize = 1024 * 1024 * 10; //10MB
 
 
 //파일 사이즈와 종류 확인

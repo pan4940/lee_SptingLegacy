@@ -359,13 +359,13 @@ thead {
 .table td,
 .table th {
   border-top: 1px solid #415a70;
-  padding: 15px 25px;
+  padding: 5px 10px;
   vertical-align: middle;
 }
 .tm-table-small td,
 .tm-table-small th {
-  padding-left: 12px;
-  padding-right: 12px;
+  padding-left: 2px;
+  padding-right: 2px;
 }
 .table-hover tbody tr {
   transition: all 0.2s ease;
@@ -438,7 +438,7 @@ input[type="checkbox"]:focus {
 .tm-product-table-container {
   max-height: 465px;
   margin-bottom: 15px;
-  /*overflow-y: scroll;*/
+  overflow-y: scroll;
 }
 .tm-product-table tr {
   font-weight: 600;
@@ -710,4 +710,55 @@ input[type="checkbox"]:focus {
   #lineChart {
     max-height: 350px;
   }
+}
+
+.uploadResult{
+   width: 100%;
+   background-color: gray;
+}
+
+.uploadResult ul {
+   display: flex;
+   flex-flow: row;
+   justify-content: left;
+   align-items: left;
+   overflow-x: scroll;
+   white-space: nowrap;
+}
+
+.uploadResult ul li {
+   list-style: none;
+   padding: 10px;
+}
+
+.uploadResult ul li img {
+   width: 40px;
+}
+
+.uploadResult ul li span {
+   color: white;
+}
+
+.bigPictureWrapper{
+   position: absolute;
+   display: none;
+   justify-content: center;
+   align-items: center;
+   top: 0%;
+   width: 100%;
+   height: 100%;
+   background-color: gray;
+   z-index: 100;
+   background:rgba(255,255,255,0.5);
+}
+
+.bigPicture{
+   position: relative;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+}
+
+.bigPicture img{
+   width: 600px;
 }

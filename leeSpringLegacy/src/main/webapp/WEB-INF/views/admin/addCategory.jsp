@@ -21,59 +21,6 @@
 	-->
 </head>
 
-<style>
-	.uploadResult{
-	   width: 100%;
-	   background-color: gray;
-	}
-	
-	.uploadResult ul {
-	   display: flex;
-	   flex-flow: row;
-	   justify-content: left;
-	   align-items: left;
-	   overflow-x: scroll;
-	   white-space: nowrap;
-	}
-	
-	.uploadResult ul li {
-	   list-style: none;
-	   padding: 10px;
-	}
-	
-	.uploadResult ul li img {
-	   width: 40px;
-	}
-	
-	.uploadResult ul li span {
-	   color: white;
-	}
-	
-	.bigPictureWrapper{
-	   position: absolute;
-	   display: none;
-	   justify-content: center;
-	   align-items: center;
-	   top: 0%;
-	   width: 100%;
-	   height: 100%;
-	   background-color: gray;
-	   z-index: 100;
-	   background:rgba(255,255,255,0.5);
-	}
-	
-	.bigPicture{
-	   position: relative;
-	   display: flex;
-	   justify-content: center;
-	   align-items: center;
-	}
-	
-	.bigPicture img{
-	   width: 600px;
-	}
-</style>
-
 <body>
 	<jsp:include page="/WEB-INF/views/admin/nav.jsp"/>
 	<div class="container tm-mt-big tm-mb-big">
@@ -296,7 +243,7 @@ $(".bigPictureWrapper").on("click", function(e){
 });
 
 
-//삭제버튼 클릭 이벤트
+//X버튼 클릭시 이미지 삭제
 $(".uploadResult").on("click", "button", function(e){
 
  	let targetFile = $(this).data("file");

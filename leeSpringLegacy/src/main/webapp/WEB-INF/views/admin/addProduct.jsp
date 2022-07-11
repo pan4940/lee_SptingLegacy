@@ -26,6 +26,8 @@
 	-->
 </head>
 
+
+
 <body>
 	<jsp:include page="/WEB-INF/views/admin/nav.jsp"/>
 	<div class="container tm-mt-big tm-mb-big">
@@ -37,7 +39,7 @@
 							<h2 class="tm-block-title d-inline-block">상품 등록</h2>
 						</div>
 					</div>
-					<form id="registerBrandCategoryForm" method="post" action=""
+					<form id="registerProductForm" method="post" action=""
 						class="tm-edit-product-form">
 						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 						<div class="row tm-edit-product-row">
@@ -45,11 +47,15 @@
 								<form action="" class="tm-edit-product-form">
 									<div class="form-group mb-3">
 										<label for="name">상품명</label> 
-										<input id="name" name="name" type="text" class="form-control validate" />
+										<input id="product_name" name="product_name" type="text" class="form-control validate" />
+									</div>
+									<div class="form-group mb-3">
+										<label for="name">가격</label> 
+										<input id="product_price" name="product_price" type="text" class="form-control validate" />
 									</div>
 									<div class="form-group mb-3">
 										<label for="description">상품 설명</label>
-										<textarea class="form-control validate" rows="3"></textarea>
+										<textarea name="product_descrip" class="form-control validate" rows="3"></textarea>
 									</div>
 									<div class="form-group mb-3">
 										<label for="category">카테고리1</label> 
@@ -72,7 +78,7 @@
 
 									<div class="form-group mb-3">
 										<label for="category">브랜드 카테고리</label> 
-										<select class="custom-select tm-select-accounts" id="category">
+										<select class="custom-select tm-select-accounts" id="category" name="brandCategory">
 											<option selected value="">Select category</option>
 											<c:forEach items="${list}" var="productCategoryDTO">
 												<option value="${productCategoryDTO.product_category_num}">${productCategoryDTO.product_category_name}</option>
@@ -96,11 +102,16 @@
 									<i class="fas fa-cloud-upload-alt tm-upload-icon"
 										onclick="document.getElementById('fileInput').click();"></i>
 								</div>
-								<div class="custom-file mt-3 mb-3">
-									<input id="fileInput" type="file" style="display: none;" /> <input
-										type="button" class="btn btn-primary btn-block mx-auto"
-										value="UPLOAD PRODUCT IMAGE"
-										onclick="document.getElementById('fileInput').click();" />
+								<div class="custom-file mt-3 mb-3 uploadDiv">
+									<input id="fileInput" name="uploadFile" type="file" style="display: none;" multiple /> 
+									<input type="button" class="btn btn-primary btn-block mx-auto" value="이미지 업로드" onclick="document.getElementById('fileInput').click();" />
+								</div>
+								<div class="custom-file mb-3 uploadResult" style="height:100px">
+									<ul>
+									</ul>
+								</div>
+								<div class="bigPictureWrapper">
+									<div class="bigPicture"></div>
 								</div>
 							</div>
 							
@@ -118,16 +129,26 @@
 												<th scope="col">어깨</th>
 												<th scope="col">가슴</th>
 												<th scope="col">소메</th>
+												<th scope="col">수량(개)</th>
+												<th scope="col"></th>
+												<th scope="col"></th>
 											</tr>
 										</thead>
 										
-										<tbody id="searchResult">
+										<tbody id="searchResultTop">
 											<tr>
-												<td><input type="text" id="product_size" name="product_size" value="" style="width:85%"></td>
-												<td><input type="text" id="product_top_length" name="product_top_length" value="" style="width:85%"></td>
-												<td><input type="text" id="product_shoulder" name="product_shoulder" value="" style="width:85%"></td>
-												<td><input type="text" id="product_chest" name="product_chest" value="" style="width:85%"></td>
-												<td><input type="text" id="product_sleeve" name="product_sleeve" value="" style="width:85%"></td>
+												<td><input type="text" id="product_size" name="productSizeList[0].product_size" value="" style="width:85%"></td>
+												<td><input type="text" id="product_top_length" name="productSizeList[0].product_top_length" value="" style="width:85%"></td>
+												<td><input type="text" id="product_shoulder" name="productSizeList[0].product_shoulder" value="" style="width:85%"></td>
+												<td><input type="text" id="product_chest" name="productSizeList[0].product_chest" value="" style="width:85%"></td>
+												<td><input type="text" id="product_sleeve" name="productSizeList[0].product_sleeve" value="" style="width:85%"></td>
+												<td><input type="text" id="amount" name="amount" value="" style="width:85%"></td>
+												<td><button type="button" class="btn btn-default btn-sm" onclick="addSearchKey('Top')"> 
+										        	행추가
+										        </button></td>
+										        <td><button type="button" class="btn btn-default btn-sm" onclick="delSearchKey(this)">
+										          	행삭제
+										        </button></td>
 											</tr>
 										</tbody>
 									</table>
@@ -142,17 +163,27 @@
 												<th scope="col">기장</th>
 												<th scope="col">밑단</th>
 												<th scope="col">밑위</th>
+												<th scope="col">수량(개)</th>
+												<th scope="col"></th>
+												<th scope="col"></th>
 											</tr>
 										</thead>
 										
-										<tbody id="searchResult">
+										<tbody id="searchResultBottom">
 											<tr>
-												<td><input type="text" id="product_size" name="product_size" value="" style="width:85%"></td>
-												<td><input type="text" id="product_waist_width" name="product_waist_width" value="" style="width:85%"></td>
-												<td><input type="text" id="product_thigh_width" name="product_thigh_width" value="" style="width:85%"></td>
-												<td><input type="text" id="product_bottom_length" name="product_bottom_length" value="" style="width:85%"></td>
-												<td><input type="text" id="product_ankle_circumference" name="product_ankle_circumference" value="" style="width:85%"></td>
-												<td><input type="text" id="product_front_rise" name="product_front_rise" value="" style="width:85%"></td>
+												<td><input type="text" id="product_size" name="productSizeList[0].product_size" value="" style="width:85%"></td>
+												<td><input type="text" id="product_waist_width" name="productSizeList[0].product_waist_width" value="" style="width:85%"></td>
+												<td><input type="text" id="product_thigh_width" name="productSizeList[0].product_thigh_width" value="" style="width:85%"></td>
+												<td><input type="text" id="product_bottom_length" name="productSizeList[0].product_bottom_length" value="" style="width:85%"></td>
+												<td><input type="text" id="product_ankle_circumference" name="productSizeList[0].product_ankle_circumference" value="" style="width:85%"></td>
+												<td><input type="text" id="product_front_rise" name="productSizeList[0].product_front_rise" value="" style="width:85%"></td>
+												<td><input type="text" id="amount" name="amount" value="" style="width:85%"></td>
+												<td><button type="button" class="btn btn-default btn-sm" onclick="addSearchKey('Bottom')"> 
+										        	행추가
+										        </button></td>
+										        <td><button type="button" class="btn btn-default btn-sm" onclick="delSearchKey(this)">
+										          	행삭제
+										        </button></td>
 											</tr>
 										</tbody>
 									</table>
@@ -166,15 +197,25 @@
 												<th scope="col">챙길이</th>
 												<th scope="col">챙둘레</th>
 												<th scope="col">깊이</th>
+												<th scope="col">수량(개)</th>
+												<th scope="col"></th>
+												<th scope="col"></th>
 											</tr>
 										</thead>
 										
-										<tbody id="searchResult">
+										<tbody id="searchResultCap">
 											<tr>
-												<td><input type="text" id="product_size" name="product_size" value="" style="width:85%"></td>
-												<td><input type="text" id="product_cap_length" name="product_cap_length" value="" style="width:85%"></td>
-												<td><input type="text" id="product_cap_circumference" name="product_cap_circumference" value="" style="width:85%"></td>
-												<td><input type="text" id="product_cap_depth" name="product_cap_depth" value="" style="width:85%"></td>
+												<td><input type="text" id="product_size" name="productSizeList[0].product_size" value="" style="width:85%"></td>
+												<td><input type="text" id="product_cap_length" name="productSizeList[0].product_cap_length" value="" style="width:85%"></td>
+												<td><input type="text" id="product_cap_circumference" name="productSizeList[0].product_cap_circumference" value="" style="width:85%"></td>
+												<td><input type="text" id="product_cap_depth" name="productSizeList[0].product_cap_depth" value="" style="width:85%"></td>
+												<td><input type="text" id="amount" name="amount" value="" style="width:85%"></td>
+												<td><button type="button" class="btn btn-default btn-sm" onclick="addSearchKey('Top')"> 
+										        	행추가
+										        </button></td>
+										        <td><button type="button" class="btn btn-default btn-sm" onclick="delSearchKey(this)">
+										          	행삭제
+										        </button></td>
 											</tr>
 										</tbody>
 									</table>
@@ -185,21 +226,29 @@
 										<thead>
 											<tr>
 												<th scope="col">사이즈명</th>
+												<th scope="col">수량(개)</th>
+												<th scope="col"></th>
+												<th scope="col"></th>
 											</tr>
 										</thead>
 										
-										<tbody id="searchResult">
+										<tbody id="searchResultETC">
 											<tr>
-												<td><input type="text" id="product_size" name="product_size" value="" style="width:100%"></td>
+												<td><input type="text" id="productSizeList[0].product_size" name="product_size" value="" style="width:100%"></td>
+												<td><input type="text" id="amount" name="amount" value="" style="width:85%"></td>
+												<td><button type="button" class="btn btn-default btn-sm" onclick="addSearchKey('ETC')"> 
+										        	행추가
+										        </button></td>
+										        <td><button type="button" class="btn btn-default btn-sm" onclick="delSearchKey(this)">
+										          	행삭제
+										        </button></td>
 											</tr>
 										</tbody>
 									</table>
 								</div>
 							</div>
 							<div class="col-12">
-								<button type="submit"
-									class="btn btn-primary btn-block text-uppercase">Add
-									Product Now</button>
+								<button type="submit" class="btn btn-primary btn-block text-uppercase">상품 추가</button>
 							</div>
 					</form>
 				</div>
@@ -223,11 +272,80 @@
 	<!-- https://jqueryui.com/download/ -->
 	<script src="/resources/admin/js/bootstrap.min.js"></script>
 	<!-- https://getbootstrap.com/ -->
+
+
 <script>
+var regExpNum = /[^0-9]/gi;
+$("#product_price").keyup(function(){ numCheck($(this)); });
+
+function numCheck(selector) {
+	var tempVal = selector.val();
+	selector.val(tempVal.replace(regExpNum, ""));
+}
+
+let i = 1;
+
+function addSearchKey(key){
+	console.log(key);
+	
+	let str;
+	if (key === 'Top') {
+		str += "<tr>";
+		str += "<td><input type='text' id='product_size' name='productSizeList[" + i + "].product_size' value='' style='width:85%'></td>";
+		str += "<td><input type='text' id='product_top_length' name='productSizeList[" + i + "].product_top_length' value='' style='width:85%'></td>";
+		str += "<td><input type='text' id='product_shoulder' name='productSizeList[" + i + "].product_shoulder' value='' style='width:85%'></td>";
+		str += "<td><input type='text' id='product_chest' name='productSizeList[" + i + "].product_chest' value='' style='width:85%'></td>";
+		str += "<td><input type='text' id='product_sleeve' name='productSizeList[" + i + "].product_sleeve' value='' style='width:85%'></td>";
+		str += "<td><input type='text' id='amount' name='amount' value='' style='width:85%'></td>";
+		str += "<td><button type='button' class='btn btn-default btn-sm' onclick='addSearchKey('" + "Top" + "')>행추가</button></td>"; 
+		str += "<td><button type='button' class='btn btn-default btn-sm' onclick='delSearchKey(this)'>행삭제</button></td>";
+		str += "</tr>";
+	} else if (key === 'Bottom') {
+		str += "<tr>";
+	    str += "<td><input type='text' id='product_size' name='productSizeList.product_size' value='' style='width:85%'></td>";
+	    str += "<td><input type='text' id='product_waist_width' name='productSizeList.product_waist_width' value='' style='width:85%'></td>";
+	    str += "<td><input type='text' id='product_thigh_width' name='productSizeList.product_thigh_width' value='' style='width:85%'></td>";
+	    str += "<td><input type='text' id='product_bottom_length' name='productSizeList.product_bottom_length' value='' style='width:85%'></td>";
+	    str += "<td><input type='text' id='product_ankle_circumference' name='productSizeList.product_ankle_circumference' value='' style='width:85%'></td>";
+	    str += "<td><input type='text' id='product_front_rise' name='productSizeList.product_front_rise' value='' style='width:85%'></td>";
+	    str += "<td><input type='text' id='amount' name='amount' value='' style='width:85%'></td>";
+	    str += "<td><button type='button' class='btn btn-default btn-sm' onclick='addSearchKey('" + "Bottom" + "')>행추가</button></td>"; 
+	    str += "<td><button type='button' class='btn btn-default btn-sm' onclick='delSearchKey(this)'>행삭제</button></td>";
+	    str += "</tr>";
+	} else if (key === 'Cap') {
+		str += "<tr>";
+	    str += "<td><input type='text' id='product_size' name='productSizeList.product_size' value='' style='width:85%'></td>";
+	    str += "<td><input type='text' id='product_cap_length' name='productSizeList.product_cap_length' value='' style='width:85%'></td>";
+	    str += "<td><input type='text' id='product_cap_circumference' name='productSizeList.product_cap_circumference' value='' style='width:85%'></td>";
+	    str += "<td><input type='text' id='product_cap_depth' name='productSizeList.product_cap_depth' value='' style='width:85%'></td>";
+	    str += "<td><input type='text' id='amount' name='amount' value='' style='width:85%'></td>";
+	    str += "<td><button type='button' class='btn btn-default btn-sm' onclick='addSearchKey('" + "Cap" + "')>행추가</button></td>"; 
+	    str += "<td><button type='button' class='btn btn-default btn-sm' onclick='delSearchKey(this)'>행삭제</button></td>";
+	    str += "</tr>";
+	} else if (key === 'ETC') {
+		str += "<tr>";
+	    str += "<td><input type='text' id='product_size' name='productSizeList.product_size' value='' style='width:85%'></td>";
+	    str += "<td><input type='text' id='amount' name='amount' value='' style='width:85%'></td>";
+	    str += "<td><button type='button' class='btn btn-default btn-sm' onclick='addSearchKey('" + "ETC" + "')>행추가</button></td>"; 
+	    str += "<td><button type='button' class='btn btn-default btn-sm' onclick='delSearchKey(this)'>행삭제</button></td>";
+	    str += "</tr>";
+	}  
+	
+	$('#searchResult' + key).append(str); // 동적으로 row를 추가한다.
+	i++;
+}
+
+function delSearchKey(obj){
+	//동적으로 생성된 삭제 버튼에서 div 요소를 제거한다.
+	var div = $(obj).parent().parent();
+	console.log(div);
+	div.remove();
+}
 
 let ProductsCategoryList;
 var cate1Arr = new Array();
 var cate1Obj = new Object();
+
 
 
 $(function() {
@@ -344,28 +462,24 @@ function change2(){
 		}
 		
 		if (selectVal == 1100 || selectVal == 2100) {
-			$(".top").hide();
 			$(".bottom").hide();
 			$(".cap").hide();
 			$(".etc").hide();
 			$(".top").show();
 		} else if (selectVal == 1200 || selectVal == 2200) {
 			$(".top").hide();
-			$(".bottom").hide();
 			$(".cap").hide();
 			$(".etc").hide();
 			$(".bottom").show();
 		} else if (selectVal == 1400 || selectVal == 2400) {
 			$(".top").hide();
 			$(".bottom").hide();
-			$(".cap").hide();
 			$(".etc").hide();
 			$(".cap").show();
 		} else {
 			$(".top").hide();
 			$(".bottom").hide();
 			$(".cap").hide();
-			$(".etc").hide();
 			$(".etc").show();
 		}
 	});
@@ -405,6 +519,168 @@ function getBrandCategory(ProductsCategoryList){
 							+ cate1Arr[i].product_category_name + "</option>");	
 	}
 };
+
+
+//등록 버튼 클릭시 이벤트
+$("button[type='submit']").on("click", function(e){
+   e.preventDefault();
+   console.log("product register......");
+   let str = ""
+   $(".uploadResult ul li").each(function(i, obj) {
+      let jobj = $(obj);
+
+      str += "<input type='hidden' name='fileList["+i+"].fileName' value='"+jobj.data("filename")+"'>";
+      str += "<input type='hidden' name='fileList["+i+"].uuid' value='"+jobj.data("uuid")+"'>";
+      str += "<input type='hidden' name='fileList["+i+"].uploadPath' value='"+jobj.data("path")+"'>";
+   });
+   
+   $("#registerProductForm").append(str);
+   console.log($("#registerProductForm"));
+   
+   $.ajax({
+		type:'post',
+		url:'/admin/productRegister',
+		headers: {"X-CSRF-TOKEN": $("input[name='_csrf']").val()},
+		data: $('#registerProductForm').serialize(),
+		success: function() {
+			//alert("상품 등록");
+			//location.href = "/product/register";
+	    },
+       error: function(err) {
+           console.log(err);
+       },
+	}); //end ajax 
+   
+});
+
+
+let regex = new RegExp("(.*?)\.(png|bmp|jpeg|jpg)$");
+let maxSize = 1024 * 1024 * 10; //10MB
+
+
+//파일 사이즈와 종류 확인
+function checkExtension(fileName, fileSize) {
+   if(fileSize >= maxSize){
+      alert("파일 사이즈 초과");
+      return false;
+   }
+
+   if (!regex.test(fileName)) {
+      alert("해당 종류의 파일은 업로드 할 수 없습니다.");
+      return false;
+   }
+   return true;
+}
+
+let cloneObj = $(".uploadDiv").clone();
+
+
+//파일 업로드
+$("input[type='file']").change(function(e){
+   let formData = new FormData();
+   let inputFile = $("input[name='uploadFile']");
+   
+   let files = inputFile[0].files;
+   
+   //add file to formdata
+   for (let i = 0; i < files.length; i++) {
+      if(!checkExtension(files[i].name, files[i].size)){
+         return false;
+      }
+      
+      formData.append("uploadFile", files[i]);
+   }
+   
+   console.log(formData);
+   $.ajax({
+      url: '/file/productfileUploadAjax',
+      headers: {"X-CSRF-TOKEN": $("input[name='_csrf']").val()},
+      processData: false, // data 파라미터로 전달된 데이터를 Query String으로 변환하지 않음. 파일전송시에는 이렇게 해야함
+      contentType: false, // //contentType의 default는 application/x-www-form-urlencoded; charset=UTF-8, 파일전송시에는 false로 해줘야 함
+      data: formData,
+      type: 'post',
+      dataType: 'json',
+      
+      success: function(result) {
+         console.log(result);
+         showUploadedFile(result);   
+         //$(".uploadDiv").html(cloneObj.html());
+      },
+   });
+});
+
+
+let uploadResult = $(".uploadResult ul");
+
+function showUploadedFile(uploadResultArr){
+   
+   if(!uploadResultArr || uploadResultArr.length == 0) {return;}
+   
+   let str = "";
+   
+   $(uploadResultArr).each(function(i, obj){
+      console.log(obj.uploadPath);
+      console.log(obj.uuid);
+      console.log(obj.fileName);
+      filePath = obj.uploadPath;
+      let fileFullName = encodeURIComponent(obj.uploadPath + "/" +obj.uuid + "_" + obj.fileName);
+      let originPath = obj.uploadPath + "\\" +obj.uuid + "_" + obj.fileName;
+      originPath = originPath.replace(new RegExp(/\\/g), "/");
+      filePath = filePath.replace(new RegExp(/\\/g), "/");
+      console.log("fileFullName : " + fileFullName);
+      console.log("originPath : " + originPath);
+      console.log("filePath : " + filePath);
+      //str +="<li data-path='" +  obj.uploadPath + "' data-uuid='" + obj.uuid + "'data-filename='" + obj.fileName + "'data-linked_num='" + obj.uploadPath +"'>";
+      str +="<li data-path='" +  filePath + "' data-uuid='" + obj.uuid + "'data-filename='" + obj.fileName + "'data-linked_num='" + obj.uploadPath +"'>";
+      str +="<div>"
+         str +="<span>" + obj.fileName +"</span>"
+         str +="<button type='button' data-file=\'" + fileFullName + "\' data-type='image'> X </button><br>";
+         str +="<a href=\"javascript:showImage(\'" + originPath + "\')\">"
+            str +="<img src='/file/display?fileName=/" + fileFullName + "'>";
+         str +="</a>";
+      str +="</div>"
+      str +="</li>";
+      console.log(str);
+   });
+   uploadResult.append(str);
+}
+   
+
+//이미지 클릭시 확대
+function showImage(fileFullName){
+   console.log(fileFullName)
+   $(".bigPictureWrapper").css("display", "flex").show();
+   $(".bigPicture").html("<img src='/file/display?fileName=/" + fileFullName + "'>")
+               .animate({width: '100%', height: '100%'}, 0);
+}
+
+//확대 이미지 가리기
+$(".bigPictureWrapper").on("click", function(e){
+   $(".bigPicture").animate({width: '0%', height: '0%'}, 0);
+   $(".bigPictureWrapper").hide();
+});
+
+//X버튼 클릭시 이미지 삭제
+$(".uploadResult").on("click", "button", function(e){
+
+ 	let targetFile = $(this).data("file");
+	console.log("targetFile : " + targetFile);
+		 
+ 	let targetLi = $(this).closest("li");
+ 
+	$.ajax({
+	    url: '/file/deleteFile',
+	    headers: {"X-CSRF-TOKEN": $("input[name='_csrf']").val()},
+	    data: {fileName: targetFile},
+	    dataType: 'text',
+	    type: 'POST',
+	    success: function(result){
+	       alert(result);
+	       targetLi.remove();
+	    },
+	});
+});
 </script>
+
 </body>
 </html>
