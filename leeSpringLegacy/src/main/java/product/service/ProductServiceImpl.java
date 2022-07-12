@@ -59,22 +59,48 @@ public class ProductServiceImpl implements ProductService {
 		if (productDTO.getFileList() == null || productDTO.getFileList().size() <= 0) {
 			return;
 		}
-		int brandCategory = productDTO.getBrandCategory();
-		String brand_name = productMapper.findBrandNameByBrandCategory(brandCategory);
-		productDTO.setBrand_name(brand_name);
+		
 		if (productDTO.getCateCode2() == productDTO.getCateCode3()) {
 			productDTO.setCateCode3(0);
 		}
+		
 		productMapper.productRegisterSelectKey(productDTO);
 		productMapper.productRegisterCategory_link(productDTO);
-		
 		
 		productDTO.getFileList().forEach(t -> {
 			t.setLinked_num(productDTO.getProduct_num());
 			fileMapper.productFileInsert(t);
 		});
 		
+		//사이즈 정보 등록. 세부 상품 수량대로 등록
+		for (ProductSizeDTO productSizeDTO : productDTO.getProductSizeList()) {
+			registerProductSize(productSizeDTO);
+			
+			for (int i = 0; i < productSizeDTO.getProductAmount(); i++) {
+				DetailProductDTO detailProductDTO = DetailProductDTO.builder().product_num(productDTO.getProduct_num()).status(1).build();
+				productMapper.addDetailProduct(detailProductDTO);
+			}
+		}
 	}
+	
+	
+	
+	@Override
+	public void registerProductSize(ProductSizeDTO productSizeDTO) {
+		ProductDTO productDTO = productMapper.getProductByProductNum(productSizeDTO.getProduct_num() + "");
+		
+		if (productDTO.getCateCode2() == 1100 || productDTO.getCateCode2() == 2100) {
+			productMapper.registerTopProductSize(productSizeDTO);
+		} else if (productDTO.getCateCode2() == 1200 || productDTO.getCateCode2() == 2100) {
+			productMapper.registerBottomProductSize(productSizeDTO);
+		} else if (productDTO.getCateCode2() == 1400 || productDTO.getCateCode2() == 2400) {
+			productMapper.registerCapProductSize(productSizeDTO);
+		} else {
+			productMapper.registerOneSizeProductSize(productSizeDTO);
+		}
+	}
+	
+	
 	
 	@Override
 	public ProductDTO getProductDTO(int product_num) {
@@ -111,7 +137,6 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	@Transactional(rollbackFor = {Exception.class})
 	public void modify(ProductDTO productDTO) {
-		
 		
 		if (productDTO.getFileList() == null || productDTO.getFileList().size() <= 0) {
 			return;
@@ -191,21 +216,6 @@ public class ProductServiceImpl implements ProductService {
 		return productMapper.getBrandnameByBrandcategory(brandCategory);
 	}
 	
-	@Override
-	public void registerProductSize(ProductSizeDTO productSizeDTO) {
-		ProductDTO productDTO = productMapper.getProductByProductNum(productSizeDTO.getProduct_num() + "");
-		
-		if (productDTO.getCateCode2() == 1100 || productDTO.getCateCode2() == 2100) {
-			productMapper.registerTopProductSize(productSizeDTO);
-		} else if (productDTO.getCateCode2() == 1200 || productDTO.getCateCode2() == 2100) {
-			productMapper.registerBottomProductSize(productSizeDTO);
-		} else if (productDTO.getCateCode2() == 1400 || productDTO.getCateCode2() == 2400) {
-			productMapper.registerCapProductSize(productSizeDTO);
-		} else {
-			productMapper.registerOneSizeProductSize(productSizeDTO);
-		}
-	}
-	
 	
 	@Override
 	public void modifyProductSize(ProductSizeDTO productSizeDTO) {
@@ -245,12 +255,6 @@ public class ProductServiceImpl implements ProductService {
 	}
 	
 	
-	@Override
-	public void addDetailProduct(DetailProductDTO detailProductDTO) {
-		for (int i = 0; i < detailProductDTO.getAddProductsAmount(); i++) {
-			productMapper.addDetailProduct(detailProductDTO);
-		}
-	}
 	
 	@Override
 	public void deleteDetailProductByDetailProductID(int detail_product_id) {

@@ -6,10 +6,12 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import file.bean.FileDTO;
+import lombok.Builder;
 import lombok.Data;
 
 
 @Data
+@Builder
 public class DetailProductDTO {
 	private int detail_product_id;
 	private int product_num;
@@ -19,6 +21,6 @@ public class DetailProductDTO {
 	@JsonFormat(pattern = "yyyy/MM/dd")
 	private Date legDate;
 	private Date updateDate;
-	private int addProductsAmount;
+	//private int addProductsAmount;
 	//product, PRODUCT_CATEGORY_LINK, PRODUCTFILE
 }

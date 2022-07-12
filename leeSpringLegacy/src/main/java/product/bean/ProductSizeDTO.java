@@ -36,4 +36,6 @@ public class ProductSizeDTO {
 	//private DetailProductDTO detailProductDTO;
 	private List<DetailProductDTO> detailProductDTOList;
 	
+	
+	private int productAmount;
 }
