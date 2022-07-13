@@ -268,21 +268,7 @@ public class ProductController {
 		return productService.getDetailProductListByProductSizeId(product_size_id);
 	}
 	
-	@PostMapping("/addDetailProduct")
-	@ResponseBody
-	public void addDetailProduct(
-			@RequestParam String product_num, 
-			@RequestParam String product_size_id,
-			@RequestParam String addProductsAmount
-			) {
-		DetailProductDTO detailProductDTO = new DetailProductDTO();
-		detailProductDTO.setProduct_num(Integer.parseInt(product_num));
-		detailProductDTO.setProduct_size_id(Integer.parseInt(product_size_id));
-		detailProductDTO.setAddProductsAmount(Integer.parseInt(addProductsAmount));
-		detailProductDTO.setStatus(1);
-		
-		productService.addDetailProduct(detailProductDTO);
-	}
+	
 	
 	@PostMapping("/deleteDetailProductByDetailProductID")
 	@ResponseBody

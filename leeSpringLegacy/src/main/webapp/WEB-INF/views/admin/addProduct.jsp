@@ -138,12 +138,12 @@
 										
 										<tbody id="searchResultTop">
 											<tr>
-												<td><input type="text" id="product_size" name="productSizeList[0].product_size" value="" style="width:85%"></td>
+												<td><input type="text" id="topProduct_size" name="" value="" style="width:85%"></td>
 												<td><input type="text" id="product_top_length" name="productSizeList[0].product_top_length" value="" style="width:85%"></td>
 												<td><input type="text" id="product_shoulder" name="productSizeList[0].product_shoulder" value="" style="width:85%"></td>
 												<td><input type="text" id="product_chest" name="productSizeList[0].product_chest" value="" style="width:85%"></td>
 												<td><input type="text" id="product_sleeve" name="productSizeList[0].product_sleeve" value="" style="width:85%"></td>
-												<td><input type="productAmount" id="productAmount" name="productAmount" value="" style="width:85%"></td>
+												<td><input type="productAmount" id="productAmount" name="productSizeList[0].productAmount" value="" style="width:85%"></td>
 												<td><button type="button" class="btn btn-default btn-sm" onclick="addSearchKey('Top')"> 
 										        	행추가
 										        </button></td>
@@ -172,13 +172,13 @@
 										
 										<tbody id="searchResultBottom">
 											<tr>
-												<td><input type="text" id="product_size" name="productSizeList[0].product_size" value="" style="width:85%"></td>
+												<td><input type="text" id="bottompProduct_size" name="" value="" style="width:85%"></td>
 												<td><input type="text" id="product_waist_width" name="productSizeList[0].product_waist_width" value="" style="width:85%"></td>
 												<td><input type="text" id="product_thigh_width" name="productSizeList[0].product_thigh_width" value="" style="width:85%"></td>
 												<td><input type="text" id="product_bottom_length" name="productSizeList[0].product_bottom_length" value="" style="width:85%"></td>
 												<td><input type="text" id="product_ankle_circumference" name="productSizeList[0].product_ankle_circumference" value="" style="width:85%"></td>
 												<td><input type="text" id="product_front_rise" name="productSizeList[0].product_front_rise" value="" style="width:85%"></td>
-												<td><input type="text" id="productAmount" name="productAmount" value="" style="width:85%"></td>
+												<td><input type="text" id="productAmount" name="productSizeList[0].productAmount" value="" style="width:85%"></td>
 												<td><button type="button" class="btn btn-default btn-sm" onclick="addSearchKey('Bottom')"> 
 										        	행추가
 										        </button></td>
@@ -206,11 +206,11 @@
 										
 										<tbody id="searchResultCap">
 											<tr>
-												<td><input type="text" id="product_size" name="productSizeList[0].product_size" value="" style="width:85%"></td>
+												<td><input type="text" id="capProduct_size" name="" value="" style="width:85%"></td>
 												<td><input type="text" id="product_cap_length" name="productSizeList[0].product_cap_length" value="" style="width:85%"></td>
 												<td><input type="text" id="product_cap_circumference" name="productSizeList[0].product_cap_circumference" value="" style="width:85%"></td>
 												<td><input type="text" id="product_cap_depth" name="productSizeList[0].product_cap_depth" value="" style="width:85%"></td>
-												<td><input type="text" id="productAmount" name="productAmount" value="" style="width:85%"></td>
+												<td><input type="text" id="productAmount" name="productSizeList[0].productAmount" value="" style="width:85%"></td>
 												<td><button type="button" class="btn btn-default btn-sm" onclick="addSearchKey('Top')"> 
 										        	행추가
 										        </button></td>
@@ -235,8 +235,8 @@
 										
 										<tbody id="searchResultETC">
 											<tr>
-												<td><input type="text" id="productSizeList[0].product_size" name="product_size" value="" style="width:100%"></td>
-												<td><input type="text" id="productAmount" name="productAmount" value="" style="width:85%"></td>
+												<td><input type="text" id="etcProduct_size" name="" value="" style="width:100%"></td>
+												<td><input type="text" id="productAmount" name="productSizeList[0].productAmount" value="" style="width:85%"></td>
 												<td><button type="button" class="btn btn-default btn-sm" onclick="addSearchKey('ETC')"> 
 										        	행추가
 										        </button></td>
@@ -297,37 +297,37 @@ function addSearchKey(key){
 		str += "<td><input type='text' id='product_shoulder' name='productSizeList[" + i + "].product_shoulder' value='' style='width:85%'></td>";
 		str += "<td><input type='text' id='product_chest' name='productSizeList[" + i + "].product_chest' value='' style='width:85%'></td>";
 		str += "<td><input type='text' id='product_sleeve' name='productSizeList[" + i + "].product_sleeve' value='' style='width:85%'></td>";
-		str += "<td><input type='text' id='productAmount' name='productAmount' value='' style='width:85%'></td>";
-		str += "<td><button type='button' class='btn btn-default btn-sm' onclick='addSearchKey('" + "Top" + "')>행추가</button></td>"; 
+		str += "<td><input type='text' id='productAmount' name='productSizeList[" + i + "].productAmount' value='' style='width:85%'></td>";
+		str += "<td><button type='button' class='btn btn-default btn-sm' onclick='addSearchKey(\"Top\")'>행추가</button></td>"; 
 		str += "<td><button type='button' class='btn btn-default btn-sm' onclick='delSearchKey(this)'>행삭제</button></td>";
 		str += "</tr>";
 	} else if (key === 'Bottom') {
 		str += "<tr>";
-	    str += "<td><input type='text' id='product_size' name='productSizeList.product_size' value='' style='width:85%'></td>";
-	    str += "<td><input type='text' id='product_waist_width' name='productSizeList.product_waist_width' value='' style='width:85%'></td>";
-	    str += "<td><input type='text' id='product_thigh_width' name='productSizeList.product_thigh_width' value='' style='width:85%'></td>";
-	    str += "<td><input type='text' id='product_bottom_length' name='productSizeList.product_bottom_length' value='' style='width:85%'></td>";
-	    str += "<td><input type='text' id='product_ankle_circumference' name='productSizeList.product_ankle_circumference' value='' style='width:85%'></td>";
-	    str += "<td><input type='text' id='product_front_rise' name='productSizeList.product_front_rise' value='' style='width:85%'></td>";
-	    str += "<td><input type='text' id='productAmount' name='productAmount' value='' style='width:85%'></td>";
-	    str += "<td><button type='button' class='btn btn-default btn-sm' onclick='addSearchKey('" + "Bottom" + "')>행추가</button></td>"; 
+	    str += "<td><input type='text' id='product_size' name='productSizeList[" + i + "].product_size' value='' style='width:85%'></td>";
+	    str += "<td><input type='text' id='product_waist_width' name='productSizeList[" + i + "].product_waist_width' value='' style='width:85%'></td>";
+	    str += "<td><input type='text' id='product_thigh_width' name='productSizeList[" + i + "].product_thigh_width' value='' style='width:85%'></td>";
+	    str += "<td><input type='text' id='product_bottom_length' name='productSizeList[" + i + "].product_bottom_length' value='' style='width:85%'></td>";
+	    str += "<td><input type='text' id='product_ankle_circumference' name='productSizeList[" + i + "].product_ankle_circumference' value='' style='width:85%'></td>";
+	    str += "<td><input type='text' id='product_front_rise' name='productSizeList[" + i + "].product_front_rise' value='' style='width:85%'></td>";
+	    str += "<td><input type='text' id='productAmount' name='productSizeList[" + i + "].productAmount' value='' style='width:85%'></td>";
+	    str += "<td><button type='button' class='btn btn-default btn-sm' onclick='addSearchKey(\"Bottom\")'>행추가</button></td>"; 
 	    str += "<td><button type='button' class='btn btn-default btn-sm' onclick='delSearchKey(this)'>행삭제</button></td>";
 	    str += "</tr>";
 	} else if (key === 'Cap') {
 		str += "<tr>";
-	    str += "<td><input type='text' id='product_size' name='productSizeList.product_size' value='' style='width:85%'></td>";
-	    str += "<td><input type='text' id='product_cap_length' name='productSizeList.product_cap_length' value='' style='width:85%'></td>";
-	    str += "<td><input type='text' id='product_cap_circumference' name='productSizeList.product_cap_circumference' value='' style='width:85%'></td>";
-	    str += "<td><input type='text' id='product_cap_depth' name='productSizeList.product_cap_depth' value='' style='width:85%'></td>";
-	    str += "<td><input type='text' id='productAmount' name='productAmount' value='' style='width:85%'></td>";
-	    str += "<td><button type='button' class='btn btn-default btn-sm' onclick='addSearchKey('" + "Cap" + "')>행추가</button></td>"; 
+	    str += "<td><input type='text' id='product_size' name='productSizeList[" + i + "].product_size' value='' style='width:85%'></td>";
+	    str += "<td><input type='text' id='product_cap_length' name='productSizeList[" + i + "].product_cap_length' value='' style='width:85%'></td>";
+	    str += "<td><input type='text' id='product_cap_circumference' name='productSizeList[" + i + "].product_cap_circumference' value='' style='width:85%'></td>";
+	    str += "<td><input type='text' id='product_cap_depth' name='productSizeList[" + i + "].product_cap_depth' value='' style='width:85%'></td>";
+	    str += "<td><input type='text' id='productAmount' name='productSizeList[" + i + "].productAmount' value='' style='width:85%'></td>";
+	    str += "<td><button type='button' class='btn btn-default btn-sm' onclick='addSearchKey(\"Cap\")'>행추가</button></td>"; 
 	    str += "<td><button type='button' class='btn btn-default btn-sm' onclick='delSearchKey(this)'>행삭제</button></td>";
 	    str += "</tr>";
 	} else if (key === 'ETC') {
 		str += "<tr>";
-	    str += "<td><input type='text' id='product_size' name='productSizeList.product_size' value='' style='width:85%'></td>";
-	    str += "<td><input type='text' id='productAmount' name='productAmount' value='' style='width:85%'></td>";
-	    str += "<td><button type='button' class='btn btn-default btn-sm' onclick='addSearchKey('" + "ETC" + "')>행추가</button></td>"; 
+	    str += "<td><input type='text' id='product_size' name='productSizeList[" + i + "].product_size' value='' style='width:85%'></td>";
+	    str += "<td><input type='text' id='productAmount' name='productSizeList[" + i + "].productAmount' value='' style='width:85%'></td>";
+	    str += "<td><button type='button' class='btn btn-default btn-sm' onclick='addSearchKey(\"ETC\")'>행추가</button></td>"; 
 	    str += "<td><button type='button' class='btn btn-default btn-sm' onclick='delSearchKey(this)'>행삭제</button></td>";
 	    str += "</tr>";
 	}  
@@ -470,21 +470,40 @@ function change2(){
 			$(".bottom").hide();
 			$(".cap").hide();
 			$(".etc").hide();
+			$("#topProduct_size").attr("name", "productSizeList[0].product_size");
+			$("#bottomProduct_size").attr("name", "");
+			$("#CapProduct_size").attr("name", "");
+			$("#etcProduct_size").attr("name", "");
 			$(".top").show();
 		} else if (selectVal == 1200 || selectVal == 2200) {
 			$(".top").hide();
 			$(".cap").hide();
 			$(".etc").hide();
+			$("#bottomProduct_size").attr("name", "productSizeList[0].product_size");
+			$("#topProduct_size").attr("name", "");
+			$("#CapProduct_size").attr("name", "");
+			$("#etcProduct_size").attr("name", "");
 			$(".bottom").show();
 		} else if (selectVal == 1400 || selectVal == 2400) {
 			$(".top").hide();
 			$(".bottom").hide();
 			$(".etc").hide();
+			$("#capProduct_size").attr("name", "productSizeList[0].product_size");
+			$("#topProduct_size").attr("name", "");
+			$("#bottomProduct_size").attr("name", "");
+			$("#etcProduct_size").attr("name", "");
+			
 			$(".cap").show();
 		} else {
 			$(".top").hide();
 			$(".bottom").hide();
 			$(".cap").hide();
+			
+			$("#etcProduct_size").attr("name", "productSizeList[0].product_size");
+			$("#topProduct_size").attr("name", "");
+			$("#CapProduct_size").attr("name", "");
+			$("#bottomProduct_size").attr("name", "");
+			
 			$(".etc").show();
 		}
 	});

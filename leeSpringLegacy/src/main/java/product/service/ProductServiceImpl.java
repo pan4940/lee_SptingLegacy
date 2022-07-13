@@ -73,34 +73,34 @@ public class ProductServiceImpl implements ProductService {
 		});
 		
 		//사이즈 정보 등록. 세부 상품 수량대로 등록
-		for (ProductSizeDTO productSizeDTO : productDTO.getProductSizeList()) {
-			registerProductSize(productSizeDTO);
+		System.out.println(productDTO);
+		registerProductSize(productDTO);
 			
-			for (int i = 0; i < productSizeDTO.getProductAmount(); i++) {
-				DetailProductDTO detailProductDTO = DetailProductDTO.builder().product_num(productDTO.getProduct_num()).status(1).build();
-				productMapper.addDetailProduct(detailProductDTO);
+	}
+	
+	
+	
+	public void registerProductSize(ProductDTO productDTO) {
+		System.out.println(productDTO);
+		for (ProductSizeDTO productSizeDTO : productDTO.getProductSizeList()) {
+			System.out.println(productSizeDTO);
+			if (productDTO.getCateCode2() == 1100 || productDTO.getCateCode2() == 2100) {
+				productMapper.registerTopProductSize(productSizeDTO);
+				
+			} else if (productDTO.getCateCode2() == 1200 || productDTO.getCateCode2() == 2100) {
+				productMapper.registerBottomProductSize(productSizeDTO);
+			} else if (productDTO.getCateCode2() == 1400 || productDTO.getCateCode2() == 2400) {
+				productMapper.registerCapProductSize(productSizeDTO);
+			} else {
+				productMapper.registerOneSizeProductSize(productSizeDTO);
 			}
 		}
 	}
 	
-	
-	
 	@Override
-	public void registerProductSize(ProductSizeDTO productSizeDTO) {
-		ProductDTO productDTO = productMapper.getProductByProductNum(productSizeDTO.getProduct_num() + "");
+	public void addDetailProduct(DetailProductDTO detailProductDTO) {
 		
-		if (productDTO.getCateCode2() == 1100 || productDTO.getCateCode2() == 2100) {
-			productMapper.registerTopProductSize(productSizeDTO);
-		} else if (productDTO.getCateCode2() == 1200 || productDTO.getCateCode2() == 2100) {
-			productMapper.registerBottomProductSize(productSizeDTO);
-		} else if (productDTO.getCateCode2() == 1400 || productDTO.getCateCode2() == 2400) {
-			productMapper.registerCapProductSize(productSizeDTO);
-		} else {
-			productMapper.registerOneSizeProductSize(productSizeDTO);
-		}
 	}
-	
-	
 	
 	@Override
 	public ProductDTO getProductDTO(int product_num) {
@@ -365,6 +365,8 @@ public class ProductServiceImpl implements ProductService {
 	}
 	
 	
+	
+	
 	@Override
 	public List<ProductDTO> getProductListByProductCategory(int product_category_num) {
 		List<ProductDTO> list = productMapper.getProductListByProductCategory(product_category_num);
@@ -387,4 +389,4 @@ public class ProductServiceImpl implements ProductService {
 		productMapper.deleteBrandCategory(product_category_num);
 	}
 	
-}
+}	

@@ -71,7 +71,7 @@ public class AdminController {
 	}
 	
 	
-	//브랜드 카테고리 수정
+	//브랜드 카테고리 등록
 	@PostMapping("/registerBrandCategory")
 	@ResponseBody
 	public void registerBrandCategory(@ModelAttribute ProductCategoryDTO productCategoryDTO) {
