@@ -44,8 +44,6 @@ public interface ProductService {
 
 	public String getBrandnameByBrandcategory(int brandCategory);
 
-	public void registerProductSize(ProductSizeDTO productSizeDTO);
-
 	public List<ProductSizeDTO> getProductByProductSize(int product_num);
 
 	public ProductSizeDTO getProductSizeByProductSizeId(int product_size_id);
@@ -80,5 +78,5 @@ public interface ProductService {
 
 	public void deleteBrandCategory(int product_category_num);
 
-	
+	public void registerProductSize(ProductDTO productDTO);
 }

@@ -71,15 +71,10 @@ public class ProductServiceImpl implements ProductService {
 			t.setLinked_num(productDTO.getProduct_num());
 			fileMapper.productFileInsert(t);
 		});
-		
-		//사이즈 정보 등록. 세부 상품 수량대로 등록
-		System.out.println(productDTO);
-		registerProductSize(productDTO);
-			
 	}
 	
 	
-	
+	@Override
 	public void registerProductSize(ProductDTO productDTO) {
 		System.out.println(productDTO);
 		for (ProductSizeDTO productSizeDTO : productDTO.getProductSizeList()) {
@@ -96,6 +91,8 @@ public class ProductServiceImpl implements ProductService {
 			}
 		}
 	}
+	
+	
 	
 	@Override
 	public void addDetailProduct(DetailProductDTO detailProductDTO) {

@@ -135,11 +135,16 @@ public class AdminController {
 		return "/admin/accounts";
 	}	
 	
+	
+	//상품 모델 등록. 사이즈까지 처리
 	@PostMapping("/productRegister")
 	@ResponseBody
+	@Transactional(rollbackFor = {Exception.class})
 	public void delete(@ModelAttribute ProductDTO productDTO) {
 		System.out.println(productDTO);
 		productService.productRegister(productDTO);
+		//사이즈 등록
+		productService.registerProductSize(productDTO);
 	}
 	
 	
