@@ -102,19 +102,19 @@ textarea#gdsDes { width:400px; height:180px; }
 	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 	<header id="header">
 		<div id="header_box">
-			<%@ include file="../admin/include/header.jsp" %>
+			<%-- <%@ include file="../admin/include/header.jsp" %> --%>
 		</div>
 	</header>
 
 	<nav id="nav">
 		<div id="nav_box">
-			<%@ include file="../admin/include/nav.jsp" %>
+			<%-- <%@ include file="../admin/include/nav.jsp" %> --%>
 		</div>
 	</nav>
 	
 	<section id="container">
 		<aside>
-			<%@ include file="../admin/include/aside.jsp" %>
+			<%-- <%@ include file="../admin/include/aside.jsp" %> --%>
 		</aside>
 		
 		<div id="container_box">
@@ -182,7 +182,7 @@ textarea#gdsDes { width:400px; height:180px; }
 
 	<footer id="footer">
 		<div id="footer_box">
-			<%@ include file="../admin/include/footer.jsp" %>
+			<%-- <%@ include file="../admin/include/footer.jsp" %> --%>
 		</div>		
 	</footer>
 

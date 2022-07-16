@@ -37,13 +37,29 @@
 		<property name="configLocation" value="classpath:mybatis-config.xml"></property>
 	</bean>
 	
-	<mybatis-spring:scan base-package="admin.mapper" />
-	<mybatis-spring:scan base-package="board.mapper" />
-	<mybatis-spring:scan base-package="file.mapper" />
-	<mybatis-spring:scan base-package="member.mapper" />
-	<mybatis-spring:scan base-package="product.mapper" />
-	<mybatis-spring:scan base-package="order.mapper" />
-
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource"></property>
+	</bean>
+	
+	
+	<context:component-scan base-package="com.lee.thec.*.*"/>
+	<!-- <context:component-scan base-package="com.lee.controller" /> -->
+	<!-- <context:component-scan base-package="com.lee.thec.admin.*"/>
+	<context:component-scan base-package="com.lee.thec.board.*"/>
+	<context:component-scan base-package="com.lee.thec.file.*"/>
+	<context:component-scan base-package="com.lee.thec.member.*"/>
+	<context:component-scan base-package="com.lee.thec.product.*"/>
+	<context:component-scan base-package="com.lee.thec.order.*"/> -->
+	
+	<mybatis-spring:scan base-package="com.lee.thec.*.mapper" />
+	<!-- <mybatis-spring:scan base-package="com.lee.thec.admin.mapper" />
+	<mybatis-spring:scan base-package="com.lee.thec.board.mapper" />
+	<mybatis-spring:scan base-package="com.lee.thec.file.mapper" />
+	<mybatis-spring:scan base-package="com.lee.thec.member.mapper" />
+	<mybatis-spring:scan base-package="com.lee.thec.product.mapper" />
+	<mybatis-spring:scan base-package="com.lee.thec.order.mapper" /> -->
+	
 	
 	<aop:aspectj-autoproxy></aop:aspectj-autoproxy>
 	<tx:annotation-driven/>

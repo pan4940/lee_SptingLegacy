@@ -1,4 +1,4 @@
-package com.lee.controller;
+package com.lee.thec;
 
 import java.text.DateFormat;
 import java.util.Date;
@@ -37,6 +37,5 @@ public class HomeController {
 		
 		return "index";
 	}
-	
 	
 }

@@ -3,7 +3,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="product.mapper.ProductMapper">
+<mapper namespace="com.lee.thec.product.mapper.ProductMapper">
 	 
     <select id="getProductCategoryList" resultType="ProductCategoryDTO">
 		<![CDATA[
@@ -420,4 +420,10 @@
 	<delete id="deleteDetailProductByDetailProductID" parameterType="int">
 		delete DETAIL_PRODUCT where DETAIL_PRODUCT_ID = #{detail_product_id}	
 	</delete>
+	
+	<select id="getBrandCategoryByProduct_category_num" parameterType="String" resultType="ProductSizeDTO">
+		select * from PRODUCT_CATEGORY a
+			INNER JOIN PRODUCTFILE b ON a.product_category_num = b.linked_num
+		where a.product_category_num = #{product_category_num}
+	</select>
 </mapper>

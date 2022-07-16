@@ -3,7 +3,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="file.mapper.FileMapper">
+<mapper namespace="com.lee.thec.file.mapper.FileMapper">
 	 
     <insert id="boardFileInsert" parameterType="FileDTO">
 		INSERT into BoardFile (boardfile_id, uuid, uploadPath, fileName, LINKED_NUM) 

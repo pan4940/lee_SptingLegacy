@@ -3,9 +3,9 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="member.mapper.MemberMapper">
+<mapper namespace="com.lee.thec.member.mapper.MemberMapper">
 	
-	<resultMap type="member.bean.MemberDTO" id="memberMap">
+	<resultMap type="com.lee.thec.member.bean.MemberDTO" id="memberMap">
 		<id property="member_id" column="member_id"/>
 		<result property="member_pwd" column="member_pwd"/>
 		<result property="member_name" column="member_name"/>
@@ -24,7 +24,7 @@
 		<collection property="memberAuthList" resultMap="memberAuthMap"/>
 	</resultMap>
 	
-	<resultMap type="member.bean.MemberAddressDTO" id="addressMap">
+	<resultMap type="com.lee.thec.member.bean.MemberAddressDTO" id="addressMap">
 		<id property="address_id" column="address_id"/>
 		<result property="member_id" column="member_id"/>
 		<result property="zipcode" column="zipcode"/>
@@ -33,7 +33,7 @@
 		<result property="orders" column="orders"/>
 	</resultMap>
 	
-	<resultMap type="member.bean.MemberAuthDTO" id="memberAuthMap">
+	<resultMap type="com.lee.thec.member.bean.MemberAuthDTO" id="memberAuthMap">
 		<result property="member_id" column="member_id"/>
 		<result property="authority" column="auth"/>
 	</resultMap>

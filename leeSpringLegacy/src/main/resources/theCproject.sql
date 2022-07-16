@@ -121,7 +121,7 @@ CREATE TABLE PRODUCT_CATEGORY_LINK(
     product_num NUMBER,
     product_category_num NUMBER, 
     constraint fk_link_product_category_num foreign key(product_category_num) references PRODUCT_CATEGORY(product_category_num),
-    constraint product_num foreign key(product_num) references product(product_num)
+    constraint fk_product_num foreign key(product_num) references product(product_num) ON DELETE CASCADE
 );
 
 

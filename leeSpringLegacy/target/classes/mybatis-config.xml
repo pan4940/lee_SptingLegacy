@@ -5,22 +5,22 @@
 <configuration>
 
 	<typeAliases>
-		<typeAlias type="board.bean.BoardDTO" alias="BoardDTO"/>
-		<typeAlias type="board.bean.ReplyDTO" alias="ReplyDTO"/>
+		<typeAlias type="com.lee.thec.board.bean.BoardDTO" alias="BoardDTO"/>
+		<typeAlias type="com.lee.thec.board.bean.ReplyDTO" alias="ReplyDTO"/>
 		
-		<typeAlias type="file.bean.FileDTO" alias="FileDTO"/>
+		<typeAlias type="com.lee.thec.file.bean.FileDTO" alias="FileDTO"/>
 		
-		<typeAlias type="member.bean.MemberDTO" alias="MemberDTO"/>
-		<typeAlias type="member.bean.MemberAddressDTO" alias="MemberAddressDTO"/>
-		<typeAlias type="member.bean.MemberAuthDTO" alias="MemberAuthDTO"/>
+		<typeAlias type="com.lee.thec.member.bean.MemberDTO" alias="MemberDTO"/>
+		<typeAlias type="com.lee.thec.member.bean.MemberAddressDTO" alias="MemberAddressDTO"/>
+		<typeAlias type="com.lee.thec.member.bean.MemberAuthDTO" alias="MemberAuthDTO"/>
 		
-		<typeAlias type="product.bean.ProductDTO" alias="ProductDTO"/>
-		<typeAlias type="product.bean.ProductCategoryDTO" alias="ProductCategoryDTO"/>
-		<typeAlias type="product.bean.ProductSizeDTO" alias="ProductSizeDTO"/>
-		<typeAlias type="product.bean.DetailProductDTO" alias="DetailProductDTO"/>
+		<typeAlias type="com.lee.thec.product.bean.ProductDTO" alias="ProductDTO"/>
+		<typeAlias type="com.lee.thec.product.bean.ProductCategoryDTO" alias="ProductCategoryDTO"/>
+		<typeAlias type="com.lee.thec.product.bean.ProductSizeDTO" alias="ProductSizeDTO"/>
+		<typeAlias type="com.lee.thec.product.bean.DetailProductDTO" alias="DetailProductDTO"/>
 		
-		<typeAlias type="order.bean.CartDTO" alias="CartDTO"/>
-		<typeAlias type="order.bean.OrderDTO" alias="OrderDTO"/>
-		<typeAlias type="order.bean.DetailOrderDTO" alias="DetailOrderDTO"/>
+		<typeAlias type="com.lee.thec.order.bean.CartDTO" alias="CartDTO"/>
+		<typeAlias type="com.lee.thec.order.bean.OrderDTO" alias="OrderDTO"/>
+		<typeAlias type="com.lee.thec.order.bean.DetailOrderDTO" alias="DetailOrderDTO"/>
 	</typeAliases>
 </configuration>

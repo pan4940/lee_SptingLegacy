@@ -1,4 +1,4 @@
-<%@page import="member.bean.MemberDTO"%>
+<%@page import="com.lee.thec.member.bean.MemberDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>

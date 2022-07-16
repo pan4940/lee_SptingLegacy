@@ -9,8 +9,8 @@
 
 	
 	<bean id="bcryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"></bean>
-	<bean id="customUserDetailsService" class="security.CustomUserDetailsService"></bean>
-	<bean id="customLoginSuccessHandler" class="security.CustomLoginSuccessHandler"></bean>
+	<bean id="customUserDetailsService" class="com.lee.thec.security.CustomUserDetailsService"></bean>
+	<bean id="customLoginSuccessHandler" class="com.lee.thec.security.CustomLoginSuccessHandler"></bean>
 	
 	
 	<security:http>

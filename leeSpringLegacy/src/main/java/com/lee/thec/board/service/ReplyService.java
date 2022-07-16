@@ -1,0 +1,25 @@
+package com.lee.thec.board.service;
+
+import java.util.List;
+
+import com.lee.thec.board.bean.ReplyDTO;
+
+
+
+public interface ReplyService {
+	
+	
+	public int write(ReplyDTO replyDTO);
+
+	public List<ReplyDTO> getList(int board_number);
+
+	public ReplyDTO get(int reply_num);
+
+	public int update(ReplyDTO replyDTO);
+
+	public int delete(int reply_num);
+
+
+
+
+}

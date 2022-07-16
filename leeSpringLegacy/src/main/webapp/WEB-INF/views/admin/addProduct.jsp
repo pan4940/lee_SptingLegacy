@@ -547,7 +547,8 @@ $("button[type='submit']").on("click", function(e){
    });
    
    $("#registerProductForm").append(str);
-   console.log($("#registerProductForm"));
+   let aaa = $("#registerProductForm");
+   console.log(aaa);
    
    $.ajax({
 		type:'post',
@@ -555,13 +556,13 @@ $("button[type='submit']").on("click", function(e){
 		headers: {"X-CSRF-TOKEN": $("input[name='_csrf']").val()},
 		data: $('#registerProductForm').serialize(),
 		success: function() {
-			//alert("상품 등록");
-			//location.href = "/product/register";
+			alert("상품 등록");
+			location.href = "/product/register";
 	    },
        error: function(err) {
            console.log(err);
        },
-	}); //end ajax 
+   }); //end ajax 
    
 });
 

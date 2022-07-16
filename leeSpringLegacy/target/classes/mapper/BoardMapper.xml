@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 
-<mapper namespace="board.mapper.BoardMapper">
+<mapper namespace="com.lee.thec.board.mapper.BoardMapper">
 	
 		 
     <select id="getBoardList" parameterType="int" resultType="BoardDTO">
