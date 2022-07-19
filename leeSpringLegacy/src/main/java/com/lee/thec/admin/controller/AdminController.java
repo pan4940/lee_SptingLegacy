@@ -139,10 +139,10 @@ public class AdminController {
 	
 	// 브랜드 카테고리 수정 페이지 이동
 	@GetMapping("/editProduct")
-	public String editProduct(@RequestParam String product_category_num, Model model) {
+	public String editProduct(@RequestParam String product_num, Model model) {
 		log.info("editProduct page........");
- 		ProductCategoryDTO productCategoryDTO = productService.getBrandCategoryByProduct_category_num(product_category_num);
- 		model.addAttribute("productCategoryDTO", productCategoryDTO);
+		ProductDTO productDTO = productService.getProductDTO(Integer.parseInt(product_num));
+ 		model.addAttribute("productDTO", productDTO);
 		return "/admin/editProduct";
 	}
 	
