@@ -24,9 +24,8 @@ public class BoardServiceImpl implements BoardService {
 	
 	
 	@Override
-	public List<BoardDTO> getBoardList(int board_category_num) {
-		
-		return boardMapper.getBoardList(board_category_num);
+	public List<BoardDTO> getBoardList(Map<String, String> map) {
+		return boardMapper.getListWithPaging(map);
 	}
 	
 	
@@ -35,24 +34,18 @@ public class BoardServiceImpl implements BoardService {
 		return boardMapper.getPostList(board_category_num);
 	}
 	
-	@Override
-	public List<BoardDTO> getListWithPaging(Map<String, String> map) {
-		List<BoardDTO> list = boardMapper.getListWithPaging(map);
-		return list;
-	}
-	
 	
 	@Override
 	@Transactional(rollbackFor = {Exception.class})
-	public void writePOST(BoardDTO boardDTO) {
-		if (boardDTO.getFileList() == null || boardDTO.getFileList().size() <= 0) {
-			return;
-		}
+	public void write(BoardDTO boardDTO) {
 		boardMapper.write(boardDTO);
-		boardDTO.getFileList().forEach(t -> {
-			t.setLinked_num(boardDTO.getBoard_num());
-			fileMapper.boardFileInsert(t);
-		});
+		if (boardDTO.getFileList() != null || 0 <= boardDTO.getFileList().size()) {
+			boardDTO.getFileList().forEach(t -> {
+				t.setLinked_num(boardDTO.getBoard_num());
+				fileMapper.boardFileInsert(t);
+			});
+		}
+		
 	}
 	
 	@Override
@@ -71,9 +64,8 @@ public class BoardServiceImpl implements BoardService {
 	}
 	
 	@Override
-	public BoardDTO get(int board_num) {
-		BoardDTO boardDTO = boardMapper.get(board_num);
-		return boardDTO;
+	public BoardDTO getBoardDTOByBoard_num(int board_num) {
+		return boardMapper.getBoardDTOByBoard_num(board_num);
 	}
 	
 	@Override
@@ -83,7 +75,7 @@ public class BoardServiceImpl implements BoardService {
 	}
 	
 	@Override
-	public int getTotalCount(String board_category_num) {
+	public int getTotalCount(int board_category_num) {
 		return boardMapper.getTotalCount(board_category_num);
 	}
 	
@@ -95,13 +87,7 @@ public class BoardServiceImpl implements BoardService {
 		boardMapper.delete(board_num);
 	}
 	
-	
-	
-	@Override
-	public void writeSelectKey(BoardDTO boardDTO) {
-		boardMapper.writeSelectKey(boardDTO);
-	}
-	
+
 	@Override
 	public List<FileDTO> getFileList(int board_num) {
 		return fileMapper.findByBoardNum(board_num);

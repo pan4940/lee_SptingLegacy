@@ -29,6 +29,8 @@ import com.lee.thec.file.bean.FileDTO;
 import com.lee.thec.security.domain.CustomUser;
 
 
+
+
 @Controller
 @RequestMapping("/board")
 public class BoardController {
@@ -38,51 +40,38 @@ public class BoardController {
 	
 	//리스트 조회 및 출력
 	@GetMapping("/list")
-	public String list(@RequestParam Map<String, String> map, Model model) {
-		String board_category_num = map.get("board_category_num");
-		if (Integer.parseInt(board_category_num) == 7) {
-			
-			List<BoardDTO> list = boardService.getPostList(Integer.parseInt(board_category_num));
+	public String getList(@RequestParam Map<String, String> map, Model model) {
+		int board_category_num = Integer.parseInt(map.get("board_category_num"));
+		if (board_category_num == 7) {
+			List<BoardDTO> postList = boardService.getPostList(board_category_num);
 			model.addAttribute("board_category_num", board_category_num);
-			
-			for (BoardDTO boardDTO : list) {
-				boardDTO.setFileList(boardService.getFileList(boardDTO.getBoard_num()));
-			}
-			
-			model.addAttribute("list", list);
+			model.addAttribute("list", postList);
 			model.addAttribute("display", "/WEB-INF/views/board/post.jsp");
 			return "index";
-		
-		} else {
+		} 
+		else {
+			List<BoardDTO> boardList = boardService.getBoardList(map);
 			String pageNum = map.get("pageNum");
 			String amount = map.get("amount");
-			
 			Criteria criteria = new Criteria(Integer.parseInt(pageNum), Integer.parseInt(amount));
-			
-			List<BoardDTO> list = boardService.getListWithPaging(map);
 			int total = boardService.getTotalCount(board_category_num);
-			model.addAttribute("pageDTO", new PageDTO(criteria, total));
 			model.addAttribute("board_category_num", board_category_num);
-			model.addAttribute("list", list);
-			
+			model.addAttribute("list", boardList);
+			model.addAttribute("pageDTO", new PageDTO(criteria, total));
 			model.addAttribute("display", "/WEB-INF/views/board/list.jsp");
 			return "index";
 		}
 	}
 	
-	
-	
-	
-	
-	//원글작성
+	//원글작성 페이지로 이동
 	@GetMapping("/write")
 	public String writeForm(@RequestParam Map<String, String> map, Model model) {
 		model.addAttribute("map", map);
 		model.addAttribute("display", "/WEB-INF/views/board/write.jsp");
 		return "index";
-		
 	}
 	
+	//원글 작성 처리
 	@PostMapping("/write")
 	public String write(@RequestParam Map<String, String> map, 
 						@ModelAttribute BoardDTO boardDTO, 
@@ -91,19 +80,19 @@ public class BoardController {
 		int board_category_num = Integer.parseInt(map.get("board_category_num")); 
 		
 		if (board_category_num == 7) {
-			List<FileDTO> list = boardDTO.getFileList();
-			boardService.writePOST(boardDTO);
+			boardService.write(boardDTO);
 			redirectAttributes.addAttribute("board_category_num", map.get("board_category_num"));
+			return "redirect:/board/list";
+		
+		} else {
+			boardService.write(boardDTO);
+			redirectAttributes.addAttribute("board_category_num", map.get("board_category_num"));
+			redirectAttributes.addAttribute("pageNum", "1");
+			redirectAttributes.addAttribute("amount", map.get("amount"));
+			redirectAttributes.addAttribute("display", "/WEB-INF/views/board/list.jsp");
 			return "redirect:/board/list";
 		}
 		
-		boardService.writeSelectKey(boardDTO);
-		redirectAttributes.addAttribute("board_category_num", map.get("board_category_num"));
-		redirectAttributes.addAttribute("pageNum", "1");
-		redirectAttributes.addAttribute("amount", map.get("amount"));
-		
-		redirectAttributes.addAttribute("display", "/WEB-INF/views/board/list.jsp");
-		return "redirect:/board/list";
 	}
 	
 	
@@ -116,9 +105,9 @@ public class BoardController {
 		int board_num = Integer.parseInt(map.get("board_num")) ;
 		
 		if (board_category_num == 7) {
-			BoardDTO boardDTO = boardService.get(board_num);
-			List<FileDTO> list = boardService.getFileList(board_num);
-			boardDTO.setFileList(list);
+			BoardDTO boardDTO = boardService.getBoardDTOByBoard_num(board_num);
+			//List<FileDTO> list = boardService.getFileList(board_num);
+			//boardDTO.setFileList(list);
 			
 			model.addAttribute("map", map);
 			model.addAttribute("boardDTO", boardDTO);
@@ -127,17 +116,13 @@ public class BoardController {
 			return "index";
 		}
 		
-		BoardDTO boardDTO = boardService.get(board_num);
+		BoardDTO boardDTO = boardService.getBoardDTOByBoard_num(board_num);
 		model.addAttribute("map", map);
 		model.addAttribute("boardDTO", boardDTO);
 		
 		model.addAttribute("display", "/WEB-INF/views/board/get.jsp");
 		return "index";
-		
-		//return "/board/get";
 	}
-	
-	
 	
 	
 	//글 수정 페이지로 이동
@@ -145,7 +130,7 @@ public class BoardController {
 	public String modifyForm(@RequestParam Map<String, String> map, Model model) {
 		int board_category_num = Integer.parseInt(map.get("board_category_num"));
 		
-		BoardDTO boardDTO = boardService.get(Integer.parseInt(map.get("board_num")));
+		BoardDTO boardDTO = boardService.getBoardDTOByBoard_num(Integer.parseInt(map.get("board_num")));
 		
 		if (board_category_num == 7) {
 			boardDTO.setFileList(boardService.getFileList(boardDTO.getBoard_num()));
@@ -178,7 +163,7 @@ public class BoardController {
 	//답글 작성 페이지로 이동
 	@GetMapping("/replyWrite")
 	public String replyWriteForm(@RequestParam Map<String, String> map, Model model) {
-		BoardDTO boardDTO = boardService.get(Integer.parseInt(map.get("board_num")));
+		BoardDTO boardDTO = boardService.getBoardDTOByBoard_num(Integer.parseInt(map.get("board_num")));
 		model.addAttribute("map", map);
 		model.addAttribute("boardDTO", boardDTO);
 		
@@ -273,10 +258,9 @@ public class BoardController {
 			CustomUser customUser = (CustomUser) authentication.getPrincipal();
 			
 			int board_num = Integer.parseInt(map.get("board_num"));
-			BoardDTO boardDTO = boardService.get(board_num);
+			BoardDTO boardDTO = boardService.getBoardDTOByBoard_num(board_num);
 			
 			if (customUser.getUsername().equals(boardDTO.getMember_id()) || customUser.getAuthorities().toString().contains("ROLE_ADMIN")) {
-				//memberDTO.getRank_num() == 3 || boardDTO.getMember_id().equals(member_id)
 				
 				model.addAttribute("map", map);
 				get(map, model);
@@ -287,7 +271,7 @@ public class BoardController {
 			System.out.println(e.getMessage());
 			
 			int board_num = Integer.parseInt(map.get("board_num"));
-			BoardDTO boardDTO = boardService.get(board_num);
+			BoardDTO boardDTO = boardService.getBoardDTOByBoard_num(board_num);
 			
 			if (map.get("pwd") != null && map.get("pwd").equals(boardDTO.getPwd())) {
 				model.addAttribute("display", "/WEB-INF/views/board/secret.jsp");

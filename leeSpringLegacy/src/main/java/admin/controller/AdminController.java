@@ -14,11 +14,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import file.bean.FileDTO;
+import com.lee.thec.file.bean.FileDTO;
+import com.lee.thec.product.bean.ProductCategoryDTO;
+import com.lee.thec.product.bean.ProductDTO;
+import com.lee.thec.product.service.ProductService;
+
 import lombok.extern.log4j.Log4j;
-import product.bean.ProductCategoryDTO;
-import product.bean.ProductDTO;
-import product.service.ProductService;
 
 @Controller
 @RequestMapping("/admin")

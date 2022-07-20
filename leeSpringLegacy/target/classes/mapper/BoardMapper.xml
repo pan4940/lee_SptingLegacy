@@ -35,7 +35,7 @@
 		select * from  (select * from board where board_category_num = 7 order by board_num desc) where rownum = 1   
     </select>
     
-    <select id="getTotalCount" parameterType="String" resultType="int">
+    <select id="getTotalCount" parameterType="int" resultType="int">
     	select count(*) from board where board_category_num = #{board_category_num}
     </select>
     
@@ -65,7 +65,8 @@
 	        content, 
 	        group_num,
 	        board_category_num,
-	        pwd
+	        pwd,
+	        product_num
 	    ) values (
 	        #{board_num},
 	        #{member_id}, 
@@ -74,38 +75,11 @@
 	        #{content},
 	        #{board_num},
 	        #{board_category_num},
-	        #{pwd}
-	    )
-	</insert>
-	
-	<insert id="writeSelectKey" parameterType="BoardDTO">
-		<selectKey keyProperty="board_num" order="BEFORE" resultType="int">
-			select seq_board.nextval from dual
-		</selectKey>
-		
-		insert into board (
-	        board_num,
-	        member_id,
-	        member_name,
-	        subject,
-	        content, 
-	        group_num,
-	        board_category_num,
-	        pwd,
-	        product_num
-	    
-	    ) values (
-	        #{board_num},
-	        #{member_id},
-	        #{member_name},
-	        #{subject},
-	        #{content},
-	        #{board_num},
-	        #{board_category_num},
 	        #{pwd},
 	        #{product_num}
 	    )
 	</insert>
+	
 	
 	<update id="modify" parameterType="BoardDTO">
 		update board set member_id = #{member_id}, subject = #{subject}, content = #{content}, updatedate = sysdate where board_num = #{board_num}

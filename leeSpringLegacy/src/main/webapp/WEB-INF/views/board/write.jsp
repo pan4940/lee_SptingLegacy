@@ -162,6 +162,7 @@ display: inline-block;
 	              <input type="hidden" name="member_name" value="<sec:authentication property="principal.memberDTO.member_name"/>">
                   <input type="hidden" name="board_category_num" value="${map.board_category_num}">
                   <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+                  <input type="hidden" name="product_num" value="0">
                   <input type="hidden" name="pwd" style="width: 15%; border: 0px; border-bottom: 1px solid gray" value="<sec:authentication property="principal.memberDTO.member_pwd"/>">
                   <div>
                      <ul class="form-submit-board">
@@ -210,7 +211,7 @@ display: inline-block;
                </form>
             </c:when>
 			
-			
+			<%-- review 작성시 --%>
 			<c:when test="${map.board_category_num eq '4'}">
                
                <form id="boardWriteForm" action="/board/write" method="post">
@@ -218,7 +219,7 @@ display: inline-block;
                   <input type="hidden" name="board_category_num" value="${map.board_category_num}"> 
                   <input type="hidden" name="pageNum" value="${map.pageNum}"> 
                   <input type="hidden" name="amount" value="${map.amount}">
-                  
+                  <input type="hidden" name="product_num" value="${map.product_num}">
                   <div>
                      <ul class="form-submit-board">
                         <li>
@@ -263,7 +264,7 @@ display: inline-block;
 
 
             <c:otherwise>
-               <%-- QNA 작성 --%>
+               <%-- QNA 등등 작성 --%>
                <form id="boardWriteForm" action="/board/write" method="post">
 					
                   <input type="hidden" name="board_category_num" value="${map.board_category_num}"> 

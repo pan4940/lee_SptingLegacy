@@ -11,17 +11,16 @@ import com.lee.thec.board.bean.BoardDTO;
 
 @Mapper
 public interface BoardMapper {
-	public List<BoardDTO> getBoardList(int board_category_num);
 	
 	public List<BoardDTO> getListWithPaging(Map<String, String> map);
 
 	public void write(BoardDTO boardDTO);
 
-	public BoardDTO get(int board_num);
+	public BoardDTO getBoardDTOByBoard_num(int board_num);
 
 	public void boardReplyWrite(BoardDTO boardDTO);
 
-	public int getTotalCount(String board_category_num);
+	public int getTotalCount(int board_category_num);
 
 	public void modify(BoardDTO boardDTO);
 
@@ -29,7 +28,6 @@ public interface BoardMapper {
 
 	public int getMaxBoardNumber();
 
-	public void writeSelectKey(BoardDTO boardDTO);
 
 	public List<BoardDTO> getPostList(int board_category_num);
 
@@ -38,6 +36,8 @@ public interface BoardMapper {
 	public List<BoardDTO> getProductReview(int product_num);
 
 	public List<BoardDTO> getNavPostBoardDTO();
+
+	public List<BoardDTO> getBoardList(int board_category_num);
 	
 	
 }
